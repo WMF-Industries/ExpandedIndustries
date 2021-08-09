@@ -1,0 +1,32 @@
+type: GenericSmelter
+name: Metaglass Forge
+description: Mmmmmm metaglass.
+health: 340
+size: 3
+
+hasItems: true
+hasLiquid: false
+hasPower: true
+itemCapacity: 40
+
+requirements: [
+  copper/125
+  graphite/80
+  titanium/40
+  Starium/75
+]
+
+consumes: {
+     power: 1.5
+     items: {
+      items: [
+     sand/10
+     lead/10
+     pyratite/1
+    ]
+  }
+}
+outputItem: metaglass/10
+craftTime: 60
+craftEffect: melting
+category: crafting

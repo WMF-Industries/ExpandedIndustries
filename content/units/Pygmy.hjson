@@ -1,0 +1,41 @@
+type: flying
+name: Pygmy
+health: 175
+armor: 0
+speed: 2.5
+drag: 0.01
+accel: 0.08
+flying: true
+engineOffset: 5.5
+circleTarget: true
+lowAltitude: true
+hitsize: 7
+range: 17
+abilities: [
+  {
+    type: RepairFieldAbility
+    range: 2.5
+    amount: 50
+    reload: 120
+  }
+]
+weapons: [
+   {
+   name: Pygmy-outline
+   top: false
+   mirror: false
+   x: 0
+   y: 0
+   shots: 1
+   recoil: 0
+   reload: 22.5
+   bullet: {
+   type: basicBulletType
+   collidesTeam: false
+   damage: 15
+   piercing: true
+   lifetime: 15
+   speed: 5.5
+    }
+  }
+]

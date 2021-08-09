@@ -1,0 +1,55 @@
+type: legs
+name: Rusher
+controller: GroundAI
+hovering: true
+drawShields: false
+allowLegStep: true
+visualElevation: 1.3
+groundLayer: 75
+health: 2400
+armor: 10
+speed: 0.6
+rotateSpeed: 2.5
+buildSpeed: 3.0
+legCount: 8
+legLength: 25
+legBaseOffset: 2.5
+legExtension: 1
+maxStretch: 1.5
+lightRadius: 50
+lightColor: 84f591
+weapons: [
+ {
+    name: rusher-altillery
+    x: 0
+    y: -5
+    reload: 160
+    rotate: true
+    mirror: false
+    top: true
+    shootSound: shoot
+    shake: 4
+    bullet: {
+      type: AltilleryBulletType
+      damage: 120
+      collidesTeam: false
+      lifetime: 70
+      speed: 4
+      }
+    }
+  {
+    name: rusher-weapon
+    x: 11
+    rotate: true
+    top: false
+    mirror: true
+    reload: 60
+    shootSound: laser
+    bullet: {
+      type: laserBulletType
+      damage: 60
+      healPercent: 10
+      collidesTeam: true
+     }
+   }
+ ]

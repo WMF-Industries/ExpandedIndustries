@@ -1,0 +1,26 @@
+name: Enhanced Peridotium Generator
+description: Uses rich fuel to produce energy. Good when there isn't enough coolant to cool Peridotium Reactor.
+category: power
+type: decayGenerator
+health: 2700
+size: 5
+hasItems: yes
+itemDuration: 600
+powerProduction: 25
+itemCapacity: 10
+solid: true
+requirements: [
+  copper/1200
+  graphite/140
+  titanium/240
+  thorium/400
+  Starium/270
+  enhanced-peridotium/130
+]
+consumes: {
+     items: {
+      items: [
+     enhanced-peridotium/1
+      ]
+    }
+}

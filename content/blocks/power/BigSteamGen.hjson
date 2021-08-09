@@ -1,0 +1,26 @@
+name: Steam Turbine
+description: Bigger and stronger.
+category: power
+type: burnerGenerator
+health: 1200
+size: 3
+hasItems: yes
+itemDuration: 180
+powerProduction: 12.5
+itemCapacity: 10
+solid: true
+requirements: [
+  copper/300
+  graphite/140
+  titanium/240
+  lead/400
+]
+consumes: {
+     liquid: 
+     water/0.2
+     items: {
+      items: [
+     coal/1
+    ]
+  }
+}

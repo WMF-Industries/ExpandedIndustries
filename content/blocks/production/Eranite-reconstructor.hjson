@@ -1,0 +1,34 @@
+type: Reconstructor
+name: Eranite Reconstructor
+size: 7
+constructTime: 5400
+liquidCapacity: 90
+consumes: {
+  power: 2.5
+    items: {
+      items: [
+        lead/5000
+        silicon/2700
+        graphite/3000
+        titanium/2700
+        plastanium/1700
+        thorium/500
+        Eranite/200
+      ]
+    }
+  liquid: {
+    liquid: cryofluid
+    amount: 0.5
+  }
+}
+upgrades: [
+  [rusher, Escapade]
+]
+requirements: [
+  lead/1200
+  silicon/700
+  graphite/40
+  titanium/500
+  Eranite/400
+]
+category: units

@@ -1,0 +1,45 @@
+type: UnitFactory
+name: Starium Constructor
+description: Makes StarDustry units.
+size: 3
+hasItems: true
+hasPower: true
+itemCapacity: 70
+consumes: {
+  power: 1.2
+}
+plans: [
+   {
+    unit: SmolBoi
+    time: 600
+    requirements: [
+      silicon/25
+      titanium/10
+      ]
+   }
+   {
+   unit: Pygmy
+   time: 900
+   requirements: [
+   silicon/20
+   titanium/5
+   ]
+  }
+  {
+  unit: centurion
+  time: 600
+  requirements: [
+  silicon/20
+  titanium/40
+  lead/30
+  ]
+ }
+]
+
+requirements: [
+  silicon/120
+  titanium/60
+  copper/80
+]
+research: ground-factory
+category: units

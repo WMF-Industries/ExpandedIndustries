@@ -1,0 +1,28 @@
+type: PowerTurret
+name: Piercer
+description: lancer but better :D
+size: 3
+health: 2300
+range: 270
+recoilAmount: 2
+powerUse: 4.5
+reloadTime: 90
+shootType: {
+  type: laserBulletType
+  damage: 360
+  length: 280
+  status: {
+    name: Melting
+    damage: 2
+    time: 120
+  }
+}
+ requirements: [
+  silicon/230
+  titanium/300
+  surge-alloy/50
+  starium-alloy/200
+  thorium/100
+]
+research: meltdown
+category: turret

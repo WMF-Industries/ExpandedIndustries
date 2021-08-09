@@ -1,0 +1,38 @@
+type: UnitFactory
+name: Starium Constructor
+description: Makes StarDustry units.
+size: 3
+hasItems: true
+hasPower: true
+itemCapacity: 70
+consumes: {
+  power: 1.2
+}
+plans: [
+   {
+    unit: stormer
+    time: 1500
+    requirements: [
+      silicon/25
+      graphite/35
+      Peridotium/10
+      ]
+   }
+   {
+   unit: breadnight
+   time: 900
+   requirements: [
+   silicon/15
+   lead/20
+   copper/40
+   ]
+  }
+]
+
+requirements: [
+  silicon/120
+  titanium/60
+  copper/80
+]
+research: ground-factory
+category: units

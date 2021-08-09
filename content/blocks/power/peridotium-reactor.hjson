@@ -1,0 +1,31 @@
+name: Peridotium Reactor
+description: Produces extreme amounts of energy using peridotium as a fuel and water as a coolant.
+category: power
+type: NuclearReactor
+health: 3400
+size: 4
+explosionRadius: 375
+explosionDamage: 45000
+hasItems: yes
+hasLiquids: yes
+itemDuration: 150
+powerProduction: 80
+itemCapacity: 10
+liquidCapacity: 300
+solid: true
+requirements: [
+  copper/125
+  graphite/140
+  titanium/240
+  thorium/55
+  Starium/120
+]
+consumes: {
+     liquid: 
+     water/0.5
+     items: {
+      items: [
+     Peridotium/1
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+type: Reconstructor
+name: Starrune Reconstructor
+size: 5
+constructTime: 3600
+liquidCapacity: 90
+consumes: {
+  power: 2.5
+    items: {
+      items: [
+        lead/1000
+        silicon/300
+        graphite/300
+        titanium/270
+        plastanium/170
+        thorium/50
+      ]
+    }
+  liquid: {
+    liquid: cryofluid
+    amount: 0.01
+  }
+}
+upgrades: [
+  [stormer, rusher]
+]
+requirements: [
+  lead/900
+  silicon/300
+  graphite/200
+  titanium/170
+]
+category: units

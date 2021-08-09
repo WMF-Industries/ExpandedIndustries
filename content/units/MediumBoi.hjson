@@ -1,0 +1,9 @@
+type: flying
+name: MediumBoi
+flying: true
+health: 490
+speed: 1.8
+rotateSpeed: 2.9
+lightRadius: 50
+lightColor: 84f591
+itemCapacity: 90

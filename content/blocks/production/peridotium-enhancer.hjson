@@ -1,0 +1,29 @@
+type: GenericCrafter
+name: Peridotium Enhancer
+description: Compreses 20 peridotium into 1 Enhanced Peridotium. Not very effective when placed alone.
+health: 280
+size: 2
+
+hasItems: true
+hasPower: true
+itemCapacity: 40
+
+requirements: [
+  copper/125
+  graphite/80
+  titanium/40
+  Starium/75
+]
+
+consumes: {
+  power: 0.45
+  items: {
+    items: [
+      Peridotium/20
+    ]
+  }
+}
+outputItem: enhanced-peridotium/1
+craftTime: 210
+craftEffect: steam
+category: crafting

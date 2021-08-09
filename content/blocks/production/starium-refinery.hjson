@@ -1,0 +1,31 @@
+type: GenericSmelter
+name: Starium Refiner
+description: Smelts Starium and Surge Alloy into much stronger Starium Alloy.
+health: 280
+size: 3
+
+hasItems: true
+hasPower: true
+itemCapacity: 40
+
+requirements: [
+  copper/125
+  graphite/80
+  Peridotium/120
+  titanium/40
+  Starium/75
+]
+
+consumes: {
+  power: 0.80
+  items: {
+    items: [
+      Starium/5
+      surge-alloy/1
+    ]
+  }
+}
+outputItem: starium-alloy/1
+craftTime: 45
+craftEffect: melting 
+category: crafting

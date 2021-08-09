@@ -1,0 +1,49 @@
+type: mech
+name: Breadnight
+controller: BuilderAI
+canBoost: true
+health: 210
+armor: 30
+speed: 0.9
+rotateSpeed: 2.5
+buildSpeed: 1.75
+lightRadius: 50
+lightColor: 84f591
+weapons: [
+ {
+    name: breadnight-weapon
+    x: 8
+    reload: 75
+    rotate: false
+    mirror: true
+    top: false
+    shake: 4
+    bullet: {
+      type: laserBulletType
+      damage: 3
+      collidesTeam: true
+      colorFront: 45bb49
+      colorBack: 45bb49
+      lifetime: 20
+      speed: 7
+      healPercent: 5
+      }
+    }
+  {
+    name: breadnight-weapon2
+    x: 3.25
+    y: 1.5
+    rotate: true
+    top: true
+    mirror: true
+    reload: 30
+    shootSound: laser
+    bullet: {
+      type: basicBulletType
+      damage: 7
+      lifetime: 40
+      speed: 11
+      collidesTeam: false
+     }
+   }
+ ]

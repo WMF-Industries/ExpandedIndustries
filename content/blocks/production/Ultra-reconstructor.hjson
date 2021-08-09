@@ -1,0 +1,34 @@
+type: Reconstructor
+name: Ultra Reconstructor
+size: 9
+constructTime: 7200
+liquidCapacity: 90
+consumes: {
+  power: 3
+    items: {
+      items: [
+        lead/15000
+        silicon/7900
+        graphite/6000
+        titanium/7900
+        plastanium/3400
+        thorium/2500
+        starium-alloy/600
+      ]
+    }
+  liquid: {
+    liquid: cryofluid
+    amount: 1
+  }
+}
+upgrades: [
+  [Escapade, Natorin]
+]
+requirements: [
+  lead/2400
+  silicon/1400
+  graphite/500
+  titanium/1000
+  Eranite/400
+]
+category: units

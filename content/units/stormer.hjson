@@ -1,0 +1,37 @@
+type: legs
+name: Stormer
+controller: GroundAI
+hovering: true
+drawShields: false
+allowLegStep: true
+visualElevation: 1.3
+groundLayer: 75
+health: 750
+armor: 2.5
+speed: 0.7
+rotateSpeed: 2.5
+buildSpeed: 2.5
+legCount: 6
+legLength: 15
+legBaseOffset: 2.5
+legExtension: 0
+rippleScale: 4
+maxStretch: 1.5
+lightRadius: 50
+lightColor: 84f591
+weapons: [
+   {
+   name: stormer-weapon
+   top: false
+   shots: 1
+   recoil: 5
+   reload: 75
+   shootSound: laser
+   bullet: {
+   type: laserBulletType
+   collidesTeam: true
+   damage: 25
+   healPercent: 25
+    }
+  }
+]

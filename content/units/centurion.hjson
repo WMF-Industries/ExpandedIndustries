@@ -1,0 +1,14 @@
+type: flying
+name: Centurion
+controller: MinerAI
+itemCapacity: 40
+flying: true
+health: 450
+armor: 2.5
+speed: 1.7
+rotateSpeed: 2.5
+buildSpeed: 0.75
+lightRadius: 50
+lightColor: 84f591
+mineTier: 3
+mineSpeed: 3

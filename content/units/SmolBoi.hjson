@@ -1,0 +1,9 @@
+type: flying
+name: SmolBoi
+flying: true
+health: 210
+speed: 1.9
+rotateSpeed: 3
+lightRadius: 50
+lightColor: 84f591
+itemCapacity: 50

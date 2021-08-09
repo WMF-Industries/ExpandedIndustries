@@ -1,0 +1,9 @@
+type: flying
+name: LargeBoi
+flying: true
+health: 630
+speed: 1.7
+rotateSpeed: 2.8
+lightRadius: 50
+lightColor: 84f591
+itemCapacity: 200

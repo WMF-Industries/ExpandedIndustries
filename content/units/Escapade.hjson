@@ -1,0 +1,60 @@
+type: legs
+name: Escapade
+controller: GroundAI
+hovering: true
+drawShields: false
+allowLegStep: true
+visualElevation: 1.7
+health: 16200
+armor: 90
+speed: 0.5
+rotateSpeed: 2.2
+buildSpeed: 3.5
+legCount: 8
+legLength: 60
+legSplashDamage: 60
+legSplashRange: 40
+legBaseOffset: 0
+legExtension: 0
+maxStretch: 2.5
+lightRadius: 50
+lightColor: 84f591
+weapons: [
+ {
+    name: Escapade-weapon1
+    x: 6
+    y: -7
+    reload: 240
+    rotate: true
+    mirror: true
+    top: true
+    shake: 4
+    bullet: {
+      type: AltilleryBulletType
+      damage: 400
+      collidesTeam: false
+      lifetime: 55
+      speed: 5.5
+      height: 15
+      width: 15
+      splashDamage: 200
+      splashDamageRange: 15
+      }
+    }
+  {
+    name: Escapade-weapon2
+    x: 13
+    y: 2
+    rotate: true
+    top: true
+    mirror: true
+    reload: 45
+    shootSound: laser
+    bullet: {
+      type: laserBulletType
+      damage: 180
+      healPercent: 3
+      collidesTeam: true
+     }
+   }
+ ]

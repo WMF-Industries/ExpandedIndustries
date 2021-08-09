@@ -1,0 +1,29 @@
+type: GenericCrafter
+name: Graphite Compressor
+description: Makes graphite.
+health: 280
+size: 4
+
+hasItems: true
+hasPower: true
+itemCapacity: 40
+
+requirements: [
+  copper/125
+  graphite/80
+  titanium/40
+  Starium/75
+]
+
+consumes: {
+  power: 1.2
+  items: {
+    items: [
+      coal/10
+    ]
+  }
+}
+outputItem: graphite/15
+craftTime: 90
+craftEffect: steam 
+category: crafting

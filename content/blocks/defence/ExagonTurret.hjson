@@ -1,0 +1,41 @@
+type: ItemTurret
+name: Exagon Artillery Turret
+description: High damage, low firerate. 
+
+hasItems: true
+solid: true
+
+requirements: [
+  thorium/150
+  graphite/120
+  silicon/70
+  titanium/185
+]
+
+reloadTime: 150
+ammoPerShot: 1.0
+range: 600
+size: 3
+shots: 1
+shootWidth: 4
+targetGround: true
+targetAir: false
+
+ammoTypes: {
+starium-alloy: { 
+    type: BasicBulletType
+    damage: 350
+    buildingDamageMultiplier: 4.25
+    lifetime: 60
+    speed: 10
+    ammoMultiplier: 5
+         }
+}
+
+shootShake: 1.2
+recoilAmount: 4.7
+rotateSpeed: 100
+health: 540
+shootSound: shoot
+
+category: turret

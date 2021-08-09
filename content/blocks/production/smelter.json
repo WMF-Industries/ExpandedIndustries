@@ -1,0 +1,30 @@
+{
+	"type": "GenericSmelter",
+	"outputItem": {"item": "silicon", "amount": 16},
+	"name": "Mass Silicon Smelter",
+	"description": "hhhhhhhhhhhhhhhh",
+	"size": 4,
+	"hasPower": true,
+	"hasItems": true,
+	"itemCapacity": 120,
+	"craftTime": 60,
+	"craftEffect": "pulverize",
+	"consumes": {
+		"power": 0.75,
+		"items": {
+			"items": [
+				{ "item": "coal", "amount": 4 },
+				{ "item": "sand", "amount": 6 }
+				{ "item": "blast-compound", "amount": 1 }
+			]
+		},
+	},
+	"requirements": [
+		{ "item": "metaglass", "amount": 80 },
+		{ "item": "phase-fabric", "amount": 50 },
+		{ "item": "titanium", "amount": 45 },
+		{ "item": "silicon", "amount": 75 }
+	],
+	"category": "crafting",
+	"research": "silicon-smelter"
+}

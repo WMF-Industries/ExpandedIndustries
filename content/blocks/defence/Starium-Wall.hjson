@@ -1,0 +1,11 @@
+type: Wall
+name: Starium Alloy Wall
+description: Starium Alloy OP.
+health: 1950
+size: 1
+category: defense
+solid: true
+requirements: [
+starium-alloy/6
+]
+
