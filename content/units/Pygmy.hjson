@@ -1,5 +1,3 @@
-import expandedindustries.entities.bullet.*;
-
 type: flying
 name: Pygmy
 localizedName: Pygmy
@@ -25,7 +23,7 @@ weapons: [
       recoil: 0
       reload: 22.5
       bullet: {
-         type: DrainBulletType
+         type: expandedindustries-DrainBulletType
          collidesTeam: false
          damage: 15
          pierce: true
