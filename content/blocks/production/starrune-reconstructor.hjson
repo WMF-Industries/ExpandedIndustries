@@ -14,7 +14,7 @@ consumes: {
 }
 upgrades: [
   [stormer, rusher]
-  [smolboi, mediumboi]
+  [SmolBoi, MediumBoi]
 ]
 requirements: [
   lead/200
