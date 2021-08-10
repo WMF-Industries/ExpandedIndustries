@@ -1,1 +1,1 @@
-
+require("entities/bullet/DrainBulletType")
