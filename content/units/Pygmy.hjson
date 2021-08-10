@@ -23,7 +23,7 @@ weapons: [
       recoil: 0
       reload: 22.5
       bullet: {
-         type: expandedindustries-DrainBulletType
+         type: DrainBulletType
          collidesTeam: false
          damage: 15
          pierce: true
