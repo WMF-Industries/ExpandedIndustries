@@ -1,6 +1,5 @@
 type: flying
 name: LargeBoi
-buildSpeed: 2.30
 flying: true
 health: 630
 speed: 1.7
