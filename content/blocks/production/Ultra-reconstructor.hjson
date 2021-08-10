@@ -1,19 +1,17 @@
 type: Reconstructor
 name: Ultra Reconstructor
-size: 9
+size: 7
 constructTime: 7200
 liquidCapacity: 90
 consumes: {
   power: 3
     items: {
       items: [
-        lead/15000
-        silicon/7900
-        graphite/6000
-        titanium/7900
-        plastanium/3400
-        thorium/2500
-        starium-alloy/600
+        silicon/850
+        titanium/750
+        plastanium/650
+        starium-alloy/100
+        enhanced-peridotium/25
       ]
     }
   liquid: {
@@ -29,6 +27,5 @@ requirements: [
   silicon/1400
   graphite/500
   titanium/1000
-  Eranite/400
 ]
 category: units
