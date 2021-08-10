@@ -14,7 +14,7 @@ import arc.math.*;
 public class DrainBulletType extends BulletType{
   public float drainStrength = 0.5f;
   
-      public SapBulletType(){
+      public DrainBulletType(){
         speed = 0f;
         despawnEffect = Fx.none;
         pierce = true;
