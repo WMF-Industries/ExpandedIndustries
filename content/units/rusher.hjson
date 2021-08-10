@@ -6,7 +6,7 @@ drawShields: false
 allowLegStep: true
 visualElevation: 1.3
 groundLayer: 75
-health: 2400
+health: 860
 armor: 10
 speed: 0.6
 rotateSpeed: 2.5
