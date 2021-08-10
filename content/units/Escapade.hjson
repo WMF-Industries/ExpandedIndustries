@@ -31,13 +31,13 @@ weapons: [
     shake: 4
     bullet: {
       type: AltilleryBulletType
-      damage: 400
+      damage: 125
       collidesTeam: false
       lifetime: 55
       speed: 5.5
       height: 15
       width: 15
-      splashDamage: 200
+      splashDamage: 45
       splashDamageRange: 15
       }
     }
@@ -52,7 +52,7 @@ weapons: [
     shootSound: laser
     bullet: {
       type: laserBulletType
-      damage: 180
+      damage: 120
       healPercent: 3
       collidesTeam: true
      }
