@@ -31,7 +31,7 @@ weapons: [
     shake: 4
     bullet: {
       type: AltilleryBulletType
-      damage: 120
+      damage: 80
       collidesTeam: false
       lifetime: 70
       speed: 4
