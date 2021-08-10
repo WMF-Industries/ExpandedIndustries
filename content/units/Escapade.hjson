@@ -6,7 +6,7 @@ drawShields: false
 allowLegStep: true
 visualElevation: 1.7
 health: 8450
-armor: 90
+armor: 15
 speed: 0.5
 rotateSpeed: 2.2
 buildSpeed: 3.5
