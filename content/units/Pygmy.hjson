@@ -23,13 +23,13 @@ weapons: [
       recoil: 0
       reload: 22.5
       bullet: {
-         type: sapBulletType
+         type: DrainBulletType
          collidesTeam: false
          damage: 15
          pierce: true
          pierceBuilding: true
          pierceCap: 5
-         sapStrength: 0.80
+         drainStrength: 0.80
          lifetime: 60
          speed: 2
          frontColor: Pal.sapBullet
