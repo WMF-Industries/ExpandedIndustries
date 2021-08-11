@@ -18,6 +18,14 @@ import mindustry.type.ammo.*;
 import mindustry.type.weapons.*;
 import mindustry.world.meta.*;
 import expandedindustries.entities.bullet*;
+import arc.func.Prov;
+import arc.struct.ObjectIntMap;
+import arc.struct.ObjectMap.Entry;
+import mindustry.ctype.ContentList;
+import mindustry.gen.EntityMapping;
+import mindustry.gen.Entityc;
+import mindustry.type.Weapon;
+
 
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
