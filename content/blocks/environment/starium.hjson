@@ -1,4 +1,4 @@
-type: OverlayFloor
+type: OreBlock
 name: Starium
 itemDrop: Starium
 mapColor: 4c4379
