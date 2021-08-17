@@ -27,6 +27,6 @@ requirements: [
   silicon/120
   metaglass/40
   titanium/80
-  Starium/40
+  starium/40
 ]
 category: units

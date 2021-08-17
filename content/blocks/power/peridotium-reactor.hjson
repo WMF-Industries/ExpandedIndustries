@@ -18,14 +18,14 @@ requirements: [
   graphite/140
   titanium/240
   thorium/55
-  Starium/120
+  starium/120
 ]
 consumes: {
      liquid: 
      water/0.5
      items: {
       items: [
-     Peridotium/1
+     peridotium/1
     ]
   }
 }

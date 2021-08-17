@@ -11,16 +11,16 @@ itemCapacity: 40
 requirements: [
   copper/125
   graphite/80
-  Peridotium/120
+  peridotium/120
   titanium/40
-  Starium/75
+  starium/75
 ]
 
 consumes: {
   power: 0.80
   items: {
     items: [
-      Starium/5
+      starium/5
       surge-alloy/1
     ]
   }

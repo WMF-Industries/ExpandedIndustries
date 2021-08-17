@@ -8,7 +8,7 @@ consumes: {
       items: [
        graphite/40
        silicon/40
-       Starium/10
+       starium/10
       ]
     }
 }

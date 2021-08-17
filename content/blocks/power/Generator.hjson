@@ -14,7 +14,7 @@ requirements: [
   graphite/140
   titanium/240
   thorium/400
-  Starium/270
+  starium/270
   enhanced-peridotium/130
 ]
 consumes: {

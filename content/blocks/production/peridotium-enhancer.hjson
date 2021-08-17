@@ -12,14 +12,14 @@ requirements: [
   copper/125
   graphite/80
   titanium/40
-  Starium/75
+  starium/75
 ]
 
 consumes: {
   power: 0.45
   items: {
     items: [
-      Peridotium/20
+      peridotium/20
     ]
   }
 }

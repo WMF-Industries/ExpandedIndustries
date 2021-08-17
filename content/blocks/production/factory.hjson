@@ -1,6 +1,6 @@
 type: UnitFactory
 name: Starium Constructor
-description: Makes StarDustry ground units.
+description: Makes ExpandedIndustries ground units.
 size: 3
 hasItems: true
 hasPower: true
@@ -15,7 +15,7 @@ plans: [
     requirements: [
       silicon/25
       graphite/35
-      Peridotium/10
+      peridotium/10
       ]
    }
    {

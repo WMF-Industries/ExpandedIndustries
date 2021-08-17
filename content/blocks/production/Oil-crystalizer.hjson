@@ -13,7 +13,7 @@ requirements: [
   copper/125
   graphite/80
   titanium/40
-  Starium/75
+  starium/75
 ]
 
 consumes: {
