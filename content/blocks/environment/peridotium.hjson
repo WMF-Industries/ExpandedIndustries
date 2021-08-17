@@ -1,4 +1,4 @@
-type: OverlayFloor
+type: OreBlock
 name: Peridotium
 itemDrop: Peridotium
 mapColor: 4c4379
