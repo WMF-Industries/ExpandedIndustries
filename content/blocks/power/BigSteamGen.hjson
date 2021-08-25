@@ -9,6 +9,8 @@ itemDuration: 180
 powerProduction: 12.5
 itemCapacity: 10
 solid: true
+ambientSound: smelter
+ambientSoundVolume: 0.6
 requirements: [
   copper/300
   graphite/140
@@ -21,6 +23,15 @@ consumes: {
      items: {
       items: [
      coal/1
+    ]
+      items: [
+     pyratite/1
+    ]
+      items: [
+     spore-pod/1
+    ]
+      items: [
+     peridotium/1
     ]
   }
 }
