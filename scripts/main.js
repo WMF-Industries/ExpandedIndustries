@@ -1,1 +1,1 @@
-
+require("graphics/pal")
