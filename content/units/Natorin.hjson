@@ -34,7 +34,7 @@ weapons: [
     shake: 4
     bullet: {
         type: ContinuousLaserBulletType
-      damage: 25
+      damage: 450
       collidesTeam: true
       healPercent: 4.5
       length: 240
