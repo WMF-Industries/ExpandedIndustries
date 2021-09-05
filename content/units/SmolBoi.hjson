@@ -20,7 +20,7 @@ weapons: [
      effects: [
         {
            type: WaveEffect
-           sizeFrom: 64
+           sizeFrom: 120
            sizeTo: 0
            colorFrom: ffe266
            colorTo: eec44f
@@ -54,7 +54,7 @@ weapons: [
           }
        ]
     }
-    splashDamageRadius: 64
+    splashDamageRadius: 120
     instantDisappear: true
     killShooter: true
     hittable: false
