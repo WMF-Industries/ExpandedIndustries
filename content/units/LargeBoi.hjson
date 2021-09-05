@@ -1,6 +1,6 @@
 type: payload
-name: LargeBoi
-localizedName: Large Boi
+name: Large Boi
+localizedName: LargeBoi
 description: he is very large
 armor: 40
 flying: true
