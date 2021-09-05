@@ -14,14 +14,14 @@ weapons: [
   x: 0
   y: 0
   shootSound: explosion
-  shootEffect: {
+  shootEffect: [
      type: WaveEffect
      sizeFrom: 64
      sizeTo: 0
      colorFrom: ffe266
      colorTo: eec44f
-     }
-  bullet: {
+  ]
+  bullet: [
     type: BombBulletType
     hitEffect: {
        type: ParticleEffect
@@ -29,7 +29,7 @@ weapons: [
        sizeFrom: 2
        sizeTo: 0
        particles: 6
-    }
+    ]
     splashDamageRadius: 64
     instantDisappear: true
     killShooter: true
