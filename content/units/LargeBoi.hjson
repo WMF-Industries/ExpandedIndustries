@@ -11,6 +11,7 @@ lightRadius: 50
 lightColor: 84f591
 PayloadCapacity: 128
 itemCapacity: 200
+controller: FlyingAI
 abilities: [
   {
     type: UnitSpawnAbility
