@@ -21,9 +21,9 @@ weapons: [
      colorFrom: ffe266
      colorTo: eec44f
   ]
-  bullet: [
+  bullet: {
     type: BombBulletType
-    hitEffect: {
+    hitEffect: [
        type: ParticleEffect
        region: circle
        sizeFrom: 2
