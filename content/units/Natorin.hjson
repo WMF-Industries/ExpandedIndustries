@@ -32,6 +32,7 @@ weapons: [
     top: true
     shootY: 18
     shake: 4
+    alternate: false
     bullet: {
       type: ContinuousLaserBulletType
       damage: 450
