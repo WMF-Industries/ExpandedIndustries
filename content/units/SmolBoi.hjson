@@ -76,8 +76,8 @@ weapons: [
        instantDisappear: true
        killShooter: true
        hittable: false
-       splashDamage: 50
-       damage: 25
+       splashDamage: 75
+       damage: 30
        collidesAir: true
        lifetime: 10
        speed: 1
