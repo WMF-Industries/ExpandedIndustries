@@ -1,9 +1,22 @@
-type: flying
+type: payLoad
 name: LargeBoi
+localizedName: Large Boi
+description: he is very large
+armor: 40
 flying: true
 health: 630
 speed: 1.7
 rotateSpeed: 2.8
 lightRadius: 50
 lightColor: 84f591
+PayloadCapacity: 2
 itemCapacity: 200
+abilities: [
+  {
+    type: UnitSpawnAbility
+    unit: SmolBoi
+    spawnX: 0
+    spawnY: 2
+    spawnTime: 1050
+  }
+]
