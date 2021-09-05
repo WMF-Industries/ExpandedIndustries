@@ -9,6 +9,7 @@ lightColor: 84f591
 itemCapacity: 50
 controller: suicideAI
 weapons: [
+  {
   reload: 24
   shootCone: 180
   x: 0
@@ -62,5 +63,6 @@ weapons: [
     collidesAir: true
     lifetime: 10
     speed: 1
-    }
- ]
+      }
+   }
+]
