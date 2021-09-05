@@ -21,8 +21,8 @@ rotateSpeed: 100
 ammoTypes: {
    blast-compound: { 
       type: ArtilleryBulletType
-      width: 12
-      height: 12
+      width: 16
+      height: 16
       damage: 200
       splashDamage: 50
       splashDamageRadius: 24

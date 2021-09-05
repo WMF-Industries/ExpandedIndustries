@@ -1,28 +1,53 @@
 type: PowerTurret
 name: Piercer
-description: lancer but better :D
+description: Shoots a projectile that pierces to targets and releasing multiple lasers at the end.
+range: 192
 size: 3
-health: 2300
-range: 270
+health: 2000
 recoilAmount: 2
-powerUse: 4.5
-reloadTime: 90
+powerUse: 8
+reloadTime: 120
+shootSound: shotgun
 shootType: {
-  type: laserBulletType
-  damage: 360
-  length: 280
-  status: {
-    name: Melting
-    damage: 2
-    time: 120
-  }
+   type: BasicBulletType
+   sprite: circle-bullet
+   frontColor: ffffff
+   backColor: a9d8ff
+   hitColor: a9d8ff
+   lightColor: a9d8ff
+   width: 30
+   height: 30
+   speed: 4
+   lifetime: 50
+   damage: 70
+   pierceBuildings: true
+   pierceCap: 5
+   trailLength: 20
+   trailWidth: 6
+   trailColor: ffffff
+   hitEffect: {
+      type: ParticleEffect
+      line: true
+      strokeFrom: 4
+      strokeFrom: 3
+      colorFrom: a9d8ff
+      colorTo: ffffff
+      particles: 8
+      lifetime: 50
+   }
+   fragBullets: 4
+   fragBullet: {
+      type: LaserBulletType
+      damage: 40
+      length: 80
+   }
 }
  requirements: [
-  silicon/230
-  titanium/300
-  surge-alloy/50
-  starium-alloy/200
-  thorium/100
+   silicon/230
+   titanium/300
+   surge-alloy/50
+   starium-alloy/200
+   thorium/100
 ]
 research: meltdown
 category: turret
