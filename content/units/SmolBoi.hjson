@@ -20,7 +20,7 @@ weapons: [
      effects: [
         {
            type: WaveEffect
-           sizeFrom: 120
+           sizeFrom: 240
            sizeTo: 0
            colorFrom: ffe266
            colorTo: eec44f
