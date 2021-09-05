@@ -9,7 +9,7 @@ speed: 1.7
 rotateSpeed: 2.8
 lightRadius: 50
 lightColor: 84f591
-PayloadCapacity: 2
+PayloadCapacity: 128
 itemCapacity: 200
 abilities: [
   {
