@@ -1,30 +1,68 @@
 type: PowerTurret
 name: Piercer
-description: Shoots a projectile that pierces to targets and releasing multiple lasers at the end.
+description: Shoots a projectile that pierces to targets and releasing multiple lasers on contact.
 range: 192
 size: 3
 health: 2000
 recoilAmount: 2
-powerUse: 8
-reloadTime: 120
+powerUse: 9
+reloadTime: 100
+accurateDelay: true
+chargeTime: 80
+chargeMaxDelay: 30
+chargeSound: lasercharge
+chargeEffects: 1
+chargeEffect: {
+   type: MultiEffect
+   effects: [
+      {
+         type: ParticleEffect
+         region: circle
+         sizeFrom: 3
+         sizeTo: 5
+         colorFrom: a9d8ff99
+         colorTo: ffffff
+         length: -2
+         baseLength: 2
+         lifetime: 85
+         particles: 16
+      }
+      {
+         type: ParticleEffect
+         line: true
+         lenFrom: 3
+         lenTo: 5
+         strokeFrom: 2
+         strokeTo: 2
+         colorFrom: a9d8ff99
+         colorTo: ffffff
+         length: -24
+         baseLength: 24
+         lifetime: 85
+         particles: 8
+      }
+   ]
+}
+shootEffect: lancerLaserShoot
 shootSound: shotgun
 shootType: {
    type: BasicBulletType
    sprite: circle-bullet
+   shrinkY: 0
    frontColor: ffffff
    backColor: a9d8ff
    hitColor: a9d8ff
    lightColor: a9d8ff
-   width: 30
-   height: 30
-   speed: 4
-   lifetime: 50
-   damage: 70
-   pierceBuildings: true
+   width: 12
+   height: 12
+   speed: 5.5
+   lifetime: 37
+   damage: 63
+   pierceBuilding: true
    pierceCap: 5
    trailLength: 20
    trailWidth: 6
-   trailColor: ffffff
+   trailColor: a9d8ff
    hitEffect: {
       type: ParticleEffect
       line: true
@@ -38,7 +76,7 @@ shootType: {
    fragBullets: 4
    fragBullet: {
       type: LaserBulletType
-      damage: 40
+      damage: 7
       length: 80
    }
 }
