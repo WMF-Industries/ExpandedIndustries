@@ -26,6 +26,7 @@ weapons: [
     y: 4
     reload: 100
     rotate: true
+    rotateSpeed: 1.7
     continuous: true
     mirror: true
     shootSound: beam
@@ -35,7 +36,7 @@ weapons: [
     alternate: false
     bullet: {
       type: ContinuousLaserBulletType
-      damage: 40
+      damage: 20
       collidesTeam: true
       healPercent: 4.5
       length: 240
