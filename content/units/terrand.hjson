@@ -26,17 +26,17 @@ weapons: [
       mirror: false
       x: 0
       y: 0
-      reload: 200
-      firstShotDelay: 45
+      reload: 240
+      firstShotDelay: 170
       shootStatus: unmoving
-      shootStatusDuration: 45
+      shootStatusDuration: 170
       shootSound: laser
       shake: 2
       bullet: {
          type: LaserBulletType
          length: 180
          width: 25
-         damage: 75
+         damage: 370
          colors: [84f59140, a5f5af, ffffff]
          lightColor: 84f591
          collidesTeam: false
