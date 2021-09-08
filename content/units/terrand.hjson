@@ -58,9 +58,10 @@ weapons: [
                   sizeTo: 4
                   colorFrom: a5f5af
                   colorTo: ffffff
-              }
-           ]
-        }
+                  }
+               ]
+            }
+         }
      {
       top: false
       mirror: false
