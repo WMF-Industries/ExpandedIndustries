@@ -69,12 +69,13 @@ weapons: [
          }
       }
       {
-      top: false
+      name: terrand-weapon
+      top: true
       mirror: false
       rotate: true
       alternate: true
       reload: 30
-      y: 4
+      y: 0
       shots: 1
       inaccuracy: 1
       shotDelay: 1
