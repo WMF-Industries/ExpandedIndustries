@@ -5,7 +5,7 @@ hovering: true
 drawShields: false
 allowLegStep: true
 visualElevation: 1.7
-health: 24050
+health: 7840
 armor: 20
 speed: 0.45
 rotateSpeed: 2.2
@@ -35,7 +35,7 @@ weapons: [
     alternate: false
     bullet: {
       type: ContinuousLaserBulletType
-      damage: 450
+      damage: 370
       collidesTeam: true
       healPercent: 4.5
       length: 240
