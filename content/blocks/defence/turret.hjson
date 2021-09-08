@@ -5,17 +5,17 @@ range: 200
 size: 3
 health: 2000
 recoilAmount: 2
-powerUse: 9
-reloadTime: 90
+powerUse: 8.5
+reloadTime: 125
 shootEffect: {
    type: ParticleEffect
    line: true
-   lenFrom: 3
-   lenTo: 5
+   lenFrom: 5
+   lenTo: 3
    strokeFrom: 2
-   strokeTo: 2
+   strokeTo: 1
    colorFrom: a9d8ff
-   colorTo: ffffffcc
+   colorTo: ffffffaa
    length: 24
    baseLength: 24
    lifetime: 24
@@ -34,7 +34,7 @@ shootType: {
    height: 12
    speed: 8
    lifetime: 25
-   damage: 140
+   damage: 217
    pierceBuilding: true
    pierceCap: 5
    trailLength: 20
@@ -53,16 +53,14 @@ shootType: {
    fragBullets: 4
    fragBullet: {
       type: LaserBulletType
-      damage: 21
+      damage: 56
       length: 80
    }
 }
  requirements: [
-   silicon/230
-   titanium/300
-   surge-alloy/50
-   starium-alloy/200
-   thorium/100
+   copper/200
+   silicon/175
+   thorium/170
 ]
-research: meltdown
+research: fuse
 category: turret
