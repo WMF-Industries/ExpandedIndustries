@@ -1,1 +1,32 @@
+type: Reconstructor
+name: Terra Reconstructor
+size: 9
+constructTime: 7200
+liquidCapacity: 90
+consumes: {
+  power: 4
+    items: {
+      items: [
+        silicon/1000
+        titanium/1500
+        plastanium/900
+        starium-alloy/300
+        enhanced-peridotium/70
+      ]
+    }
+  liquid: {
+    liquid: cryofluid
+    amount: 3
+  }
+}
+upgrades: [
+  [Natorin, terrand]
+]
+requirements: [
+  lead/2400
+  silicon/1400
+  graphite/500
+  titanium/1500
+]
+category: units
 
