@@ -29,8 +29,20 @@ weapons: [
          width: 10
          speed: 3
          lifetime: 50
-            
+            fragBullet: {
+            type: ShrapnelBulletType
+            hitSound: shotgun
+            despawnSound: shotgun
+            damage: 300
+            spread: 45
+            length: 80
+            width: 50
+            speed: 0
+            hitEffect: hitLancer
+         }
       }
    }
+]
+research: natorin
 
 
