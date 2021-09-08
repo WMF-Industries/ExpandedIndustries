@@ -11,18 +11,19 @@ canBoost: true
 weapons: [
    {
       top: false
-      mirror: true
+      mirror: false
       rotate: true
       alternate: true
       reload: 30
-      x: 2.5
-      y: -4
+      y: 4
       shots: 1
       inaccuracy: 1
       shotDelay: 1
       recoil: 1
       bullet: {
          type: ArtilleryBulletType
+         speed: 8
+         lifetime: 100
          damage: 200
          length: 10
          height: 10
