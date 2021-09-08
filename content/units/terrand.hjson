@@ -42,7 +42,7 @@ weapons: [
          collidesTeam: false
          healPercent: 6
          length: 500
-         width: 60
+         width: 80
          shootEffect: {
             type: MultiEffect
             effects: [
@@ -56,7 +56,7 @@ weapons: [
               {
                   type: ParticleEffect
                   length: 0
-                  lifetime: 45
+                  lifetime: 170
                   particles: 1
                   sizeFrom: 0
                   sizeTo: 15
