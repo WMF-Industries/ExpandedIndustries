@@ -1,6 +1,6 @@
 type: Reconstructor
 name: Terra Reconstructor
-size: 9
+size: 12
 constructTime: 7200
 liquidCapacity: 90
 consumes: {
