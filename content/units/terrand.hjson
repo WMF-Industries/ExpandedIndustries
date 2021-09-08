@@ -1,1 +1,36 @@
+type: mech
+name: Terrand
+description: sus
+isCounted: true
+itemCapacity: 180
+health: 99999
+armor: 20
+hitSize: 10
+controller: GroundAI
+canBoost: true
+weapons: [
+   {
+      top: false
+      mirror: true
+      rotate: true
+      alternate: true
+      reload: 30
+      x: 2.5
+      y: -4
+      shots: 1
+      inaccuracy: 1
+      shotDelay: 1
+      recoil: 1
+      bullet: {
+         type: ArtilleryBulletType
+         damage: 200
+         length: 10
+         height: 10
+         width: 10
+         speed: 3
+         lifetime: 50
+            
+      }
+   }
+
 
