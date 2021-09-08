@@ -62,7 +62,8 @@ weapons: [
                ]
             }
          }
-     {
+      }
+      {
       top: false
       mirror: false
       rotate: true
