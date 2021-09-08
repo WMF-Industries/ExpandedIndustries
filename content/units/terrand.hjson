@@ -4,7 +4,8 @@ name: Terrand
 description: sus
 isCounted: true
 itemCapacity: 180
-health: 45090
+health: 21200
+size: 8
 armor: 30
 controller: GroundAI
 legCount: 10
