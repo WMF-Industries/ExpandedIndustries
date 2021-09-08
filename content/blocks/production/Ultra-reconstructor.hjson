@@ -1,6 +1,6 @@
 type: Reconstructor
 name: Ultra Reconstructor
-size: 7
+size: 9
 constructTime: 7200
 liquidCapacity: 90
 consumes: {
