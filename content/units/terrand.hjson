@@ -39,12 +39,14 @@ weapons: [
          lightColor: 84f591
          collidesTeam: false
          healPercent: 6
+         length: 200
+         width: 20
          shootEffect: {
             type: MultiEffect
             effects: [
                {
                   type: WaveEffect
-                  sizeFrom: 12
+                  sizeFrom: 80
                   sizeTo: 0
                   colorFrom: a5f5af
                   colorTo: ffffff
@@ -55,7 +57,7 @@ weapons: [
                   lifetime: 45
                   particles: 1
                   sizeFrom: 0
-                  sizeTo: 4
+                  sizeTo: 40
                   colorFrom: a5f5af
                   colorTo: ffffff
                   }
