@@ -1,15 +1,67 @@
-type: mech
+type: legs
+hovering: true
 name: Terrand
 description: sus
 isCounted: true
 itemCapacity: 180
-health: 99999
-armor: 20
-hitSize: 10
+health: 45090
+armor: 30
 controller: GroundAI
-canBoost: true
+legCount: 10
+legLength: 20
+legBaseOffset: 4
+legExtension: 2
+legSpeed: 0.30
+legSplashRange: 4
+rippleScale: 2
+maxStretch: 3
+allowLegStep: true
+lightRadius: 30
+lightColor: ffffff
 weapons: [
    {
+      top: false
+      mirror: false
+      x: 0
+      y: 0
+      reload: 200
+      firstShotDelay: 45
+      shootStatus: unmoving
+      shootStatusDuration: 45
+      shootSound: laser
+      shake: 2
+      bullet: {
+         type: LaserBulletType
+         length: 180
+         width: 25
+         damage: 75
+         colors: [84f59140, a5f5af, ffffff]
+         lightColor: 84f591
+         collidesTeam: false
+         healPercent: 6
+         shootEffect: {
+            type: MultiEffect
+            effects: [
+               {
+                  type: WaveEffect
+                  sizeFrom: 12
+                  sizeTo: 0
+                  colorFrom: a5f5af
+                  colorTo: ffffff
+              }
+              {
+                  type: ParticleEffect
+                  length: 0
+                  lifetime: 45
+                  particles: 1
+                  sizeFrom: 0
+                  sizeTo: 4
+                  colorFrom: a5f5af
+                  colorTo: ffffff
+              }
+           ]
+        }
+     {
       top: false
       mirror: false
       rotate: true
