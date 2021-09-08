@@ -8,16 +8,17 @@ health: 45090
 armor: 30
 controller: GroundAI
 legCount: 10
-legLength: 50
+legLength: 80
 legBaseOffset: 12
 legExtension: 2
-legSpeed: 0.05
+legSpeed: 0.02
 legSplashRange: 4
 rippleScale: 2
 maxStretch: 3
 allowLegStep: true
 lightRadius: 30
 lightColor: ffffff
+rotateSpeed: 1.65
 weapons: [
    {
       top: false
