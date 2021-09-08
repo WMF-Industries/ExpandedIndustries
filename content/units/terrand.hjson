@@ -13,6 +13,7 @@ legLength: 80
 legBaseOffset: 12
 legExtension: 2
 legSpeed: 0.02
+speed: 0.4
 legSplashRange: 4
 rippleScale: 2
 maxStretch: 3
