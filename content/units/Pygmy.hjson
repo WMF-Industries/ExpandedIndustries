@@ -25,9 +25,11 @@ weapons: [
          type: BasicBulletType
          collidesTeam: false
          damage: 15
+         width: 3.5
+         height: 5.5
          pierce: true
          pierceBuilding: true
-         pierceCap: 5
+         pierceCap: 3
          lifetime: 60
          speed: 2
          frontColor: bf92f9

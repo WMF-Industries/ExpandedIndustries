@@ -1,7 +1,7 @@
 //pixelcraft gaming
 //dynami status effect
 const revitalizing = extend(StatusEffect, "revitalizing", {
-    localizedName: "Revitilizing",
+    localizedName: "Revitalizing",
     damage: -3.5,
 });
 
