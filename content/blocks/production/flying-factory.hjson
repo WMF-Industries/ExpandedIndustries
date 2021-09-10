@@ -18,7 +18,7 @@ plans: [
       ]
    }
    {
-   unit: Pygmy
+   unit: pygmy
    time: 900
    requirements: [
    silicon/20
