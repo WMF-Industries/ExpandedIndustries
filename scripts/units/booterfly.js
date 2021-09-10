@@ -1,7 +1,7 @@
 const statuses = require("libs/statuses")
 const refresh = require("libs/refresh")
 
-const pygmy = extendContent(UnitType, "Pygmy", {});
+const pygmy = extendContent(UnitType, "pygmy", {});
 pygmy.constructor = () => extend(UnitEntity, {
 });
 Events.on(ClientLoadEvent, b  => {
