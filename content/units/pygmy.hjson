@@ -11,7 +11,7 @@ flying: true
 engineOffset: 5.5
 circleTarget: true
 lowAltitude: true
-hitsize: 7
+hitSize: 7
 playerTargetFlags: [ core ]
 targetFlags: [ repair, extinguisher, core ]
 weapons: [
@@ -34,12 +34,11 @@ weapons: [
          frontColor: bf92f9
          backColor: 6d56bf
          sprite: shell
-         trailLength: 10
-         trailWidth: 3.5
+         trailLength: 5
+         trailWidth: 1.75
          trailMult: 1
          trailSize: 1
          trailColor: 6d56bf
-         trailInterp: slope
          fragCone: 100
          fragBullets: 2
          fragBullet: {
@@ -61,7 +60,6 @@ weapons: [
             trailMult: 1
             trailSize: 1
             trailColor: 6d56bf
-            trailInterp: slope
          }
       }
    }
