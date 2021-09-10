@@ -1,9 +1,10 @@
 type: flying
 name: Pygmy
 localizedName: Pygmy
+description: Shoots nearby enemies releasing piercing frags afterwards.
 health: 175
 armor: 0
-speed: 2.5
+speed: 2.25
 drag: 0.01
 accel: 0.08
 flying: true
@@ -11,7 +12,8 @@ engineOffset: 5.5
 circleTarget: true
 lowAltitude: true
 hitsize: 7
-range: 17
+playerTargetFlags: [ core ]
+targetFlags: [ repair, extinguisher, core ]
 weapons: [
    {
       top: false
@@ -20,17 +22,14 @@ weapons: [
       y: 0
       shots: 1
       recoil: 0
-      reload: 22.5
+      reload: 36
       bullet: {
          type: BasicBulletType
-         collidesTeam: false
-         damage: 15
+         shrinkY: 0
+         damage: 4
          width: 3.5
          height: 5.5
-         pierce: true
-         pierceBuilding: true
-         pierceCap: 3
-         lifetime: 60
+         lifetime: 55
          speed: 2
          frontColor: bf92f9
          backColor: 6d56bf
@@ -38,9 +37,32 @@ weapons: [
          trailLength: 10
          trailWidth: 3.5
          trailMult: 1
-         trailSize: 4
+         trailSize: 1
          trailColor: 6d56bf
          trailInterp: slope
+         fragCone: 100
+         fragBullets: 2
+         fragBullet: {
+            type: BasicBulletType
+            shrinkY: 0
+            damage: 4
+            width: 3
+            height: 5
+            lifetime: 30
+            speed: 3
+            pierce: true
+            pierceBuilding: true
+            pierce: 2
+            frontColor: bf92f9
+            backColor: 6d56bf
+            sprite: shell
+            trailLength: 8
+            trailWidth: 3
+            trailMult: 1
+            trailSize: 1
+            trailColor: 6d56bf
+            trailInterp: slope
+         }
       }
    }
 ]
