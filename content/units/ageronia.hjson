@@ -1,19 +1,17 @@
 type: flying
-name: Schaus
-localizedName: Schaus
-description: Shoots multiple bullets around the unit.
-health: 350
-armor: 2
-speed: 1.75
+name: Ageronia
+localizedName: Ageronia
+description: Shoots piercing homing missles that releases lightning on contact.
+health: 630
+armor: 6
+speed: 1.9
 drag: 0.016
-accel: 0.08
+accel: 0.05
 flying: true
-engineOffset: 5.5
-faceTarget: false
-circleTarget: true
+lowAltitude: true
+forceMultiTarget: true
 hitSize: 11.5
-playerTargetFlags: [ core ]
-targetFlags: [ generator, battery, core ]
+targetFlags: [ reactor, generator, core ]
 itemCapacity: 40
 weapons: [
    {
@@ -33,7 +31,7 @@ weapons: [
       shootSound: shoot
       bullet: {
          type: BasicBulletType
-         damage: 3
+         damage: 0
          width: 7
          height: 7
          hitSize: 7
@@ -53,7 +51,7 @@ weapons: [
          fragBullets: 2
          fragBullet: {
             type: LightningBulletType
-            damage: 3
+            damage: 0
             lightningLength: 6
             lightningLengthRand: 6
             lightningColor: bf92f9

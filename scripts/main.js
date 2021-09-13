@@ -1,3 +1,3 @@
-require("libs/statuses")
-require("libs/refresh")
+require("libs/eistatuses")
+require("libs/eirefresh")
 require("units/booterfly")

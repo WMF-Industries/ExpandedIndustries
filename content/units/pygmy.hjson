@@ -34,7 +34,7 @@ weapons: [
          frontColor: bf92f9
          backColor: 6d56bf
          sprite: shell
-         trailLength: 5
+         trailLength: 6
          trailWidth: 1.75
          trailMult: 1
          trailSize: 1
@@ -45,8 +45,8 @@ weapons: [
             type: BasicBulletType
             shrinkY: 0
             damage: 4
-            width: 3
-            height: 5
+            width: 4
+            height: 4
             lifetime: 30
             speed: 3
             pierce: true
@@ -54,11 +54,12 @@ weapons: [
             pierce: 2
             frontColor: bf92f9
             backColor: 6d56bf
-            sprite: shell
-            trailLength: 8
-            trailWidth: 3
-            trailMult: 1
-            trailSize: 1
+            sprite: circle-bullet
+            trailEffect: artilleryTrail
+            trailLength: -1
+            trailWidth: 2
+            trailMult: 0.75
+            trailSize: 4
             trailColor: 6d56bf
          }
       }
