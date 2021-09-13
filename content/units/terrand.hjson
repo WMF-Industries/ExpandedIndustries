@@ -107,7 +107,7 @@ weapons: [
       name: terrand-weapon2
       top: false
       mirror: true
-      rotate: true
+      rotate: false
       alternate: true
       reload: 30
       x: 31
