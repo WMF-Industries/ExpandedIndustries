@@ -110,7 +110,7 @@ weapons: [
       rotate: false
       alternate: true
       reload: 30
-      x: 31
+      x: 38.75
       y: 0
       shots: 1
       inaccuracy: 1
