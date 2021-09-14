@@ -26,7 +26,7 @@ weapons: [
       top: false
       mirror: false
       x: 0
-      y: -5
+      y: 0
       reload: 240
       firstShotDelay: 170
       shootStatus: unmoving
@@ -113,6 +113,7 @@ weapons: [
       reload: 30
       x: 38.75
       y: 0
+      shootY: 40
       shots: 1
       inaccuracy: 1
       shotDelay: 1
