@@ -72,8 +72,8 @@ weapons: [
       name: terrand-weapon2
       top: true
       mirror: true
-      rotate: true
-      alternate: true
+      rotate: false
+      alternate: false
       reload: 30
       x: 38.75
       y: 0
@@ -118,7 +118,7 @@ weapons: [
       continuous: true
       mirror: true
       shootSound: beam
-      shootY: 18
+      shootY: 5
       shake: 4
       alternate: false
       bullet: {
