@@ -1,7 +1,7 @@
 # Expanded Industries
 Mod for mindustry.
-Not finished yet.
-Also get sus'd lol
+The mod is under development, lots of features will be added, there are some bugs.
+Balacing in progress.
 
 
 
