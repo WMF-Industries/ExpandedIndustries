@@ -19,9 +19,9 @@ requirements: [
 
 consumes: {
   power: 1.2
-     item: [
+     item: {
      titanium/4
-    ]
+    }
     liquid:
      water/1
 }
