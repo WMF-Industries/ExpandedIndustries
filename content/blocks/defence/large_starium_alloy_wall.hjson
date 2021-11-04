@@ -1,7 +1,7 @@
 type: Wall
 name: Large Starium Alloy Wall
 description: Starium Alloy OP.
-health: 7340
+health: 7800
 size: 2
 category: defense
 solid: true
