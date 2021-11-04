@@ -2,7 +2,8 @@ type: legs
 name: Escapade
 controller: GroundAI
 hovering: true
-drawShields: false
+drawShields: false\
+hitSize: 40
 allowLegStep: true
 visualElevation: 1.7
 health: 1020
