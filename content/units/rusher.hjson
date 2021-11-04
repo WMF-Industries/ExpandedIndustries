@@ -4,6 +4,7 @@ controller: GroundAI
 hovering: true
 drawShields: false
 allowLegStep: true
+hitSize: 24
 visualElevation: 1.3
 groundLayer: 75
 health: 470
