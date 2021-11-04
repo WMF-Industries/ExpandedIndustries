@@ -2,7 +2,7 @@ type: legs
 name: Natorin
 controller: GroundAI
 hovering: true
-hitSize: 56
+hitSize: 24
 drawShields: false
 allowLegStep: true
 visualElevation: 1.7
