@@ -21,9 +21,9 @@ consumes: {
   power: 1.2
      item: {
      titanium/4
-    }
     liquid:
      water/1
+     }
 }
 outputLiquid: cryofluid/1
 craftTime: 120
