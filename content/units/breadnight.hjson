@@ -1,7 +1,7 @@
 type: mech
 name: Breadnight
 controller: GroundAI
-hitSize: 24
+hitSize: 8
 canBoost: true
 health: 210
 armor: 30
