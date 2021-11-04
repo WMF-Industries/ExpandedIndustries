@@ -24,13 +24,13 @@ consumes: {
       items: [
      coal/1
     ]
-      items: [
+    [
      pyratite/1
     ]
-      items: [
+    [
      spore-pod/1
     ]
-      items: [
+    [
      peridotium/1
     ]
   }
