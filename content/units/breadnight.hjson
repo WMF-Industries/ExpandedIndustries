@@ -2,12 +2,11 @@ type: mech
 name: Breadnight
 controller: GroundAI
 hitSize: 8
-canBoost: true
+canBoost: false
 health: 210
-armor: 30
-speed: 0.9
-rotateSpeed: 2.5
-buildSpeed: 1.75
+armor: 1
+speed: 0.55
+rotateSpeed: 1.72
 lightRadius: 50
 lightColor: 84f591
 weapons: [
@@ -25,7 +24,7 @@ weapons: [
       type: basicBulletType
       damage: 4
       lifetime: 20
-      speed: 12
+      speed: 7.5
       collidesTeam: false
       }
     }
@@ -36,13 +35,14 @@ weapons: [
     rotate: true
     top: true
     mirror: true
+    alternate: false
     reload: 30
     shootSound: laser
     bullet: {
       type: basicBulletType
       damage: 7
       lifetime: 15
-      speed: 9
+      speed: 6
       collidesTeam: false
      }
    }
