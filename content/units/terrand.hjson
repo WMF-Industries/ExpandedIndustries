@@ -2,7 +2,7 @@ type: legs
 hovering: true
 name: Terrand
 description: sus
-hitsize: 256
+hitSize: 256
 isCounted: true
 itemCapacity: 180
 health: 21200
