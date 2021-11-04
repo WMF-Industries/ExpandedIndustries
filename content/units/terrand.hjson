@@ -2,7 +2,7 @@ type: legs
 hovering: true
 name: Terrand
 description: sus
-hitSize: 28
+hitSize: 30
 isCounted: true
 itemCapacity: 180
 health: 21200
@@ -21,7 +21,7 @@ maxStretch: 3
 allowLegStep: true
 lightRadius: 30
 lightColor: ffffff
-rotateSpeed: 1.65
+rotateSpeed: 1.45
 weapons: [
    {
       top: false
@@ -31,20 +31,18 @@ weapons: [
       reload: 240
       firstShotDelay: 170
       shootStatus: unmoving
-      shootStatusDuration: 170
+      shootStatusDuration: 185
       shootSound: laser
       shake: 2
       bullet: {
          type: LaserBulletType
-         length: 180
-         width: 25
          damage: 370
          colors: [84f59140, a5f5af, ffffff]
          lightColor: 84f591
          collidesTeam: false
          healPercent: 6
          length: 500
-         width: 80
+         width: 90
          shootEffect: {
             type: MultiEffect
             effects: [
