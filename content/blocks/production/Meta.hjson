@@ -19,12 +19,12 @@ requirements: [
 consumes: {
      power: 1.5
      items: {
-      items: [
-     sand/10
-     lead/10
-     pyratite/1
-    ]
-  }
+        items: [
+            sand/10
+            lead/10
+            pyratite/1
+        ]
+    }
 }
 outputItem: metaglass/10
 craftTime: 60

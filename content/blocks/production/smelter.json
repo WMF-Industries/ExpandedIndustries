@@ -14,10 +14,10 @@
 		"items": {
 			"items": [
 				{ "item": "coal", "amount": 4 },
-				{ "item": "sand", "amount": 6 }
+				{ "item": "sand", "amount": 6 },
 				{ "item": "blast-compound", "amount": 1 }
 			]
-		},
+		}
 	},
 	"requirements": [
 		{ "item": "metaglass", "amount": 80 },

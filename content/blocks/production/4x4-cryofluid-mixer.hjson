@@ -27,7 +27,7 @@ consumes: {
     liquid:
      water/1
 }
-outputLiquid: cryofluid/120
+outputLiquid: cryofluid/60
 craftTime: 120
 craftEffect: steam 
 category: crafting
