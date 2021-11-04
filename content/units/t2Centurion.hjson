@@ -2,7 +2,7 @@ type: flying
 name: Alturion
 controller: MinerAI
 itemCapacity: 60
-hitSize: 24
+hitSize: 14
 flying: true
 health: 650
 armor: 2.5
