@@ -18,16 +18,15 @@ weapons: [
     rotate: false
     mirror: true
     top: false
+    alternate: true
+    shots: 3
     shake: 4
     bullet: {
-      type: laserBulletType
-      damage: 3
-      collidesTeam: true
-      colorFront: 45bb49
-      colorBack: 45bb49
+      type: basicBulletType
+      damage: 4
       lifetime: 20
-      speed: 7
-      healPercent: 5
+      speed: 12
+      collidesTeam: false
       }
     }
   {
@@ -42,8 +41,8 @@ weapons: [
     bullet: {
       type: basicBulletType
       damage: 7
-      lifetime: 40
-      speed: 11
+      lifetime: 15
+      speed: 9
       collidesTeam: false
      }
    }
