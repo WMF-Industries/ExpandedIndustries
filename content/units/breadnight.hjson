@@ -37,7 +37,7 @@ weapons: [
     mirror: true
     alternate: false
     reload: 30
-    shootSound: laser
+    shootSound: salvo
     bullet: {
       type: basicBulletType
       damage: 7
