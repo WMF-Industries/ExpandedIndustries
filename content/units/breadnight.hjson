@@ -13,18 +13,19 @@ weapons: [
  {
     name: breadnight-weapon
     x: 8
-    reload: 75
+    reload: 60
     rotate: false
     mirror: true
     top: false
-    alternate: true
+    alternate: false
     shots: 3
+    shotDelay: 15
     shake: 4
     bullet: {
       type: basicBulletType
-      damage: 4
-      lifetime: 20
-      speed: 7.5
+      damage: 9
+      lifetime: 30
+      speed: 5.5
       collidesTeam: false
       }
     }
@@ -35,14 +36,13 @@ weapons: [
     rotate: true
     top: true
     mirror: true
-    alternate: false
-    reload: 30
-    shootSound: salvo
+    alternate: true
+    reload: 15
     bullet: {
       type: basicBulletType
-      damage: 7
-      lifetime: 15
-      speed: 6
+      damage: 4
+      lifetime: 25
+      speed: 4
       collidesTeam: false
      }
    }
