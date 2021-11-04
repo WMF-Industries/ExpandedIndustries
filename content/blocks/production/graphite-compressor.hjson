@@ -9,10 +9,10 @@ hasPower: true
 itemCapacity: 40
 
 requirements: [
-  copper/125
-  graphite/80
-  titanium/40
-  starium/75
+  copper/245
+  graphite/120
+  titanium/60
+  starium/25
 ]
 
 consumes: {
@@ -24,6 +24,6 @@ consumes: {
   }
 }
 outputItem: graphite/15
-craftTime: 90
+craftTime: 120
 craftEffect: steam 
 category: crafting
