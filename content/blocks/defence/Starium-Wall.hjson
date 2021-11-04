@@ -3,6 +3,7 @@ name: Starium Alloy Wall
 description: Starium Alloy OP.
 health: 1950
 size: 1
+absorbLasers: true
 category: defense
 solid: true
 requirements: [
