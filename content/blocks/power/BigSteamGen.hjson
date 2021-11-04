@@ -13,6 +13,7 @@ ambientSound: smelter
 ambientSoundVolume: 0.6
 requirements: [
   copper/300
+  silicon/70
   graphite/140
   titanium/240
   lead/400
