@@ -25,14 +25,5 @@ consumes: {
       items: [
      coal/1
     ]
-    [
-     pyratite/1
-    ]
-    [
-     spore-pod/1
-    ]
-    [
-     peridotium/1
-    ]
   }
 }
