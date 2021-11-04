@@ -4,21 +4,22 @@ category: power
 type: NuclearReactor
 health: 3400
 size: 4
-explosionRadius: 375
+explosionRadius: 160
 explosionDamage: 45000
 hasItems: yes
 hasLiquids: yes
 itemDuration: 150
-powerProduction: 80
+powerProduction: 60
 itemCapacity: 10
 liquidCapacity: 300
 solid: true
 requirements: [
-  copper/125
-  graphite/140
-  titanium/240
-  thorium/55
-  starium/120
+  copper/650
+  graphite/340
+  titanium/500
+  silicon/300
+  thorium/200
+  starium/235
 ]
 consumes: {
      liquid: 
