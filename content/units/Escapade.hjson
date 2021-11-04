@@ -3,7 +3,7 @@ name: Escapade
 controller: GroundAI
 hovering: true
 drawShields: false\
-hitSize: 40
+hitSize: 18
 allowLegStep: true
 visualElevation: 1.7
 health: 1020
