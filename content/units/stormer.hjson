@@ -2,7 +2,7 @@ type: legs
 name: Stormer
 controller: GroundAI
 hovering: true
-hitSize: 12
+hitSize: 10
 drawShields: false
 allowLegStep: true
 visualElevation: 1.3
