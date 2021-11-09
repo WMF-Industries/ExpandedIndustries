@@ -1,8 +1,8 @@
 type: flying
-name: Ageronia
+name: ageronia
 localizedName: Ageronia
-description: Shoots piercing homing missles that releases lightning on contact.
-health: 630
+description: Fires 2 homing missiles that pierces targets..
+health: 500
 armor: 6
 speed: 1.9
 drag: 0.016
@@ -15,7 +15,7 @@ targetFlags: [ reactor, generator, core ]
 itemCapacity: 40
 weapons: [
    {
-      top: false
+      top: true
       mirror: false
       rotate: true
       rotateSpeed: 60
@@ -25,18 +25,24 @@ weapons: [
       shotDelay: 0
       shootY: 0
       recoil: 0
-      reload: 10
-      shootCone: 360
-      inaccuracy: 360
+      reload: 50
+      shootCone: 200
       shootSound: shoot
+      spacing: 5
       bullet: {
-         type: BasicBulletType
-         damage: 0
-         width: 7
-         height: 7
-         hitSize: 7
-         speed: 4
-         lifetime: 14
+         type: MissileBulletType
+         damage: 5
+         width: 4
+         height: 4
+         hitSize: 4
+         speed: 3.2
+         lifetime: 45
+         pierceCap: 3
+         pierce: true
+         pierceBuilding: true
+         homingPower: 0.05
+         homingRange: 50
+         keepVelocity: false
          frontColor: bf92f9
          backColor: 6d56bf
          hitColor: bf92f9
@@ -47,16 +53,6 @@ weapons: [
          trailMult: 1
          trailSize: 1
          trailColor: 6d56bf
-         fragCone: 180
-         fragBullets: 2
-         fragBullet: {
-            type: LightningBulletType
-            damage: 0
-            lightningLength: 6
-            lightningLengthRand: 6
-            lightningColor: bf92f9
-            hitColor: bf92f9
-         }
       }
    }
 ]
