@@ -113,7 +113,7 @@ weapons: [
       y: -5
       reload: 100
       rotate: true
-      rotateSpeed: 1.7
+      rotateSpeed: 1.4
       continuous: true
       mirror: true
       shootSound: beam
@@ -125,8 +125,8 @@ weapons: [
       damage: 10
       collidesTeam: true
       healPercent: 4.5
-      length: 60
-      drawSize: 60
+      length: 120
+      drawSize: 125
       lifetime: 120
       width: 8
       colors: [84f59150, a5f5af70, cef5d290, ffffff]
