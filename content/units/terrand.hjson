@@ -73,7 +73,7 @@ weapons: [
       mirror: true
       rotate: false
       alternate: false
-      reload: 30
+      reload: 90
       x: 38.75
       y: 0
       shootx: -6
@@ -122,12 +122,12 @@ weapons: [
       alternate: false
       bullet: {
          type: ContinuousLaserBulletType
-      damage: 10
+      damage: 7.5
       collidesTeam: true
       healPercent: 4.5
       length: 120
       drawSize: 125
-      lifetime: 120
+      lifetime: 360
       width: 8
       colors: [84f59150, a5f5af70, cef5d290, ffffff]
       lightColor: 84f591
