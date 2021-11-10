@@ -113,7 +113,7 @@ weapons: [
       y: -5
       reload: 100
       rotate: true
-      rotateSpeed: 1.4
+      rotateSpeed: 1.1
       continuous: true
       mirror: true
       shootSound: beam
