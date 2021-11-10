@@ -32,7 +32,9 @@ weapons: [
     shake: 4
     bullet: {
       type: AltilleryBulletType
-      damage: 80
+      damage: 65
+      height: 8
+      width: 8
       collidesTeam: false
       lifetime: 70
       speed: 4
@@ -48,7 +50,7 @@ weapons: [
     shootSound: laser
     bullet: {
       type: laserBulletType
-      damage: 60
+      damage: 70
       healPercent: 10
       collidesTeam: true
      }
