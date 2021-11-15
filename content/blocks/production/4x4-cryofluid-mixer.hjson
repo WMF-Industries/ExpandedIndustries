@@ -1,4 +1,4 @@
-type: GenericCrafter
+type: LiquidConverter
 name: Cryofluid Production Plant
 description: Better than Cryofluid Mixer :D
 health: 560
