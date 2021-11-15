@@ -31,8 +31,8 @@ weapons: [
     }
   {
     name: breadnight-weapon2
-    controlable: false
-    autoAim: true
+    controllable: false
+    autoTarget: true
     x: 3.25
     y: 1.5
     rotate: true
