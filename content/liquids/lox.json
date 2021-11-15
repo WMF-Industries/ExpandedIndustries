@@ -2,5 +2,7 @@
   "name": "Liquid Oxygen",
   "description": "Used for... Stuff",
   "color": "83c7ff",
+  "temperature": "0.1",
+  "heatCapacity": "1.1"
   "lightColor": "83c7ff80"
 }
