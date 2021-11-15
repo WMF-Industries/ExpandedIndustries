@@ -22,7 +22,7 @@ consumes: {
 upgrades: [
   [rusher, Escapade]
   [MediumBoi, LargeBoi]
-  [schaus, aregonia]
+  [schaus, ageronia]
 ]
 requirements: [
   silicon/120
