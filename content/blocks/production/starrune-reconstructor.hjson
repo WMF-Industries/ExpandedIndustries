@@ -16,6 +16,7 @@ upgrades: [
   [stormer, rusher]
   [SmolBoi, MediumBoi]
   [centurion, t2Centurion]
+  [pygmy, schaus]
 ]
 requirements: [
   lead/200
