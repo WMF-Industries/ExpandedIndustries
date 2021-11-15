@@ -1,5 +1,5 @@
 type: UnitFactory
-name: Starium Constructor
+name: Air Starium Constructor
 description: Makes StarDustry flying units.
 size: 3
 hasItems: true
