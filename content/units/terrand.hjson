@@ -107,6 +107,8 @@ weapons: [
    }
    {
       name: terrand-weapon
+      controllable: false
+      autoTarget: true
       top: true
       reload: 30
       x: 15
