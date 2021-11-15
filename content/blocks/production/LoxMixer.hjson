@@ -1,4 +1,4 @@
-type: GenericCrafter
+type: LiquidConverter
 name: Oxygen Liquifier
 description: Makes lox ;D
 health: 580
