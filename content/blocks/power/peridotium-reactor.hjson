@@ -4,8 +4,8 @@ category: power
 type: NuclearReactor
 health: 3400
 size: 4
-explosionRadius: 160
-explosionDamage: 45000
+explosionRadius: 40
+explosionDamage: 4500000
 hasItems: yes
 hasLiquids: yes
 itemDuration: 150
