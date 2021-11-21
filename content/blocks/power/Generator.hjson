@@ -25,3 +25,6 @@ consumes: {
       ]
     }
 }
+
+category: power
+research: rtg-generator
