@@ -10,4 +10,5 @@ requirements: [
 starium-alloy/24
 ]
 
-category: wall
+category: defense
+research: starium-alloy
