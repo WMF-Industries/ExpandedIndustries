@@ -4,3 +4,4 @@ explosiveness: 5.7
 radioactivity: 2.4
 flammability: 0.5
 hardness: 3
+oreDefault: true
