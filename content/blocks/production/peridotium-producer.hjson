@@ -1,0 +1,30 @@
+type: GenericCrafter
+name: Starium Synthetizer
+description: Makes starium.
+health: 280
+size: 3
+
+hasItems: true
+hasPower: true
+itemCapacity: 40
+
+requirements: [
+  copper/245
+  graphite/120
+  titanium/60
+]
+
+consumes: {
+  power: 1.2
+  items: {
+    items: [
+      lead/10
+      titanium/5
+      scrap/1
+    ]
+  }
+}
+outputItem: starium/20
+craftTime: 120
+craftEffect: steam 
+category: crafting
