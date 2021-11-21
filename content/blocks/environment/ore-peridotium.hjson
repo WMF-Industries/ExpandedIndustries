@@ -1,3 +1,3 @@
 type: OreBlock
 itemDrop: peridotium
-
+oreDefault: true
