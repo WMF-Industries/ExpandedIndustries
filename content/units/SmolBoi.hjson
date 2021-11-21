@@ -33,6 +33,7 @@ weapons: [
         }
      ]
   }
+  research: flare
   bullet: {
     type: BombBulletType
     hitEffect: {
