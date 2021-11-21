@@ -27,3 +27,6 @@ consumes: {
     ]
   }
 }
+
+research: steam-generator
+category: power
