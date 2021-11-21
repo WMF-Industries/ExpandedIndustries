@@ -10,4 +10,5 @@ requirements: [
 starium-alloy/6
 ]
 
-category: wall
+category: defense
+Research: starium-alloy
