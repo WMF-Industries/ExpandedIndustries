@@ -6,7 +6,7 @@ health: 1200
 size: 3
 hasItems: yes
 itemDuration: 180
-powerProduction: 12.5
+powerProduction: 15.5
 itemCapacity: 10
 solid: true
 ambientSound: smelter
