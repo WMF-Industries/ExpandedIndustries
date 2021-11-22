@@ -66,7 +66,7 @@ ammoTypes: {
       type: ArtilleryBulletType
       width: 12
       height: 12
-      damage: 350
+      damage: 465
       splashDamage: 200
       splashDamageRadius: 20
       buildingDamageMultiplier: 4.25
