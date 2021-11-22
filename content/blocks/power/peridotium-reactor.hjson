@@ -9,7 +9,7 @@ explosionDamage: 4500000
 hasItems: yes
 hasLiquids: yes
 itemDuration: 150
-powerProduction: 60
+powerProduction: 75
 itemCapacity: 10
 liquidCapacity: 300
 solid: true
