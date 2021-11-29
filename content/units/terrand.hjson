@@ -11,7 +11,7 @@ armor: 30
 controller: GroundAI
 legCount: 10
 legLength: 80
-legBaseOffset: 12
+legBaseOffset: 32
 legExtension: 2
 legSpeed: 0.02
 speed: 0.4
