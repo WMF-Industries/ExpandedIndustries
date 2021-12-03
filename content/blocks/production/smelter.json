@@ -7,14 +7,14 @@
 	"hasPower": true,
 	"hasItems": true,
 	"itemCapacity": 120,
-	"craftTime": 60,
+	"craftTime": 90,
 	"craftEffect": "pulverize",
 	"consumes": {
 		"power": 0.75,
 		"items": {
 			"items": [
-				{ "item": "coal", "amount": 4 },
-				{ "item": "sand", "amount": 6 },
+				{ "item": "coal", "amount": 6 },
+				{ "item": "sand", "amount": 8 },
 				{ "item": "blast-compound", "amount": 1 }
 			]
 		}
