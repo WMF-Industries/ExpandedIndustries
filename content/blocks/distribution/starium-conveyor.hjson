@@ -3,7 +3,8 @@ description: Faster than titanium conveyor!
 type: Conveyor
 size: 1
 health: 100
-speed: 1.5
+speed: 0.12
+displayedSpeed: 14
 junctionReplacement: starlight-junction
 bridgeReplacement: bridge-conveyor
 requirements: [
