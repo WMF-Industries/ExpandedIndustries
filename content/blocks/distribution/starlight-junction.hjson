@@ -1,0 +1,12 @@
+name: Starium Junction
+description: Better junction :D
+type: Junction
+health: 120
+speed: 15.5
+capacity: 10
+requirements: [
+  copper/6
+  starium/4
+]
+category: distribution
+research: junction
