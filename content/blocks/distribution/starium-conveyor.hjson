@@ -3,5 +3,5 @@ description: Faster than titanium conveyor!
 type: Conveyor
 speed: 16.5
 displayedSpeed: 16.5
-junctionReplacement: starium-junction
+junctionReplacement: starlight-junction
 bridgeReplacement: bridge-conveyor
