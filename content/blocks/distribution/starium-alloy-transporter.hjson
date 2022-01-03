@@ -4,9 +4,15 @@ size: 1
 health: 60
 range: 12
 hasItems: true
+destructible: true
+breakable: true
+rebuildable: true
+placeablePlayer: true
 itemCapacity: 15
 speed: 0.18
 conveyorPlacement: true
+consumesPower: true
+hasPower: true
 consumes: {
  power: 0.5
 }
