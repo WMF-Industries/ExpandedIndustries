@@ -31,7 +31,7 @@ weapons: [
     top: true
     shake: 4
     bullet: {
-      type: RailBulletType
+      type: BasicBulletType
       damage: 210
       collidesTeam: false
       lifetime: 55
