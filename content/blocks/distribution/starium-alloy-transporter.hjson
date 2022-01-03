@@ -1,5 +1,5 @@
 name: Starium Alloy Bridge
-type: itemBridge
+type: ItemBridge
 size: 1
 health: 60
 range: 12
