@@ -2,14 +2,13 @@ name: Starium Alloy Bridge
 type: ItemBridge
 size: 1
 health: 60
-range: 12
+range: 20
 hasItems: true
 destructible: true
 breakable: true
 rebuildable: true
 placeablePlayer: true
 itemCapacity: 15
-speed: 0.22
 conveyorPlacement: true
 consumesPower: true
 hasPower: true
