@@ -1,0 +1,13 @@
+name: Starium Alloy Bridge
+type: itemBridge
+size: 1
+range: 12
+hasItems: true
+itemCapacity: 15
+
+conveyorPlacement: true
+consumes: [
+ power: 0.5
+]
+category: distribution
+research: phase-conveyor
