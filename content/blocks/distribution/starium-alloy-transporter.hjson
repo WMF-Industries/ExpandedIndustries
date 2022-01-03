@@ -9,7 +9,7 @@ breakable: true
 rebuildable: true
 placeablePlayer: true
 itemCapacity: 15
-speed: 0.18
+speed: 0.22
 conveyorPlacement: true
 consumesPower: true
 hasPower: true
