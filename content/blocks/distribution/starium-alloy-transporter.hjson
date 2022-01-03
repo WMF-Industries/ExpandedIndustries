@@ -6,8 +6,8 @@ hasItems: true
 itemCapacity: 15
 speed: 0.18
 conveyorPlacement: true
-consumes: [
+consumes: {
  power: 0.5
-]
+}
 category: distribution
 research: phase-conveyor
