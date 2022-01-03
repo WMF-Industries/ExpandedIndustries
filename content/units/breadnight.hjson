@@ -22,11 +22,12 @@ weapons: [
     shotDelay: 15
     shake: 4
     bullet: {
-      type: basicBulletType
+      type: LaserBulletType
       damage: 9
       lifetime: 30
       speed: 5.5
       collidesTeam: false
+      shootSound: lancer
       }
     }
   {
