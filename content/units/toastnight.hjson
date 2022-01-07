@@ -28,7 +28,6 @@ weapons: [
       speed: 6
       collidesTeam: false
       shootSound: 
-      }
     }
  ]
 research: breadnight
