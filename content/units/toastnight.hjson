@@ -13,7 +13,7 @@ weapons: [
  {
     name: toastnight-weapon
     x: 10
-    reload: 90
+    reload: 45
     rotate: false
     mirror: true
     top: false
@@ -23,8 +23,8 @@ weapons: [
     shake: 4
     bullet: {
       type: BasicBulletType
-      damage: 27
-      lifetime: 45
+      damage: 16
+      lifetime: 40
       speed: 5
       collidesTeam: false
    }
