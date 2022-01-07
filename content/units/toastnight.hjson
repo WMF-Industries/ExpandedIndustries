@@ -19,13 +19,13 @@ weapons: [
     top: false
     alternate: true
     shots: 3
-    shotDelay: 20
+    shotDelay: 2.5
     shake: 4
     bullet: {
       type: BasicBulletType
       damage: 27
       lifetime: 45
-      speed: 6
+      speed: 5
       collidesTeam: false
    }
   }
