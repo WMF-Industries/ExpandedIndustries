@@ -12,7 +12,7 @@ lightColor: 84f591
 weapons: [
  {
     name: toastnight-weapon
-    x: 10
+    x: 7
     reload: 45
     rotate: false
     mirror: true
