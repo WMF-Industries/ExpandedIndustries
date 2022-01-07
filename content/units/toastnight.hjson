@@ -1,0 +1,34 @@
+type: mech
+name: ToastNight
+controller: GroundAI
+hitSize: 12
+canBoost: false
+health: 620
+armor: 5
+speed: 0.60
+rotateSpeed: 1.72
+lightRadius: 50
+lightColor: 84f591
+weapons: [
+ {
+    name: toastnight-weapon
+    x: 10
+    reload: 90
+    rotate: false
+    mirror: true
+    top: false
+    alternate: true
+    shots: 3
+    shotDelay: 20
+    shake: 4
+    bullet: {
+      type: BasicBulletType
+      damage: 27
+      lifetime: 45
+      speed: 6
+      collidesTeam: false
+      shootSound: 
+      }
+    }
+ ]
+research: breadnight
