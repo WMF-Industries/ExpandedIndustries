@@ -27,7 +27,7 @@ weapons: [
       lifetime: 45
       speed: 6
       collidesTeam: false
-      shootSound: 
-    }
+   }
+  }
  ]
 research: breadnight
