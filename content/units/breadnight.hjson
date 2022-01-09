@@ -1,8 +1,8 @@
 type: mech
 name: Breadnight
-controller: GroundAI
+controller: BuilderAI
 hitSize: 8
-canBoost: false
+canBoost: true
 health: 210
 armor: 1
 speed: 0.55
@@ -20,12 +20,12 @@ weapons: [
     alternate: false
     shots: 3
     shotDelay: 15
-    shake: 4
+    shake: 0.4
     bullet: {
       type: LaserBulletType
       damage: 9
       lifetime: 30
-      speed: 5.5
+      length: 18
       collidesTeam: false
       shootSound: lancer
       }
