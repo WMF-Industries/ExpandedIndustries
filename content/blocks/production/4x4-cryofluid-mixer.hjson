@@ -3,7 +3,7 @@ name: Cryofluid Production Plant
 description: Better than Cryofluid Mixer :D
 health: 560
 size: 4
-
+drawer: DrawMixer
 hasItems: true
 hasLiquid: true
 hasPower: true
