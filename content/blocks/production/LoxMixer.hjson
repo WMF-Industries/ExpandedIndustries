@@ -3,7 +3,6 @@ name: Oxygen Liquifier
 description: Makes lox ;D
 health: 580
 size: 2
-drawer: DrawMixer
 hasItems: false
 hasLiquid: true
 hasPower: true
