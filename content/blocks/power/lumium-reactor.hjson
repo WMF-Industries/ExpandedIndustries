@@ -13,7 +13,7 @@ consumes: {
   power: 27.5
   liquid: {
     liquid: lox
-    amount: 17.5
+    amount: 1.5
   }
 }
 requirements: [
