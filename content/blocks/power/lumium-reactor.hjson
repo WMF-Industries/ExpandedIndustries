@@ -1,0 +1,30 @@
+type: ImpactReactor
+name: Lumium Reactor
+description: Highly unstable impact reactor, producing much power using Lumium as fuel. Cooled by liquid oxygen.
+explosionRadius: 57.5
+explosionDamage: 45000000
+liquidCapacity: 1400
+size: 5
+hasLiquids: true
+powerProduction: 375
+plasma1: 5a58c4
+plasma2: 7382f0
+consumes: {
+  power: 27.5
+  liquid: {
+    liquid: lox
+    amount: 17.5
+  }
+}
+requirements: [
+  surge-alloy/750
+  starium-alloy/350
+  silicon/1000
+  lead/1250
+  titanium/700
+  plastanium/450
+]
+category: power
+ambientSound: pulse
+ambientSoundVolume: 0.5
+research: impact-reactor
