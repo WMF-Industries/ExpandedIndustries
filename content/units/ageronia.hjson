@@ -5,6 +5,7 @@ description: Fires 2 homing missiles that pierces targets..
 health: 500
 armor: 6
 speed: 1.9
+controller: FlyingAI
 drag: 0.016
 accel: 0.05
 flying: true
