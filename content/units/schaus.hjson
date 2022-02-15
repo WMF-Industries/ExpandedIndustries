@@ -8,6 +8,7 @@ speed: 1.75
 drag: 0.016
 accel: 0.08
 flying: true
+controller: FlyingAI
 engineOffset: 5.5
 faceTarget: false
 circleTarget: true
