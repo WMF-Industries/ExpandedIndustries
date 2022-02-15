@@ -5,6 +5,7 @@ description: Shoots nearby enemies releasing piercing frags afterwards.
 health: 175
 armor: 0
 speed: 2.25
+controller: FlyingAI
 drag: 0.01
 accel: 0.08
 flying: true
