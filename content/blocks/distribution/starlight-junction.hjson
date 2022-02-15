@@ -3,7 +3,7 @@ description: Better junction :D
 type: Junction
 requiresWater: false
 health: 80
-speed: 16
+speed: 20
 capacity: 8
 requirements: [
   starium/3
