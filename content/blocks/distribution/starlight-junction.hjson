@@ -1,13 +1,14 @@
 name: Starium Junction
 description: Better junction :D
 type: Junction
-size: 1
-health: 120
-speed: 0.0002
-capacity: 10
+requiresWater: false
+health: 80
+speed: 12
+capacity: 8
 requirements: [
-  copper/6
-  starium/4
+  starium/3
+  copper/2
+  titanium/3
 ]
 category: distribution
 research: junction
