@@ -10,7 +10,7 @@ powerProduction: 375
 plasma1: 5a58c4
 plasma2: 7382f0
 consumes: {
-  power: 27.5
+  power: 32.5
   liquid: {
     liquid: lox
     amount: 1.5
