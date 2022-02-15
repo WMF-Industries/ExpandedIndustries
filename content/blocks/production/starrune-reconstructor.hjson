@@ -17,6 +17,7 @@ upgrades: [
   [SmolBoi, MediumBoi]
   [centurion, t2Centurion]
   [pygmy, schaus]
+  [breadnight, toastnight]
 ]
 requirements: [
   lead/200
