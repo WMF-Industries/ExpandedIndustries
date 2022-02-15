@@ -12,5 +12,5 @@ buildSpeed: 1
 lightRadius: 50
 lightColor: 84f591
 mineTier: 4
-mineSpeed: 6
+mineSpeed: 8
 research: centurion
