@@ -3,7 +3,7 @@ name: Electric Drill
 description: Upgraded pneumatic drill.
 size: 2
 tier: 4
-drillTime: 360
+drillTime: 330
 hasItems: true
 hasLiquid: false
 hasPower: true
