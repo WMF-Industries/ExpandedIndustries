@@ -28,8 +28,8 @@ weapons: [
     lifetime: 50
     speed: 4
     collidesTeam: false
-    width: 3
-    height: 4
+    width: 8
+    height: 8
     }
   }
 ]
