@@ -19,12 +19,12 @@ consumes: {
   items: {
     items: [
       lead/10
-      titanium/5
-      scrap/1
+      titanium/15
+      scrap/5
     ]
   }
 }
-outputItem: starium/20
+outputItem: starium/10
 craftTime: 120
 craftEffect: steam 
 category: crafting
