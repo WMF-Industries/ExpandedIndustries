@@ -7,7 +7,7 @@ liquidCapacity: 1400
 size: 5
 hasLiquids: true
 powerProduction: 375
-plasma1: 5a58c4
+plasma1: 933E38
 plasma2: 7382f0
 consumes: {
   power: 32.5
