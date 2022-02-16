@@ -1,7 +1,7 @@
 type: Reconstructor
 name: Eranite Reconstructor
 size: 5
-constructTime: 5400
+constructTime: 900
 liquidCapacity: 90
 consumes: {
   power: 2.5
