@@ -24,16 +24,12 @@ consumes: {
      items: {
       items: [
      coal/1
-     ]
-    optional: true
-      items: [
+     optional: true
      pyratite/1
-     ]
-    optional: true
-      items: [
+     optional: true
      spore-pod/1
-    ]
-    optional: true
+     optional: true
+     ]
   }
 }
 
