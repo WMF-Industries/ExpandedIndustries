@@ -22,13 +22,12 @@ consumes: {
      liquid: 
      water/0.2
      items: {
+      items: [
      coal/1
-     }
-     {
      pyratite/1
-     }
-     {
      spore-pod/1
+    ]
+    optional: true
   }
 }
 
