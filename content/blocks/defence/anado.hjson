@@ -25,7 +25,7 @@ ammoTypes: {
   lifetime: 16
   }
  lead: {
-  damage: 7
+  damage: 6
   ammoMultiplier: 2
   speed: 4
   height: 8
