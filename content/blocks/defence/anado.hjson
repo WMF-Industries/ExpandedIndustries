@@ -36,7 +36,6 @@ ammoTypes: {
   speed: 7
   height: 8
   width: 6
-  shootEffect: shoot
   smokeEffect: shootSmoke
   }
  lead: {
@@ -45,7 +44,6 @@ ammoTypes: {
   speed: 8
   height: 8
   width: 6
-  shootEffect: shoot
   smokeEffect: shootSmoke
   fragBullets: 3
   fragBullet: {
