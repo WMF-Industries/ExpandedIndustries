@@ -49,11 +49,11 @@ weapons: [
     rotate: false
     top: true
     mirror: true
-    reload: 45
+    reload: 40
     shootSound: laser
     bullet: {
       type: laserBulletType
-      damage: 120
+      damage: 190
       healPercent: 3
       collidesTeam: true
      }
