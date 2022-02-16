@@ -15,19 +15,6 @@ recoilAmount: 1.525
 range: 95
 reloadTime: 25
 rotateSpeed: 2.3
-consumes: {
- liquid: {
-  liquid: water
-  amount: 0.2
-  booster: true
-  liquid: cryofluid
-  amount: 0.15
-  booster: true
-  liquid: lox
-  amount: 0.2
-  booster: true
- }
-}
 ammoTypes: {
  copper: {
   damage: 9
