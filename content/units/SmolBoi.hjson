@@ -5,6 +5,7 @@ health: 210
 speed: 1.9
 rotateSpeed: 3
 lightRadius: 50
+faceTarget: true
 lightColor: 84f591
 itemCapacity: 50
 controller: suicideAI
