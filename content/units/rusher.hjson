@@ -43,14 +43,14 @@ weapons: [
   {
     name: rusher-weapon
     x: 11
-    rotate: true
+    rotate: false
     top: false
     mirror: true
     reload: 60
     shootSound: laser
     bullet: {
       type: laserBulletType
-      damage: 70
+      damage: 90
       healPercent: 10
       collidesTeam: true
      }
