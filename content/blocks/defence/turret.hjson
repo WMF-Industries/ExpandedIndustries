@@ -59,8 +59,11 @@ shootType: {
 }
  requirements: [
    copper/200
+   lead/320
    silicon/175
+   titanium/240
    thorium/170
+   starium/30
 ]
 research: fuse
 category: turret
