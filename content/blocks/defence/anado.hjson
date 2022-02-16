@@ -42,3 +42,9 @@ ammoTypes: {
    }
   }
  }
+
+requirements: [
+ copper/45
+ lead/20
+ silicon/5
+]
