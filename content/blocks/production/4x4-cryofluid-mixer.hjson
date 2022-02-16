@@ -29,5 +29,4 @@ consumes: {
 outputLiquid: cryofluid/60
 craftTime: 120
 category: crafting
-DrawLiquid: true
 research: cryofluid-mixer
