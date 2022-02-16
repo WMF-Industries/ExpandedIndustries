@@ -1,0 +1,56 @@
+type: ItemTurret
+name: Anado
+description: Duo v2
+health: 320
+size: 1
+maxAmmo: 45
+inaccuracy: 2
+ammoPerShot: 1
+spread: 2.5
+coolantUsage: 0.175
+targetGround: true
+targetAir: true
+recoilAmount: 1.525
+range: 19
+reloadTime: 25
+rotateSpeed: 2.3
+shootSound: shot
+consumes: {
+ liquid: {
+  liquid: water
+  amount: 0.2
+  booster: true
+  liquid: cryofluid
+  amount: 0.15
+  booster: true
+  liquid: lox
+  amount: 0.2
+  booster: true
+ }
+}
+ammoTypes: {
+ copper: {
+  damage: 9
+  ammoMultiplier: 3
+  speed: 7
+  height: 8
+  width: 6
+  shootEffect: shoot
+  smokeEffect: shootSmoke
+  }
+ lead: {
+  damage: 7
+  ammoMultiplier: 2
+  speed: 8
+  height: 8
+  width: 6
+  shootEffect: shoot
+  smokeEffect: shootSmoke
+  fragBullets: 3
+  fragBullet: {
+  type: BasicBulletType
+  damage: 4
+  height: 3
+  width: 2
+   }
+  }
