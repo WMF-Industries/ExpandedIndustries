@@ -37,7 +37,7 @@ weapons: [
     alternate: false
     bullet: {
       type: ContinuousLaserBulletType
-      damage: 20
+      damage: 32
       collidesTeam: true
       healPercent: 4.5
       length: 240
