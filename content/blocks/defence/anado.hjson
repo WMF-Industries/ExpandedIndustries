@@ -12,33 +12,33 @@ coolantUsage: 0.175
 targetGround: true
 targetAir: true
 recoilAmount: 1.525
-range: 95
-reloadTime: 25
+range: 120
+reloadTime: 20
 rotateSpeed: 2.3
 ammoTypes: {
  copper: {
   damage: 9
   ammoMultiplier: 3
-  speed: 6
+  speed: 3
   height: 8
   width: 6
-  lifetime: 16
+  lifetime: 40
   }
  lead: {
-  damage: 6
+  damage: 7
   ammoMultiplier: 2
-  speed: 4
+  speed: 2
   height: 8
   width: 6
-  lifetime: 24
+  lifetime: 60
   fragBullets: 3
   fragBullet: {
   type: BasicBulletType
   damage: 4
   height: 3
   width: 2
-  speed: 3
-  lifetime: 10
+  speed: 1
+  lifetime: 20
    }
   }
  }
