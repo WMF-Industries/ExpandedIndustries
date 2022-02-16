@@ -1,7 +1,7 @@
 type: Reconstructor
 name: Ultra Reconstructor
 size: 9
-constructTime: 7200
+constructTime: 1800
 liquidCapacity: 90
 consumes: {
   power: 3
@@ -27,6 +27,8 @@ requirements: [
   silicon/1400
   graphite/500
   titanium/1000
+  thorium/400
+  starium-alloy/120
 ]
 category: units
 research: Eranite-reconstructor
