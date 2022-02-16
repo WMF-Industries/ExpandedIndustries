@@ -12,10 +12,9 @@ coolantUsage: 0.175
 targetGround: true
 targetAir: true
 recoilAmount: 1.525
-range: 19
+range: 95
 reloadTime: 25
 rotateSpeed: 2.3
-shootSound: shot
 consumes: {
  liquid: {
   liquid: water
@@ -36,6 +35,7 @@ ammoTypes: {
   speed: 7
   height: 8
   width: 6
+  lifetime: 13
   }
  lead: {
   damage: 7
@@ -43,12 +43,15 @@ ammoTypes: {
   speed: 8
   height: 8
   width: 6
+  lifetime: 12
   fragBullets: 3
   fragBullet: {
   type: BasicBulletType
   damage: 4
   height: 3
   width: 2
+  speed: 5
+  lifetime: 5
    }
   }
  }
