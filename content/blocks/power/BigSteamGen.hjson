@@ -28,7 +28,7 @@ consumes: {
      spore-pod/1
      blast-compound/1
      peridotium/1
-     enchanced-peridotium/1
+     enhanced-peridotium/1
     ]
     optional: true
   }
