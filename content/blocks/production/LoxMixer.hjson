@@ -1,6 +1,7 @@
 type: LiquidConverter
 name: Oxygen Liquifier
 description: Makes lox ;D
+drawer: DrawLiquid
 health: 580
 size: 2
 hasItems: false
