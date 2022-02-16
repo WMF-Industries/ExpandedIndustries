@@ -1,7 +1,7 @@
 type: Reconstructor
 name: Starrune Reconstructor
 size: 3
-constructTime: 3600
+constructTime: 300
 consumes: {
   power: 2.5
     items: {
