@@ -19,19 +19,19 @@ ammoTypes: {
  copper: {
   damage: 9
   ammoMultiplier: 3
-  speed: 4
+  speed: 3
   height: 8
   width: 6
-  lifetime: 24
+  lifetime: 32
   }
  lead: {
   damage: 7
   ammoMultiplier: 2
-  shootSpeed: 0.7
-  speed: 5
+  reloadTime: 35
+  speed: 3
   height: 8
   width: 6
-  lifetime: 19
+  lifetime: 32
   fragBullets: 3
   fragBullet: {
   type: BasicBulletType
@@ -39,7 +39,7 @@ ammoTypes: {
   height: 3
   width: 2
   speed: 3
-  lifetime: 5
+  lifetime: 10
    }
   }
  }
