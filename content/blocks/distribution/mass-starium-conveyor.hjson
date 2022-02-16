@@ -1,7 +1,10 @@
 type: StackConveyor
+name: Starium Alloy Conveyor
+description: An upgraded version of Plastanium conveyor, much better speed and stack size.
+category: distribution
 health: 120
-itemCapacity: 25
-speed: 0.15
+itemCapacity: 15
+speed: 0.12
 recharge: 3
 research: starium-conveyor
 loadEffect: {
