@@ -1,5 +1,4 @@
 type: mech
-name: ToastNight
 controller: GroundAI
 hitSize: 12
 canBoost: false
