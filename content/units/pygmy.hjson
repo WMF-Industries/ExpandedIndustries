@@ -1,5 +1,4 @@
 type: flying
-name: Pygmy
 localizedName: Pygmy
 description: Shoots nearby enemies releasing piercing frags afterwards.
 health: 175
