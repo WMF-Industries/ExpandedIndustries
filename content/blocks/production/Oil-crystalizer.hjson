@@ -1,6 +1,4 @@
 type: GenericCrafter
-name: Oil Crystalizer
-description: Makes coal.
 health: 280
 size: 3
 
