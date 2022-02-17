@@ -1,6 +1,4 @@
 type: GenericSmelter
-name: Peridotium Synthetizer 
-description: Makes peridotium.
 health: 280
 size: 3
 
