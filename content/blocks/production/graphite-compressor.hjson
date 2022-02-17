@@ -1,6 +1,4 @@
 type: GenericCrafter
-name: Graphite Compressor
-description: Makes graphite.
 health: 280
 size: 4
 
