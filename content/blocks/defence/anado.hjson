@@ -1,7 +1,5 @@
 type: ItemTurret
 category: turret
-name: Anado
-description: Duo v2
 health: 320
 size: 1
 maxAmmo: 45
