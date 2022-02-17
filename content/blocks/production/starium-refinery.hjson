@@ -1,6 +1,4 @@
 type: GenericSmelter
-name: Starium Refiner
-description: Smelts Starium and Surge Alloy into much stronger Starium Alloy.
 health: 280
 size: 3
 
