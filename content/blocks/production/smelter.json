@@ -1,8 +1,6 @@
 {
 	"type": "GenericSmelter",
 	"outputItem": {"item": "silicon", "amount": 16},
-	"name": "Mass Silicon Smelter",
-	"description": "hhhhhhhhhhhhhhhh",
 	"size": 4,
 	"hasPower": true,
 	"hasItems": true,
