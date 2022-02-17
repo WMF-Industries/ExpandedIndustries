@@ -1,6 +1,5 @@
 type: legs
 hovering: true
-name: Terrand
 description: sus
 hitSize: 30
 isCounted: true
