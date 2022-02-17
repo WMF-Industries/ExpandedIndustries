@@ -1,5 +1,3 @@
-name: Starium Junction
-description: Better junction :D
 type: Junction
 requiresWater: false
 health: 80
