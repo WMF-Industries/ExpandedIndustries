@@ -1,5 +1,4 @@
 type: flying
-name: Alturion
 controller: MinerAI
 itemCapacity: 60
 hitSize: 14
