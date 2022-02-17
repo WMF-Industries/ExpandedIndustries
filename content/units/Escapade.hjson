@@ -1,5 +1,4 @@
 type: legs
-name: Escapade
 controller: GroundAI
 hovering: true
 drawShields: false
