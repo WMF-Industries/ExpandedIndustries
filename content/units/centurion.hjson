@@ -1,5 +1,4 @@
 type: flying
-name: Centurion
 controller: MinerAI
 hitSize: 10
 itemCapacity: 40
