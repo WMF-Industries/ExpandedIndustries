@@ -1,6 +1,4 @@
 type: LiquidConverter
-name: Cryofluid Production Plant
-description: Better than Cryofluid Mixer :D
 drawer: DrawLiquid
 health: 560
 size: 4
