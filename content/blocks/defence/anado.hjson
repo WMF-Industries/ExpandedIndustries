@@ -38,6 +38,7 @@ ammoTypes: {
   speed: 1
   lifetime: 20
    }
+  }
     metaglass: {
   damage: 14
   ammoMultiplier: 4
@@ -55,6 +56,7 @@ ammoTypes: {
   speed: 1
   lifetime: 20
   }
+ }
       plastanium: {
   damage: 21
   ammoMultiplier: 4
@@ -73,7 +75,7 @@ ammoTypes: {
   lifetime: 20
   }
  }
-
+}
 requirements: [
  copper/45
  lead/20
