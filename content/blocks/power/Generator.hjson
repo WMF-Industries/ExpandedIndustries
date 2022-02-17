@@ -1,5 +1,3 @@
-name: Enhanced Peridotium Generator
-description: Uses rich fuel to produce energy. Good when there isn't enough coolant to cool Peridotium Reactor.
 category: power
 type: decayGenerator
 health: 2700
