@@ -1,6 +1,4 @@
 type: Drill
-name: Precision Drill
-description: Powered by water.
 size: 4
 tier: 5
 drillTime: 240
