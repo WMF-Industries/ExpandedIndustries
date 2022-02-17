@@ -1,5 +1,4 @@
 type: flying
-name: SmolBoi
 flying: true
 health: 210
 speed: 1.9
