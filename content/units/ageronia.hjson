@@ -1,7 +1,5 @@
 type: flying
-name: ageronia
 localizedName: Ageronia
-description: Fires 2 homing missiles that pierces targets..
 health: 500
 armor: 6
 speed: 1.9
