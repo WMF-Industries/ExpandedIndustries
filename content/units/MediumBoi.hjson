@@ -1,5 +1,4 @@
 type: flying
-name: MediumBoi
 flying: true
 health: 490
 speed: 1.8
