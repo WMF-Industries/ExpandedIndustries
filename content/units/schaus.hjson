@@ -1,5 +1,4 @@
 type: flying
-name: Schaus
 localizedName: Schaus
 description: Shoots multiple bullets around the unit.
 health: 350
