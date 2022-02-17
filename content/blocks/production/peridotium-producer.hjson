@@ -1,6 +1,4 @@
 type: GenericSmelter
-name: Starium Synthetizer
-description: Makes starium.
 health: 280
 size: 3
 
