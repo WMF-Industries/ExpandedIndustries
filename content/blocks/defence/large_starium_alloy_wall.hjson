@@ -1,6 +1,4 @@
 type: Wall
-name: Large Starium Alloy Wall
-description: Starium Alloy OP.
 health: 7800
 size: 2
 absorbLasers: true
