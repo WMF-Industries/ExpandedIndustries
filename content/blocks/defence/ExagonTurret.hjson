@@ -1,6 +1,4 @@
 type: ItemTurret
-name: Exagon Artillery Turret
-description: High damage, low firerate. 
 health: 540
 targetGround: true
 targetAir: false
