@@ -1,6 +1,4 @@
 type: UnitFactory
-name: Ground Starium Constructor
-description: Makes ExpandedIndustries ground units.
 size: 3
 hasItems: true
 hasPower: true
