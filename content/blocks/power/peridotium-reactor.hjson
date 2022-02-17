@@ -1,5 +1,3 @@
-name: Peridotium Reactor
-description: Produces extreme amounts of energy using peridotium as a fuel and water as a coolant.
 category: power
 type: NuclearReactor
 health: 3400
