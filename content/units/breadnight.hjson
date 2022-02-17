@@ -1,5 +1,4 @@
 type: mech
-name: Breadnight
 controller: BuilderAI
 hitSize: 8
 canBoost: true
