@@ -1,6 +1,4 @@
 type: GenericCrafter
-name: Peridotium Enhancer
-description: Compreses 20 peridotium into 1 Enhanced Peridotium. Not very effective when placed alone.
 health: 280
 size: 2
 
@@ -19,7 +17,7 @@ consumes: {
   power: 0.45
   items: {
     items: [
-      peridotium/20
+      peridotium/5
     ]
   }
 }
