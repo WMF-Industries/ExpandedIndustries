@@ -7,3 +7,9 @@ itemCapacity: 4000
 category: effect
 breakable: true
 buildTime: 120
+requirements: [
+copper/4000
+lead/3000
+silicon/2000
+}
+research: core-nucleus
