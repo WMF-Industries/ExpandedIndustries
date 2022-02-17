@@ -1,6 +1,4 @@
 type: GenericSmelter
-name: Metaglass Forge
-description: Mmmmmm metaglass.
 health: 340
 size: 3
 
