@@ -6,3 +6,4 @@ health: 1500
 itemCapacity: 4000
 category: effect
 breakable: true
+buildTime: 120
