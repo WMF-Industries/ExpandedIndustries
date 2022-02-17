@@ -4,6 +4,7 @@ description: Highly unstable impact reactor, producing much power using Lumium a
 explosionRadius: 57.5
 explosionDamage: 45000000
 liquidCapacity: 1400
+itemDuration: 180
 size: 5
 hasLiquids: true
 powerProduction: 435
