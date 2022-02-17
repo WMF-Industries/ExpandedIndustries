@@ -11,5 +11,5 @@ requirements: [
 copper/4000
 lead/3000
 silicon/2000
-}
+]
 research: core-nucleus
