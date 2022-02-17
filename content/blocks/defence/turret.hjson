@@ -1,6 +1,4 @@
 type: PowerTurret
-name: Piercer
-description: Shoots a projectile that pierces targets, releasing multiple lasers on contact.
 range: 200
 size: 3
 health: 2000
