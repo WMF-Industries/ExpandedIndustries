@@ -33,8 +33,9 @@ ammoTypes: {
   type: BasicBulletType
   damage: 4
   splashDamage: 2
+  splashDamageRadius: 40
   height: 5
-  width: 3
+  width: 4
   speed: 1
   lifetime: 20
    }
@@ -51,8 +52,9 @@ ammoTypes: {
   type: BasicBulletType
   damage: 7
   splashDamage: 6
+  splashDamageRadius: 40
   height: 5
-  width: 3
+  width: 4
   speed: 1
   lifetime: 20
   }
@@ -69,8 +71,9 @@ ammoTypes: {
   type: BasicBulletType
   damage: 13
   splashDamage: 9
+  splashDamageRadius: 40
   height: 5
-  width: 3
+  width: 4
   speed: 1
   lifetime: 20
   }
