@@ -20,13 +20,13 @@ weapons: [
     shots: 3
     shotDelay: 15
     shake: 0.4
+    shootSound: lancer
     bullet: {
       type: LaserBulletType
       damage: 9
       lifetime: 30
       length: 18
       collidesTeam: false
-      shootSound: lancer
       }
     }
   {
