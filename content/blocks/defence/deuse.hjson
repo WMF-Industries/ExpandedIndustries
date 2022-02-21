@@ -8,10 +8,13 @@ shots: 6
 burstSpacing: 5
 targetGround: true
 targetAir: true
+inaccuracy: 0
+shootCone: 0
 recoilAmount: 1.7
 range: 145
 reloadTime: 90
 rotateSpeed: 4.7
+shootSound: shootBig
 ammoTypes: {
  starium: {
   damage: 19
