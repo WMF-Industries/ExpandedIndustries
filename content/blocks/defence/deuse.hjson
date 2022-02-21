@@ -9,7 +9,7 @@ burstSpacing: 5
 targetGround: true
 targetAir: true
 inaccuracy: 0
-shootCone: 0
+shootCone: 0.1
 recoilAmount: 1.7
 range: 145
 reloadTime: 90
