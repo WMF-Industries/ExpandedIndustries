@@ -12,7 +12,7 @@ inaccuracy: 0
 spread: 0
 recoilAmount: 1.7
 range: 145
-reloadTime: 90
+reloadTime: 70
 rotateSpeed: 4.7
 shootSound: shootBig
 ammoTypes: {
