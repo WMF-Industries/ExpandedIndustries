@@ -9,7 +9,7 @@ burstSpacing: 5
 targetGround: true
 targetAir: true
 inaccuracy: 0
-shootCone: 0.1
+spread: 0
 recoilAmount: 1.7
 range: 145
 reloadTime: 90
@@ -34,8 +34,8 @@ ammoTypes: {
   fragBullet: {
   type: BasicBulletType
   damage: 4
-  splashDamage: 2
-  splashDamageRadius: 40
+  splashDamage: 7
+  splashDamageRadius: 25
   height: 5
   width: 4
   speed: 1
@@ -53,8 +53,8 @@ ammoTypes: {
   fragBullet: {
   type: BasicBulletType
   damage: 7
-  splashDamage: 6
-  splashDamageRadius: 40
+  splashDamage: 11
+  splashDamageRadius: 25
   height: 5
   width: 4
   speed: 1
@@ -72,8 +72,8 @@ ammoTypes: {
   fragBullet: {
   type: BasicBulletType
   damage: 13
-  splashDamage: 9
-  splashDamageRadius: 40
+  splashDamage: 16
+  splashDamageRadius: 25
   height: 5
   width: 4
   speed: 1
