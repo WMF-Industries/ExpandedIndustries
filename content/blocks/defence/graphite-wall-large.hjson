@@ -1,0 +1,11 @@
+type: Wall
+health: 1530
+size: 2
+category: defense
+solid: true
+requirements: [
+graphite/24
+]
+
+category: defense
+Research: copper-wall-large
