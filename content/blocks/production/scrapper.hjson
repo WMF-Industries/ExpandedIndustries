@@ -2,7 +2,7 @@ type: genericCrafter
 craftTime: 30
 size: 2
 drawer: {
-  type: drawAnimation
+  type: drawRotator
 }
 hasPower: true
 hasItems: true
