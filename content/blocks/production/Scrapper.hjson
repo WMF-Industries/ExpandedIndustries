@@ -1,0 +1,26 @@
+type: genericCrafter
+craftTime: 30
+size: 2
+drawer: {
+  type: drawAnimation
+}
+hasPower: true
+hasItems: true
+consumes: {
+  items: {
+    items: [
+  copper/5
+  sand/5
+    ]
+  }
+  power: 1
+}
+craftEffect: smokeCloud
+requirements: [
+  copper/200
+  lead/150
+  copper/20
+]
+category: crafting
+outputItem: scrap/1
+research: pulverizer
