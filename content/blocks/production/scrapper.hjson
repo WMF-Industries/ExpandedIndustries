@@ -9,8 +9,8 @@ hasItems: true
 consumes: {
   items: {
     items: [
-  copper/5
-  sand/5
+  copper/2
+  sand/3
     ]
   }
   power: 1
