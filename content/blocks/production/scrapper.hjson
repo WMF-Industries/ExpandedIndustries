@@ -15,7 +15,7 @@ consumes: {
   }
   power: 1
 }
-craftEffect: smoke
+craftEffect: steam
 requirements: [
   copper/200
   lead/150
