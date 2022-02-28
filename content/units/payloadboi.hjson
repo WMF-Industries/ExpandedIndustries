@@ -4,6 +4,6 @@ speed: 2.3
 turnSpeed: 3.3
 payloadCapacity: 1200
 engineSize: 4.5
-engineOffset: 12
+engineOffset: 16
 itemCapacity: 340
 flying: true
