@@ -1,6 +1,6 @@
 type: payload
-health: 7200
-speed: 2.7
+health: 5300
+speed: 3.35
 turnSpeed: 3.3
 payloadCapacity: 1200
 engineSize: 4.5
