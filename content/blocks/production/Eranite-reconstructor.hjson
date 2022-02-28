@@ -6,11 +6,10 @@ consumes: {
   power: 2.5
     items: {
       items: [
-        lead/650
-        silicon/450
-        titanium/300
-        thorium/650
-        starium-alloy/20
+      silicon/300
+      titanium/350
+      starium/100
+      metaglass/50
       ]
     }
   liquid: {
