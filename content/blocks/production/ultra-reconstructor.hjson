@@ -6,11 +6,11 @@ consumes: {
   power: 3
     items: {
       items: [
-        silicon/850
-        titanium/750
-        plastanium/650
-        starium-alloy/100
-        enhanced-peridotium/25
+       silicon/670
+       titanium/720
+       thorium/200
+       starium/60
+       enhanced-peridotium/20
       ]
     }
   liquid: {
