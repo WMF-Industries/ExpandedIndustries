@@ -6,3 +6,4 @@ payloadCapacity: 800
 engineSize: 4.5
 engineOffset: 12
 itemCapacity: 340
+flying: true
