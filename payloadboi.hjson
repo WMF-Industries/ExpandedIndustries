@@ -1,0 +1,12 @@
+type: flying
+flying: true
+health: 7200
+speed: 2.3
+rotateSpeed: 3
+lightRadius: 50
+faceTarget: true
+lightColor: 84f591
+itemCapacity: 340
+engineSize: 4.5
+engineOffset: 8
+payloadCapacity: 25
