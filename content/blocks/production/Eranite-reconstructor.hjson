@@ -12,10 +12,6 @@ consumes: {
       metaglass/50
       ]
     }
-  liquid: {
-    liquid: cryofluid
-    amount: 0.5
-  }
 }
 upgrades: [
   [rusher, Escapade]
