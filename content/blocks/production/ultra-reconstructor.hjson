@@ -20,7 +20,7 @@ consumes: {
 }
 upgrades: [
   [Escapade, Natorin]
-  [Largeboi, payloadboi]
+  [LargeBoi, payloadboi]
 ]
 requirements: [
   lead/2400
