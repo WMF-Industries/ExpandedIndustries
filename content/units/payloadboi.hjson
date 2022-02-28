@@ -1,0 +1,8 @@
+type: flying
+health: 7200
+speed: 2.3
+turnSpeed: 3.3
+payloadCapacity: 800
+engineSize: 4.5
+engineOffset: 12
+itemCapacity: 340
