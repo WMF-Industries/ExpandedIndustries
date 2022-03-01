@@ -1,7 +1,4 @@
 # Expanded Industries
-Progressing is easier.
-The mod is under development, lots of features will be added, there are some bugs.
-Update 1.4 Beta is here! We fixed a lot of graphical issues, rebalanced most of the things and added new stuff!
-Now using boundles :D
-
+Update 1.4 Beta introduces much new stuff and removes much bugs :>
+However the mod is no longer compatible with v6
 
