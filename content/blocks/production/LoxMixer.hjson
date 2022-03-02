@@ -1,5 +1,5 @@
 type: LiquidConverter
-drawer: DrawLiquid
+drawer: DrawMixer
 health: 580
 size: 2
 hasItems: false
@@ -16,8 +16,10 @@ requirements: [
 
 consumes: {
   power: 1.2
-    liquid:
-     cryofluid/0.25
+  liquid: {
+    liquid: cryofluid
+    amount: 0.25
+  }
 }
 outputLiquid: lox/60
 craftTime: 120
