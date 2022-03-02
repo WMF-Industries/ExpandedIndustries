@@ -54,7 +54,6 @@ hitColor: 83f793
             lightningCone: 0
             lightningType: { 
          type: EmpBulletType
-         scaleVelocity: true
          damage: 20
          splashDamage: 30
          splashDamageRadius: 90
@@ -87,83 +86,7 @@ hitColor: 83f793
                   }
                ]
             }
-                        lightning: 1
-            lightningLength: 2
-            lightningCone: 0
-            lightningType: { 
-         type: EmpBulletType
-         scaleVelocity: true
-         damage: 20
-         splashDamage: 30
-         splashDamageRadius: 90
-         speed: 0
-         lifetime: 60
-         sprite: circle-bullet
-         width: 15
-         height: 15
          }
-         hitEffect: {
-            type: MultiEffect
-            effects: [
-               {
-                  type: WaveEffect
-                  sizeFrom: 0
-                  sizeTo: 90
-                  lifetime: 60
-                  colorFrom: a5f5af
-                  colorTo: ffffff
-               }
-               {
-                  type: ParticleEffect
-                  length: 0
-                  lifetime: 60
-                  particles: 1
-                  sizeFrom: 0
-                  sizeTo: 5
-                  colorFrom: a5f5af
-                  colorTo: ffffff
-                  }
-               ]
-            }
-                        lightning: 1
-            lightningLength: 2
-            lightningCone: 0
-             lightningType: { 
-         type: EmpBulletType
-         scaleVelocity: true
-         damage: 20
-         splashDamage: 30
-         splashDamageRadius: 90
-         speed: 0
-         lifetime: 60
-         sprite: circle-bullet
-         width: 15
-         height: 15
-         }
-         hitEffect: {
-            type: MultiEffect
-            effects: [
-               {
-                  type: WaveEffect
-                  sizeFrom: 0
-                  sizeTo: 90
-                  lifetime: 60
-                  colorFrom: a5f5af
-                  colorTo: ffffff
-               }
-               {
-                  type: ParticleEffect
-                  length: 0
-                  lifetime: 60
-                  particles: 1
-                  sizeFrom: 0
-                  sizeTo: 5
-                  colorFrom: a5f5af
-                  colorTo: ffffff
-                  }
-               ]
-             }
-           }
  requirements: [
    copper/200
    lead/320
