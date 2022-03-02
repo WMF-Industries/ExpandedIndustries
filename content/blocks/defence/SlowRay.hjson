@@ -50,7 +50,7 @@ hitColor: 83f793
                   length: 0
                   lifetime: 60
                   particles: 1
-                  sizeFrom: 5
+                  sizeFrom: 0
                   sizeTo: 5
                   colorFrom: a5f5af
                   colorTo: ffffff
