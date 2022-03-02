@@ -32,20 +32,12 @@ hitColor: 83f793
                {
                   type: WaveEffect
                   sizeFrom: 90
-                  sizeTo: 0
-                  lifetime: 5
-                  colorFrom: a5f5af
-                  colorTo: ffffff
-              }
-              {
-                  type: WaveEffect
-                  sizeFrom: 90
                   sizeTo: 90
-                  lifetime: 55
+                  lifetime: 60
                   colorFrom: a5f5af
                   colorTo: ffffff
-              }
-              {
+               }
+               {
                   type: ParticleEffect
                   length: 0
                   lifetime: 60
