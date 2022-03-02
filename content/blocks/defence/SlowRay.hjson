@@ -54,9 +54,9 @@ hitEffect: {
       sizeFrom: 4
       sizeTo: 0
       colorTo: 83f793
-    }
+   }
   ]
-}
+ }
 trailWidth: 3
 trailLength: 15
 trailColor: 83f793
