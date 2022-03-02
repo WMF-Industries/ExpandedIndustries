@@ -58,6 +58,11 @@ hitColor: 83f793
          damage: 20
          splashDamage: 30
          splashDamageRadius: 90
+         speed: 0
+         lifetime: 60
+         sprite: circle-bullet
+         width: 15
+         height: 15
          }
          hitEffect: {
             type: MultiEffect
@@ -91,6 +96,11 @@ hitColor: 83f793
          damage: 20
          splashDamage: 30
          splashDamageRadius: 90
+         speed: 0
+         lifetime: 60
+         sprite: circle-bullet
+         width: 15
+         height: 15
          }
          hitEffect: {
             type: MultiEffect
@@ -118,12 +128,17 @@ hitColor: 83f793
                         lightning: 1
             lightningLength: 2
             lightningCone: 0
-            lightningType: { 
+             lightningType: { 
          type: EmpBulletType
          scaleVelocity: true
          damage: 20
          splashDamage: 30
          splashDamageRadius: 90
+         speed: 0
+         lifetime: 60
+         sprite: circle-bullet
+         width: 15
+         height: 15
          }
          hitEffect: {
             type: MultiEffect
