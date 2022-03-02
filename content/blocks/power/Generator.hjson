@@ -1,12 +1,12 @@
 category: power
-type: decayGenerator
+type: SingleTypeGenerator
 health: 2700
 size: 5
-hasItems: yes
-itemDuration: 600
-powerProduction: 30
+hasItems: true
+hasLiquids: true
+itemDuration: 400
+powerProduction: 50
 itemCapacity: 10
-solid: true
 requirements: [
   copper/1200
   graphite/140
@@ -17,12 +17,15 @@ requirements: [
   enhanced-peridotium/130
 ]
 consumes: {
-     items: {
-      items: [
-     enhanced-peridotium/1
-      ]
-    }
+  items: {
+    items: [
+      enhanced-peridotium/1
+    ]
+  }
+  liquid: {
+    liquid: cryofluid
+    amount: 0.2
+  }
 }
-
 category: power
 research: rtg-generator
