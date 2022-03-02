@@ -41,7 +41,7 @@ weapons: [
     alternate: true
     reload: 15
     bullet: {
-      type: basicBulletType
+      type: BasicBulletType
       damage: 4
       lifetime: 25
       speed: 4

@@ -30,7 +30,7 @@ weapons: [
     shootSound: shoot
     shake: 4
     bullet: {
-      type: AltilleryBulletType
+      type: ArtilleryBulletType
       damage: 65
       height: 8
       width: 8
@@ -48,7 +48,7 @@ weapons: [
     reload: 60
     shootSound: laser
     bullet: {
-      type: laserBulletType
+      type: LaserBulletType
       damage: 90
       healPercent: 10
       collidesTeam: true

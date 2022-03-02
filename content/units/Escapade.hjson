@@ -38,7 +38,7 @@ weapons: [
       height: 15
       width: 15
       splashDamage: 25
-      splashDamageRange: 15
+      splashDamageRadius: 15
       }
     }
   {
@@ -51,7 +51,7 @@ weapons: [
     reload: 40
     shootSound: laser
     bullet: {
-      type: laserBulletType
+      type: LaserBulletType
       damage: 190
       healPercent: 3
       collidesTeam: true

@@ -3,7 +3,7 @@ health: 280
 size: 3
 
 hasItems: true
-hasLiquid: true
+hasLiquids: true
 hasPower: true
 itemCapacity: 40
 

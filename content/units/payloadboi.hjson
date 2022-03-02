@@ -1,7 +1,7 @@
 type: payload
 health: 5300
 speed: 3.35
-turnSpeed: 3.3
+rotateSpeed: 3.3
 payloadCapacity: 1200
 engineSize: 4.5
 engineOffset: 16

@@ -28,7 +28,7 @@ weapons: [
    reload: 75
    shootSound: laser
    bullet: {
-   type: laserBulletType
+   type: LaserBulletType
    collidesTeam: true
    damage: 25
    healPercent: 25

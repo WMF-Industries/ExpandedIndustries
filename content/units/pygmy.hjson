@@ -36,8 +36,6 @@ weapons: [
          sprite: shell
          trailLength: 6
          trailWidth: 1.75
-         trailMult: 1
-         trailSize: 1
          trailColor: 6d56bf
          fragCone: 100
          fragBullets: 2
@@ -58,8 +56,6 @@ weapons: [
             trailEffect: artilleryTrail
             trailLength: -1
             trailWidth: 2
-            trailMult: 0.75
-            trailSize: 4
             trailColor: 6d56bf
          }
       }

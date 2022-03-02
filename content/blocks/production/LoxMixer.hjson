@@ -3,7 +3,7 @@ drawer: DrawLiquid
 health: 580
 size: 2
 hasItems: false
-hasLiquid: true
+hasLiquids: true
 hasPower: true
 liquidCapacity: 120
 

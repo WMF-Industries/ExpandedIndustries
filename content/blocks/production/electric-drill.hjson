@@ -3,7 +3,7 @@ size: 2
 tier: 4
 drillTime: 330
 hasItems: true
-hasLiquid: false
+hasLiquids: false
 hasPower: true
 drawRim: false
 heatColor: F6FFB2

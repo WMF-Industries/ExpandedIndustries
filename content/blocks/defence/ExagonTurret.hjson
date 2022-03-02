@@ -4,14 +4,13 @@ targetGround: true
 targetAir: false
 hasItems: true
 solid: true
-
+//idk what you guys were doing with shootWidth, what does that mean? removed cause console
 shootSound: artillery
 reloadTime: 150
 ammoPerShot: 1.0
 range: 600
 size: 3
-shots: 1
-shootWidth: 4
+shots: 1 
 shootShake: 1.2
 recoilAmount: 4.7
 rotateSpeed: 100

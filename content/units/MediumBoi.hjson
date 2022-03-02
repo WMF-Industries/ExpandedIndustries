@@ -15,26 +15,26 @@ weapons: [
   x: 0
   y: 0
   shootSound: explosion
-  shootEffect: {
-     type: MultiEffect
-     effects: [
-        {
-           type: WaveEffect
-           sizeFrom: 120
-           sizeTo: 0
-           colorFrom: ffe266
-           colorTo: eec44f
-        }
-        {
-           type: ParticleEffect
-           region: circle
-           sizeFrom: 2
-           sizeTo: 0
-        }
-     ]
-  }
   bullet: {
     type: BombBulletType
+    shootEffect: {
+      type: MultiEffect
+      effects: [
+         {
+            type: WaveEffect
+            sizeFrom: 120
+            sizeTo: 0
+            colorFrom: ffe266
+            colorTo: eec44f
+         }
+         {
+            type: ParticleEffect
+            region: circle
+            sizeFrom: 2
+            sizeTo: 0
+         }
+      ]
+   }
     hitEffect: {
        type: MultiEffect
        effects: [

@@ -5,7 +5,6 @@ hitSize: 30
 isCounted: true
 itemCapacity: 180
 health: 21200
-size: 8
 armor: 30
 controller: GroundAI
 legCount: 10
@@ -75,7 +74,7 @@ weapons: [
       reload: 30
       x: 38.75
       y: 0
-      shootx: -6
+      shootX: -6
       shootY: 38
       shots: 1
       inaccuracy: 1
@@ -86,7 +85,6 @@ weapons: [
          speed: 8
          lifetime: 100
          damage: 80
-         length: 10
          height: 10
          width: 10
          speed: 3
@@ -96,7 +94,6 @@ weapons: [
             hitSound: shotgun
             despawnSound: shotgun
             damage: 120
-            spread: 45
             length: 80
             width: 50
             speed: 0
