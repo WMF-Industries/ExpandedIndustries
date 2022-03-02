@@ -1,0 +1,64 @@
+type: PowerTurret
+range: 200
+size: 3
+health: 2000
+recoilAmount: 2
+powerUse: 12.5
+reloadTime: 125
+shootType: {
+type: EmpBulletType
+scaleVelocity: true
+damage: 20
+splashDamage: 30
+splashDamageRadius: 30
+healPercent: 7
+radius: 30
+unitDamageScl: 0.8
+timeIncrease: 1.25
+timeDuration: 240
+speed: 5
+lifetime: 40
+sprite: circle-bullet
+width: 6
+height: 6
+shrinkY: 0
+frontColor: ffffff
+backColor: 83f793
+lightColor: 83f793
+hitColor: 83f793
+hitEffect: {
+  lifetime: 70
+  effects: [
+    {
+      lifetime: 5
+      particles: 1
+      length: 0
+      sizeFrom: 30
+      sizeTo: 30
+      colorFrom: 83f793
+      colorTo: 83f793
+    }
+    {
+      lifetime: 70
+      sizeFrom: 30
+      sizeTo: 30
+      strokeFrom: 2
+      strokeTo: 0
+      colorFrom: 83f793
+      colorTo: 83f793
+    }
+    {
+      lifetime: 70
+      length: 0
+      particles: 1
+      sizeFrom: 4
+      sizeTo: 0
+      colorTo: 83f793
+    }
+  ]
+}
+trailWidth: 3
+trailLength: 15
+trailColor: 83f793
+despawnEffect: none
+despawnHit: true
