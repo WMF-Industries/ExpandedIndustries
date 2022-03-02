@@ -58,6 +58,7 @@ hitColor: 83f793
          damage: 20
          splashDamage: 30
          splashDamageRadius: 90
+         }
          hitEffect: {
             type: MultiEffect
             effects: [
@@ -90,6 +91,7 @@ hitColor: 83f793
          damage: 20
          splashDamage: 30
          splashDamageRadius: 90
+         }
          hitEffect: {
             type: MultiEffect
             effects: [
@@ -122,6 +124,7 @@ hitColor: 83f793
          damage: 20
          splashDamage: 30
          splashDamageRadius: 90
+         }
          hitEffect: {
             type: MultiEffect
             effects: [
@@ -147,7 +150,6 @@ hitColor: 83f793
              }
            }
          }
-       }
  requirements: [
    copper/200
    lead/320
