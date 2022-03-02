@@ -144,9 +144,10 @@ hitColor: 83f793
                   colorTo: ffffff
                   }
                ]
-            }
- }
-}
+             }
+           }
+         }
+       }
  requirements: [
    copper/200
    lead/320
