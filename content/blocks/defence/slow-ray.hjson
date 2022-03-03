@@ -7,8 +7,10 @@ powerUse: 12.5
 reloadTime: 300
 shootType: {
   type: EmpBulletType
+  status: electrified
+  statusDuration: 600
   scaleVelocity: true
-  damage: 20
+  damage: 70
   healPercent: 7
   radius: 90
   unitDamageScl: 0.8
@@ -52,7 +54,9 @@ shootType: {
   lightningCone: 0
   lightningType: { 
     type: EmpBulletType
-    damage: 20
+    status: electrified
+    statusDuration: 600
+    damage: 70
     healPercent: 7
     radius: 90
     unitDamageScl: 0.8
@@ -96,7 +100,9 @@ shootType: {
     lightningCone: 0
     lightningType: { 
       type: EmpBulletType
-      damage: 20
+      status: electrified
+      statusDuration: 600
+      damage: 70
       healPercent: 7
       radius: 90
       unitDamageScl: 0.8
@@ -140,7 +146,9 @@ shootType: {
       lightningCone: 0
       lightningType: { 
         type: EmpBulletType
-        damage: 20
+        status: electrified
+        statusDuration: 600
+        damage: 70
         healPercent: 7
         radius: 90
         unitDamageScl: 0.8
@@ -184,7 +192,9 @@ shootType: {
         lightningCone: 0
         lightningType: { 
           type: EmpBulletType
-          damage: 20
+          status: electrified
+          statusDuration: 600
+          damage: 70
           healPercent: 7
           radius: 90
           unitDamageScl: 0.8
@@ -229,12 +239,13 @@ shootType: {
   }
 }
 requirements: [
-  copper/200
-  lead/320
-  silicon/175
-  titanium/240
-  thorium/170
-  starium/30
+  copper/560
+  lead/510
+  silicon/270
+  titanium/350
+  thorium/260
+  starium/300
+  starium-alloy/75
 ]
-research: fuse
+research: turret
 category: turret
