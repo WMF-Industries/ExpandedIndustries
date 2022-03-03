@@ -1,21 +1,23 @@
 type: PowerTurret
-range: 200
+range: 300
 size: 3
-health: 2000
+health: 1650
 recoilAmount: 2
-powerUse: 12.5
+powerUse: 14
 reloadTime: 300
 shootType: {
   type: EmpBulletType
+  status: electrified
+  statusDuration: 300
   scaleVelocity: true
-  damage: 20
+  damage: 120
   healPercent: 7
   radius: 90
   unitDamageScl: 0.8
   timeIncrease: 1.25
   timeDuration: 240
   speed: 5
-  lifetime: 40
+  lifetime: 60
   sprite: circle-bullet
   width: 15
   height: 15
@@ -52,7 +54,9 @@ shootType: {
   lightningCone: 0
   lightningType: { 
     type: EmpBulletType
-    damage: 20
+    status: electrified
+    statusDuration: 300
+    damage: 120
     healPercent: 7
     radius: 90
     unitDamageScl: 0.8
@@ -96,7 +100,9 @@ shootType: {
     lightningCone: 0
     lightningType: { 
       type: EmpBulletType
-      damage: 20
+      status: electrified
+      statusDuration: 300
+      damage: 120
       healPercent: 7
       radius: 90
       unitDamageScl: 0.8
@@ -140,7 +146,9 @@ shootType: {
       lightningCone: 0
       lightningType: { 
         type: EmpBulletType
-        damage: 20
+        status: electrified
+        statusDuration: 300
+        damage: 120
         healPercent: 7
         radius: 90
         unitDamageScl: 0.8
@@ -184,7 +192,9 @@ shootType: {
         lightningCone: 0
         lightningType: { 
           type: EmpBulletType
-          damage: 20
+          status: electrified
+          statusDuration: 300
+          damage: 120
           healPercent: 7
           radius: 90
           unitDamageScl: 0.8
@@ -229,12 +239,13 @@ shootType: {
   }
 }
 requirements: [
-  copper/200
-  lead/320
-  silicon/175
-  titanium/240
-  thorium/170
-  starium/30
+  copper/560
+  lead/510
+  silicon/270
+  titanium/350
+  thorium/260
+  starium/300
+  starium-alloy/75
 ]
-research: fuse
+research: turret
 category: turret
