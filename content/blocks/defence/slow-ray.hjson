@@ -1,23 +1,23 @@
 type: PowerTurret
-range: 200
+range: 300
 size: 3
-health: 2000
+health: 1650
 recoilAmount: 2
-powerUse: 12.5
+powerUse: 14
 reloadTime: 300
 shootType: {
   type: EmpBulletType
   status: electrified
-  statusDuration: 600
+  statusDuration: 300
   scaleVelocity: true
-  damage: 70
+  damage: 120
   healPercent: 7
   radius: 90
   unitDamageScl: 0.8
   timeIncrease: 1.25
   timeDuration: 240
   speed: 5
-  lifetime: 40
+  lifetime: 60
   sprite: circle-bullet
   width: 15
   height: 15
@@ -55,8 +55,8 @@ shootType: {
   lightningType: { 
     type: EmpBulletType
     status: electrified
-    statusDuration: 600
-    damage: 70
+    statusDuration: 300
+    damage: 120
     healPercent: 7
     radius: 90
     unitDamageScl: 0.8
@@ -101,8 +101,8 @@ shootType: {
     lightningType: { 
       type: EmpBulletType
       status: electrified
-      statusDuration: 600
-      damage: 70
+      statusDuration: 300
+      damage: 120
       healPercent: 7
       radius: 90
       unitDamageScl: 0.8
@@ -147,8 +147,8 @@ shootType: {
       lightningType: { 
         type: EmpBulletType
         status: electrified
-        statusDuration: 600
-        damage: 70
+        statusDuration: 300
+        damage: 120
         healPercent: 7
         radius: 90
         unitDamageScl: 0.8
@@ -193,8 +193,8 @@ shootType: {
         lightningType: { 
           type: EmpBulletType
           status: electrified
-          statusDuration: 600
-          damage: 70
+          statusDuration: 300
+          damage: 120
           healPercent: 7
           radius: 90
           unitDamageScl: 0.8
