@@ -14,12 +14,13 @@ range: 120
 reloadTime: 20
 rotateSpeed: 4.2
 ammoTypes: {
- starium: {
+ scrap: {
   damage: 8
   speed: 2
   height: 8
   width: 6
   lifetime: 60
+  fragBullets: 4
   fragBullet: {
   type: BasicBulletType
   damage: 5
