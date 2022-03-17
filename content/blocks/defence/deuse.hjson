@@ -16,12 +16,23 @@ reloadTime: 70
 rotateSpeed: 4.7
 shootSound: shootBig
 ammoTypes: {
- starium: {
-  damage: 19
-  speed: 2.5
-  height: 12
-  width: 9
-  lifetime: 48
+ammoTypes: {
+ scrap: {
+  damage: 10
+  speed: 2
+  height: 8
+  width: 6
+  lifetime: 60
+  fragBullet: {
+  type: BasicBulletType
+  damage: 5
+  splashDamage: 6
+  splashDamageRadius: 25
+  height: 5
+  width: 4
+  speed: 1
+  lifetime: 20
+   }
   }
  lead: {
   damage: 9
