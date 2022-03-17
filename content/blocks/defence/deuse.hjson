@@ -23,6 +23,7 @@ ammoTypes: {
   height: 8
   width: 6
   lifetime: 60
+  fragBullets: 4
   fragBullet: {
   type: BasicBulletType
   damage: 5
