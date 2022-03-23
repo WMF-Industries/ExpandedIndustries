@@ -30,7 +30,7 @@ weapons: [
       firstShotDelay: 170
       shootStatus: unmoving
       shootStatusDuration: 185
-      chargeSound: laser
+      chargeSound: lasercharge
       shake: 2
       bullet: {
          type: LaserBulletType
