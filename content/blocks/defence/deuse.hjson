@@ -80,7 +80,7 @@ ammoTypes: {
   height: 12
   width: 9
   lifetime: 40
-  fragBullets: 6
+  fragBullets: 7
   fragBullet: {
   type: BasicBulletType
   damage: 13
