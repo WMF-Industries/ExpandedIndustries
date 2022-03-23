@@ -16,7 +16,6 @@ reloadTime: 70
 rotateSpeed: 4.7
 shootSound: shootBig
 ammoTypes: {
-ammoTypes: {
  scrap: {
   damage: 10
   speed: 2
