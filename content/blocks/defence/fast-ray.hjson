@@ -16,7 +16,7 @@ shootEffect: {
       length: 0
       particles: 1
       offset: 25
-      region: expanded-industries-shootspike
+      region: ei-shootspike
       lifetime: 40
       sizeFrom: 35
       sizeTo: 0
@@ -28,7 +28,7 @@ shootEffect: {
       length: 0
       particles: 1
       offset: -25
-      region: expanded-industries-shootspike
+      region: ei-shootspike
       lifetime: 40
       sizeFrom: 35
       sizeTo: 0
@@ -72,7 +72,7 @@ shootType: {
   fragLifeMin: 0
   fragBullet: {
     type: EmpBulletType
-    status: expanded-industries-lockdown
+    status: ei-lockdown
     statusDuration: 360
     damage: 25
     speed: 0
@@ -168,9 +168,11 @@ shootType: {
 category: turret
 research: slow-ray
 requirements: [
+  copper/1500
   graphite/1000
   silicon/450
   thorium/250
   plastanium/200
   phase-fabric/300
+  starium-alloy/230
 ]
