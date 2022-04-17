@@ -19,7 +19,7 @@ craftEffect: steam
 requirements: [
   copper/200
   lead/150
-  copper/20
+  graphite/70
 ]
 category: crafting
 outputItem: scrap/1
