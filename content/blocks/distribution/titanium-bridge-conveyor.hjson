@@ -2,6 +2,7 @@ type: BufferedItemBridge
 size: 1
 health: 70
 bufferSize: 20
+speed: 60
 range: 7
 hasItems: true
 destructible: true
