@@ -6,6 +6,7 @@ hasItems: true
 destructible: true
 breakable: true
 rebuildable: true
+transportTime: 1
 placeablePlayer: true
 itemCapacity: 15
 conveyorPlacement: true
