@@ -11,7 +11,7 @@ rebuildable: true
 placeablePlayer: true
 itemCapacity: 10
 conveyorPlacement: true
-category: liquid
+category: distribution
 research: bridge-conveyor
 requirements: [
   copper/10
