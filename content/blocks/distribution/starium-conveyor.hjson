@@ -1,7 +1,7 @@
 type: Conveyor
 size: 1
 health: 100
-buildCostMultiplier: 0.012
+h
 speed: 0.15
 displayedSpeed: 20
 junctionReplacement: starlight-junction
