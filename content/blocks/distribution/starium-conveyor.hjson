@@ -1,7 +1,7 @@
 type: Conveyor
 size: 1
 health: 100
-buildTime: 0.02
+buildSpeed: 0.02
 speed: 0.15
 displayedSpeed: 20
 junctionReplacement: starlight-junction
