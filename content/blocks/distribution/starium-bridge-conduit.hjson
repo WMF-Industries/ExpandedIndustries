@@ -5,7 +5,7 @@ timerAccept: 1.5
 range: 10
 liquidCapacity: 25
 conveyorPlacement: true
-category: distribution
+category: liquid
 research: titanium-bridge-conduit
 requirements: [
   metaglass/8
