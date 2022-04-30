@@ -2,7 +2,6 @@ type: Conduit
 leaks: true
 health: 110
 size: 1
-buildCostMultiplier: 0.012
 requirements: [
   metaglass/2
   titanium/1
