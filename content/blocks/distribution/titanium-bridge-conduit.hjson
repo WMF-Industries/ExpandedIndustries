@@ -5,7 +5,7 @@ timerAccept: 1.5
 range: 7
 liquidCapacity: 20
 conveyorPlacement: true
-category: distribution
+category: liquid
 research: bridge-conduit
 requirements: [
   metaglass/6
