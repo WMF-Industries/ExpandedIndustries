@@ -1,0 +1,12 @@
+type: Conduit
+leaks: true
+health: 110
+requirements: [
+  metaglass/2
+  titanium/1
+  starium/1
+]
+liquidCapacity: 20
+liquidPressure: 4.4
+placeableLiquid: true
+category: liquid
