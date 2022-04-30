@@ -1,6 +1,7 @@
 type: Conduit
 leaks: true
 health: 110
+size: 1
 requirements: [
   metaglass/2
   titanium/1
