@@ -8,6 +8,6 @@ requirements: [
   starium/1
 ]
 liquidCapacity: 20
-liquidPressure: 4.4
+liquidPressure: 5
 placeableLiquid: true
 category: liquid
