@@ -55,6 +55,8 @@ shootType: {
   lightningType: { 
     type: EmpBulletType
     status: electrified
+    collidesAir: false
+    collidesGround: false
     statusDuration: 300
     damage: 120
     healPercent: 7
@@ -101,6 +103,8 @@ shootType: {
     lightningType: { 
       type: EmpBulletType
       status: electrified
+      collidesAir: false
+      collidesGround: false
       statusDuration: 300
       damage: 120
       healPercent: 7
@@ -147,6 +151,8 @@ shootType: {
       lightningType: { 
         type: EmpBulletType
         status: electrified
+        collidesAir: false
+        collidesGround: false
         statusDuration: 300
         damage: 120
         healPercent: 7
@@ -193,6 +199,8 @@ shootType: {
         lightningType: { 
           type: EmpBulletType
           status: electrified
+          collidesAir: false
+          collidesGround: false
           statusDuration: 300
           damage: 120
           healPercent: 7
