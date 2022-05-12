@@ -4,6 +4,7 @@ health: 100
 timerAccept: 1.5
 range: 10
 liquidCapacity: 25
+hasPower: false
 conveyorPlacement: true
 category: liquid
 research: titanium-bridge-conduit
