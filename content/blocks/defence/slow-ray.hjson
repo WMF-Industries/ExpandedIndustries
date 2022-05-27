@@ -96,7 +96,7 @@ shootType: {
         {
           type: WaveEffect
           sizeFrom: 0
-          sizeTo: 90
+          sizeTo: 120
           lifetime: 45
           colorFrom: a5f5af
           colorTo: ffffff
@@ -208,7 +208,7 @@ shootType: {
             {
               type: WaveEffect
               sizeFrom: 0
-              sizeTo: 90
+              sizeTo: 120
               lifetime: 45
               colorFrom: a5f5af
               colorTo: ffffff
