@@ -10,6 +10,10 @@ shootType: {
   status: electrified
   statusDuration: 300
   scaleVelocity: true
+  scaleLife: true
+  absorbable: false
+  reflectable: false
+  hittable: false
   damage: 120
   healPercent: 7
   radius: 90
@@ -63,8 +67,10 @@ shootType: {
   lightningType: { 
     type: EmpBulletType
     status: electrified
-    collidesAir: false
-    collidesGround: false
+    collides: false
+    absorbable: false
+    reflectable: false
+    hittable: false
     statusDuration: 300
     damage: 120
     healPercent: 7
@@ -119,8 +125,10 @@ shootType: {
     lightningType: { 
       type: EmpBulletType
       status: electrified
-      collidesAir: false
-      collidesGround: false
+      collides: false
+      absorbable: false
+      reflectable: false
+      hittable: false
       statusDuration: 300
       damage: 120
       healPercent: 7
@@ -175,8 +183,10 @@ shootType: {
       lightningType: { 
         type: EmpBulletType
         status: electrified
-        collidesAir: false
-        collidesGround: false
+        collides: false
+        absorbable: false
+        reflectable: false
+        hittable: false
         statusDuration: 300
         damage: 120
         healPercent: 7
@@ -231,8 +241,10 @@ shootType: {
         lightningType: { 
           type: EmpBulletType
           status: electrified
-          collidesAir: false
-          collidesGround: false
+          collides: false
+          absorbable: false
+          reflectable: false
+          hittable: false
           statusDuration: 300
           damage: 120
           healPercent: 7
