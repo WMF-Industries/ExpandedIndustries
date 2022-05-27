@@ -12,8 +12,8 @@ consumes: {
     amount: 0.125
   }
 }
-instructionsPerTick: 32
-maxInstructionsPerTick: 128
+instructionsPerTick: 48
+maxInstructionsPerTick: 256
 range: 550
 requirements: [
 copper/180
