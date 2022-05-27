@@ -33,7 +33,15 @@ shootType: {
         type: WaveEffect
         sizeFrom: 90
         sizeTo: 90
-        lifetime: 240
+        lifetime: 60
+        colorFrom: a5f5af
+        colorTo: ffffff
+      }
+      {
+        type: WaveEffect
+        sizeFrom: 0
+        sizeTo: 90
+        lifetime: 45
         colorFrom: a5f5af
         colorTo: ffffff
       }
@@ -80,8 +88,16 @@ shootType: {
         {
           type: WaveEffect
           sizeFrom: 90
+          sizeTo: 120
+          lifetime: 60
+          colorFrom: a5f5af
+          colorTo: ffffff
+        }
+        {
+          type: WaveEffect
+          sizeFrom: 0
           sizeTo: 90
-          lifetime: 240
+          lifetime: 45
           colorFrom: a5f5af
           colorTo: ffffff
         }
@@ -127,7 +143,7 @@ shootType: {
         effects: [
           {
             type: WaveEffect
-            sizeFrom: 90
+            sizeFrom: 120
             sizeTo: 90
             lifetime: 240
             colorFrom: a5f5af
@@ -184,7 +200,7 @@ shootType: {
             {
               type: WaveEffect
               sizeFrom: 90
-              sizeTo: 90
+              sizeTo: 120
               lifetime: 240
               colorFrom: a5f5af
               colorTo: ffffff
@@ -239,7 +255,7 @@ shootType: {
             effects: [
               {
                 type: WaveEffect
-                sizeFrom: 90
+                sizeFrom: 120
                 sizeTo: 90
                 lifetime: 240
                 colorFrom: a5f5af
