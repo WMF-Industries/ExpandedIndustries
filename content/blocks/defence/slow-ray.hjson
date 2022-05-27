@@ -145,7 +145,7 @@ shootType: {
             type: WaveEffect
             sizeFrom: 120
             sizeTo: 90
-            lifetime: 240
+            lifetime: 60
             colorFrom: a5f5af
             colorTo: ffffff
           }
@@ -201,7 +201,7 @@ shootType: {
               type: WaveEffect
               sizeFrom: 90
               sizeTo: 120
-              lifetime: 240
+              lifetime: 60
               colorFrom: a5f5af
               colorTo: ffffff
             }
@@ -257,7 +257,7 @@ shootType: {
                 type: WaveEffect
                 sizeFrom: 120
                 sizeTo: 90
-                lifetime: 240
+                lifetime: 60
                 colorFrom: a5f5af
                 colorTo: ffffff
               }
