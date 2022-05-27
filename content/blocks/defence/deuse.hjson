@@ -17,7 +17,7 @@ rotateSpeed: 4.7
 shootSound: shootBig
 ammoTypes: {
  scrap: {
-  damage: 10
+  damage: 14
   speed: 2
   height: 8
   width: 6
@@ -35,7 +35,7 @@ ammoTypes: {
    }
   }
  lead: {
-  damage: 9
+  damage: 13
   ammoMultiplier: 2
   speed: 2
   height: 10
@@ -54,7 +54,7 @@ ammoTypes: {
    }
   }
     metaglass: {
-  damage: 17
+  damage: 21
   ammoMultiplier: 4
   speed: 3
   height: 11
@@ -73,7 +73,7 @@ ammoTypes: {
   }
  }
       plastanium: {
-  damage: 25
+  damage: 29
   ammoMultiplier: 4
   speed: 3
   height: 12
