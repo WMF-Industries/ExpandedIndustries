@@ -18,7 +18,7 @@ range: 550
 requirements: [
 copper/180
 lead/670
-surge/70
+surge-alloy/70
 silicon/460
 thorium/180
 ]
