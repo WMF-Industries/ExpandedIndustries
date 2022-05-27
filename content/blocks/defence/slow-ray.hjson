@@ -1,11 +1,10 @@
 type: PowerTurret
-range: 300
+range: 230
 size: 3
 health: 1650
 recoilAmount: 2
 powerUse: 14
 reloadTime: 270
-shotDelay: 45
 shootType: {
   type: EmpBulletType
   status: electrified
@@ -27,6 +26,7 @@ shootType: {
   backColor: 83f793
   lightColor: 83f793
   hitColor: 83f793
+  shotDelay: 45
   chargeEffect: [
         {
         type: WaveEffect
