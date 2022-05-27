@@ -26,17 +26,6 @@ shootType: {
   backColor: 83f793
   lightColor: 83f793
   hitColor: 83f793
-  shotDelay: 45
-  chargeEffect: [
-        {
-        type: WaveEffect
-        sizeFrom: 20
-        sizeTo: 0
-        lifetime: 45
-        colorFrom: a5f5af
-        colorTo: ffffff
-        }
-  ]
   hitEffect: {
     type: MultiEffect
     effects: [
@@ -304,7 +293,7 @@ requirements: [
   titanium/350
   thorium/260
   starium/300
-  starium-alloy/75
+  surge-alloy/75
 ]
 research: turret
 category: turret
