@@ -134,6 +134,14 @@ shootType: {
             colorTo: ffffff
           }
           {
+            type: WaveEffect
+            sizeFrom: 0
+            sizeTo: 90
+            lifetime: 45
+            colorFrom: a5f5af
+            colorTo: ffffff
+          }
+          {
             type: ParticleEffect
             length: 0
             lifetime: 60
@@ -182,6 +190,14 @@ shootType: {
               colorTo: ffffff
             }
             {
+              type: WaveEffect
+              sizeFrom: 0
+              sizeTo: 90
+              lifetime: 45
+              colorFrom: a5f5af
+              colorTo: ffffff
+            }
+            {
               type: ParticleEffect
               length: 0
               lifetime: 60
@@ -226,6 +242,14 @@ shootType: {
                 sizeFrom: 90
                 sizeTo: 90
                 lifetime: 240
+                colorFrom: a5f5af
+                colorTo: ffffff
+              }
+              {
+                type: WaveEffect
+                sizeFrom: 0
+                sizeTo: 90
+                lifetime: 45
                 colorFrom: a5f5af
                 colorTo: ffffff
               }
