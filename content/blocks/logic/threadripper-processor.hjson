@@ -1,0 +1,26 @@
+type: LogicBlock
+health: 560
+size: 3
+solid: true
+hasPower: true
+hasLiquids: true
+liquidCapacity: 80
+consumes: {
+     power: 2.25
+  liquid: {
+    liquid: lox
+    amount: 0.125
+  }
+}
+instructionsPerTick: 32
+maxInstructionsPerTick: 128
+range: 550
+requirements: [
+copper/180
+lead/670
+surge/70
+silicon/460
+throium/180
+]
+category: logic
+Research: arm-processor
