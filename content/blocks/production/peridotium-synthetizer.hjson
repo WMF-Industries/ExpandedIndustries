@@ -24,4 +24,5 @@ outputItem: peridotium/2
 craftTime: 120
 craftEffect: steam 
 category: crafting
-research: starium-synthetizer
+research: starium-producer
+buildVisibility: campaignOnly
