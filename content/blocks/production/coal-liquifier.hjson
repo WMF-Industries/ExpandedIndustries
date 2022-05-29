@@ -28,7 +28,7 @@ consumes: {
     amount: 0.2
   }
 }
-outputLiquid: oil/6
+outputLiquid: oil/3
 craftTime: 60
 category: crafting
 research: oil-extractor
