@@ -22,6 +22,7 @@ lightColor: ffffff
 rotateSpeed: 1.45
 weapons: [
      {
+      name: terrand
       top: false
       mirror: false
       x: 0
