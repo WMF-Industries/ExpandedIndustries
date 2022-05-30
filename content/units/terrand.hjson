@@ -20,7 +20,8 @@ allowLegStep: true
 lightRadius: 30
 lightColor: ffffff
 rotateSpeed: 1.45
-weapon: {
+weapons: [
+     {
       top: false
       mirror: false
       x: 0
@@ -338,13 +339,15 @@ weapon: {
                 sizeTo: 5
                 colorFrom: a5f5af
                 colorTo: ffffff
+                    }
+                  ]
                 }
-              ]
+              }
             }
           }
         }
       }
     }
   }
-}
+]
 research: Natorin
