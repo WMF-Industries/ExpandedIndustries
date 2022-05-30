@@ -176,7 +176,6 @@ weapons: [
         colorTo: ffffff
       }
     ]
-  }
   lightning: 1
   lightningLength: 2
   lightningCone: 0
