@@ -20,9 +20,7 @@ allowLegStep: true
 lightRadius: 30
 lightColor: ffffff
 rotateSpeed: 1.45
-weapons: [
-     {
-      name: terrand
+weapon: {
       top: false
       mirror: false
       x: 0
@@ -55,7 +53,7 @@ weapons: [
                   }
                ]
             }
-         type: BasicBulletType
+         type: EmpBulletType
   status: electrified
   statusDuration: 300
   scaleVelocity: true
@@ -347,5 +345,4 @@ weapons: [
       }
     }
   }
-]
 research: Natorin
