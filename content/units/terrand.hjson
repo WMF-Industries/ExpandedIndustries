@@ -27,7 +27,7 @@ weapons: [
       x: 0
       y: 3
       reload: 240
-      shotDelay: 120
+      firstShotDelay: 120
       shootStatus: unmoving
       shootStatusDuration: 120
       chargeSound: lasercharge
