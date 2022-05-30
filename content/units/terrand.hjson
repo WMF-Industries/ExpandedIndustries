@@ -53,7 +53,8 @@ weapon: {
                   }
                ]
             }
-         type: EmpBulletType
+       bullet: {
+  type: EmpBulletType
   status: electrified
   statusDuration: 300
   scaleVelocity: true
@@ -345,4 +346,5 @@ weapon: {
       }
     }
   }
+}
 research: Natorin
