@@ -54,7 +54,6 @@ weapons: [
                   }
                ]
             }
-         }
          type: EmpBulletType
   status: electrified
   statusDuration: 300
