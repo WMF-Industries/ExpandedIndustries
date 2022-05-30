@@ -27,22 +27,13 @@ weapons: [
       x: 0
       y: 3
       reload: 240
-      firstShotDelay: 170
+      shotDelay: 120
       shootStatus: unmoving
       shootStatusDuration: 185
       chargeSound: lasercharge
       shake: 2
-      bullet: {
-         type: LaserBulletType
-         damage: 890
-         colors: [84f59140, a5f5af, ffffff]
-         lightColor: 84f591
-         collidesTeam: false
-         healPercent: 6
-         length: 500
-         width: 90
-         shootEffect: {
-            type: MultiEffect
+      chargeEffect: {
+      type: MultiEffect
             effects: [
                {
                   type: WaveEffect
@@ -54,7 +45,7 @@ weapons: [
               {
                   type: ParticleEffect
                   length: 0
-                  lifetime: 170
+                  lifetime: 120
                   particles: 1
                   sizeFrom: 0
                   sizeTo: 15
@@ -65,7 +56,300 @@ weapons: [
             }
          }
       }
+      bullet: {
+        type: EmpBulletType
+  status: electrified
+  statusDuration: 300
+  scaleVelocity: true
+  scaleLife: true
+  absorbable: false
+  reflectable: false
+  hittable: false
+  damage: 120
+  healPercent: 7
+  radius: 90
+  unitDamageScl: 0.8
+  timeIncrease: 1.25
+  timeDuration: 240
+  speed: 5
+  lifetime: 60
+  sprite: circle-bullet
+  width: 15
+  height: 15
+  shrinkY: 0
+  frontColor: ffffff
+  backColor: 83f793
+  lightColor: 83f793
+  hitColor: 83f793
+  hitEffect: {
+    type: MultiEffect
+    effects: [
       {
+        type: WaveEffect
+        sizeFrom: 90
+        sizeTo: 90
+        lifetime: 60
+        colorFrom: a5f5af
+        colorTo: ffffff
+      }
+      {
+        type: WaveEffect
+        sizeFrom: 0
+        sizeTo: 90
+        lifetime: 45
+        colorFrom: a5f5af
+        colorTo: ffffff
+      }
+      {
+        type: ParticleEffect
+        length: 0
+        lifetime: 60
+        particles: 1
+        sizeFrom: 0
+        sizeTo: 5
+        colorFrom: a5f5af
+        colorTo: ffffff
+      }
+    ]
+  }
+  lightning: 1
+  lightningLength: 2
+  lightningCone: 0
+  lightningType: { 
+    type: EmpBulletType
+    status: electrified
+    collides: false
+    absorbable: false
+    reflectable: false
+    hittable: false
+    statusDuration: 300
+    damage: 120
+    healPercent: 7
+    radius: 90
+    unitDamageScl: 0.8
+    timeIncrease: 1.25
+    timeDuration: 240
+    speed: 0
+    lifetime: 60
+    sprite: circle-bullet
+    width: 15
+    height: 15
+    shrinkY: 0
+    frontColor: ffffff
+    backColor: 83f793
+    lightColor: 83f793
+    hitColor: 83f793
+    hitEffect: {
+      type: MultiEffect
+      effects: [
+        {
+          type: WaveEffect
+          sizeFrom: 90
+          sizeTo: 120
+          lifetime: 60
+          colorFrom: a5f5af
+          colorTo: ffffff
+        }
+        {
+          type: WaveEffect
+          sizeFrom: 0
+          sizeTo: 120
+          lifetime: 45
+          colorFrom: a5f5af
+          colorTo: ffffff
+        }
+        {
+          type: ParticleEffect
+          length: 0
+          lifetime: 60
+          particles: 1
+          sizeFrom: 0
+          sizeTo: 5
+          colorFrom: a5f5af
+          colorTo: ffffff
+        }
+      ]
+    }
+    lightning: 1
+    lightningLength: 2
+    lightningCone: 0
+    lightningType: { 
+      type: EmpBulletType
+      status: electrified
+      collides: false
+      absorbable: false
+      reflectable: false
+      hittable: false
+      statusDuration: 300
+      damage: 120
+      healPercent: 7
+      radius: 90
+      unitDamageScl: 0.8
+      timeIncrease: 1.25
+      timeDuration: 240
+      speed: 0
+      lifetime: 60
+      sprite: circle-bullet
+      width: 15
+      height: 15
+      shrinkY: 0
+      frontColor: ffffff
+      backColor: 83f793
+      lightColor: 83f793
+      hitColor: 83f793
+      hitEffect: {
+        type: MultiEffect
+        effects: [
+          {
+            type: WaveEffect
+            sizeFrom: 120
+            sizeTo: 90
+            lifetime: 60
+            colorFrom: a5f5af
+            colorTo: ffffff
+          }
+          {
+            type: WaveEffect
+            sizeFrom: 0
+            sizeTo: 90
+            lifetime: 45
+            colorFrom: a5f5af
+            colorTo: ffffff
+          }
+          {
+            type: ParticleEffect
+            length: 0
+            lifetime: 60
+            particles: 1
+            sizeFrom: 0
+            sizeTo: 5
+            colorFrom: a5f5af
+            colorTo: ffffff
+          }
+        ]
+      }
+      lightning: 1
+      lightningLength: 2
+      lightningCone: 0
+      lightningType: { 
+        type: EmpBulletType
+        status: electrified
+        collides: false
+        absorbable: false
+        reflectable: false
+        hittable: false
+        statusDuration: 300
+        damage: 120
+        healPercent: 7
+        radius: 90
+        unitDamageScl: 0.8
+        timeIncrease: 1.25
+        timeDuration: 240
+        speed: 0
+        lifetime: 60
+        sprite: circle-bullet
+        width: 15
+        height: 15
+        shrinkY: 0
+        frontColor: ffffff
+        backColor: 83f793
+        lightColor: 83f793
+        hitColor: 83f793
+        hitEffect: {
+          type: MultiEffect
+          effects: [
+            {
+              type: WaveEffect
+              sizeFrom: 90
+              sizeTo: 120
+              lifetime: 60
+              colorFrom: a5f5af
+              colorTo: ffffff
+            }
+            {
+              type: WaveEffect
+              sizeFrom: 0
+              sizeTo: 120
+              lifetime: 45
+              colorFrom: a5f5af
+              colorTo: ffffff
+            }
+            {
+              type: ParticleEffect
+              length: 0
+              lifetime: 60
+              particles: 1
+              sizeFrom: 0
+              sizeTo: 5
+              colorFrom: a5f5af
+              colorTo: ffffff
+            }
+          ]
+        }
+        lightning: 1
+        lightningLength: 2
+        lightningCone: 0
+        lightningType: { 
+          type: EmpBulletType
+          status: electrified
+          collides: false
+          absorbable: false
+          reflectable: false
+          hittable: false
+          statusDuration: 300
+          damage: 120
+          healPercent: 7
+          radius: 90
+          unitDamageScl: 0.8
+          timeIncrease: 1.25
+          timeDuration: 240
+          speed: 0
+          lifetime: 60
+          sprite: circle-bullet
+          width: 15
+          height: 15
+          shrinkY: 0
+          frontColor: ffffff
+          backColor: 83f793
+          lightColor: 83f793
+          hitColor: 83f793
+          hitEffect: {
+            type: MultiEffect
+            effects: [
+              {
+                type: WaveEffect
+                sizeFrom: 120
+                sizeTo: 90
+                lifetime: 60
+                colorFrom: a5f5af
+                colorTo: ffffff
+              }
+              {
+                type: WaveEffect
+                sizeFrom: 0
+                sizeTo: 90
+                lifetime: 45
+                colorFrom: a5f5af
+                colorTo: ffffff
+              }
+              {
+                type: ParticleEffect
+                length: 0
+                lifetime: 60
+                particles: 1
+                sizeFrom: 0
+                sizeTo: 5
+                colorFrom: a5f5af
+                colorTo: ffffff
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+{
       name: terrand-weapon2
       top: true
       mirror: true
