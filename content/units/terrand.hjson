@@ -176,6 +176,7 @@ weapons: [
         colorTo: ffffff
       }
     ]
+  }
   lightning: 1
   lightningLength: 2
   lightningCone: 0
@@ -405,12 +406,10 @@ weapons: [
                 sizeTo: 5
                 colorFrom: a5f5af
                 colorTo: ffffff
-              }
+               }
             ]
-          }
-        }
+         }
       }
-    }
-  }
+   }
 }
 research: Natorin
