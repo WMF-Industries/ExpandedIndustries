@@ -339,9 +339,8 @@ weapons: [
                 sizeTo: 5
                 colorFrom: a5f5af
                 colorTo: ffffff
-                    }
-                  ]
-                }
+                  }
+                ]
               }
             }
           }
