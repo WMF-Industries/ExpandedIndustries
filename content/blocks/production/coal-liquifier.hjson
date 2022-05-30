@@ -25,10 +25,10 @@ consumes: {
   }
   liquid: {
     liquid: water
-    amount: 0.2
+    amount: 0.1
   }
 }
-outputLiquid: oil/3
+outputLiquid: oil/6
 craftTime: 60
 category: crafting
 research: oil-extractor
