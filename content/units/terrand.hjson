@@ -33,16 +33,6 @@ weapons: [
       chargeSound: lasercharge
       shake: 2
       chargeEffect: {
-      type: MultiEffect
-      effects: [
-              {
-                  type: WaveEffect
-                  sizeFrom: 60
-                  sizeTo: 0
-                  colorFrom: a5f5af
-                  colorTo: ffffff
-              }
-              {
                   type: ParticleEffect
                   length: 0
                   lifetime: 120
@@ -52,8 +42,6 @@ weapons: [
                   colorFrom: a5f5af
                   colorTo: ffffff
               }
-           ]
-        }
   bullet: {
   type: EmpBulletType
   status: electrified
