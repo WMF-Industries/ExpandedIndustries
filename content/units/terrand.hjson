@@ -22,27 +22,27 @@ lightColor: ffffff
 rotateSpeed: 1.45
 weapons: [
      {
-      top: true
+      top: false
       mirror: false
       x: 0
       y: 3
       reload: 240
       firstShotDelay: 120
+      chargeEffect: {
+            type: ParticleEffect
+            length: 0
+            lifetime: 120
+            particles: 1
+            region: circle
+            sizeFrom: 0
+            sizeTo: 25
+            colorFrom: a5f5af
+            colorTo: ffffff
+      }
       shootStatus: unmoving
       shootStatusDuration: 120
       chargeSound: lasercharge
       shake: 2
-      chargeEffect: {
-                  type: ParticleEffect
-                  length: 0
-                  lifetime: 120
-                  particles: 1
-                  region: circle
-                  sizeFrom: 0
-                  sizeTo: 15
-                  colorFrom: a5f5af
-                  colorTo: ffffff
-              }
   bullet: {
   type: EmpBulletType
   status: electrified
