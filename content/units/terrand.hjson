@@ -37,6 +37,7 @@ weapons: [
                   length: 0
                   lifetime: 120
                   particles: 1
+                  region: circle
                   sizeFrom: 0
                   sizeTo: 15
                   colorFrom: a5f5af
