@@ -55,7 +55,7 @@ weapons: [
                   }
                ]
             }
-         type: EmpBulletType
+         type: BasicBulletType
   status: electrified
   statusDuration: 300
   scaleVelocity: true
