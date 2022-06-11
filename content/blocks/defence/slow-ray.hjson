@@ -5,7 +5,7 @@ health: 1650
 recoilAmount: 2
 powerUse: 14
 reloadTime: 270
-shotDelay: 45
+chargeTime: 45
 shootType: {
   type: EmpBulletType
   status: electrified
