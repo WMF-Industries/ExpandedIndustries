@@ -6,14 +6,6 @@ recoilAmount: 2
 powerUse: 14
 reloadTime: 270
 shotDelay: 45
-chargeEffect: {
-   type: WaveEffect
-   sizeFrom: 20
-   sizeTo: 0
-   lifetime: 45
-   colorFrom: a5f5af
-   colorTo: ffffff
-}
 shootType: {
   type: EmpBulletType
   status: electrified
@@ -39,6 +31,14 @@ shootType: {
   backColor: 83f793
   lightColor: 83f793
   hitColor: 83f793
+  chargeEffect: {
+   type: WaveEffect
+   sizeFrom: 20
+   sizeTo: 0
+   lifetime: 45
+   colorFrom: a5f5af
+   colorTo: ffffff
+  }
   hitEffect: {
     type: MultiEffect
     effects: [
