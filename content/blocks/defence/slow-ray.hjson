@@ -5,7 +5,6 @@ health: 1650
 recoilAmount: 2
 powerUse: 14
 reloadTime: 270
-chargeTime: 45
 shootType: {
   type: EmpBulletType
   status: electrified
@@ -31,6 +30,7 @@ shootType: {
   backColor: 83f793
   lightColor: 83f793
   hitColor: 83f793
+  chargeTime: 45
   chargeEffect: {
    type: WaveEffect
    sizeFrom: 20
