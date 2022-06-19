@@ -1,0 +1,47 @@
+type: ItemTurret
+name: test
+description: test
+size: 4
+health: 3000
+range: 250
+targetGround: true
+targetAir: true
+shots: 3
+spread: 20
+rotateSpeed: 15
+reloadTime: 175
+burstSpacing: 30
+recoilAmount: 5
+alternate: true
+inaccuracy: 16
+shootSound: shootBig
+yRand: -4
+ammoTypes: {
+  copper: {
+    width: 30
+    length: 30
+    height: 30
+    frontColor: BF92F9FF
+    backColor: 665C9FFF
+    damage: 80
+    speed: 1.8
+    lifetime: 90
+    fragBullet: {
+            type: ShrapnelBulletType
+            fragBullets: 8
+            hitSound: shotgun
+            despawnSound: shotgun
+            damage: 100
+            spread: 45
+            spacing: 5
+            length: 80
+            width: 50
+            speed: 0
+            hitEffect: hitLancer
+      }
+   }
+}
+requirements: [
+  copper/1
+]
+category: turret
