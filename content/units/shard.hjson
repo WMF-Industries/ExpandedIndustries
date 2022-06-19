@@ -1,8 +1,6 @@
 type: flying
 flying: true
 isCounted: true
-name: Shard
-description: frag core unit
 health: 80
 buildSpeed: 2
 armor: 1
