@@ -26,33 +26,6 @@ plans: [
    ]
   }
   {
-    unit: trident
-    time: 1200
-    requirements: [
-      silicon/50
-      titanium/30
-      lead/15
-    ]
-   }
-  {
-    unit: javelin
-    time: 1200
-    requirements: [
-      silicon/50
-      titanium/35
-      lead/25
-    ]
-   }
-  {
-    unit: glaive
-    time: 1200
-    requirements: [
-      silicon/60
-      titanium/40
-      lead/30
-    ]
-   }
-  {
     unit: blade
     time: 1200
     requirements: [
