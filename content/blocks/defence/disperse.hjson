@@ -1,6 +1,4 @@
 type: ItemTurret
-name: Disperse
-description: scatters bullets to air enemies
 size: 3
 health: 700
 range: 260
