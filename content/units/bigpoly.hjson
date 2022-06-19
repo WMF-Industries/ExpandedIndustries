@@ -1,0 +1,106 @@
+type: flying
+name: big poly
+localizedName: bigpoly
+flying: true
+controller: BuilderAI
+circleTarget: true
+faceTarget: true
+description: big
+isCounted: false
+lowAltitude: true
+health: 3000
+armor: 40
+hitSize: 10
+commandLimit: 4
+mineSpeed: 10
+mineTier: 3
+buildSpeed: 10
+drag: 0.15
+speed: 4
+rotateSpeed: 21
+accel: 0.20
+itemCapacity: 50
+weapons: [
+   {
+      name: bigpoly-weapon
+      shootSound: missile
+      bulletSprite: missile
+      top: true
+      mirror: true
+      rotate: true
+      alternate: true
+      reload: 40
+      x: 10
+      y: 10
+      shots: 4
+      inaccuracy: 1
+      shotDelay: 1
+      recoil: 1
+      bullet: {
+         type: MissileBulletType
+         inaccuracy: 100
+         width: 5
+         length: 10
+         weaveScale: 3
+         weaveMag: 3
+         damage: 7
+         collidesTiles: true
+         frontColor: 84F491FF
+         backColor: 62AE7FFF
+         buildingDamageMultiplier: 0.5
+         speed: 4
+         lifetime: 70
+         trailColor: 84F491FF
+         trailInterp: slope
+         trailChance: 0.2
+         hitEffect: blastExplosion
+         despawnEffect: blastExplosion
+         splashDamageRadius: 56
+         splashDamage: 5
+         homingPower: 0.07
+         fragBullets: 2
+         fragLifeMin: 0.3 
+      }
+   }
+   {
+      name: bigpoly-weapon
+      shootSound: missile
+      bulletSprite: missile
+      top: true
+      mirror: true
+      rotate: true
+      alternate: true
+      reload: 40
+      x: 10
+      y: -10
+      shots: 4
+      inaccuracy: 1
+      shotDelay: 1
+      recoil: 1
+      bullet: {
+         type: MissileBulletType
+         inaccuracy: 100
+         width: 5
+         length: 10
+         weaveScale: 3
+         weaveMag: 3
+         damage: 7
+         collidesTiles: true
+         frontColor: 84F491FF
+         backColor: 62AE7FFF
+         buildingDamageMultiplier: 0.5
+         speed: 4
+         lifetime: 70
+         trailColor: 84F491FF
+         trailInterp: slope
+         trailChance: 0.2
+         hitEffect: blastExplosion
+         despawnEffect: blastExplosion
+         splashDamageRadius: 56
+         splashDamage: 5
+         homingPower: 0.07
+         fragBullets: 2
+         fragLifeMin: 0.3
+      }
+   }
+]

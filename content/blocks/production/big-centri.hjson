@@ -1,0 +1,25 @@
+type: GenericCrafter
+name: Oil Solidifier
+description: upraded coal centrifuge.
+health: 300
+size: 3
+hasItems: true
+hasLiquid: true
+hasPower: true
+itemCapacity: 20
+liquidCapacity: 1
+requirements: [
+   copper/1
+]
+consumes: {
+     power: 1.0
+     liquid: {
+        liquid: oil
+        amount: 0.16
+   }
+}
+outputItem: coal/6
+craftTime: 20
+craftEffect: coalSmeltsmoke
+category: crafting
+research: coal-centrifuge
