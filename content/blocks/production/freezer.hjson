@@ -22,4 +22,4 @@ consumes: {
 outputItem: ice/2
 craftTime: 70
 category: crafting
-research: water
+research: graphite-press
