@@ -1,6 +1,4 @@
 type: PowerTurret
-name: Enforcer
-description: shoots emp bullets, credits to antlrr for making this code's turret
 health: 720
 reloadTime: 110
 shootSound: laser
@@ -29,7 +27,7 @@ shootType: {
    shootEffect: hitEmpSpark
    smokeEffect: shootBigSmoke
    lifetime: 60
-   sprite: blop-supremacy-gbullet
+   sprite: circle-bullet
    backColor: 84f491
    frontColor: ffffff
    width: 18
@@ -72,7 +70,6 @@ shootType: {
             type: ParticleEffect
             sizeFrom: 6
             sizeTo: 0
-            region: blop-supremacy-geffect
             particles: 8
             colorFrom: 84f491
             colorTo: 84f491
@@ -108,7 +105,6 @@ hitEffect: {
             type: ParticleEffect
             sizeFrom: 6
             sizeTo: 0
-            region: blop-supremacy-geffect
             particles: 8
             colorFrom: 84f491
             colorTo: 84f491
@@ -116,6 +112,9 @@ hitEffect: {
       ]
    }
  requirements: [
-  copper/1
+  copper/170
+  silicon/120
+  titanium/90
 ]
 category: turret
+research: lancer
