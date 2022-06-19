@@ -1,6 +1,4 @@
 type: PowerTurret
-description: better lancer i guess? (hlep how do i do charge effect)
-name: Beacon
 description: laser
 health: 720
 size: 3
@@ -13,7 +11,7 @@ chargeTime: 40
 chargeMaxDelay: 30
 chargeEffect: lancerLaserCharge
 chargeBeginEffect: lancerLaserChargeBegin
-shootY: 5
+shootY: -5
 shootType: {
   shootSound: laser
   chargeEffect: lancerLaserCharge
