@@ -1,7 +1,5 @@
 type: GenericCrafter
 solid: true
-name: Freezer
-description: oice
 health: 70
 size: 2
 hasItems: true
