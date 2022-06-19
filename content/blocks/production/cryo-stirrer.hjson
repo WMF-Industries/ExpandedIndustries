@@ -1,8 +1,6 @@
 type: LiquidConverter
 drawer: DrawMixer
 solid: true
-name: Cryofluid Stirrer
-description: c o l d.
 health: 200
 size: 3
 hasItems: true
