@@ -1,11 +1,9 @@
 type: Drill
-name: Vicebit Drill
 hasItems: true
 hasliquid: true
 itemCapacity: 5
 liquidCapacity: 1.2
 liquidBoostIntensity: 1.6
-description: this drill wants to grow up and become an airblast drill with his friend water extractor.
 tier: 1
 drillTime: 260
 size: 1
