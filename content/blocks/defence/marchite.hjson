@@ -17,7 +17,7 @@ inaccuracy: 16
 shootSound: shootBig
 yRand: -4
 ammoTypes: {
-  copper: {
+  thorium: {
     width: 30
     length: 30
     height: 30
@@ -42,6 +42,10 @@ ammoTypes: {
    }
 }
 requirements: [
-  copper/1
+  copper/740
+  lead/400
+  titanium/500
+  silicon/140
+  thorium/120
 ]
 category: turret
