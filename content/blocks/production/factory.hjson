@@ -25,7 +25,6 @@ plans: [
    copper/40
    ]
   }
-  plans: [
   {
     unit: trident
     time: 1200
