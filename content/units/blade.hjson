@@ -1,7 +1,5 @@
 type: mech
-name: Blade
 localizedName: Blade
-description: the
 isCounted: true
 itemCapacity: 50
 health: 450
