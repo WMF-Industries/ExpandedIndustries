@@ -1,9 +1,7 @@
 type: flying
 flying: true
 isCounted: true
-name: Trident
 localizedName: Trident
-description: Yes
 health: 500
 buildSpeed: 8.5
 armor: 5
