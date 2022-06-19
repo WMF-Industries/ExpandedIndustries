@@ -1,6 +1,4 @@
 type: Drill
-name: Hammer Drill
-description: the most powerful drill.
 drawRim: true
 hasItems: true
 hasliquid: true
