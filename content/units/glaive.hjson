@@ -1,10 +1,8 @@
 type: flying
-name: Glaive
 localizedName: Glaive
 flying: true
 controller: FlyingAI
 circleTarget: true
-description: is yes yes
 isCounted: true
 health: 400
 armor: 2.5
