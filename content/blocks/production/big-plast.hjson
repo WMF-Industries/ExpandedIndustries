@@ -1,6 +1,4 @@
 type: GenericCrafter
-name: Plastanium Condenser
-description: upraded plastanium compressor.
 health: 300
 size: 3
 hasItems: true
