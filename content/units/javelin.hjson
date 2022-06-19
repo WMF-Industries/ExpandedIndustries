@@ -1,11 +1,9 @@
 type: flying
-name: Javelin
 localizedName: Javelin
 flying: true
 controller: FlyingAI
 circleTarget: true
 faceTarget: true
-description: the trail effect is mady by bluewolf, go check out exotic mod
 isCounted: true
 health: 200
 armor: 2
@@ -77,7 +75,6 @@ abilities: [
       sizeTo: 6
       length: 0.01
       lifetime: 15
-      region: blop-supremacy-javelin-effect
       colorFrom: fffffff25
       colorTo: ffffff00
     }
