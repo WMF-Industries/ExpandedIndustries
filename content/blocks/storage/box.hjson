@@ -1,5 +1,4 @@
 type: StorageBlock
-name: Crate
 size: 1
 itemCapacity: 80
 health: 100
@@ -8,3 +7,4 @@ requirements: [
    lead/100
 ]
 category: effect
+research: router
