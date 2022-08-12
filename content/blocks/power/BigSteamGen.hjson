@@ -1,4 +1,4 @@
-type: consumeGenerator
+type: ConsumeGenerator
 health: 1200
 size: 3
 hasItems: yes
