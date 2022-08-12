@@ -1,10 +1,9 @@
 type: ConsumeGenerator
 health: 1200
 size: 3
-hasItems: yes
-itemDuration: 180
+hasLiquid: true
 powerProduction: 22
-itemCapacity: 10
+liquidCapacity: 60
 solid: true
 ambientSound: smelter
 ambientSoundVolume: 0.6
