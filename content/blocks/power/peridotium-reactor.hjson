@@ -1,4 +1,4 @@
-type: NuclearReactor
+type: ConsumeGenerator
 health: 3400
 size: 4
 explosionRadius: 40
@@ -20,7 +20,7 @@ requirements: [
 ]
 consumes: {
      liquid: 
-     water/0.5
+     water/0.75
      items: {
       items: [
      peridotium/1
