@@ -30,4 +30,4 @@ consumes: {
 
 category: power
 research: thorium-reactor
-outputLiquid: steam/30
+outputLiquid: steam/45
