@@ -17,7 +17,7 @@ requirements: [
 ]
 consumes: {
       liquid: 
-       water/0.25
+       steam/0.25
 }
 
 research: steam-generator
