@@ -6,7 +6,7 @@ explosionDamage: 4500000
 hasItems: yes
 hasLiquids: yes
 itemDuration: 150
-powerProduction: 75
+powerProduction: 14
 itemCapacity: 10
 liquidCapacity: 300
 solid: true
@@ -30,3 +30,4 @@ consumes: {
 
 category: power
 research: thorium-reactor
+outputLiquid: steam/30
