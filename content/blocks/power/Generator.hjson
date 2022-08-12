@@ -1,4 +1,4 @@
-type: SingleTypeGenerator
+type: ConsumeGenerator
 health: 2700
 size: 5
 hasItems: true
