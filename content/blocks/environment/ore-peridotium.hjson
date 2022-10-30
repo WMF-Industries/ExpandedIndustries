@@ -1,5 +1,0 @@
-type: OreBlock
-itemDrop: peridotium
-oreDefault: true
-oreScale: 24.0
-oreThreshold: 0.828
