@@ -1,3 +1,2 @@
 # Expanded Industries
-Total code rework in progress - Expect new blocks, reworked effects and rebalanced things!
-10/22/2022 - Update on the work, v1.5 is nearly done, expect Java release soon!
+v1.5 B2 will be released today, it lacks some content that full v1.5 will have, but it is playable
