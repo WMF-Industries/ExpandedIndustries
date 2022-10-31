@@ -356,7 +356,7 @@ public class EIBlocks {
         metaglassFabricator = new AttributeCrafter("metaglass-fabricator") {{
             requirements(Category.crafting, with(Items.copper, 125, Items.graphite, 90, Items.titanium, 75, EIItems.starium, 60));
             craftEffect = Fx.smeltsmoke;
-            outputItem = new ItemStack(Items.silicon, 10);
+            outputItem = new ItemStack(Items.metaglass, 10);
             craftTime = 90f;
             size = 3;
             hasPower = true;
