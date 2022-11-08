@@ -5,40 +5,25 @@ import arc.math.Interp;
 import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.ParticleEffect;
-import mindustry.entities.effect.WaveEffect;
-import mindustry.entities.effect.WrapEffect;
+import mindustry.entities.effect.*;
 import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
-import mindustry.type.Category;
-import mindustry.type.ItemStack;
-import mindustry.type.LiquidStack;
-import mindustry.type.UnitType;
+import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.campaign.LaunchPad;
 import mindustry.world.blocks.defense.Wall;
-import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.defense.turrets.PowerTurret;
+import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.distribution.*;
-import mindustry.world.blocks.environment.Floor;
-import mindustry.world.blocks.environment.OreBlock;
-import mindustry.world.blocks.liquid.Conduit;
-import mindustry.world.blocks.liquid.LiquidBridge;
+import mindustry.world.blocks.environment.*;
+import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.logic.LogicBlock;
-import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.power.ImpactReactor;
-import mindustry.world.blocks.production.AttributeCrafter;
-import mindustry.world.blocks.production.Drill;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.storage.CoreBlock;
-import mindustry.world.blocks.storage.StorageBlock;
-import mindustry.world.blocks.units.Reconstructor;
-import mindustry.world.blocks.units.UnitFactory;
-import mindustry.world.consumers.ConsumeItemRadioactive;
+import mindustry.world.blocks.power.*;
+import mindustry.world.blocks.production.*;
+import mindustry.world.blocks.storage.*;
+import mindustry.world.blocks.units.*;
+import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
-import mindustry.world.meta.BuildVisibility;
-import mindustry.world.meta.Env;
+import mindustry.world.meta.*;
 
 import static ExpandedIndustries.content.EIUnits.*;
 import static mindustry.Vars.tilesize;
@@ -76,21 +61,20 @@ public class EIBlocks {
             terraReconstructor;
 
     public static void load() {
-        grassWater = new Floor("grass-water") {{
-            speedMultiplier = 0.5f;
-            variants = 0;
+        grassWater = new ShallowLiquid("grass-water") {{
+            speedMultiplier = 0.7f;
+            variants = 3;
             liquidDrop = Liquids.water;
             liquidMultiplier = 0.75f;
-            isLiquid = false;
             status = StatusEffects.wet;
             statusDuration = 90f;
             cacheLayer = CacheLayer.water;
-            albedo = 0.9f;
+            albedo = 0.3f;
+            supportsOverlay = true;
         }};
-        flower = new Floor("flowers") {{
+        flower = new OverlayFloor("flowers") {{
             variants = 3;
-            blendGroup = grass;
-            oreDefault = true;
+            attributes.set(Attribute.water, 0.2f);
         }};
         orePeridotium = new OreBlock("peridotium-ore", EIItems.peridotium) {{
             oreDefault = true;
@@ -99,18 +83,18 @@ public class EIBlocks {
         }};
         oreStarium = new OreBlock("starium-ore", EIItems.starium) {{
             oreDefault = true;
-            oreThreshold = 0.882f;
+            oreThreshold = 0.912f;
             oreScale = 25.380953f;
         }};
         liquidReurium = new Floor("liquid-reurium"){{
             speedMultiplier = 0.05f;
             variants = 0;
             liquidDrop = EILiquids.reurium;
-            liquidMultiplier = 0.75f;
+            liquidMultiplier = 0.35f;
             isLiquid = true;
             status = EIStatusEffects.sticky;
             statusDuration = 900f;
-            drownTime = 240f;
+            drownTime = 600f;
             albedo = 0.9f;
             supportsOverlay = false;
             cacheLayer = CacheLayer.tar;
@@ -129,7 +113,7 @@ public class EIBlocks {
         }};
         starlightJunction = new Junction("starlight-junction") {{
             requirements(Category.distribution, with(EIItems.starium, 3, Items.titanium, 2, Items.copper, 2));
-            speed = 22;
+            speed = 22.5f;
             capacity = 8;
             health = 80;
         }};
@@ -1884,7 +1868,7 @@ public class EIBlocks {
         terraReconstructor = new Reconstructor("terra-reconstructor"){{
             requirements(Category.units, with(Items.copper, 1900, Items.lead, 1200, Items.silicon, 1105, Items.metaglass, 730, Items.plastanium, 675, Items.phaseFabric, 500, EIItems.starium, 435, Items.surgeAlloy, 500));
 
-            size = 9;
+            size = 11;
             consumePower(3f);
             consumeItems(with(Items.silicon, 970, Items.plastanium, 830, Items.graphite, 655, EIItems.enhancedPeridotium, 275, EIItems.stariumAlloy, 175));
             consumeLiquid(EILiquids.lox, 3f);

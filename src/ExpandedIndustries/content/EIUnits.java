@@ -235,10 +235,12 @@ public class EIUnits {
                     alternate = false;
 
                        bullet = new ContinuousLaserBulletType() {{
+                           colors = new Color[]{Pal.heal.cpy().a(.2f), Pal.heal.cpy().a(.5f), Pal.heal.cpy().mul(1.2f), Color.white};
                            damage = 32;
                            collidesTeam = true;
                            healPercent = 4.5f;
                            length = 240;
+                           width = 18;
                            drawSize = 240;
                            lifetime = 170;
                            shake = 1.7f;
@@ -1349,6 +1351,7 @@ public class EIUnits {
                     bullet = new ContinuousLaserBulletType(){{
                         damage = 7.5f;
                         collidesTeam = true;
+                        colors = new Color[]{Pal.heal.cpy().a(.2f), Pal.heal.cpy().a(.5f), Pal.heal.cpy().mul(1.2f), Color.white};
                         healPercent = 4.5f;
                         length = 120;
                         drawSize = 125;
