@@ -46,11 +46,12 @@ public class EIUnits {
             shadowElevation = 0.2f;
             hovering = true;
             groundLayer = Layer.legUnit;
+            outlines = false;
 
             ammoType = new PowerAmmoType(750);
 
             speed = 0.7f;
-            hitSize = 10f;
+            hitSize = 12f;
 
             weapons.add(
                     new Weapon("ei-stormer-weapon") {{
@@ -87,11 +88,12 @@ public class EIUnits {
             shadowElevation = 0.3f;
             hovering = true;
             groundLayer = Layer.legUnit;
+            outlines = false;
 
             ammoType = new PowerAmmoType(1000);
 
             speed = 0.6f;
-            hitSize = 12f;
+            hitSize = 20f;
 
             weapons.add(
                     new Weapon("ei-rusher-weapon") {{
@@ -141,7 +143,7 @@ public class EIUnits {
 
             hovering = true;
             allowLegStep = true;
-            hitSize = 18;
+            hitSize = 32;
             speed = 0.5f;
             rotateSpeed = 2.2f;
             shadowElevation = 0.45f;
@@ -155,6 +157,7 @@ public class EIUnits {
             legBaseOffset = 0;
             legExtension = 0;
             lightRadius = 50;
+            outlines = false;
 
             ammoType = new PowerAmmoType(1500);
 
@@ -204,7 +207,7 @@ public class EIUnits {
             groundLayer = Layer.legUnit;
 
             hovering = true;
-            hitSize = 24;
+            hitSize = 68;
             drawShields = false;
             allowLegStep = true;
             shadowElevation = 0.7f;
@@ -217,6 +220,7 @@ public class EIUnits {
             legLength = 80;
             legSplashDamage = 70;
             legSplashRange = 60;
+            outlines = false;
 
             ammoType = new PowerAmmoType(4750);
 
@@ -253,7 +257,8 @@ public class EIUnits {
             groundLayer = Layer.legUnit;
 
             health = 21200;
-            hitSize = armor = 30;
+            hitSize = 88;
+            armor = 30;
             itemCapacity = 180;
             speed = 0.4f;
             legCount = 10;
@@ -265,6 +270,7 @@ public class EIUnits {
             legSplashRange = 85;
             allowLegStep = true;
             rotateSpeed = 1.45f;
+            outlineRadius = 4;
 
             weapons.add(
                     new Weapon("ei-terrand"){{
@@ -1370,6 +1376,8 @@ public class EIUnits {
             armor = 1;
             speed = 0.55f;
             rotateSpeed = 1.72f;
+            outlines = false;
+
             weapons.add(
                     new Weapon("ei-breadnight-laser"){{
                         x = 8;
@@ -1411,6 +1419,8 @@ public class EIUnits {
             armor = 5;
             speed = 0.6f;
             rotateSpeed = 1.72f;
+            outlines = false;
+
             weapons.add(
                     new Weapon("ei-toastnight-weapon"){{
                             x = 8;
@@ -1451,6 +1461,7 @@ public class EIUnits {
             itemCapacity = 40;
             range = 50f;
             isEnemy = false;
+            outlines = false;
 
             ammoType = new PowerAmmoType(750);
 
@@ -1477,6 +1488,7 @@ public class EIUnits {
             range = 50f;
             itemCapacity = 60;
             isEnemy = false;
+            outlines = false;
 
             ammoType = new PowerAmmoType(1000);
 
@@ -1490,10 +1502,12 @@ public class EIUnits {
             speed = 2.25f;
             drag = 0.01f;
             accel = 0.08f;
-            engineOffset = 5.5f;
+            engineOffset = 6.5f;
             circleTarget = true;
             hitSize = 7f;
             itemCapacity = 5;
+            outlines = false;
+
             weapons.add(new Weapon("ei-pygmy-full") {{
                 top = false;
                 x = y = recoil = 0;
@@ -1536,11 +1550,13 @@ public class EIUnits {
             speed = 1.75f;
             drag = 0.016f;
             accel = 0.08f;
-            engineOffset = 6.75f;
+            engineOffset = 7.75f;
             circleTarget = true;
             faceTarget = false;
             hitSize = 11.5f;
             itemCapacity = 40;
+            outlines = false;
+
             weapons.add(new Weapon("ei-schaus-full"){{
                 reload = 10;
                 inaccuracy = 360;
@@ -1587,7 +1603,6 @@ public class EIUnits {
         }};
         SmolBoi = new UnitType("small-boi"){{
             constructor = UnitEntity::create;
-            controller = u -> new SuicideAI();
 
             flying = true;
             health = 210;
@@ -1596,6 +1611,9 @@ public class EIUnits {
             lightRadius = 50;
             faceTarget = true;
             itemCapacity =  50;
+            outlines = false;
+            hitSize = 6f;
+
             weapons.add(new Weapon("ei-small-boi") {
                 {
                     reload = 24;
@@ -1650,15 +1668,18 @@ public class EIUnits {
         }};
         MediumBoi = new UnitType("medium-boi"){{
             constructor = UnitEntity::create;
-            controller = u -> new SuicideAI();
 
             flying = true;
             health = 210;
             speed = 1.8f;
+            engineOffset = 6.25f;
             rotateSpeed = 3;
             lightRadius = 50;
             faceTarget = true;
             itemCapacity =  50;
+            outlines = false;
+            hitSize = 12f;
+
             weapons.add(new Weapon("ei-medium-boi") {
                 {
                     reload = 24;
@@ -1713,15 +1734,18 @@ public class EIUnits {
         }};
         LargeBoi = new UnitType("large-boi"){{
             constructor = UnitEntity::create;
-            controller = u -> new SuicideAI();
 
             flying = true;
             health = 210;
             speed = 1.8f;
+            engineOffset = 11.25f;
+            engineSize = 2.75f;
             rotateSpeed = 3;
             lightRadius = 50;
             faceTarget = true;
             itemCapacity =  50;
+            outlines = false;
+            hitSize = 20;
 
             abilities.add(new UnitSpawnAbility(SmolBoi, 1050, 0, 2));
             weapons.add(new Weapon("ei-large-boi") {
@@ -1789,7 +1813,8 @@ public class EIUnits {
             engineOffset = 16;
             itemCapacity = 340;
             payloadCapacity = 800;
-
+            outlines = false;
+            hitSize = 40f;
         }};
         piece = new UnitType("piece"){{
             aiController = BuilderAI::new;
@@ -1807,9 +1832,10 @@ public class EIUnits {
             accel = 0.2f;
             itemCapacity = 10;
             health = 60f;
-            engineOffset = 5f;
+            engineOffset = 4.75f;
             hitSize = 6f;
             alwaysUnlocked = true;
+            outlineRadius = 2;
 
             weapons.add(new Weapon("ei-piece"){{
                 reload = 12f;
