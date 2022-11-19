@@ -20,12 +20,17 @@ public class EILiquids {
         }};
         lightOil = new Liquid("light-oil", Color.valueOf("BDB88B")){{
             flammability = 3.7f;
+            temperature = 0.35f;
+            heatCapacity = 0.8f;
         }};
         heavyOil = new Liquid("heavy-oil", Color.valueOf("C9C447")){{
             flammability = 2.2f;
+            temperature = 0.35f;
+            heatCapacity = 1.4f;
         }};
         reurium = new Liquid("reurium", Color.valueOf("a45cdc")){{
             flammability = 1.6f;
+            coolant = false;
         }};
     }
 }

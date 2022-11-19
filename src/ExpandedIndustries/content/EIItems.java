@@ -12,9 +12,9 @@ public class EIItems {
         }};
 
         peridotium = new Item("peridotium", Color.valueOf("45bb49")){{
-            explosiveness = 5.7f;
+            explosiveness = 2.2f;
             radioactivity = 2.4f;
-            flammability = 1.1f;
+            flammability = 1.3f;
             hardness = 3;
         }};
 

@@ -1,18 +1,51 @@
 package ExpandedIndustries.content;
 
-import mindustry.entities.bullet.EmpBulletType;
-
+import arc.graphics.Color;
+import mindustry.entities.bullet.*;
+import mindustry.entities.effect.*;
 public class EIBullets{
-
-    class damageFieldType extends EmpBulletType{
-        public int statusDuration = 300;
-        public boolean scaleVelocity = true;
-        public boolean scaleLife = true;
-        public boolean absorbable = false;
-        public boolean reflectable = false;
-        public boolean hittable = false;
-        public float healprecent = 0.07f; // 0.0f = 0%, 0.5 = 50%, 1.0 = 100%;
+    public static BulletType
+        SuicideBulletType;
+    public static void load() {
+        SuicideBulletType = new BombBulletType() {
+            {
+                shootEffect = despawnEffect = new MultiEffect(
+                        new WaveEffect() {{
+                            sizeFrom = 120;
+                            sizeTo = 0;
+                            colorFrom = Color.valueOf("ffe266");
+                            colorTo = Color.valueOf("eec44f");
+                        }},
+                        new ParticleEffect() {{
+                            region = "circle";
+                            sizeFrom = 2;
+                            sizeTo = 0;
+                        }}
+                );
+                hitEffect = new MultiEffect(
+                        new ParticleEffect() {{
+                            region = "circle";
+                            sizeFrom = 2;
+                            sizeTo = 0;
+                            particles = 6;
+                        }},
+                        new WaveEffect() {{
+                            sizeFrom = 0;
+                            sizeTo = 2;
+                            colorFrom = Color.valueOf("ffe266");
+                            colorTo = Color.valueOf("eec44f");
+                        }}
+                );
+                splashDamageRadius = 120;
+                instantDisappear = true;
+                killShooter = true;
+                hittable = false;
+                splashDamage = 75;
+                damage = 30;
+                collidesAir = true;
+                lifetime = 10;
+                speed = 1;
+            }
+        };
     }
-
 }
-//TODO - Create a customisable damageFieldType bullet for slowRay like turrets

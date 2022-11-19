@@ -1,2 +1,2 @@
 # Expanded Industries
-v1.5 B2 is released
+v1.5 B3 is now released

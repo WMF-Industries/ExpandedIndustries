@@ -15,9 +15,11 @@ import mindustry.graphics.*;
 import mindustry.ai.types.*;
 import mindustry.entities.bullet.*;
 import mindustry.type.ammo.*;
+import mindustry.world.blocks.power.NuclearReactor;
+import mindustry.world.blocks.power.PowerGenerator;
 
 import static mindustry.gen.Sounds.laserblast;
-import static mindustry.gen.Sounds.none;
+import static ExpandedIndustries.content.EIBullets.*;
 
 public class EIUnits {
     public static UnitType
@@ -273,7 +275,7 @@ public class EIUnits {
             outlineRadius = 4;
 
             weapons.add(
-                    new Weapon("ei-terrand"){{
+                    new Weapon(){{
                         shoot.firstShotDelay = 90;
                         reload = 390;
 
@@ -1499,6 +1501,7 @@ public class EIUnits {
             constructor = UnitEntity::create;
 
             flying = true;
+            lowAltitude = true;
             speed = 2.25f;
             drag = 0.01f;
             accel = 0.08f;
@@ -1506,14 +1509,14 @@ public class EIUnits {
             circleTarget = true;
             hitSize = 7f;
             itemCapacity = 5;
-            outlines = false;
 
-            weapons.add(new Weapon("ei-pygmy-full") {{
+            weapons.add(new Weapon() {{
                 top = false;
                 x = y = recoil = 0;
                 reload = 45f;
                 mirror = false;
                 bullet = new LifestealBulletType(3, 5, 1.5f) {{
+                    smokeEffect = shootEffect = Fx.none;
                     shrinkY = 0;
                     homingPower = 0.24f;
                     homingDelay = 3f;
@@ -1547,6 +1550,7 @@ public class EIUnits {
             constructor = UnitEntity::create;
 
             flying = true;
+            lowAltitude = true;
             speed = 1.75f;
             drag = 0.016f;
             accel = 0.08f;
@@ -1555,9 +1559,8 @@ public class EIUnits {
             faceTarget = false;
             hitSize = 11.5f;
             itemCapacity = 40;
-            outlines = false;
 
-            weapons.add(new Weapon("ei-schaus-full"){{
+            weapons.add(new Weapon(){{
                 reload = 10;
                 inaccuracy = 360;
                 shootCone = 360;
@@ -1566,6 +1569,7 @@ public class EIUnits {
                 top = false;
                 x = y = 0;
                 bullet = new LifestealBulletType(4, 55, 5.5f) {{
+                    smokeEffect = shootEffect = Fx.none;
                     splashDamage = 15;
                     splashDamageRadius = 14;
                     shrinkY = 0;
@@ -1601,6 +1605,90 @@ public class EIUnits {
                 }};
             }});
         }};
+        ageronia = new UnitType("ageronia"){{
+            constructor = UnitEntity::create;
+
+            health = 570;
+            armor = 6;
+            speed = 1.95f;
+            drag = 0.019f;
+            accel = 0.075f;
+            flying = true;
+            lowAltitude = true;
+            forceMultiTarget = true;
+            hitSize = 11.5f;
+            itemCapacity = 40;
+            weapons.add(new Weapon(){{
+                top = false;
+                mirror = false;
+                rotate = false;
+                x = y = 0;
+                shoot.shots = 2;
+                shootY = 0;
+                reload = 50;
+                shootCone = 200;
+                bullet = new LifestealBulletType(6.4f, 30, 2.75f, "circle-bullet"){{
+                    smokeEffect = shootEffect = Fx.none;
+                    height = width = hitSize = 4;
+                    lifetime = 45;
+                    pierce = true;
+                    pierceCap = 3;
+                    pierceBuilding = true;
+                    homingPower = 0.1f;
+                    homingRange = 50;
+                    keepVelocity = false;
+                    frontColor = hitColor = Color.valueOf("bf92f9");
+                    backColor = trailColor = Color.valueOf("6d56bf");
+                    trailLength = 7;
+                    trailWidth = 3.5f;
+                    hitEffect = new MultiEffect(
+                            new WaveEffect(){{
+                                sizeFrom = 14;
+                                sizeTo = 14;
+                                lifetime = 20;
+                                colorTo = Color.valueOf("6d56bf");
+                            }},
+                            new ParticleEffect(){{
+                                sizeFrom = 4;
+                                sizeTo = 2;
+                                lifetime = 15;
+                                colorTo = Color.valueOf("6d56bf");
+                            }}
+                    );
+                    bulletInterval = 11.25f;
+                    intervalRandomSpread = 20f;
+                    intervalBullets = 2;
+                    intervalAngle = 180f;
+                    intervalSpread = 300f;
+                    intervalBullet = new LifestealBulletType(3.2f, 17.5f, 1.25f, "circle-bullet"){{
+                        lifetime = 22.5f;
+                        shrinkY = shrinkX = 0;
+                        weaveScale = 1;
+                        weaveMag = 10;
+                        frontColor = hitColor = Color.valueOf("bf92f9");
+                        backColor = trailColor = Color.valueOf("6d56bf");
+                        trailLength = 7;
+                        trailWidth = 3.5f;
+                        homingPower = 0.7f;
+                        homingRange = 72;
+                        hitEffect = new MultiEffect(
+                                new WaveEffect(){{
+                                    sizeFrom = 14;
+                                    sizeTo = 14;
+                                    lifetime = 20;
+                                    colorTo = Color.valueOf("6d56bf");
+                                }},
+                                new ParticleEffect(){{
+                                    sizeFrom = 4;
+                                    sizeTo = 2;
+                                    lifetime = 15;
+                                    colorTo = Color.valueOf("6d56bf");
+                                }}
+                        );
+                    }};
+                }};
+            }});
+        }};
         SmolBoi = new UnitType("small-boi"){{
             constructor = UnitEntity::create;
 
@@ -1614,55 +1702,15 @@ public class EIUnits {
             outlines = false;
             hitSize = 6f;
 
-            weapons.add(new Weapon("ei-small-boi") {
+            weapons.add(new Weapon() {
                 {
                     reload = 24;
                     shootCone = 180;
                     x = 0;
                     y = 0;
                     shootSound = Sounds.explosion;
-                    recoil = 0;
                     top = false;
-                    bullet = new BombBulletType() {
-                        {
-                            shootEffect = despawnEffect = new MultiEffect(
-                                    new WaveEffect() {{
-                                        sizeFrom = 120;
-                                        sizeTo = 0;
-                                        colorFrom = Color.valueOf("ffe266");
-                                        colorTo = Color.valueOf("eec44f");
-                                    }},
-                                    new ParticleEffect() {{
-                                        region = "circle";
-                                        sizeFrom = 2;
-                                        sizeTo = 0;
-                                    }}
-                            );
-                            hitEffect = new MultiEffect(
-                                    new ParticleEffect() {{
-                                        region = "circle";
-                                        sizeFrom = 2;
-                                        sizeTo = 0;
-                                        particles = 6;
-                                    }},
-                                    new WaveEffect() {{
-                                        sizeFrom = 0;
-                                        sizeTo = 2;
-                                        colorFrom = Color.valueOf("ffe266");
-                                        colorTo = Color.valueOf("eec44f");
-                                    }}
-                            );
-                            splashDamageRadius = 120;
-                            instantDisappear = true;
-                            killShooter = true;
-                            hittable = false;
-                            splashDamage = 75;
-                            damage = 30;
-                            collidesAir = true;
-                            lifetime = 10;
-                            speed = 1;
-                        }
-                    };
+                    bullet = SuicideBulletType;
                 }
             });
         }};
@@ -1680,55 +1728,15 @@ public class EIUnits {
             outlines = false;
             hitSize = 12f;
 
-            weapons.add(new Weapon("ei-medium-boi") {
+            weapons.add(new Weapon() {
                 {
                     reload = 24;
                     shootCone = 180;
                     x = 0;
                     y = 0;
                     shootSound = Sounds.explosion;
-                    recoil = 0;
                     top = false;
-                    bullet = new BombBulletType() {
-                        {
-                            shootEffect = despawnEffect = new MultiEffect(
-                                    new WaveEffect() {{
-                                        sizeFrom = 120;
-                                        sizeTo = 0;
-                                        colorFrom = Color.valueOf("ffe266");
-                                        colorTo = Color.valueOf("eec44f");
-                                    }},
-                                    new ParticleEffect() {{
-                                        region = "circle";
-                                        sizeFrom = 2;
-                                        sizeTo = 0;
-                                    }}
-                            );
-                            hitEffect = new MultiEffect(
-                                    new ParticleEffect() {{
-                                        region = "circle";
-                                        sizeFrom = 2;
-                                        sizeTo = 0;
-                                        particles = 6;
-                                    }},
-                                    new WaveEffect() {{
-                                        sizeFrom = 0;
-                                        sizeTo = 2;
-                                        colorFrom = Color.valueOf("ffe266");
-                                        colorTo = Color.valueOf("eec44f");
-                                    }}
-                            );
-                            splashDamageRadius = 120;
-                            instantDisappear = true;
-                            killShooter = true;
-                            hittable = false;
-                            splashDamage = 75;
-                            damage = 30;
-                            collidesAir = true;
-                            lifetime = 10;
-                            speed = 1;
-                        }
-                    };
+                    bullet = SuicideBulletType;
                 }
             });
         }};
@@ -1748,7 +1756,7 @@ public class EIUnits {
             hitSize = 20;
 
             abilities.add(new UnitSpawnAbility(SmolBoi, 1050, 0, 2));
-            weapons.add(new Weapon("ei-large-boi") {
+            weapons.add(new Weapon() {
                 {
                     reload = 24;
                     shootCone = 180;
@@ -1757,46 +1765,7 @@ public class EIUnits {
                     shootSound = Sounds.explosion;
                     recoil = 0;
                     top = false;
-                    bullet = new BombBulletType() {
-                        {
-                            shootEffect = despawnEffect = new MultiEffect(
-                                    new WaveEffect() {{
-                                        sizeFrom = 120;
-                                        sizeTo = 0;
-                                        colorFrom = Color.valueOf("ffe266");
-                                        colorTo = Color.valueOf("eec44f");
-                                    }},
-                                    new ParticleEffect() {{
-                                        region = "circle";
-                                        sizeFrom = 2;
-                                        sizeTo = 0;
-                                    }}
-                            );
-                            hitEffect = new MultiEffect(
-                                    new ParticleEffect() {{
-                                        region = "circle";
-                                        sizeFrom = 2;
-                                        sizeTo = 0;
-                                        particles = 6;
-                                    }},
-                                    new WaveEffect() {{
-                                        sizeFrom = 0;
-                                        sizeTo = 2;
-                                        colorFrom = Color.valueOf("ffe266");
-                                        colorTo = Color.valueOf("eec44f");
-                                    }}
-                            );
-                            splashDamageRadius = 120;
-                            instantDisappear = true;
-                            killShooter = true;
-                            hittable = false;
-                            splashDamage = 75;
-                            damage = 30;
-                            collidesAir = true;
-                            lifetime = 10;
-                            speed = 1;
-                        }
-                    };
+                    bullet = SuicideBulletType;
                 }
             });
         }};
@@ -1807,8 +1776,8 @@ public class EIUnits {
             speed = 3.35f;
             flying = true;
             rotateSpeed = 3.3f;
-            drag = 0.04f;
-            accel = 0.07f;
+            drag = 0.1f;
+            accel = 0.2f;
             engineSize = 4.5f;
             engineOffset = 16;
             itemCapacity = 340;
@@ -1837,13 +1806,12 @@ public class EIUnits {
             alwaysUnlocked = true;
             outlineRadius = 2;
 
-            weapons.add(new Weapon("ei-piece"){{
+            weapons.add(new Weapon(){{
                 reload = 12f;
                 x = 0;
                 y = 0.5f;
                 top = false;
                 mirror = false;
-                recoil = 0;
                 ejectEffect = Fx.casing1;
 
                 bullet = new BasicBulletType(2.5f, 7){{

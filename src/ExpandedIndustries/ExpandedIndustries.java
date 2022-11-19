@@ -26,6 +26,7 @@ public class ExpandedIndustries extends Mod{
         EILiquids.load();
         EIFx.load();
         EIStatusEffects.load();
+        EIBullets.load();
         EIUnits.load();
         EIBlocks.load();
         EITechTree.load();

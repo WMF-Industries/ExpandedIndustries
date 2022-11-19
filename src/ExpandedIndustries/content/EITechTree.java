@@ -56,7 +56,7 @@ public class EITechTree {
         nodeProduce(content, new Seq<>(), children);
     }
     public static void load() {
-        node(Blocks.coreShard, () -> {
+        mergeNode(Blocks.coreShard, () -> {
             node(coreFrag, () -> {
             });
         });
@@ -250,9 +250,9 @@ public class EITechTree {
         });
         mergeNode(UnitTypes.flare, () -> {
             node(pygmy, () -> {
-                node(schaus);/*, () -> {
+                node(schaus, () -> {
                     node(ageronia);
-                });*/
+                });
             });
             node(SmolBoi, () -> {
                 node(MediumBoi, () -> {

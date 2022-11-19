@@ -27,7 +27,6 @@ import mindustry.world.meta.*;
 
 import static ExpandedIndustries.content.EIUnits.*;
 import static mindustry.Vars.tilesize;
-import static mindustry.content.Blocks.grass;
 import static mindustry.content.Fx.none;
 import static mindustry.type.ItemStack.with;
 
@@ -68,7 +67,6 @@ public class EIBlocks {
             liquidMultiplier = 0.75f;
             status = StatusEffects.wet;
             statusDuration = 90f;
-            cacheLayer = CacheLayer.water;
             albedo = 0.3f;
             supportsOverlay = true;
         }};
@@ -613,12 +611,12 @@ public class EIBlocks {
             requirements(Category.power, with(Items.lead, 1250, Items.silicon, 750, Items.titanium, 700, Items.surgeAlloy, 650, Items.plastanium, 450, EIItems.stariumAlloy, 250));
             size = 5;
             health = 4500;
-            powerProduction = 435f;
-            itemDuration = 180f;
+            powerProduction = 652.5f;
+            itemDuration = 240f;
             ambientSound = Sounds.pulse;
             ambientSoundVolume = 0.5f;
 
-            consumePower(32.5f);
+            consumePower(52.5f);
             consumeItem(EIItems.lumium);
             consumeLiquid(EILiquids.lox, 1);
         }};
@@ -900,7 +898,6 @@ public class EIBlocks {
             coolant = consumeCoolant(0.5f);
             limitRange(0f);
         }};
-        //TODO - Code damageFieldType bullet for slowray, i will use messy code for now
         slowRay = new PowerTurret("slowray") {{
             requirements(Category.turret, with(Items.copper, 560, Items.lead, 510, Items.silicon, 270, Items.titanium, 350, Items.thorium, 260, EIItems.starium, 300, Items.surgeAlloy, 75));
             range = 230;
@@ -1798,7 +1795,6 @@ public class EIBlocks {
                 }};
             }};
         }};
-        //TODO - Fix units and add the missing ones.
         groundFactory = new UnitFactory("ground-factory"){{
             requirements(Category.units, with(Items.copper, 90, Items.titanium, 80, Items.silicon, 120));
             plans = Seq.with(
@@ -1846,7 +1842,7 @@ public class EIBlocks {
 
             upgrades.addAll(
                     new UnitType[]{EIUnits.rusher, EIUnits.escapade},
-                    //new UnitType[]{EIUnits.schaus, EIUnits.ageronia},
+                    new UnitType[]{EIUnits.schaus, EIUnits.ageronia},
                     new UnitType[]{EIUnits.MediumBoi, EIUnits.LargeBoi}
             );
         }};
