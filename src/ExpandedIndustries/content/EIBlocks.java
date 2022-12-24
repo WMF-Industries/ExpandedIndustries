@@ -26,6 +26,7 @@ import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 import static ExpandedIndustries.content.EIUnits.*;
+import static mindustry.Vars.steam;
 import static mindustry.Vars.tilesize;
 import static mindustry.content.Fx.none;
 import static mindustry.type.ItemStack.with;
@@ -232,7 +233,7 @@ public class EIBlocks {
         }};
         coalLiquifier = new GenericCrafter("coal-liquifier") {{
             requirements(Category.crafting, with(Items.copper, 170, Items.silicon, 60, Items.titanium, 70, EIItems.starium, 10));
-            outputLiquid = new LiquidStack(Liquids.oil, 30f / 60f);
+            outputLiquid = new LiquidStack(Liquids.oil, 6f / 60f);
             size = 2;
             hasPower = true;
             hasItems = true;
@@ -247,9 +248,9 @@ public class EIBlocks {
             liquidCapacity = 30f;
             craftTime = 15f;
 
-            consumePower(2.25f);
+            consumePower(2f);
             consumeItem(Items.coal);
-            consumeLiquid(Liquids.water, 30f / 60f);
+            consumeLiquid(Liquids.water, 12f / 60f);
         }};
         oilCrystaliser = new GenericCrafter("oil-crystaliser") {{
             requirements(Category.crafting, with(Items.copper, 70, Items.titanium, 20, Items.graphite, 40, EIItems.starium, 30));
@@ -270,6 +271,8 @@ public class EIBlocks {
             size = 2;
 
             consumePower(1.25f);
+            hasLiquids = false;
+            hasPower = hasItems = true;
         }};
         precisionDrill = new Drill("precision-drill") {{
             requirements(Category.production, with(Items.graphite, 165, Items.silicon, 80, Items.titanium, 75, Items.thorium, 65));
@@ -548,8 +551,12 @@ public class EIBlocks {
         }};
         steamTurbine = new ConsumeGenerator("steam-turbine") {{
             requirements(Category.power, with(Items.copper, 370, Items.lead, 220, Items.silicon, 240, Items.graphite, 130, Items.titanium, 170));
-            powerProduction = 22f;
-            consumeLiquid(EILiquids.steam, 0.25f);
+            powerProduction = 15f;
+            consumeLiquid(Liquids.water, 15f / 60f);
+            consumesItem(Items.coal);
+            itemDuration = 180;
+            explodeOnFull = false;
+            outputLiquid = new LiquidStack(EILiquids.steam, 15f / 60f);
             hasLiquids = true;
             hasItems = false;
             size = 3;
@@ -579,13 +586,10 @@ public class EIBlocks {
             consume(new ConsumeItemRadioactive());
             consumeLiquid(Liquids.cryofluid, 0.05f);
         }};
-        peridotiumReactor = new ConsumeGenerator("peridotium-reactor") {{
+        peridotiumReactor = new NuclearReactor("peridotium-reactor") {{
             requirements(Category.power, with(Items.copper, 650, Items.graphite, 340, Items.titanium, 340, Items.silicon, 300, Items.thorium, 200, EIItems.starium, 175));
             size = 4;
             liquidCapacity = 225f;
-            outputLiquid = new
-                    LiquidStack(EILiquids.steam, 0.75f);
-            explodeOnFull = true;
 
             consumeLiquid(Liquids.water, 1f);
             consumeItem(EIItems.peridotium);
@@ -594,11 +598,8 @@ public class EIBlocks {
             itemCapacity = 10;
             explosionRadius = 40;
             explosionDamage = 4500000;
-            explodeEffect = new
-                    MultiEffect(Fx.bigShockwave, new WrapEffect(Fx.titanSmoke, EILiquids.steam.color), Fx.steam);
-            explodeSound = Sounds.explosionbig;
 
-            powerProduction = 14f;
+            powerProduction = 75f;
             rebuildable = false;
 
             explosionPuddles = 80;
@@ -654,7 +655,7 @@ public class EIBlocks {
             size = 3;
         }};
         coreFrag = new CoreBlock("core-frag") {{
-            requirements(Category.effect, BuildVisibility.editorOnly, with(Items.copper, 250, Items.lead, 125));
+            requirements(Category.effect, with(Items.copper, 250, Items.lead, 125));
 
             isFirstTier = true;
             unitType = piece;
@@ -1741,7 +1742,7 @@ public class EIBlocks {
                 unitDamageScl = 1.2f;
                 healPercent = 20f;
                 sprite = "circle-bullet";
-                damage = 120;
+                damage = 75;
                 lifetime = 60;
                 speed = 5;
                 radius = 90f;

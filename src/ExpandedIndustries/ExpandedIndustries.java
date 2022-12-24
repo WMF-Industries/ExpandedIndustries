@@ -5,7 +5,6 @@ import arc.util.Log;
 import mindustry.mod.Mod;
 
 public class ExpandedIndustries extends Mod{
-
     public ExpandedIndustries(){
         Log.info("Loaded EI constructor.");
     }
@@ -30,5 +29,7 @@ public class ExpandedIndustries extends Mod{
         EIUnits.load();
         EIBlocks.load();
         EITechTree.load();
+
+        Log.info("Initialization complete.");
     }
 }

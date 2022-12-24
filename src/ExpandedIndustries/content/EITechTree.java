@@ -76,7 +76,7 @@ public class EITechTree {
                 });
             });
         });
-        mergeNode(Blocks.reinforcedConduit, () -> {
+        mergeNode(Blocks.pulseConduit, () -> {
             node(stariumConduit);
         });
         mergeNode(Blocks.bridgeConduit, () -> {
@@ -104,10 +104,17 @@ public class EITechTree {
         mergeNode(Blocks.pneumaticDrill, () -> {
             node(electricDrill);
         });
+        mergeNode(Blocks.blastDrill, ()-> {
+            node(hammerDrill, Seq.with(
+                    new Objectives.Research(Liquids.cryofluid)
+            ), () -> {
+            });
+            node(precisionDrill);
+        });
         mergeNode(Blocks.siliconCrucible, () -> {
             node(siliconFabricator);
         });
-        mergeNode(Blocks.surgeCrucible, () -> {
+        mergeNode(Blocks.surgeSmelter, () -> {
             node(lumiumSmelter, Seq.with(
                     new Objectives.Research(EIItems.starium),
                     new Objectives.Research(Items.thorium)
@@ -166,9 +173,10 @@ public class EITechTree {
         });
         mergeNode(Blocks.thoriumReactor, () -> {
             node(peridotiumReactor, () -> {
-                node(steamTurbine, Seq.with(
-                        new Objectives.Research(EILiquids.steam)), () -> {
-                });
+            });
+        });
+        mergeNode(Blocks.steamGenerator, ()-> {
+            node(steamTurbine, ()-> {
             });
         });
         mergeNode(Blocks.rtgGenerator, () -> {
@@ -210,6 +218,8 @@ public class EITechTree {
             node(piercer, () -> {
                 node(enforcer, () -> {
                     node(slowRay, () -> {
+                        node(fastRay, () -> {
+                        });
                     });
                 });
             });
@@ -218,15 +228,17 @@ public class EITechTree {
             node(groundFactory, () -> {
                 node(starruneReconstructor, () -> {
                     node(eraniteReconstructor, () -> {
-                        node(ultraReconstructor);
+                        node(ultraReconstructor, () -> {
+                            node(terraReconstructor);
+                        });
                     });
                 });
             });
         });
-
         mergeNode(Blocks.airFactory, () -> {
             node(airFactory);
         });
+
         mergeNode(UnitTypes.mono, () -> {
             node(centurion, () -> {
                 node(alturion);

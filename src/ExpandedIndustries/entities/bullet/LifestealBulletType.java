@@ -98,4 +98,3 @@ public class LifestealBulletType extends BulletType {
         }
     }
 }
-//TODO: Make this actually work, i have no idea what i am doing
