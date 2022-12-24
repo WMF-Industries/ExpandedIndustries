@@ -553,12 +553,12 @@ public class EIBlocks {
             requirements(Category.power, with(Items.copper, 370, Items.lead, 220, Items.silicon, 240, Items.graphite, 130, Items.titanium, 170));
             powerProduction = 15f;
             consumeLiquid(Liquids.water, 15f / 60f);
-            consumesItem(Items.coal);
             itemDuration = 180;
+            consumeItem(Items.coal, 1);
             explodeOnFull = false;
             outputLiquid = new LiquidStack(EILiquids.steam, 15f / 60f);
-            hasLiquids = true;
-            hasItems = false;
+            hasLiquids = hasItems = hasPower = true;
+            itemCapacity = 15;
             size = 3;
             generateEffect = Fx.generatespark;
 
