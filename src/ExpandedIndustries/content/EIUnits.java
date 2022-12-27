@@ -5,6 +5,10 @@ import arc.graphics.*;
 import mindustry.ai.UnitCommand;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
+import mindustry.content.UnitTypes;
+import mindustry.entities.abilities.EnergyFieldAbility;
+import mindustry.entities.abilities.ForceFieldAbility;
+import mindustry.entities.abilities.StatusFieldAbility;
 import mindustry.entities.abilities.UnitSpawnAbility;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
@@ -18,6 +22,7 @@ import mindustry.type.ammo.*;
 import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.power.PowerGenerator;
 
+import static mindustry.Vars.tilePayload;
 import static mindustry.gen.Sounds.laserblast;
 import static ExpandedIndustries.content.EIBullets.*;
 
@@ -33,7 +38,9 @@ public class EIUnits {
 
     SmolBoi, MediumBoi, LargeBoi, PayloadBoi,
 
-    piece;
+    piece,
+    //Overkill Content;
+    starnight;
     public static void load() {
 
         stormer = new UnitType("stormer") {{
@@ -1822,5 +1829,37 @@ public class EIUnits {
                     smokeEffect = Fx.shootSmallSmoke;
                     buildingDamageMultiplier = 0.01f;}};
             }});
+        }};
+        starnight = new UnitType("starnight"){{
+            constructor = UnitEntity::create;
+
+            health = 42900;
+            armor = 37;
+            speed = 0.6f;
+            accel = 0.04f;
+            drag = 0.018f;
+            flying = true;
+            engineOffset = 46f;
+            engineSize = 7.8f;
+            faceTarget = false;
+            hitSize = 66f;
+            payloadCapacity = (5.5f * 5.5f) * tilePayload;
+            buildSpeed = 6.5f;
+            drawShields = false;
+            lowAltitude = true;
+            buildBeamOffset = 43;
+            ammoCapacity = 3;
+
+            abilities.add(
+                    new ForceFieldAbility(320f, 12f, 10950f, 120f),
+                    new UnitSpawnAbility(UnitTypes.poly, 1200f, 0, -27.125f),
+                    new EnergyFieldAbility(5f, 6f, 180f){{
+                        maxTargets = 65;
+                        statusDuration = 20f;
+                        status = StatusEffects.disarmed;
+                        color = Color.valueOf("6cf5d7");
+                    }},
+                    new StatusFieldAbility(StatusEffects.overdrive, 0f, 60f * 120f, 220f)
+            );
         }};
     }}

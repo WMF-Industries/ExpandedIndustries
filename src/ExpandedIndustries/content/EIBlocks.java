@@ -2,12 +2,15 @@ package ExpandedIndustries.content;
 
 import arc.graphics.Color;
 import arc.math.Interp;
+import arc.struct.EnumSet;
 import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
+import mindustry.entities.pattern.ShootAlternate;
 import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
+import mindustry.graphics.Layer;
 import mindustry.type.*;
 import mindustry.world.Block;
 import mindustry.world.blocks.campaign.LaunchPad;
@@ -58,7 +61,9 @@ public class EIBlocks {
             exagonArtillery, slowRay, fastRay, piercer, enforcer, renoit,
     //factories & recons
     groundFactory, airFactory, starruneReconstructor, eraniteReconstructor, ultraReconstructor,
-            terraReconstructor;
+            terraReconstructor,
+    //overkill content
+    overkillAssembler;
 
     public static void load() {
         grassWater = new ShallowLiquid("grass-water") {{
@@ -592,7 +597,7 @@ public class EIBlocks {
             liquidCapacity = 225f;
 
             consumeLiquid(Liquids.water, 1f);
-            consumeItem(EIItems.peridotium);
+            consumeItem(EIItems.peridotium, 1);
 
             itemDuration = 150f;
             itemCapacity = 10;
@@ -1796,6 +1801,91 @@ public class EIBlocks {
                 }};
             }};
         }};
+        renoit = new LiquidTurret("renoit"){{
+            requirements(Category.turret, with(Items.metaglass, 235, Items.lead, 520, Items.titanium, 170, Items.thorium, 100, Items.silicon, 110, Items.plastanium, 70));
+            ammo(
+                    Liquids.water, new LiquidBulletType(Liquids.water){{
+                        lifetime = 49f;
+                        speed = 5f;
+                        knockback = 1.7f;
+                        puddleSize = 8f;
+                        orbSize = 4f;
+                        drag = 0.001f;
+                        ammoMultiplier = 0.4f;
+                        statusDuration = 60f * 4f;
+                        damage = 0.4f;
+                        layer = Layer.bullet - 2f;
+                    }},
+                    Liquids.slag,  new LiquidBulletType(Liquids.slag){{
+                        lifetime = 49f;
+                        speed = 5f;
+                        knockback = 1.3f;
+                        puddleSize = 8f;
+                        orbSize = 4f;
+                        damage = 9.5f;
+                        drag = 0.001f;
+                        ammoMultiplier = 0.4f;
+                        statusDuration = 60f * 4f;
+                    }},
+                    Liquids.cryofluid, new LiquidBulletType(Liquids.cryofluid){{
+                        lifetime = 49f;
+                        speed = 5f;
+                        knockback = 1.3f;
+                        puddleSize = 8f;
+                        orbSize = 4f;
+                        drag = 0.001f;
+                        ammoMultiplier = 0.4f;
+                        statusDuration = 60f * 4f;
+                        damage = 0.4f;
+                    }},
+                    Liquids.oil, new LiquidBulletType(Liquids.oil){{
+                        lifetime = 49f;
+                        speed = 5f;
+                        knockback = 1.3f;
+                        puddleSize = 8f;
+                        orbSize = 4f;
+                        drag = 0.001f;
+                        ammoMultiplier = 0.4f;
+                        statusDuration = 60f * 4f;
+                        damage = 0.4f;
+                        layer = Layer.bullet - 2f;
+                    }},
+                    EILiquids.reurium, new LiquidBulletType(EILiquids.reurium){{
+                        lifetime = 49f;
+                        speed = 5f;
+                        knockback = 1.5f;
+                        puddleSize = 8f;
+                        orbSize = 4f;
+                        drag = 0.001f;
+                        ammoMultiplier = 0.6f;
+                        statusDuration = 60f * 8f;
+                        damage = 0.6f;
+                        layer = Layer.bullet - 2f;
+                        reloadMultiplier = 0.75f;
+                    }}
+            );
+
+            shoot = new ShootAlternate(){{
+                shots = 1;
+                barrels = 2;
+                spread = 7.5f;
+                shotDelay = 0f;
+            }};
+
+            shootX = 0f;
+            size = 4;
+            reload = 3f;
+            shoot.shots = 4;
+            velocityRnd = 0.1f;
+            inaccuracy = 4f;
+            recoil = 1f;
+            shootCone = 45f;
+            liquidCapacity = 40f;
+            shootEffect = Fx.shootLiquid;
+            range = 240f;
+            health = 1725;
+            flags = EnumSet.of(BlockFlag.turret, BlockFlag.extinguisher);
+        }};
         groundFactory = new UnitFactory("ground-factory"){{
             requirements(Category.units, with(Items.copper, 90, Items.titanium, 80, Items.silicon, 120));
             plans = Seq.with(
@@ -1875,6 +1965,17 @@ public class EIBlocks {
             upgrades.addAll(
                     new UnitType[]{EIUnits.natorin, EIUnits.terrand}
             );
+        }};
+        overkillAssembler = new UnitAssembler("overkill-assembler"){{
+            requirements(Category.units, with(Items.copper, 2650, Items.titanium, 1200, Items.silicon, 1100, EIItems.starium, 900, Items.thorium, 775, Items.plastanium, 700, Items.surgeAlloy, 650, Items.phaseFabric, 450, EIItems. stariumAlloy, 335));
+            size = 11;
+            plans.add(
+                    new AssemblerUnitPlan(starnight, 60f * 90f, PayloadStack.list(UnitTypes.oct, 1, Blocks.thoriumWallLarge, 24, Blocks.forceProjector, 4, Blocks.overdriveProjector, 2))
+            );
+            areaSize = 20;
+
+            consumePower(5.75f);
+            consumeLiquid(EILiquids.heavyOil, 18f / 60f);
         }};
     }
 }

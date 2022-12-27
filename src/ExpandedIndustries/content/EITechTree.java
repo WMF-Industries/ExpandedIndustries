@@ -214,6 +214,9 @@ public class EITechTree {
         mergeNode(Blocks.ripple, () -> {
             node(exagonArtillery);
         });
+        mergeNode(Blocks.tsunami, () -> {
+            node(renoit);
+        });
         mergeNode(Blocks.lancer, () -> {
             node(piercer, () -> {
                 node(enforcer, () -> {
