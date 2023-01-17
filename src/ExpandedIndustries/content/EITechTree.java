@@ -60,6 +60,10 @@ public class EITechTree {
             node(coreFrag, () -> {
             });
         });
+        mergeNode(Blocks.coreNucleus, () -> {
+            node(coreExtensio, () -> {
+            });
+        });
         mergeNode(Blocks.titaniumConveyor, () -> {
                     node(stariumConveyor);
         });
@@ -194,6 +198,11 @@ public class EITechTree {
                 node(armProcessor, () -> {
                     node(threadripperProcessor);
                 });
+            });
+        });
+        mergeNode(Blocks.overdriveDome, () -> {
+            node(planetaryOverdrive, () -> {
+                node(planetaryMender);
             });
         });
         mergeNode(Blocks.copperWall, () -> {

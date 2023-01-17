@@ -23,6 +23,7 @@ import mindustry.world.blocks.power.NuclearReactor;
 import mindustry.world.blocks.power.PowerGenerator;
 
 import static mindustry.Vars.tilePayload;
+import static mindustry.Vars.tilesize;
 import static mindustry.gen.Sounds.laserblast;
 import static ExpandedIndustries.content.EIBullets.*;
 
@@ -38,7 +39,7 @@ public class EIUnits {
 
     SmolBoi, MediumBoi, LargeBoi, PayloadBoi,
 
-    piece,
+    piece, guardian,
     //Overkill Content;
     starnight;
     public static void load() {
@@ -1830,6 +1831,48 @@ public class EIUnits {
                     buildingDamageMultiplier = 0.01f;}};
             }});
         }};
+        guardian = new UnitType("guardian"){{
+            aiController = BuilderAI::new;
+            constructor = UnitEntity::create;
+            isEnemy = false;
+
+            lowAltitude = true;
+            flying = true;
+            mineSpeed = 8.85f;
+            mineTier = 4;
+            buildBeamOffset = 4.75f;
+            buildSpeed = 1.75f;
+            drag = 0.05f;
+            speed = 2.35f;
+            rotateSpeed = 22.5f;
+            accel = 0.2f;
+            itemCapacity = 110;
+            health = 490f;
+            engineOffset = 8f;
+            hitSize = 12f;
+            alwaysUnlocked = true;
+            outlineRadius = 3;
+
+            weapons.add(new Weapon("small-mount-weapon"){{
+                reload = 30f;
+                x = 5.35f;
+                y = -4f;
+                top = true;
+                mirror = true;
+                ejectEffect = Fx.casing1;
+
+                bullet = new BasicBulletType(3f, 21){{
+                    shoot.shots = 2;
+                    homingPower = 0.7f;
+                    homingRange = 3 * tilesize;
+                    width = 5f;
+                    height = 7f;
+                    lifetime = 45f;
+                    shootEffect = Fx.shootSmall;
+                    smokeEffect = Fx.shootSmallSmoke;
+                    buildingDamageMultiplier = 0.01f;}};
+            }});
+        }};
         starnight = new UnitType("starnight"){{
             constructor = UnitEntity::create;
 
@@ -1855,6 +1898,7 @@ public class EIUnits {
                     new UnitSpawnAbility(UnitTypes.poly, 1200f, 0, -27.125f),
                     new EnergyFieldAbility(5f, 6f, 180f){{
                         maxTargets = 65;
+                        healPercent = 0.25f;
                         statusDuration = 20f;
                         status = StatusEffects.disarmed;
                         color = Color.valueOf("6cf5d7");
