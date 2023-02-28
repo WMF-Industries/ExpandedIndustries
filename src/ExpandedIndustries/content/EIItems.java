@@ -13,13 +13,14 @@ public class EIItems {
 
         peridotium = new Item("peridotium", Color.valueOf("45bb49")){{
             explosiveness = 2.2f;
-            radioactivity = 2.4f;
+            radioactivity = 1.1f;
             flammability = 1.3f;
             hardness = 3;
         }};
 
         lumium = new Item("lumium", Color.valueOf("AAFF00")){{
             charge = 2.8f;
+            explosiveness = 1.2f;
         }};
 
         stariumAlloy = new Item("starium-alloy", Color.valueOf("4c4590")){{
@@ -29,7 +30,7 @@ public class EIItems {
 
         enhancedPeridotium = new Item("enhanced-peridotium", Color.valueOf("3E920B")){{
             flammability = 0.5f;
-            radioactivity = 1.0f;
+            radioactivity = 1.7f;
             explosiveness = 0.4f;
         }};
 
@@ -37,6 +38,7 @@ public class EIItems {
 
         solidFuel = new Item("solid-fuel", Color.valueOf("9E9E9E")){{
             flammability = 3.5f;
+            explosiveness = 1.3f;
         }};
     }
 }

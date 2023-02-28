@@ -175,10 +175,10 @@ public class EITechTree {
                 });
             });
         });
-        /*mergeNode(Blocks.thoriumReactor, () -> {
+        mergeNode(Blocks.thoriumReactor, () -> {
             node(peridotiumReactor, () -> {
             });
-        });*/
+        });
         mergeNode(Blocks.steamGenerator, ()-> {
             node(steamTurbine, ()-> {
             });

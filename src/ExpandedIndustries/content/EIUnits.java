@@ -46,9 +46,9 @@ public class EIUnits {
 
         stormer = new UnitType("stormer") {{
             constructor = LegsUnit::create;
-            health = 230f;
+            health = 150f;
             buildSpeed = 1.75f;
-            armor = 2.5f;
+            armor = 1f;
             rotateSpeed = 2.5f;
             legCount = 6;
             legLength = 15f;
@@ -70,15 +70,15 @@ public class EIUnits {
                         shake = 2f;
                         shootY = 4f;
                         x = 6.5f;
-                        reload = 75f;
+                        reload = 60f;
                         recoil = 1.2f;
                         shootSound = Sounds.laser;
                         bullet = new LaserBulletType() {{
-                            damage = 25;
+                            damage = 35;
                             healPercent = 20f;
                             length = 100f;
                             pierce = true;
-                            pierceCap = 5;
+                            pierceCap = 7;
                             colors = new Color[]{Pal.heal.cpy().a(0.4f), Pal.heal, Color.white};
                         }};
                     }}
@@ -87,9 +87,9 @@ public class EIUnits {
         rusher = new UnitType("rusher") {{
             constructor = LegsUnit::create;
             allowLegStep = true;
-            health = 470f;
+            health = 410f;
             buildSpeed = 3f;
-            armor = 10f;
+            armor = 4f;
             rotateSpeed = 2.5f;
             legCount = 8;
             legLength = 25f;
@@ -124,7 +124,7 @@ public class EIUnits {
                             length = 160f;
                             colors = new Color[]{Pal.heal.cpy().a(0.4f), Pal.heal, Color.white};
                             pierce = true;
-                            pierceCap = 7;
+                            pierceCap = 9;
                         }};
                     }},
                     new Weapon("ei-rusher-artillery") {{
@@ -157,8 +157,8 @@ public class EIUnits {
             speed = 0.5f;
             rotateSpeed = 2.2f;
             shadowElevation = 0.45f;
-            health = 1020;
-            armor = 15;
+            health = 820;
+            armor = 9;
             buildSpeed = 3.5f;
             legCount = 8;
             legLength = 60;
@@ -188,7 +188,7 @@ public class EIUnits {
                             length = 200f;
                             colors = new Color[]{Pal.heal.cpy().a(0.4f), Pal.heal, Color.white};
                             pierce = true;
-                            pierceCap = 9;
+                            pierceCap = 12;
                         }};
                     }},
                     new Weapon("ei-escapade-artillery") {{
@@ -221,8 +221,8 @@ public class EIUnits {
             drawShields = false;
             allowLegStep = true;
             shadowElevation = 0.7f;
-            health = 7840;
-            armor = 20;
+            health = 6920;
+            armor = 16;
             speed = 0.45f;
             rotateSpeed = 2.2f;
             buildSpeed = 5;
@@ -250,7 +250,7 @@ public class EIUnits {
 
                        bullet = new ContinuousLaserBulletType() {{
                            colors = new Color[]{Pal.heal.cpy().a(.2f), Pal.heal.cpy().a(.5f), Pal.heal.cpy().mul(1.2f), Color.white};
-                           damage = 32;
+                           damage = 48;
                            collidesTeam = true;
                            healPercent = 4.5f;
                            length = 240;
@@ -266,9 +266,9 @@ public class EIUnits {
             constructor = LegsUnit::create;
             groundLayer = Layer.legUnit;
 
-            health = 21200;
+            health = 18100;
             hitSize = 88;
-            armor = 30;
+            armor = 24;
             itemCapacity = 180;
             speed = 0.4f;
             legCount = 10;
@@ -1381,7 +1381,6 @@ public class EIUnits {
             constructor = MechUnit::create;
 
             hitSize = 8;
-            canBoost = true;
             health = 210;
             armor = 1;
             speed = 0.55f;
@@ -1401,7 +1400,7 @@ public class EIUnits {
                         bullet = new LaserBulletType(){{
                             damage = 9;
                             lifetime = 30;
-                            length = 18;
+                            length = 18 * tilesize;
                             collidesTeam = false;
                         }};
                     }},
@@ -1415,8 +1414,8 @@ public class EIUnits {
                         mirror = true;
                         alternate = true;
                         reload = 15;
-                        bullet = new BasicBulletType(4, 4){{
-                            lifetime = 25;
+                        bullet = new LifestealBulletType(4, 4, 1.25f){{
+                            lifetime = 30;
                         }};
                     }}
             );
@@ -1433,7 +1432,7 @@ public class EIUnits {
 
             weapons.add(
                     new Weapon("ei-toastnight-weapon"){{
-                            x = 8;
+                            x = 9;
                             reload = 45;
                             rotate = false;
                             mirror = true;
@@ -1443,7 +1442,7 @@ public class EIUnits {
                             shoot.shotDelay = 3.5f;
                             shoot.shots = 3;
                             shootSound = Sounds.shootBig;
-                            bullet = new BasicBulletType(4, 16) {{
+                            bullet = new LifestealBulletType(4, 16, 0.5f) {{
                                 lifetime = 50;
                                 width = 7;
                                 height = 10;
@@ -1459,16 +1458,16 @@ public class EIUnits {
 
             flying = true;
             drag = 0.06f;
-            accel = 0.12f;
-            speed = 1.7f;
+            accel = 0.18f;
+            speed = 1.9f;
             hitSize = 12;
-            rotateSpeed = 3.5f;
+            rotateSpeed = 6.6f;
             buildSpeed = 0.5f;
-            health = 100;
+            health = 225;
             armor = 2.5f;
             engineSize = 2.5f;
             engineOffset = 8f;
-            itemCapacity = 40;
+            itemCapacity = 50;
             range = 50f;
             isEnemy = false;
             outlines = false;
@@ -1476,7 +1475,7 @@ public class EIUnits {
             ammoType = new PowerAmmoType(750);
 
             mineTier = 3;
-            mineSpeed = 5.5f;
+            mineSpeed = 6.75f;
         }};
         alturion = new UnitType("alturion") {{
             constructor = UnitEntity::create;
@@ -1486,44 +1485,47 @@ public class EIUnits {
 
             flying = true;
             drag = 0.06f;
-            accel = 0.12f;
-            speed = 1.5f;
+            accel = 0.18f;
+            speed = 1.7f;
             hitSize = 16;
-            rotateSpeed = 3.8f;
+            rotateSpeed = 5.7f;
             buildSpeed = 1f;
             health = 650;
             armor = 2.5f;
             engineSize = 2.5f;
             engineOffset = 12f;
             range = 50f;
-            itemCapacity = 60;
+            itemCapacity = 85;
             isEnemy = false;
             outlines = false;
 
             ammoType = new PowerAmmoType(1000);
 
             mineTier = 4;
-            mineSpeed = 12.75f;
+            mineSpeed = 14f;
         }};
         pygmy = new UnitType("pygmy") {{
             constructor = UnitEntity::create;
 
             flying = true;
             lowAltitude = true;
-            speed = 2.25f;
+            speed = 2.6f;
             drag = 0.01f;
             accel = 0.08f;
             engineOffset = 6.5f;
             circleTarget = true;
             hitSize = 7f;
             itemCapacity = 5;
+            health = 230;
+            armor = 2;
+            range = 135;
 
             weapons.add(new Weapon() {{
                 top = false;
                 x = y = recoil = 0;
                 reload = 45f;
                 mirror = false;
-                bullet = new LifestealBulletType(3, 5, 1.5f) {{
+                bullet = new LifestealBulletType(3, 9, 1.5f) {{
                     smokeEffect = shootEffect = Fx.none;
                     shrinkY = 0;
                     homingPower = 0.24f;
@@ -1539,7 +1541,7 @@ public class EIUnits {
                     fragRandomSpread = 40;
                     fragSpread = 5;
                     fragBullets = 2;
-                    fragBullet = new LifestealBulletType(3, 5, 0.5f) {{
+                    fragBullet = new LifestealBulletType(3, 7, 0.5f) {{
                         shrinkY = 0;
                         homingPower = 0.19f;
                         homingDelay = 4f;
@@ -1559,7 +1561,7 @@ public class EIUnits {
 
             flying = true;
             lowAltitude = true;
-            speed = 1.75f;
+            speed = 2.1f;
             drag = 0.016f;
             accel = 0.08f;
             engineOffset = 7.75f;
@@ -1567,6 +1569,9 @@ public class EIUnits {
             faceTarget = false;
             hitSize = 11.5f;
             itemCapacity = 40;
+            health = 670;
+            armor = 7;
+            range = 80f;
 
             weapons.add(new Weapon(){{
                 reload = 10;
@@ -1576,7 +1581,7 @@ public class EIUnits {
                 recoil = 0;
                 top = false;
                 x = y = 0;
-                bullet = new LifestealBulletType(4, 55, 5.5f) {{
+                bullet = new LifestealBulletType(4, 65, 5.5f) {{
                     smokeEffect = shootEffect = Fx.none;
                     splashDamage = 15;
                     splashDamageRadius = 14;
@@ -1616,9 +1621,9 @@ public class EIUnits {
         ageronia = new UnitType("ageronia"){{
             constructor = UnitEntity::create;
 
-            health = 570;
+            health = 720;
             armor = 6;
-            speed = 1.95f;
+            speed = 2.2f;
             drag = 0.019f;
             accel = 0.075f;
             flying = true;
@@ -1626,6 +1631,7 @@ public class EIUnits {
             forceMultiTarget = true;
             hitSize = 11.5f;
             itemCapacity = 40;
+            range = 220;
             weapons.add(new Weapon(){{
                 top = false;
                 mirror = false;
@@ -1635,12 +1641,12 @@ public class EIUnits {
                 shootY = 0;
                 reload = 50;
                 shootCone = 200;
-                bullet = new LifestealBulletType(6.4f, 30, 2.75f, "circle-bullet"){{
+                bullet = new LifestealBulletType(5f, 45, 2.75f, "circle-bullet"){{
                     smokeEffect = shootEffect = Fx.none;
-                    height = width = hitSize = 4;
-                    lifetime = 45;
+                    height = width = 4;
+                    lifetime = 44;
                     pierce = true;
-                    pierceCap = 3;
+                    pierceCap = 5;
                     pierceBuilding = true;
                     homingPower = 0.1f;
                     homingRange = 50;
@@ -1668,7 +1674,7 @@ public class EIUnits {
                     intervalBullets = 2;
                     intervalAngle = 180f;
                     intervalSpread = 300f;
-                    intervalBullet = new LifestealBulletType(3.2f, 17.5f, 1.25f, "circle-bullet"){{
+                    intervalBullet = new LifestealBulletType(3.2f, 25f, 1.25f, "circle-bullet"){{
                         lifetime = 22.5f;
                         shrinkY = shrinkX = 0;
                         weaveScale = 1;
@@ -1713,6 +1719,7 @@ public class EIUnits {
             weapons.add(new Weapon() {
                 {
                     reload = 24;
+                    mirror = false;
                     shootCone = 180;
                     x = 0;
                     y = 0;
@@ -1739,6 +1746,7 @@ public class EIUnits {
             weapons.add(new Weapon() {
                 {
                     reload = 24;
+                    mirror = false;
                     shootCone = 180;
                     x = 0;
                     y = 0;
@@ -1767,6 +1775,7 @@ public class EIUnits {
             weapons.add(new Weapon() {
                 {
                     reload = 24;
+                    mirror = false;
                     shootCone = 180;
                     x = 0;
                     y = 0;
@@ -1832,6 +1841,7 @@ public class EIUnits {
             }});
         }};
         guardian = new UnitType("guardian"){{
+            hidden = true;
             aiController = BuilderAI::new;
             constructor = UnitEntity::create;
             isEnemy = false;
@@ -1875,6 +1885,7 @@ public class EIUnits {
         }};
         starnight = new UnitType("starnight"){{
             constructor = UnitEntity::create;
+            hidden = true;
 
             health = 42900;
             armor = 37;

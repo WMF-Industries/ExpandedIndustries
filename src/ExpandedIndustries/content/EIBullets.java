@@ -40,8 +40,9 @@ public class EIBullets{
                 instantDisappear = true;
                 killShooter = true;
                 hittable = false;
-                splashDamage = 75;
+                splashDamage = 35;
                 damage = 30;
+                buildingDamageMultiplier = 0.5f;
                 collidesAir = true;
                 lifetime = 10;
                 speed = 1;

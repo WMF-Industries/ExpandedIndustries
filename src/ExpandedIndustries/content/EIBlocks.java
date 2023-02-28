@@ -72,6 +72,7 @@ public class EIBlocks {
             variants = 3;
             liquidDrop = Liquids.water;
             liquidMultiplier = 0.75f;
+            cacheLayer = CacheLayer.water;
             status = StatusEffects.wet;
             statusDuration = 90f;
             albedo = 0.3f;
@@ -413,8 +414,8 @@ public class EIBlocks {
             outputItem = new ItemStack(Items.graphite, 7);
             craftTime = 45f;
             itemCapacity = 40;
-            liquidCapacity =
-                    size = 4;
+            liquidCapacity = 160;
+            size = 4;
             hasItems = true;
             hasLiquids = true;
             hasPower = false;
@@ -566,6 +567,7 @@ public class EIBlocks {
             hasLiquids = hasItems = hasPower = true;
             itemCapacity = 15;
             size = 3;
+            health = 925;
             generateEffect = Fx.generatespark;
 
             ambientSound = Sounds.steam;
@@ -584,6 +586,7 @@ public class EIBlocks {
         peridotiumGenerator = new ConsumeGenerator("peridotium-generator") {{
             requirements(Category.power, with(Items.lead, 630, Items.silicon, 170, Items.phaseFabric, 100, Items.plastanium, 180, Items.thorium, 80, EIItems.enhancedPeridotium, 30));
             size = 5;
+            health = 2420;
             powerProduction = 35f;
             itemDuration = 60 * 14f;
             envEnabled = Env.any;
@@ -593,21 +596,23 @@ public class EIBlocks {
             consume(new ConsumeItemRadioactive());
             consumeLiquid(Liquids.cryofluid, 0.05f);
         }};
-        /*peridotiumReactor = new NuclearReactor("peridotium-reactor") {{
+        peridotiumReactor = new NuclearReactor("peridotium-reactor"){{
             requirements(Category.power, with(Items.copper, 650, Items.graphite, 340, Items.titanium, 340, Items.silicon, 300, Items.thorium, 200, EIItems.starium, 175));
+            size = 4;
+            health = 1740;
+            powerProduction = 80;
+            itemCapacity = 20;
+            itemDuration = 60 * 7f;
             ambientSound = Sounds.hum;
             ambientSoundVolume = 0.24f;
-            size = 4;
-            health = 1300;
-            itemDuration = 240f;
-            powerProduction = 75f;
-            explosionRadius = size * tilesize;
-            explosionDamage = explosionRadius * size * health;
+            heating = 0.02f;
+            explosionRadius = 25 * tilesize;
+            explosionDamage = health * itemCapacity;
 
+            fuelItem = EIItems.peridotium;
             consumeItem(EIItems.peridotium);
-            consumeLiquid(Liquids.water, 1f);
-        }};*/
-        //TODO Fix the reactor later on
+            consumeLiquid(Liquids.water, 0.5f).update(false);
+        }};
         lumiumReactor = new ImpactReactor("lumium-reactor") {{
             requirements(Category.power, with(Items.lead, 1250, Items.silicon, 750, Items.titanium, 700, Items.surgeAlloy, 650, Items.plastanium, 450, EIItems.stariumAlloy, 250));
             size = 5;
@@ -668,7 +673,7 @@ public class EIBlocks {
         coreExtensio = new CoreBlock("core-extensio") {{
             requirements(Category.effect, with(Items.copper, 18000, Items.lead, 18000, Items.silicon, 10500, Items.thorium, 7000, Items.surgeAlloy, 1025));
 
-            unitType = guardian;
+            unitType = UnitTypes.mega;
             health = 12000;
             itemCapacity = 35000;
             size = 6;
@@ -684,27 +689,26 @@ public class EIBlocks {
             consumePower(2f);
         }};
         planetaryMender = new MendProjector("planetary-mender"){{
-            requirements(Category.effect, with(Items.copper, 425, Items.lead, 350, Items.silicon, 330, Items.titanium, 300, Items.thorium, 230, Items.surgeAlloy, 35));
+            requirements(Category.effect, with(Items.copper, 9425, Items.lead, 8750, Items.silicon, 5230, Items.titanium, 4300, Items.thorium, 4230, Items.surgeAlloy, 1235));
             size = 5;
-            reload = 600;
+            reload = 450;
             range = 100 * 100 * tilesize;
-            healPercent = 35f;
-            phaseBoost = 65f;
+            healPercent = 25f;
+            phaseBoost = 25f;
             hasPower = true;
-            consumePower(40f);
-            consumeItem(Items.surgeAlloy).boost();
+            consumePower(160f);
+            consumeItem(Items.surgeAlloy, 3).boost();
         }};
         planetaryOverdrive = new OverdriveProjector("planetary-overdrive"){{
-            requirements(Category.effect, with(Items.copper, 425, Items.lead, 350, Items.silicon, 330, Items.titanium, 300, Items.thorium, 230, EIItems.stariumAlloy, 35, EIItems.enhancedPeridotium, 30));
+            requirements(Category.effect, with(Items.copper, 8425, Items.lead, 6350, Items.silicon, 5430, Items.titanium, 4100, Items.thorium, 3950, EIItems.stariumAlloy, 535, EIItems.enhancedPeridotium, 430));
             size = 5;
-            reload = 600;
             range = 100 * 100 * tilesize;
             hasPower = true;
             speedBoost = 4f;
             hasBoost = false;
-            useTime = 600f;
-            consumePower(80f);
-            consumeItems(with(Items.phaseFabric, 5, EIItems.enhancedPeridotium, 5, Items.silicon, 5));
+            useTime = 60f;
+            consumePower(240f);
+            consumeItems(with(Items.phaseFabric, 1, Items.silicon, 2));
         }};
         hardenedUnloader = new Unloader("hardened-unloader"){{
             requirements(Category.effect, with(Items.titanium, 90, Items.silicon, 55));
@@ -713,7 +717,7 @@ public class EIBlocks {
             health = 120;
         }};
         advancedUnloader = new Unloader("advanced-unloader"){{
-            requirements(Category.effect, with(Items.titanium, 25, Items.silicon, 30));
+            requirements(Category.effect, with(Items.titanium, 225, Items.silicon, 130, Items.graphite, 65));
             speed = 60f / 40f;
             group = BlockGroup.transportation;
             health = 180;
@@ -1685,7 +1689,7 @@ public class EIBlocks {
 
             consumePower(9.5f);
 
-            shootType = new BasicBulletType(8f, 220) {{
+            shootType = new BasicBulletType(8f, 370) {{
                 chargeEffect = new MultiEffect(
                         new ParticleEffect() {{
                             line = true;
@@ -1709,7 +1713,7 @@ public class EIBlocks {
                 width = height = 12f;
                 lifetime = 25f;
                 pierceBuilding = true;
-                pierceCap = 5;
+                pierceCap = 10;
                 frontColor = Color.valueOf("ffffff");
                 backColor = Color.valueOf("a9d8ff");
                 hitColor = Color.valueOf("a9d8ff");
@@ -1728,13 +1732,13 @@ public class EIBlocks {
                 }};
                 fragBullets = 4;
                 fragBullet = new LaserBulletType() {{
-                    damage = 55;
+                    damage = 135;
                     length = 85;
                 }};
             }};
         }};
         enforcer = new PowerTurret("enforcer") {{
-            requirements(Category.turret, with(Items.copper, 270, Items.silicon, 130, Items.titanium, 70, Items.thorium, 40));
+            requirements(Category.turret, with(Items.copper, 270, Items.lead, 210, Items.silicon, 130, Items.titanium, 70, Items.thorium, 40));
             health = 720;
             size = 3;
             reload = 105f;
@@ -1932,8 +1936,8 @@ public class EIBlocks {
         groundFactory = new UnitFactory("ground-factory"){{
             requirements(Category.units, with(Items.copper, 90, Items.titanium, 80, Items.silicon, 120));
             plans = Seq.with(
-                    new UnitPlan(stormer, 60f * 10, with(Items.silicon, 30, Items.titanium, 10, EIItems.starium, 5)),
-                    new UnitPlan(breadnight, 60f * 15, with(Items.silicon, 25, Items.graphite, 20, Items.lead, 30))
+                    new UnitPlan(stormer, 60f * 10, with(Items.silicon, 30, Items.titanium, 10)),
+                    new UnitPlan(breadnight, 60f * 15, with(Items.silicon, 25, Items.graphite, 20))
             );
             size = 3;
             consumePower(1.2f);
@@ -1941,7 +1945,7 @@ public class EIBlocks {
         airFactory = new UnitFactory("air-factory"){{
             requirements(Category.units, with(Items.copper, 90, Items.titanium, 80, Items.silicon, 120));
             plans = Seq.with(
-                    new UnitPlan(EIUnits.pygmy, 60f * 15, with(Items.silicon, 25)),
+                    new UnitPlan(EIUnits.pygmy, 60f * 15, with(Items.silicon, 25, Items.graphite, 10)),
                     new UnitPlan(EIUnits.centurion, 60f * 25, with(Items.silicon, 30, Items.titanium, 20, Items.lead, 15)),
                     new UnitPlan(EIUnits.SmolBoi, 60f * 10, with(Items.silicon, 30, Items.titanium, 15))
             );
@@ -2009,7 +2013,7 @@ public class EIBlocks {
                     new UnitType[]{EIUnits.natorin, EIUnits.terrand}
             );
         }};
-        overkillAssembler = new UnitAssembler("overkill-assembler"){{
+        /*overkillAssembler = new UnitAssembler("overkill-assembler"){{
             requirements(Category.units, with(Items.copper, 2650, Items.titanium, 1200, Items.silicon, 1100, EIItems.starium, 900, Items.thorium, 775, Items.plastanium, 700, Items.surgeAlloy, 650, Items.phaseFabric, 450, EIItems. stariumAlloy, 335));
             size = 11;
             plans.add(
@@ -2019,6 +2023,6 @@ public class EIBlocks {
 
             consumePower(5.75f);
             consumeLiquid(EILiquids.heavyOil, 18f / 60f);
-        }};
+        }};*/
     }
 }
