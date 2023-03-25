@@ -1,8 +1,11 @@
 package ExpandedIndustries.content;
 
 import ExpandedIndustries.entities.bullet.LifestealBulletType;
-import arc.graphics.*;
+import ExpandedIndustries.entities.bullet.abilities.OverloadAbility;
+import arc.graphics.Color;
 import mindustry.ai.UnitCommand;
+import mindustry.ai.types.BuilderAI;
+import mindustry.ai.types.MinerAI;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
@@ -10,22 +13,21 @@ import mindustry.entities.abilities.EnergyFieldAbility;
 import mindustry.entities.abilities.ForceFieldAbility;
 import mindustry.entities.abilities.StatusFieldAbility;
 import mindustry.entities.abilities.UnitSpawnAbility;
+import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.gen.*;
-import mindustry.type.*;
-import mindustry.graphics.*;
-import mindustry.ai.types.*;
-import mindustry.entities.bullet.*;
-import mindustry.type.ammo.*;
-import mindustry.world.blocks.power.NuclearReactor;
-import mindustry.world.blocks.power.PowerGenerator;
+import mindustry.graphics.Layer;
+import mindustry.graphics.Pal;
+import mindustry.type.UnitType;
+import mindustry.type.Weapon;
+import mindustry.type.ammo.PowerAmmoType;
 
+import static ExpandedIndustries.content.EIBullets.SuicideBulletType;
 import static mindustry.Vars.tilePayload;
 import static mindustry.Vars.tilesize;
 import static mindustry.gen.Sounds.laserblast;
-import static ExpandedIndustries.content.EIBullets.*;
 
 public class EIUnits {
     public static UnitType
@@ -1386,6 +1388,9 @@ public class EIUnits {
             speed = 0.55f;
             rotateSpeed = 1.72f;
             outlines = false;
+            abilities.add(
+                    new OverloadAbility(600, 7.5f*tilesize)
+            );
 
             weapons.add(
                     new Weapon("ei-breadnight-laser"){{
@@ -1414,7 +1419,7 @@ public class EIUnits {
                         mirror = true;
                         alternate = true;
                         reload = 15;
-                        bullet = new LifestealBulletType(4, 4, 1.25f){{
+                        bullet = new LifestealBulletType(4, 4, 0.75f){{
                             lifetime = 30;
                         }};
                     }}
@@ -1429,6 +1434,9 @@ public class EIUnits {
             speed = 0.6f;
             rotateSpeed = 1.72f;
             outlines = false;
+            abilities.add(
+                    new OverloadAbility(600, 7.5f*tilesize)
+            );
 
             weapons.add(
                     new Weapon("ei-toastnight-weapon"){{
@@ -1516,9 +1524,8 @@ public class EIUnits {
             circleTarget = true;
             hitSize = 7f;
             itemCapacity = 5;
-            health = 230;
-            armor = 2;
-            range = 135;
+            health = 170;
+            armor = 1;
 
             weapons.add(new Weapon() {{
                 top = false;
@@ -1571,7 +1578,6 @@ public class EIUnits {
             itemCapacity = 40;
             health = 670;
             armor = 7;
-            range = 80f;
 
             weapons.add(new Weapon(){{
                 reload = 10;
@@ -1592,7 +1598,7 @@ public class EIUnits {
                     sprite = "circle-bullet";
                     lifetime = 20f;
                     frontColor = Color.valueOf("bf92f9");
-                    backColor = trailColor = Color.valueOf("6d56bf");
+                    backColor = trailColor = lightningColor = Color.valueOf("6d56bf");
                     trailLength = 7;
                     trailWidth = 3.5f;
                     hitEffect = despawnEffect = new MultiEffect(
@@ -1609,29 +1615,29 @@ public class EIUnits {
                                 colorTo = Color.valueOf("6d56bf");
                             }}
                     );
-                    lightning = 2;
+                    lightning = 4;
                     lightningLength = 3;
                     lightningLengthRand = 4;
                     lightningDamage = 5;
                     lightningCone = 360;
-                    lightningColor = Color.valueOf("bf92f9");
                 }};
             }});
         }};
         ageronia = new UnitType("ageronia"){{
             constructor = UnitEntity::create;
 
-            health = 720;
+            health = 610;
             armor = 6;
             speed = 2.2f;
             drag = 0.019f;
             accel = 0.075f;
+            engineOffset = 11.25f;
+            engineSize = 1.75f;
             flying = true;
             lowAltitude = true;
             forceMultiTarget = true;
             hitSize = 11.5f;
             itemCapacity = 40;
-            range = 220;
             weapons.add(new Weapon(){{
                 top = false;
                 mirror = false;
@@ -1676,10 +1682,11 @@ public class EIUnits {
                     intervalSpread = 300f;
                     intervalBullet = new LifestealBulletType(3.2f, 25f, 1.25f, "circle-bullet"){{
                         lifetime = 22.5f;
+                        pierceCap = 2;
                         shrinkY = shrinkX = 0;
                         weaveScale = 1;
                         weaveMag = 10;
-                        frontColor = hitColor = Color.valueOf("bf92f9");
+                        frontColor = hitColor = lightningColor = Color.valueOf("bf92f9");
                         backColor = trailColor = Color.valueOf("6d56bf");
                         trailLength = 7;
                         trailWidth = 3.5f;
@@ -1699,6 +1706,10 @@ public class EIUnits {
                                     colorTo = Color.valueOf("6d56bf");
                                 }}
                         );
+                        lightning = 2;
+                        lightningLength = 3;
+                        lightningLengthRand = 4;
+                        lightningDamage = 12;
                     }};
                 }};
             }});
