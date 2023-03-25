@@ -1,27 +1,22 @@
 package ExpandedIndustries.entities.bullet;
 
-import arc.Core;
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
-import arc.math.Interp;
-import arc.math.Mathf;
-import arc.math.geom.Vec2;
-import arc.util.Nullable;
-import arc.util.Tmp;
-import mindustry.entities.Damage;
-import mindustry.entities.bullet.BulletType;
-import mindustry.gen.Building;
-import mindustry.gen.Bullet;
-import mindustry.gen.Healthc;
-import mindustry.gen.Hitboxc;
-import mindustry.graphics.Pal;
+import arc.*;
+import arc.graphics.*;
+import arc.graphics.g2d.*;
+import arc.math.*;
+import arc.math.geom.*;
+import arc.util.*;
+import mindustry.entities.*;
+import mindustry.entities.bullet.*;
+import mindustry.gen.*;
+import mindustry.graphics.*;
 
 public class LifestealBulletType extends BulletType {
     public Color backColor = Pal.bulletYellowBack, frontColor = Pal.bulletYellow;
     public Color mixColorFrom = new Color(1f, 1f, 1f, 0f), mixColorTo = new Color(1f, 1f, 1f, 0f);
+    public float lengthAdjust = maxRange % 5;
     public float width = 5f, height = 7f;
-    public float lifetime = 100f;
+    public float length = 100f;
     public float intensity = 0.75f;
     public float shrinkX = 0f, shrinkY = 0.5f;
     public Interp shrinkInterp = Interp.linear;
@@ -71,10 +66,15 @@ public class LifestealBulletType extends BulletType {
     }
 
     @Override
+    protected float calculateRange() {
+        return Math.max(length, maxRange);
+    }
+
+    @Override
     public void init(Bullet b) {
         super.init(b);
 
-        Healthc target = Damage.linecast(b, b.x, b.y, speed, lifetime);
+        Healthc target = Damage.linecast(b, b.x, b.y, b.rotation(), length + lengthAdjust);
         b.data = target;
 
         if (target != null) {
@@ -84,6 +84,7 @@ public class LifestealBulletType extends BulletType {
                 h.heal(result * intensity);
             }
         }
+
         if (target instanceof Hitboxc hit) {
             hit.collision(b, hit.x(), hit.y());
             b.collision(hit, hit.x(), hit.y());
@@ -93,7 +94,7 @@ public class LifestealBulletType extends BulletType {
                 hit(b, tile.x, tile.y);
             }
         } else {
-            b.data = new Vec2().trns(b.rotation(), lifetime).add(b.x, b.y);
+            b.data = new Vec2().trns(b.rotation(), length).add(b.x, b.y);
         }
     }
 }
