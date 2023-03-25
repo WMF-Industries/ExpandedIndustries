@@ -202,6 +202,7 @@ public class EIUnits {
                         mirror = true;
                         top = true;
                         shake = 4;
+                        shootSound = Sounds.artillery;
 
                         bullet = new ArtilleryBulletType() {{
                             splashDamage = 275;
@@ -1528,6 +1529,7 @@ public class EIUnits {
             armor = 1;
 
             weapons.add(new Weapon() {{
+                shootSound = Sounds.blaster;
                 top = false;
                 x = y = recoil = 0;
                 reload = 45f;
@@ -1580,6 +1582,7 @@ public class EIUnits {
             armor = 7;
 
             weapons.add(new Weapon(){{
+                shootSound = Sounds.shockBlast;
                 reload = 10;
                 inaccuracy = 360;
                 shootCone = 360;
@@ -1631,7 +1634,7 @@ public class EIUnits {
             speed = 2.2f;
             drag = 0.019f;
             accel = 0.075f;
-            engineOffset = 11.25f;
+            engineOffset = 14.25f;
             engineSize = 1.75f;
             flying = true;
             lowAltitude = true;
@@ -1639,6 +1642,7 @@ public class EIUnits {
             hitSize = 11.5f;
             itemCapacity = 40;
             weapons.add(new Weapon(){{
+                shootSound = Sounds.shockBlast;
                 top = false;
                 mirror = false;
                 rotate = false;

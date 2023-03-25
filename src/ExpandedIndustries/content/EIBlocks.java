@@ -1678,9 +1678,6 @@ public class EIBlocks {
             requirements(Category.turret, with(Items.copper, 270, Items.lead, 210, Items.silicon, 190, Items.titanium, 130, Items.thorium, 75, EIItems.starium, 70));
             range = 200f;
 
-            coolantMultiplier = 1.3f;
-            consumeCoolant(0.2f);
-
             shoot.firstShotDelay = 40f;
             chargeSound = Sounds.lasercharge2;
             moveWhileCharging = false;
@@ -1709,8 +1706,9 @@ public class EIBlocks {
             moveWhileCharging = false;
             accurateDelay = false;
             shootSound = Sounds.shotgun;
-            coolant = consumeCoolant(0.2f);
 
+            coolantMultiplier = 1.6f;
+            consumeCoolant(0.2f);
             consumePower(9.5f);
 
             shootType = new BasicBulletType(8f, 370) {{
