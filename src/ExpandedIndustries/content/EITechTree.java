@@ -8,8 +8,8 @@ import mindustry.type.ItemStack;
 
 import static ExpandedIndustries.content.EIBlocks.*;
 import static ExpandedIndustries.content.EIUnits.*;
-import static mindustry.content.SectorPresets.*;
-import static mindustry.content.TechTree.*;
+import static mindustry.content.SectorPresets.windsweptIslands;
+import static mindustry.content.TechTree.TechNode;
 
 public class EITechTree {
     //this is stupid but seems to work
@@ -62,6 +62,14 @@ public class EITechTree {
         });
         mergeNode(Blocks.coreNucleus, () -> {
             node(coreExtensio, () -> {
+            });
+        });
+        mergeNode(Blocks.coalCentrifuge, () -> {
+            node(oilCrystaliser);
+        });
+        mergeNode(Blocks.unloader, () -> {
+            node(hardenedUnloader, () -> {
+                node(advancedUnloader);
             });
         });
         mergeNode(Blocks.titaniumConveyor, () -> {

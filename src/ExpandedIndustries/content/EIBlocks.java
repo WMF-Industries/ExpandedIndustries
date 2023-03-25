@@ -6,32 +6,51 @@ import arc.struct.EnumSet;
 import arc.struct.Seq;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.*;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.ParticleEffect;
+import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.pattern.ShootAlternate;
 import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
 import mindustry.graphics.Layer;
-import mindustry.type.*;
+import mindustry.type.Category;
+import mindustry.type.ItemStack;
+import mindustry.type.LiquidStack;
+import mindustry.type.UnitType;
 import mindustry.world.Block;
 import mindustry.world.blocks.campaign.LaunchPad;
 import mindustry.world.blocks.defense.MendProjector;
 import mindustry.world.blocks.defense.OverdriveProjector;
 import mindustry.world.blocks.defense.Wall;
-import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.LiquidTurret;
+import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.distribution.*;
-import mindustry.world.blocks.environment.*;
-import mindustry.world.blocks.liquid.*;
+import mindustry.world.blocks.environment.Floor;
+import mindustry.world.blocks.environment.OreBlock;
+import mindustry.world.blocks.environment.OverlayFloor;
+import mindustry.world.blocks.environment.ShallowLiquid;
+import mindustry.world.blocks.liquid.Conduit;
+import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.logic.LogicBlock;
-import mindustry.world.blocks.power.*;
-import mindustry.world.blocks.production.*;
-import mindustry.world.blocks.storage.*;
-import mindustry.world.blocks.units.*;
-import mindustry.world.consumers.*;
+import mindustry.world.blocks.power.ConsumeGenerator;
+import mindustry.world.blocks.power.ImpactReactor;
+import mindustry.world.blocks.power.NuclearReactor;
+import mindustry.world.blocks.production.AttributeCrafter;
+import mindustry.world.blocks.production.Drill;
+import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.blocks.storage.StorageBlock;
+import mindustry.world.blocks.storage.Unloader;
+import mindustry.world.blocks.units.Reconstructor;
+import mindustry.world.blocks.units.UnitFactory;
+import mindustry.world.consumers.ConsumeItemFlammable;
+import mindustry.world.consumers.ConsumeItemRadioactive;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
 import static ExpandedIndustries.content.EIUnits.*;
-import static mindustry.Vars.*;
+import static mindustry.Vars.tilesize;
 import static mindustry.content.Fx.none;
 import static mindustry.type.ItemStack.with;
 
@@ -75,7 +94,6 @@ public class EIBlocks {
             cacheLayer = CacheLayer.water;
             status = StatusEffects.wet;
             statusDuration = 90f;
-            albedo = 0.3f;
             supportsOverlay = true;
         }};
         flower = new OverlayFloor("flowers") {{
@@ -89,8 +107,8 @@ public class EIBlocks {
         }};
         oreStarium = new OreBlock("starium-ore", EIItems.starium) {{
             oreDefault = true;
-            oreThreshold = 0.912f;
-            oreScale = 25.380953f;
+            oreThreshold = 0.893f;
+            oreScale = 25.1f;
         }};
         liquidReurium = new Floor("liquid-reurium"){{
             speedMultiplier = 0.05f;
@@ -610,8 +628,8 @@ public class EIBlocks {
             explosionDamage = health * itemCapacity;
 
             fuelItem = EIItems.peridotium;
+            consumeLiquid(Liquids.water, 0.5f);
             consumeItem(EIItems.peridotium);
-            consumeLiquid(Liquids.water, 0.5f).update(false);
         }};
         lumiumReactor = new ImpactReactor("lumium-reactor") {{
             requirements(Category.power, with(Items.lead, 1250, Items.silicon, 750, Items.titanium, 700, Items.surgeAlloy, 650, Items.plastanium, 450, EIItems.stariumAlloy, 250));
@@ -959,12 +977,13 @@ public class EIBlocks {
             health = 1650;
             shootSound = Sounds.plasmaboom;
             consumePower(9.5f);
+            coolantMultiplier = 1.2f;
+            consumeCoolant(0.25f);
 
 
             shoot.firstShotDelay = 75f;
             chargeSound = Sounds.lasercharge;
             moveWhileCharging = false;
-            accurateDelay = true;
             shootType = new EmpBulletType() {
                 {
                     chargeEffect = new MultiEffect(
@@ -1531,6 +1550,9 @@ public class EIBlocks {
             consumePower(20);
             range = 210;
 
+            coolantMultiplier = 1.1f;
+            consumeCoolant(0.5f);
+
             recoil = 7;
             reload = 75;
             size = 4;
@@ -1656,10 +1678,12 @@ public class EIBlocks {
             requirements(Category.turret, with(Items.copper, 270, Items.lead, 210, Items.silicon, 190, Items.titanium, 130, Items.thorium, 75, EIItems.starium, 70));
             range = 200f;
 
+            coolantMultiplier = 1.3f;
+            consumeCoolant(0.2f);
+
             shoot.firstShotDelay = 40f;
             chargeSound = Sounds.lasercharge2;
             moveWhileCharging = false;
-            accurateDelay = true;
 
             recoil = 2f;
             reload = 120f;
@@ -1710,6 +1734,8 @@ public class EIBlocks {
                             colorTo = Color.valueOf("a9d8ff");
                         }}
                 );
+                status = StatusEffects.slow;
+                statusDuration = 300;
                 width = height = 12f;
                 lifetime = 25f;
                 pierceBuilding = true;
@@ -1734,6 +1760,8 @@ public class EIBlocks {
                 fragBullet = new LaserBulletType() {{
                     damage = 135;
                     length = 85;
+                    status = StatusEffects.slow;
+                    statusDuration = 300;
                 }};
             }};
         }};
@@ -1747,10 +1775,9 @@ public class EIBlocks {
             recoil = 2.7f;
             consumePower(7.5f);
 
-            shoot.firstShotDelay = 75f;
+            shoot.firstShotDelay = 60f;
             chargeSound = Sounds.lasercharge;
             moveWhileCharging = false;
-            accurateDelay = true;
             shootType = new EmpBulletType() {{
                 chargeEffect = new MultiEffect(
                         new WaveEffect() {{
@@ -1790,10 +1817,10 @@ public class EIBlocks {
                 status = StatusEffects.electrified;
                 statusDuration = 450;
                 lightOpacity = 0.7f;
-                unitDamageScl = 1.2f;
+                unitDamageScl = 1.25f;
                 healPercent = 20f;
                 sprite = "circle-bullet";
-                damage = 75;
+                damage = 70;
                 lifetime = 60;
                 speed = 5;
                 radius = 90f;
