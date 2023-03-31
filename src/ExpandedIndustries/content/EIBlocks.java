@@ -781,11 +781,11 @@ public class EIBlocks {
                         width = 6f;
                         height = 8f;
                         lifetime = 60f;
-                        fragBullets = 4;
+                        splashDamage = 3f;
+                        splashDamageRadius = 16f;
                         reloadMultiplier = 0.66f;
+                        fragBullets = 4;
                         fragBullet = new BasicBulletType(1f, 5) {{
-                            splashDamage = 3f;
-                            splashDamageRadius = 40f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -796,10 +796,10 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 60f;
                         ammoMultiplier = 2;
+                        splashDamage = 2f;
+                        splashDamageRadius = 24f;
                         fragBullets = 3;
                         fragBullet = new BasicBulletType(1f, 4) {{
-                            splashDamage = 2f;
-                            splashDamageRadius = 40f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -810,10 +810,10 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 75f;
                         ammoMultiplier = 4;
+                        splashDamage = 6f;
+                        splashDamageRadius = 40f;
                         fragBullets = 6;
                         fragBullet = new BasicBulletType(1f, 7) {{
-                            splashDamage = 6f;
-                            splashDamageRadius = 40f;
                             height = 5f;
                             width = 3f;
                             lifetime = 30f;
@@ -839,11 +839,11 @@ public class EIBlocks {
                         width = 6f;
                         height = 8f;
                         lifetime = 60f;
-                        fragBullets = 4;
                         reloadMultiplier = 0.66f;
+                        splashDamage = 6f;
+                        splashDamageRadius = 24f;
+                        fragBullets = 4;
                         fragBullet = new BasicBulletType(1.5f, 5) {{
-                            splashDamage = 6f;
-                            splashDamageRadius = 45f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -854,10 +854,10 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 60f;
                         ammoMultiplier = 2f;
+                        splashDamage = 7f;
+                        splashDamageRadius = 32f;
                         fragBullets = 3;
                         fragBullet = new BasicBulletType(1.75f, 4) {{
-                            splashDamage = 7f;
-                            splashDamageRadius = 50f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -868,10 +868,10 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 60f;
                         ammoMultiplier = 4f;
+                        splashDamage = 12f;
+                        splashDamageRadius = 40f;
                         fragBullets = 6;
                         fragBullet = new BasicBulletType(2.125f, 7) {{
-                            splashDamage = 12f;
-                            splashDamageRadius = 60f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -882,11 +882,11 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 60f;
                         ammoMultiplier = 5f;
-                        fragBullets = 8;
                         reloadMultiplier = 1.2f;
+                        splashDamage = 16f;
+                        splashDamageRadius = 48f;
+                        fragBullets = 8;
                         fragBullet = new BasicBulletType(2.25f, 13) {{
-                            splashDamage = 16f;
-                            splashDamageRadius = 60f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -919,32 +919,32 @@ public class EIBlocks {
                         lifetime = 120f;
                         width = height = 12f;
                         buildingDamageMultiplier = 3f;
-                        collidesTiles = false;
+                        collidesTiles = collidesAir = false;
                         splashDamageRadius = 20f;
                         splashDamage = 125f;
                         ammoMultiplier = 3f;
                         lightning = 3;
-                        lightningLength = 15;
+                        lightningLength = 7;
                         lightningDamage = 15f;
                     }},
-                    EIItems.stariumAlloy, new ArtilleryBulletType(5f, 465) {{
+                    EIItems.stariumAlloy, new ArtilleryBulletType(5f, 335) {{
                         knockback = 0.8f;
                         lifetime = 120f;
                         width = height = 12f;
-                        collidesTiles = false;
+                        collidesTiles = collidesAir = false;
                         buildingDamageMultiplier = 4.25f;
                         splashDamageRadius = 35f;
                         splashDamage = 200f;
                         reloadMultiplier = 1.2f;
                         ammoMultiplier = 5f;
                         lightning = 4;
-                        lightningLength = 25;
+                        lightningLength = 10;
                         lightningDamage = 15f;
                         fragBullets = 3;
-                        fragBullet = new BasicBulletType(3.25f, 125) {{
+                        fragBullet = new BasicBulletType(3.25f, 50) {{
                             lifetime = 15f;
                             width = height = 6f;
-                            collidesTiles = false;
+                            collidesTiles = collidesAir = false;
                             splashDamageRadius = 45f;
                             splashDamage = 55f;
                             lightning = 2;
@@ -1736,6 +1736,7 @@ public class EIBlocks {
                 statusDuration = 300;
                 width = height = 12f;
                 lifetime = 25f;
+                collidesAir = false;
                 pierceBuilding = true;
                 pierceCap = 10;
                 frontColor = Color.valueOf("ffffff");
@@ -1756,6 +1757,7 @@ public class EIBlocks {
                 }};
                 fragBullets = 4;
                 fragBullet = new LaserBulletType() {{
+                    collidesAir = false;
                     damage = 135;
                     length = 85;
                     status = StatusEffects.slow;

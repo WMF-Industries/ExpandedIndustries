@@ -1,5 +1,6 @@
 package ExpandedIndustries.content;
 
+import ExpandedIndustries.ai.types.CircleTargetFlyingAI;
 import ExpandedIndustries.entities.bullet.LifestealBulletType;
 import ExpandedIndustries.entities.bullet.abilities.OverloadAbility;
 import arc.graphics.Color;
@@ -23,6 +24,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.ammo.PowerAmmoType;
+import mindustry.world.meta.BlockFlag;
 
 import static ExpandedIndustries.content.EIBullets.SuicideBulletType;
 import static mindustry.Vars.tilePayload;
@@ -1515,18 +1517,20 @@ public class EIUnits {
         }};
         pygmy = new UnitType("pygmy") {{
             constructor = UnitEntity::create;
+            aiController = CircleTargetFlyingAI::new;
 
             flying = true;
             lowAltitude = true;
+            circleTarget = true;
             speed = 2.6f;
             drag = 0.01f;
             accel = 0.08f;
             engineOffset = 6.5f;
-            circleTarget = true;
             hitSize = 7f;
             itemCapacity = 5;
             health = 170;
             armor = 1;
+            targetFlags = new BlockFlag[]{BlockFlag.generator, null};
 
             weapons.add(new Weapon() {{
                 shootSound = Sounds.blaster;
@@ -1563,23 +1567,23 @@ public class EIUnits {
                         trailColor = Color.valueOf("6d56bf");
                     }};
                 }};
-            }});
-        }};
+            }});        }};
         schaus = new UnitType("schaus"){{
             constructor = UnitEntity::create;
+            aiController = CircleTargetFlyingAI::new;
 
             flying = true;
             lowAltitude = true;
+            circleTarget = true;
             speed = 2.1f;
             drag = 0.016f;
             accel = 0.08f;
             engineOffset = 7.75f;
-            circleTarget = true;
-            faceTarget = false;
             hitSize = 11.5f;
             itemCapacity = 40;
-            health = 670;
+            health = 370;
             armor = 7;
+            targetFlags = new BlockFlag[]{BlockFlag.factory, BlockFlag.battery, null};
 
             weapons.add(new Weapon(){{
                 shootSound = Sounds.shockBlast;
@@ -1634,13 +1638,16 @@ public class EIUnits {
             speed = 2.2f;
             drag = 0.019f;
             accel = 0.075f;
-            engineOffset = 14.25f;
-            engineSize = 1.75f;
+            engineOffset = 15.25f;
+            engineSize = 3.35f;
             flying = true;
             lowAltitude = true;
+            faceTarget = true;
             forceMultiTarget = true;
-            hitSize = 11.5f;
+            hitSize = 16.5f;
             itemCapacity = 40;
+            targetFlags = new BlockFlag[]{BlockFlag.reactor, BlockFlag.generator, BlockFlag.battery, BlockFlag.core};
+
             weapons.add(new Weapon(){{
                 shootSound = Sounds.shockBlast;
                 top = false;
