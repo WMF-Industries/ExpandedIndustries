@@ -26,10 +26,7 @@ import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.blocks.distribution.*;
-import mindustry.world.blocks.environment.Floor;
-import mindustry.world.blocks.environment.OreBlock;
-import mindustry.world.blocks.environment.OverlayFloor;
-import mindustry.world.blocks.environment.ShallowLiquid;
+import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.logic.LogicBlock;
@@ -58,7 +55,7 @@ public class EIBlocks {
 
     public static Block
             //environment
-            flower, grassWater, orePeridotium, oreStarium, oreNeorium, oreTeranite, liquidReurium,
+            flower, grassWater, orePeridotium, oreStarium, oreNeorium, oreTeranite, liquidReurium, crayoneFloor, crayoneWall, crayoneVent, ioniteFloor, ioniteWall,
     //distribution
     stariumConveyor, starlightJunction, massStariumConveyor, titaniumBridge, stariumBridge,
             alloyBridge, titaniumBridgeConduit, stariumBridgeConduit, stariumConduit,
@@ -86,15 +83,40 @@ public class EIBlocks {
     overkillAssembler;
 
     public static void load() {
-        grassWater = new ShallowLiquid("grass-water") {{
-            speedMultiplier = 0.7f;
-            variants = 3;
-            liquidDrop = Liquids.water;
-            liquidMultiplier = 0.75f;
+
+        crayoneFloor = new Floor("crayone") {{
+            variants = 4;
+            attributes.set(Attribute.water, 1.6f);
+        }};
+        ioniteFloor = new Floor("ionite") {{
+            variants = 4;
+            attributes.set(Attribute.water, 0.7f);
+        }};
+        crayoneWall = new StaticWall("crayone-wall") {{
+            variants = 2;
+            crayoneFloor.asFloor().wall = crayoneFloor.asFloor().wall = this;
+        }};
+        ioniteWall = new StaticWall("ionite-wall") {{
+            variants = 2;
+            ioniteFloor.asFloor().wall = ioniteFloor.asFloor().wall = this;
+        }};
+        crayoneVent = new SteamVent("crayone-vent") {{
+            parent = blendGroup = crayoneFloor;
+            attributes.set(Attribute.steam, 1f);
+        }};
+        grassWater = new Floor("grass-water") {{
             cacheLayer = CacheLayer.water;
-            status = StatusEffects.wet;
+            liquidDrop = Liquids.water;
+            speedMultiplier = 0.7f;
+            variants = 4;
+            albedo = 0.9f;
+            liquidMultiplier = 0.75f;
             statusDuration = 90f;
+            drownTime = 0;
+            shallow = true;
             supportsOverlay = true;
+            isLiquid = true;
+            placeableOn = true;
         }};
         flower = new OverlayFloor("flowers") {{
             variants = 3;
