@@ -18,8 +18,6 @@ import mindustry.gen.Teamc;
 import mindustry.gen.Unit;
 import mindustry.type.StatusEffect;
 
-;
-
 public class OverloadAbility extends Ability {
     private static final Seq<Healthc> all = new Seq<>();
 

@@ -1,48 +1,28 @@
 package ExpandedIndustries.content;
 
-import arc.graphics.Color;
-import arc.math.Interp;
-import arc.struct.EnumSet;
-import arc.struct.Seq;
+import arc.graphics.*;
+import arc.math.*;
+import arc.struct.*;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.ParticleEffect;
-import mindustry.entities.effect.WaveEffect;
-import mindustry.entities.pattern.ShootAlternate;
-import mindustry.gen.Sounds;
-import mindustry.graphics.CacheLayer;
-import mindustry.graphics.Layer;
-import mindustry.type.Category;
-import mindustry.type.ItemStack;
-import mindustry.type.LiquidStack;
-import mindustry.type.UnitType;
-import mindustry.world.Block;
-import mindustry.world.blocks.campaign.LaunchPad;
-import mindustry.world.blocks.defense.MendProjector;
-import mindustry.world.blocks.defense.OverdriveProjector;
-import mindustry.world.blocks.defense.Wall;
-import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.defense.turrets.LiquidTurret;
-import mindustry.world.blocks.defense.turrets.PowerTurret;
+import mindustry.entities.effect.*;
+import mindustry.entities.pattern.*;
+import mindustry.gen.*;
+import mindustry.graphics.*;
+import mindustry.type.*;
+import mindustry.world.*;
+import mindustry.world.blocks.campaign.*;
+import mindustry.world.blocks.defense.*;
+import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.environment.*;
-import mindustry.world.blocks.liquid.Conduit;
-import mindustry.world.blocks.liquid.LiquidBridge;
-import mindustry.world.blocks.logic.LogicBlock;
-import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.power.ImpactReactor;
-import mindustry.world.blocks.power.NuclearReactor;
-import mindustry.world.blocks.production.AttributeCrafter;
-import mindustry.world.blocks.production.Drill;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.storage.CoreBlock;
-import mindustry.world.blocks.storage.StorageBlock;
-import mindustry.world.blocks.storage.Unloader;
-import mindustry.world.blocks.units.Reconstructor;
-import mindustry.world.blocks.units.UnitFactory;
-import mindustry.world.consumers.ConsumeItemFlammable;
-import mindustry.world.consumers.ConsumeItemRadioactive;
+import mindustry.world.blocks.liquid.*;
+import mindustry.world.blocks.logic.*;
+import mindustry.world.blocks.power.*;
+import mindustry.world.blocks.production.*;
+import mindustry.world.blocks.storage.*;
+import mindustry.world.blocks.units.*;
+import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
@@ -61,12 +41,13 @@ public class EIBlocks {
             alloyBridge, titaniumBridgeConduit, stariumBridgeConduit, stariumConduit,
     //storage
     crate,
+    //extraction
+    electricDrill, precisionDrill, hammerDrill,
     //production
     cryofluidPlant, cryofluidStirrer, oxygenLiquifier, coalLiquifier, oilCrystaliser,
-            electricDrill, precisionDrill, hammerDrill, siliconFabricator,
+            freezer, oilPurifier, heavyOilRefinery, fuelAssembler, siliconFabricator,
             lumiumSmelter, metaglassFabricator, peridotiumSynthesizer, stariumSynthesizer,
             stariumRefiner, graphiteCompressor, peridotiumEnhancer, scrapper, plastaniumCondenser,
-            freezer, oilPurifier, heavyOilRefinery, fuelAssembler,
     //power
     steamTurbine, peridotiumGenerator, peridotiumReactor, lumiumReactor,
     //logic
@@ -87,22 +68,27 @@ public class EIBlocks {
         crayoneFloor = new Floor("crayone") {{
             variants = 4;
             attributes.set(Attribute.water, 1.6f);
+            mapColor = Color.valueOf("853399");
         }};
         ioniteFloor = new Floor("ionite") {{
             variants = 4;
             attributes.set(Attribute.water, 0.7f);
+            mapColor = Color.valueOf("26a639");
         }};
         crayoneWall = new StaticWall("crayone-wall") {{
             variants = 2;
+            attributes.set(Attribute.sand, 1.25f);
             crayoneFloor.asFloor().wall = crayoneFloor.asFloor().wall = this;
         }};
         ioniteWall = new StaticWall("ionite-wall") {{
             variants = 2;
+            attributes.set(Attribute.sand, 0.6f);
             ioniteFloor.asFloor().wall = ioniteFloor.asFloor().wall = this;
         }};
         crayoneVent = new SteamVent("crayone-vent") {{
             parent = blendGroup = crayoneFloor;
             attributes.set(Attribute.steam, 1f);
+            mapColor = Color.valueOf("632673");
         }};
         grassWater = new Floor("grass-water") {{
             cacheLayer = CacheLayer.water;
@@ -144,6 +130,7 @@ public class EIBlocks {
             albedo = 0.9f;
             supportsOverlay = false;
             cacheLayer = CacheLayer.tar;
+            mapColor = Color.valueOf("c179d2");
         }};
         stariumConveyor = new Conveyor("starium-conveyor") {{
             requirements(Category.distribution, with(EIItems.starium, 2, Items.titanium, 1, Items.copper, 1));
@@ -383,7 +370,7 @@ public class EIBlocks {
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame());
 
             consumePower(3.5f);
-            consumeItems(with(Items.thorium, 10, EIItems.starium, 10));
+            consumeItems(with(Items.thorium, 10, EIItems.peridotium, 10));
         }};
         metaglassFabricator = new AttributeCrafter("metaglass-fabricator") {{
             requirements(Category.crafting, with(Items.copper, 125, Items.graphite, 90, Items.titanium, 75, EIItems.starium, 60));

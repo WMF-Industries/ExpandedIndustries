@@ -1,48 +1,37 @@
-//TODO make this shit work
-/*package ExpandedIndustries.world.blocks.power;
+package ExpandedIndustries.world.blocks.power;
 
-import arc.graphics.Blending;
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.math.Mathf;
-import arc.util.Nullable;
+import arc.*;
+import arc.graphics.*;
+import arc.math.*;
+import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.*;
+import mindustry.game.EventType.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.blocks.power.*;
-import mindustry.world.meta.Stat;
-import mindustry.world.meta.StatValues;
+import mindustry.world.consumers.*;
+import mindustry.world.meta.*;
 
-public class ByproductReactor extends NuclearReactor {
-    public @Nullable ItemStack outputItem;
-    public @Nullable Liquid outputLiquid;
-    public @Nullable LiquidStack[] outputLiquids;
-    public @Nullable LiquidStack coolantLiquid;
-    public Effect craftEffect = Fx.mineBig;
-    public Color heatColor = Pal.turretHeat;
+/** A generator that just takes in certain items or liquids. */
+public class ByproductReactor extends PowerGenerator {
+    /** The time in number of ticks during which a single item will produce power. */
+    public float itemDuration = 120f;
+
+    public float warmupSpeed = 0.05f;
+    public float effectChance = 0.01f;
+    public Effect generateEffect = Fx.none, consumeEffect = Fx.none;
+    public float generateEffectRange = 3f;
+
+    public @Nullable LiquidStack outputLiquid;
+    /** If true, this block explodes when outputLiquid exceeds capacity. */
+    public boolean explodeOnFull = false;
+
+    public @Nullable ConsumeItemFilter filterItem;
+    public @Nullable ConsumeLiquidFilter filterLiquid;
 
     public ByproductReactor(String name){
         super(name);
-        lightRadius = 125f;
-    }
-
-    @Override
-    public void setStats(){
-        super.setStats();
-
-        if(outputItem != null){
-            stats.add(Stat.output, StatValues.items(itemDuration, outputItem));
-        }
-
-        if(outputLiquid != null){
-            stats.add(Stat.output, StatValues.liquid(outputLiquid, coolantLiquid.amount * 60f, true));
-        }
-    }
-
-    @Override
-    public boolean outputsItems(){
-        return outputItem != null;
     }
 
     @Override
@@ -50,74 +39,110 @@ public class ByproductReactor extends NuclearReactor {
         super.setBars();
 
         if(outputLiquid != null){
-            addLiquidBar(outputLiquid);
+            addLiquidBar(outputLiquid.liquid);
         }
     }
 
     @Override
-    public void init() {
-        if (outputLiquid != null) {
+    public void init(){
+        filterItem = findConsumer(c -> c instanceof ConsumeItemFilter);
+        filterLiquid = findConsumer(c -> c instanceof ConsumeLiquidFilter);
+
+        if(outputLiquid != null){
             outputsLiquid = true;
             hasLiquids = true;
         }
+
+        //TODO hardcoded
+        emitLight = true;
+        lightRadius = 65f * size;
+        super.init();
     }
 
-    public class ByproductReactorBuild extends NuclearReactorBuild {
-        public float warmup;
-        @Override
-        public void consume(){
-            boolean valid = canConsume();
-            super.consume();
+    @Override
+    public void setStats(){
+        super.setStats();
 
-            if(outputItem != null && hasItems && valid){
-                for(int i = 0; i < outputItem.amount; i++){
-                    offload(outputItem.item);
-                }
-
-                craftEffect.at(x, y, outputItem.item.color);
-            }
+        if(hasItems){
+            stats.add(Stat.productionTime, itemDuration / 60f, StatUnit.seconds);
         }
 
+        if(outputLiquid != null){
+            stats.add(Stat.output, StatValues.liquid(outputLiquid.liquid, outputLiquid.amount * 60f, true));
+        }
+    }
+
+    public class ByproductReactorBuild extends GeneratorBuild{
+        public float warmup, totalTime, efficiencyMultiplier = 1f;
+
+        @Override
+        public void updateEfficiencyMultiplier(){
+            if(filterItem != null){
+                float m = filterItem.efficiencyMultiplier(this);
+                if(m > 0) efficiencyMultiplier = m;
+            }else if(filterLiquid != null){
+                float m = filterLiquid.efficiencyMultiplier(this);
+                if(m > 0) efficiencyMultiplier = m;
+            }
+        }
 
         @Override
         public void updateTile(){
-            if(enabled) enabled = shouldConsume();
-            super.updateTile();
-            dumpOutputs();
-            warmup = Mathf.lerpDelta(warmup, (canConsume() && enabled && outputItem != null) ? 1f : 0f, 0.035f);
+            boolean valid = efficiency > 0;
 
-            if(heat > 0){
-                float maxUsed = Math.min(coolantLiquid.amount, heat / coolantPower);
-                heat -= maxUsed * coolantPower;
-                liquids.remove(coolantLiquid.liquid, maxUsed);
+            warmup = Mathf.lerpDelta(warmup, valid ? 1f : 0f, warmupSpeed);
+
+            productionEfficiency = efficiency * efficiencyMultiplier;
+            totalTime += warmup * Time.delta;
+
+            //randomly produce the effect
+            if(valid && Mathf.chanceDelta(effectChance)){
+                generateEffect.at(x + Mathf.range(generateEffectRange), y + Mathf.range(generateEffectRange));
             }
 
-            if(outputLiquids != null){
-                for(var output : outputLiquids){
-                    handleLiquid(this, output.liquid, Math.min(output.amount = Math.min(coolantLiquid.amount, heat / coolantPower), liquidCapacity - liquids.get(output.liquid)));
+            //take in items periodically
+            if(hasItems && valid && generateTime <= 0f){
+                consume();
+                consumeEffect.at(x + Mathf.range(generateEffectRange), y + Mathf.range(generateEffectRange));
+                generateTime = 1f;
+            }
+
+            if(outputLiquid != null){
+                float added = Math.min(productionEfficiency * delta() * outputLiquid.amount, liquidCapacity - liquids.get(outputLiquid.liquid));
+                liquids.add(outputLiquid.liquid, added);
+                dumpLiquid(outputLiquid.liquid);
+
+                if(explodeOnFull && liquids.get(outputLiquid.liquid) >= liquidCapacity - 0.0001f){
+                    kill();
+                    Events.fire(new GeneratorPressureExplodeEvent(this));
                 }
             }
+
+            //generation time always goes down, but only at the end so consumeTriggerValid doesn't assume fake items
+            generateTime -= delta() / itemDuration;
         }
 
         @Override
-        public void draw(){
-            super.draw();
-            if(warmup > 0.001f){
-                Draw.blend(Blending.additive);
-                Draw.color(heatColor, warmup * Mathf.absin(3f, 1f));
-                Draw.rect(topRegion, x, y);
-                Draw.blend();
-                Draw.reset();
-            }
+        public boolean consumeTriggerValid(){
+            return generateTime > 0;
         }
 
-        public void dumpOutputs(){
-            if(hasItems && outputItem != null && timer(timerDump, dumpTime / timeScale)){
-                dump(outputItem.item);
-            }
-            if(hasLiquids && outputLiquid != null){
-                dumpLiquid(outputLiquid);
-            }
+        @Override
+        public float warmup(){
+            return warmup;
+        }
+
+        @Override
+        public float totalProgress(){
+            return totalTime;
+        }
+
+        @Override
+        public void drawLight(){
+            //???
+            drawer.drawLight(this);
+            //TODO hard coded
+            Drawf.light(x, y, (60f + Mathf.absin(10f, 5f)) * size, Color.orange, 0.5f * warmup);
         }
     }
-}*/
+}

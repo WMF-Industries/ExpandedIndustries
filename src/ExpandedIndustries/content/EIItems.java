@@ -40,5 +40,7 @@ public class EIItems {
             flammability = 3.5f;
             explosiveness = 1.3f;
         }};
+
+        teranite = new Item("teranite", Color.valueOf("30b4c0"));
     }
 }
