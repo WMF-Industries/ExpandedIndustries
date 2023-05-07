@@ -21,7 +21,7 @@ public class EIStatusEffects {
             effect = Fx.none;
         }};
         overload = new StatusEffect("overload"){{
-            speedMultiplier = 0.15f;
+            speedMultiplier = 0.2f;
             disarm = true;
         }};
         sticky = new StatusEffect("sticky"){{

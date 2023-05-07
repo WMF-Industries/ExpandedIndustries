@@ -3,7 +3,7 @@ name: "EI"
 author: "WMF Industries"
 main: "ExpandedIndustries.ExpandedIndustries"
 description: "Some content for people to enjoy :>
--Current version : 1.6 [B4]"
-version: "1.6 [B4]"
-minGameVersion: 140
+-Current version : 1.6 [B5]"
+version: "1.6 [B5]"
+minGameVersion: 143
 java: true

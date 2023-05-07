@@ -1981,9 +1981,8 @@ public class EIBlocks {
         airFactory = new UnitFactory("air-factory"){{
             requirements(Category.units, with(Items.copper, 90, Items.titanium, 80, Items.silicon, 120));
             plans = Seq.with(
-                    new UnitPlan(EIUnits.pygmy, 60f * 15, with(Items.silicon, 25, Items.graphite, 10)),
-                    new UnitPlan(EIUnits.centurion, 60f * 25, with(Items.silicon, 30, Items.titanium, 20, Items.lead, 15)),
-                    new UnitPlan(EIUnits.SmolBoi, 60f * 10, with(Items.silicon, 30, Items.titanium, 15))
+                    new UnitPlan(pygmy, 60f * 15, with(Items.silicon, 25, Items.graphite, 10)),
+                    new UnitPlan(SmolBoi, 60f * 10, with(Items.silicon, 30, Items.titanium, 15))
             );
             size = 3;
             consumePower(1.2f);
@@ -1998,11 +1997,11 @@ public class EIBlocks {
             constructTime = 60f * 10f;
 
             upgrades.addAll(
-                    new UnitType[]{EIUnits.stormer, EIUnits.rusher},
-                    new UnitType[]{EIUnits.pygmy, EIUnits.schaus},
-                    new UnitType[]{EIUnits.SmolBoi, EIUnits.MediumBoi},
-                    new UnitType[]{centurion, alturion},
-                    new UnitType[]{breadnight, toastnight}
+                    new UnitType[]{stormer, rusher},
+                    new UnitType[]{breadnight, toastnight},
+                    new UnitType[]{pygmy, schaus},
+                    new UnitType[]{UnitTypes.mono, centurion},
+                    new UnitType[]{SmolBoi, MediumBoi}
             );
         }};
         eraniteReconstructor = new Reconstructor("eranite-reconstructor"){{
@@ -2015,9 +2014,10 @@ public class EIBlocks {
             constructTime = 60f * 20f;
 
             upgrades.addAll(
-                    new UnitType[]{EIUnits.rusher, EIUnits.escapade},
-                    new UnitType[]{EIUnits.schaus, EIUnits.ageronia},
-                    new UnitType[]{EIUnits.MediumBoi, EIUnits.LargeBoi}
+                    new UnitType[]{rusher, escapade},
+                    new UnitType[]{schaus, ageronia},
+                    new UnitType[]{centurion, alturion},
+                    new UnitType[]{MediumBoi, LargeBoi}
             );
         }};
         ultraReconstructor = new Reconstructor("ultra-reconstructor"){{
@@ -2031,7 +2031,7 @@ public class EIBlocks {
             constructTime = 60f * 25f;
 
             upgrades.addAll(
-                    new UnitType[]{EIUnits.escapade, EIUnits.natorin},
+                    new UnitType[]{escapade, natorin},
                     new UnitType[]{LargeBoi, PayloadBoi}
             );
         }};
@@ -2046,7 +2046,7 @@ public class EIBlocks {
             constructTime = 60f * 25f;
 
             upgrades.addAll(
-                    new UnitType[]{EIUnits.natorin, EIUnits.terrand}
+                    new UnitType[]{natorin, terrand}
             );
         }};
         /*overkillAssembler = new UnitAssembler("overkill-assembler"){{
