@@ -8,8 +8,8 @@ import mindustry.type.ItemStack;
 
 import static ExpandedIndustries.content.EIBlocks.*;
 import static ExpandedIndustries.content.EIUnits.*;
-import static mindustry.content.SectorPresets.*;
-import static mindustry.content.TechTree.*;
+import static mindustry.content.SectorPresets.windsweptIslands;
+import static mindustry.content.TechTree.TechNode;
 
 public class EITechTree {
     //this is stupid but seems to work
@@ -64,8 +64,16 @@ public class EITechTree {
             node(coreExtensio, () -> {
             });
         });
+        mergeNode(Blocks.coalCentrifuge, () -> {
+            node(oilCrystaliser);
+        });
+        mergeNode(Blocks.unloader, () -> {
+            node(hardenedUnloader, () -> {
+                node(advancedUnloader);
+            });
+        });
         mergeNode(Blocks.titaniumConveyor, () -> {
-                    node(stariumConveyor);
+            node(stariumConveyor);
         });
         mergeNode(Blocks.plastaniumConveyor, () -> {
             node(massStariumConveyor);
@@ -75,10 +83,11 @@ public class EITechTree {
         });
         mergeNode(Blocks.itemBridge, () -> {
             node(titaniumBridge, () -> {
-                node(stariumBridge, () -> {
-                    node(alloyBridge);
-                });
+                node(stariumBridge);
             });
+        });
+        mergeNode(Blocks.phaseConveyor, () -> {
+            node(alloyBridge);
         });
         mergeNode(Blocks.pulseConduit, () -> {
             node(stariumConduit);
@@ -110,8 +119,7 @@ public class EITechTree {
         });
         mergeNode(Blocks.blastDrill, ()-> {
             node(hammerDrill, Seq.with(
-                    new Objectives.Research(Liquids.cryofluid)
-            ), () -> {
+                    new Objectives.Research(Liquids.cryofluid)), () -> {
             });
             node(precisionDrill);
         });
@@ -133,14 +141,12 @@ public class EITechTree {
         mergeNode(Blocks.kiln, () -> {
             node(metaglassFabricator);
         });
-        mergeNode(Blocks.siliconCrucible, () -> {
+        mergeNode(Blocks.siliconSmelter, () -> {
             node(stariumSynthesizer, Seq.with(
-                    new Objectives.Research(Items.titanium),
-                    new Objectives.Research(Items.silicon)
-                ), () -> {
+                    new Objectives.Research(Items.titanium)), () -> {
             });
         });
-        mergeNode(Blocks.siliconCrucible, () -> {
+        mergeNode(stariumSynthesizer, () -> {
             node(peridotiumSynthesizer, Seq.with(
                     new Objectives.Research(Items.thorium)), () -> {
             });
@@ -161,8 +167,10 @@ public class EITechTree {
         mergeNode(Blocks.plastaniumCompressor, () -> {
             node(plastaniumCondenser);
         });
-        mergeNode(Blocks.cultivator, () -> {
-            node(freezer);
+        mergeNode(Blocks.graphitePress, () -> {
+            node(freezer, Seq.with(
+                    new Objectives.Research(Liquids.water)), () -> {
+            });
         });
         mergeNode(Blocks.oilExtractor, () -> {
             node(oilPurifier, Seq.with(
@@ -175,10 +183,10 @@ public class EITechTree {
                 });
             });
         });
-        /*mergeNode(Blocks.thoriumReactor, () -> {
+        mergeNode(Blocks.thoriumReactor, () -> {
             node(peridotiumReactor, () -> {
             });
-        });*/
+        });
         mergeNode(Blocks.steamGenerator, ()-> {
             node(steamTurbine, ()-> {
             });
@@ -227,14 +235,12 @@ public class EITechTree {
             node(renoit);
         });
         mergeNode(Blocks.lancer, () -> {
-            node(piercer, () -> {
-                node(enforcer, () -> {
-                    node(slowRay, () -> {
-                        node(fastRay, () -> {
-                        });
-                    });
+            node(enforcer, () -> {
+                node(slowRay, () -> {
+                    node(fastRay);
                 });
             });
+            node(piercer);
         });
         mergeNode(Blocks.groundFactory, () -> {
             node(groundFactory, () -> {

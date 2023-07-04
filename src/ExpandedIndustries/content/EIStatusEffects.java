@@ -1,18 +1,15 @@
 package ExpandedIndustries.content;
 
-import arc.graphics.*;
-import arc.graphics.g2d.Fill;
+import arc.graphics.Color;
 import arc.math.Mathf;
-import mindustry.content.*;
-import mindustry.entities.Effect;
-import mindustry.type.*;
+import mindustry.content.Fx;
+import mindustry.type.StatusEffect;
 
-import static arc.math.Angles.randLenVectors;
 import static mindustry.content.StatusEffects.burning;
 import static mindustry.content.StatusEffects.freezing;
 
 public class EIStatusEffects {
-    public static StatusEffect lockdown, sticky;
+    public static StatusEffect lockdown, overload, sticky;
 
     public static void load(){
         lockdown = new StatusEffect("lockdown"){{
@@ -23,12 +20,16 @@ public class EIStatusEffects {
             color = Color.clear;
             effect = Fx.none;
         }};
+        overload = new StatusEffect("overload"){{
+            speedMultiplier = 0.2f;
+            disarm = true;
+        }};
         sticky = new StatusEffect("sticky"){{
             speedMultiplier = 0.4f;
             reloadMultiplier = 0.6f;
             damageMultiplier = 0.7f;
             color = Color.valueOf("FFAF5FE8");
-            effect = EIFx.sticky;
+            effect = EIFx.reu;
 
             init(() -> {
                 opposite(freezing);
