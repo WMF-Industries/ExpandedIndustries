@@ -1,51 +1,29 @@
 package ExpandedIndustries.content;
 
-import arc.graphics.Color;
-import arc.math.Interp;
-import arc.struct.EnumSet;
-import arc.struct.Seq;
+import arc.Core;
+import arc.graphics.*;
+import arc.math.*;
+import arc.struct.*;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.ParticleEffect;
-import mindustry.entities.effect.WaveEffect;
-import mindustry.entities.pattern.ShootAlternate;
-import mindustry.gen.Sounds;
-import mindustry.graphics.CacheLayer;
-import mindustry.graphics.Layer;
-import mindustry.type.Category;
-import mindustry.type.ItemStack;
-import mindustry.type.LiquidStack;
-import mindustry.type.UnitType;
-import mindustry.world.Block;
-import mindustry.world.blocks.campaign.LaunchPad;
-import mindustry.world.blocks.defense.MendProjector;
-import mindustry.world.blocks.defense.OverdriveProjector;
-import mindustry.world.blocks.defense.Wall;
-import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.defense.turrets.LiquidTurret;
-import mindustry.world.blocks.defense.turrets.PowerTurret;
+import mindustry.entities.effect.*;
+import mindustry.entities.pattern.*;
+import mindustry.gen.*;
+import mindustry.graphics.*;
+import mindustry.type.*;
+import mindustry.world.*;
+import mindustry.world.blocks.campaign.*;
+import mindustry.world.blocks.defense.*;
+import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.distribution.*;
-import mindustry.world.blocks.environment.Floor;
-import mindustry.world.blocks.environment.OreBlock;
-import mindustry.world.blocks.environment.OverlayFloor;
-import mindustry.world.blocks.environment.ShallowLiquid;
-import mindustry.world.blocks.liquid.Conduit;
-import mindustry.world.blocks.liquid.LiquidBridge;
-import mindustry.world.blocks.logic.LogicBlock;
-import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.power.ImpactReactor;
-import mindustry.world.blocks.power.NuclearReactor;
-import mindustry.world.blocks.production.AttributeCrafter;
-import mindustry.world.blocks.production.Drill;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.storage.CoreBlock;
-import mindustry.world.blocks.storage.StorageBlock;
-import mindustry.world.blocks.storage.Unloader;
-import mindustry.world.blocks.units.Reconstructor;
-import mindustry.world.blocks.units.UnitFactory;
-import mindustry.world.consumers.ConsumeItemFlammable;
-import mindustry.world.consumers.ConsumeItemRadioactive;
+import mindustry.world.blocks.environment.*;
+import mindustry.world.blocks.liquid.*;
+import mindustry.world.blocks.logic.*;
+import mindustry.world.blocks.power.*;
+import mindustry.world.blocks.production.*;
+import mindustry.world.blocks.storage.*;
+import mindustry.world.blocks.units.*;
+import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
@@ -57,19 +35,23 @@ import static mindustry.type.ItemStack.with;
 public class EIBlocks {
 
     public static Block
-            //environment
-            flower, grassWater, orePeridotium, oreStarium, oreNeorium, oreTeranite, liquidReurium,
+
+    //environment
+    flower, orePeridotium, oreStarium, oreNeorium, oreTeranite, ion,
+    crayoneFloor, crayoneWall, crayoneVent, ioniteFloor, ioniteWall, xeniteFloor, xeniteWall, arcaniteFloor, arcaniteWall, arcaniteVent,
+    grassWater, liquidReurium, cryoplasm,
     //distribution
     stariumConveyor, starlightJunction, massStariumConveyor, titaniumBridge, stariumBridge,
-            alloyBridge, titaniumBridgeConduit, stariumBridgeConduit, stariumConduit,
+    alloyBridge, titaniumBridgeConduit, stariumBridgeConduit, stariumConduit,
     //storage
     crate,
+    //extraction
+    electricDrill, precisionDrill, hammerDrill,
     //production
     cryofluidPlant, cryofluidStirrer, oxygenLiquifier, coalLiquifier, oilCrystaliser,
-            electricDrill, precisionDrill, hammerDrill, siliconFabricator,
-            lumiumSmelter, metaglassFabricator, peridotiumSynthesizer, stariumSynthesizer,
-            stariumRefiner, graphiteCompressor, peridotiumEnhancer, scrapper, plastaniumCondenser,
-            freezer, oilPurifier, heavyOilRefinery, fuelAssembler,
+    freezer, oilPurifier, heavyOilRefinery, fuelAssembler, siliconFabricator,
+    lumiumSmelter, metaglassFabricator, peridotiumSynthesizer, stariumSynthesizer,
+    stariumRefiner, graphiteCompressor, peridotiumEnhancer, scrapper, plastaniumCondenser,
     //power
     steamTurbine, peridotiumGenerator, peridotiumReactor, lumiumReactor,
     //logic
@@ -78,519 +60,634 @@ public class EIBlocks {
     coreFrag, coreExtensio, microPad, planetaryMender, planetaryOverdrive, hardenedUnloader, advancedUnloader,
     //defense
     stariumWall, largeStariumWall, graphiteWall, largeGraphiteWall, anado, deuse,
-            exagonArtillery, slowRay, fastRay, piercer, enforcer, renoit,
+    exagonArtillery, slowRay, fastRay, piercer, enforcer, renoit, raven, region,
     //factories & recons
     groundFactory, airFactory, starruneReconstructor, eraniteReconstructor, ultraReconstructor,
-            terraReconstructor,
+    terraReconstructor,
     //overkill content
     overkillAssembler;
 
     public static void load() {
-        grassWater = new ShallowLiquid("grass-water") {{
-            speedMultiplier = 0.7f;
+
+        crayoneFloor = new Floor("crayone") {{
+            variants = 4;
+            mapColor = Color.valueOf("853399");
+
+            attributes.set(Attribute.water, 1.6f);
+        }};
+        ioniteFloor = new Floor("ionite") {{
+            variants = 4;
+            mapColor = Color.valueOf("26a639");
+
+            attributes.set(Attribute.water, 0.7f);
+        }};
+        xeniteFloor = new Floor("xenite") {{
+            variants = 4;
+            itemDrop = EIItems.xenite;
+
+            attributes.set(Attribute.water, 0.1f);
+        }};
+        arcaniteFloor = new Floor("arcanite"){{
+            variants = 4;
+
+            attributes.set(Attribute.water, 0);
+        }};
+        crayoneWall = new StaticWall("crayone-wall") {{
+            variants = 2;
+
+            attributes.set(Attribute.sand, 1.25f);
+            crayoneFloor.asFloor().wall = crayoneFloor.asFloor().wall = this;
+        }};
+        ioniteWall = new StaticWall("ionite-wall") {{
+            variants = 2;
+
+            attributes.set(Attribute.sand, 0.6f);
+            ioniteFloor.asFloor().wall = ioniteFloor.asFloor().wall = this;
+        }};
+        xeniteWall = new StaticWall("xenite-wall") {{
             variants = 3;
+
+            attributes.set(Attribute.sand, 2);
+            xeniteFloor.asFloor().wall = xeniteFloor.asFloor().wall = this;
+        }};
+        arcaniteWall = new StaticWall("arcanite-wall") {{
+            variants = 2;
+
+            attributes.set(Attribute.sand, 0);
+            arcaniteFloor.asFloor().wall = arcaniteFloor.asFloor().wall = this;
+        }};
+        crayoneVent = new SteamVent("crayone-vent") {{
+            parent = blendGroup = crayoneFloor;
+
+            mapColor = Color.valueOf("632673");
+
+            attributes.set(Attribute.steam, 1f);
+        }};
+        arcaniteVent = new SteamVent("arcanite-vent") {{
+            parent = blendGroup = arcaniteFloor;
+
+            attributes.set(Attribute.steam, 1f);
+        }};
+        grassWater = new Floor("grass-water") {{
+            shallow = supportsOverlay = isLiquid = placeableOn = true;
+            editorIcon = Core.atlas.find(name + "1");
+
             liquidDrop = Liquids.water;
             liquidMultiplier = 0.75f;
-            cacheLayer = CacheLayer.water;
-            status = StatusEffects.wet;
+            speedMultiplier = 0.7f;
             statusDuration = 90f;
-            supportsOverlay = true;
+            drownTime = 0;
+
+            variants = 4;
+            albedo = 0.9f;
+
+            cacheLayer = CacheLayer.water;
+        }};
+        liquidReurium = new Floor("liquid-reurium") {{
+            isLiquid = true;
+            supportsOverlay = false;
+
+            liquidDrop = EILiquids.reurium;
+            status = EIStatusEffects.sticky;
+            speedMultiplier = 0.05f;
+            liquidMultiplier = 0.35f;
+            statusDuration = 900f;
+            drownTime = 600f;
+
+            variants = 0;
+            albedo = 0.9f;
+            cacheLayer = CacheLayer.tar;
+            mapColor = Color.valueOf("c179d2");
+        }};
+        cryoplasm = new Floor("cryoplasm") {{
+            isLiquid = true;
+            supportsOverlay = false;
+
+            liquidDrop = EILiquids.cryoplasm;
+            status = StatusEffects.freezing;
+            speedMultiplier = 0.15f;
+            liquidMultiplier = 0.2f;
+            statusDuration = 1200;
+            drownTime = 450;
+
+            variants = 0;
+            albedo = 0.7f;
+            cacheLayer = CacheLayer.cryofluid;
         }};
         flower = new OverlayFloor("flowers") {{
             variants = 3;
+
             attributes.set(Attribute.water, 0.2f);
         }};
         orePeridotium = new OreBlock("peridotium-ore", EIItems.peridotium) {{
             oreDefault = true;
+
             oreThreshold = 0.864f;
-            oreScale = 24.904762f;
+            oreScale = 24.9047f;
         }};
         oreStarium = new OreBlock("starium-ore", EIItems.starium) {{
             oreDefault = true;
+
             oreThreshold = 0.893f;
             oreScale = 25.1f;
         }};
-        liquidReurium = new Floor("liquid-reurium"){{
-            speedMultiplier = 0.05f;
-            variants = 0;
-            liquidDrop = EILiquids.reurium;
-            liquidMultiplier = 0.35f;
-            isLiquid = true;
-            status = EIStatusEffects.sticky;
-            statusDuration = 900f;
-            drownTime = 600f;
-            albedo = 0.9f;
-            supportsOverlay = false;
-            cacheLayer = CacheLayer.tar;
+        oreNeorium = new OreBlock("neorium-ore", EIItems.neorium) {{
+            oreDefault = false;
+
+            oreThreshold = 0.844f;
+            oreScale = 23.3991f;
         }};
+        oreTeranite = new OreBlock("teranite-ore", EIItems.neorium) {{
+            oreDefault = false;
+
+            oreThreshold = 0.872f;
+            oreScale = 24.2137f;
+        }};
+
         stariumConveyor = new Conveyor("starium-conveyor") {{
-            requirements(Category.distribution, with(EIItems.starium, 2, Items.titanium, 1, Items.copper, 1));
             health = 100;
             speed = 0.15f;
-            displayedSpeed = 21f;
-        }};
-        massStariumConveyor = new StackConveyor("starium-alloy-conveyor") {{
-            requirements(Category.distribution, with(EIItems.starium, 3, EIItems.stariumAlloy, 1, Items.silicon, 1));
-            health = 120;
-            speed = 4f / 60f;
-            itemCapacity = 15;
+            displayedSpeed = 20f;
+
+            requirements(Category.distribution, with(Items.copper, 2, Items.titanium, 1, EIItems.starium, 1));
         }};
         starlightJunction = new Junction("starlight-junction") {{
-            requirements(Category.distribution, with(EIItems.starium, 3, Items.titanium, 2, Items.copper, 2));
-            speed = 22.5f;
-            capacity = 8;
             health = 80;
+            speed = 30f;
+            capacity = 10;
+
+            requirements(Category.distribution, with(Items.copper, 3, Items.titanium, 3, EIItems.starium, 2));
+        }};
+        massStariumConveyor = new StackConveyor("starium-alloy-conveyor") {{
+            health = 120;
+            speed = 5f / 60f;
+            itemCapacity = 20; //maybe an overkill
+
+            requirements(Category.distribution, with(Items.silicon, 2, Items.titanium, 2, EIItems.stariumAlloy, 1));
         }};
         titaniumBridge = new BufferedItemBridge("titanium-bridge") {{
-            requirements(Category.distribution, with(Items.copper, 8, Items.lead, 6, Items.titanium, 2));
             fadeIn = moveArrows = true;
+
             range = 7;
-            speed = 111f;
-            arrowSpacing = 6f;
             bufferCapacity = 22;
+
+            arrowSpacing = 6f;
+
+            requirements(Category.distribution, with(Items.copper, 10, Items.lead, 6, Items.titanium, 4));
         }};
         stariumBridge = new BufferedItemBridge("starium-bridge") {{
-            requirements(Category.distribution, with(Items.copper, 10, Items.titanium, 4, EIItems.starium, 4));
             fadeIn = moveArrows = true;
+
             range = 10;
-            speed = 148f;
-            arrowSpacing = 6f;
             bufferCapacity = 30;
+
+            arrowSpacing = 6f;
+
+            requirements(Category.distribution, with(Items.copper, 12, Items.titanium, 6, EIItems.starium, 2));
         }};
         alloyBridge = new ItemBridge("starium-alloy-bridge") {{
-            requirements(Category.distribution, with(Items.copper, 12, Items.silicon, 6, EIItems.stariumAlloy, 10));
+            hasPower = pulse = true;
+
             range = 20;
+            envEnabled |= Env.space;
+
             arrowPeriod = 0.9f;
             arrowTimeScl = 2.75f;
-            hasPower = true;
-            pulse = true;
-            envEnabled |= Env.space;
-            consumePower(0.3f);
+
+            consumePower(0.25f);
+            requirements(Category.distribution, with(Items.copper, 12, Items.silicon, 8, EIItems.stariumAlloy, 6));
         }};
         stariumConduit = new Conduit("starium-conduit") {{
-            requirements(Category.liquid, with(EIItems.starium, 4, Items.titanium, 2, Items.metaglass, 1));
+            health = 110;
             liquidCapacity = 24f;
             liquidPressure = 1.6f;
-            health = 110;
+
+            requirements(Category.liquid, with(Items.metaglass, 3, EIItems.starium, 1));
         }};
         titaniumBridgeConduit = new LiquidBridge("titanium-bridge-conduit") {{
-            requirements(Category.liquid, with(Items.titanium, 4, Items.metaglass, 8));
-            fadeIn = moveArrows = false;
-            arrowSpacing = 6f;
+            fadeIn = moveArrows = hasPower = false;
+
+            health = 100;
             range = 7;
-            hasPower = false;
+
+            arrowSpacing = 6f;
+
+            requirements(Category.liquid, with(Items.metaglass, 8, Items.graphite, 4, Items.titanium, 4));
         }};
         stariumBridgeConduit = new LiquidBridge("starium-bridge-conduit") {{
-            requirements(Category.liquid, with(EIItems.starium, 4, Items.metaglass, 8));
-            fadeIn = moveArrows = false;
-            arrowSpacing = 6f;
+            fadeIn = moveArrows = hasPower = false;
+
+            health = 170;
             range = 10;
-            hasPower = false;
+
+            arrowSpacing = 6f;
+
+            requirements(Category.liquid, with(Items.metaglass, 10, Items.graphite, 6, EIItems.starium, 6));
         }};
         crate = new StorageBlock("crate") {{
-            requirements(Category.effect, with(Items.copper, 50, Items.lead, 50));
             size = 1;
             itemCapacity = 75;
             health = 70;
+            buildCost = 0.75f;
+
+            requirements(Category.effect, with(Items.copper, 50, Items.lead, 50));
         }};
         cryofluidPlant = new GenericCrafter("cryofluid-plant") {{
-            requirements(Category.crafting, with(Items.copper, 230, Items.silicon, 110, Items.titanium, 60, EIItems.starium, 20));
-            outputLiquid = new LiquidStack(Liquids.cryofluid, 1f);
-            size = 4;
-            hasPower = true;
-            hasItems = true;
-            hasLiquids = true;
+            hasPower = hasItems = hasLiquids = solid = outputsLiquid = true;
             rotate = false;
-            solid = true;
-            outputsLiquid = true;
-            envEnabled = Env.any;
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(Liquids.cryofluid) {{
-                drawLiquidLight = true;
-            }}, new DrawDefault(), new DrawRegion("-top"));
+
+            size = 4;
             liquidCapacity = 120f;
             craftTime = 90;
-
-            consumePower(2f);
-            consumeItem(Items.titanium, 2);
-            consumeLiquid(Liquids.water, 1f);
-        }};
-        cryofluidStirrer = new GenericCrafter("cryofluid-stirrer") {{
-            requirements(Category.crafting, with(Items.copper, 160, Items.silicon, 70, Items.titanium, 80));
-            outputLiquid = new LiquidStack(Liquids.cryofluid, 30f / 60f);
-            size = 3;
-            hasPower = true;
-            hasItems = true;
-            hasLiquids = true;
-            rotate = false;
-            solid = true;
-            outputsLiquid = true;
             envEnabled = Env.any;
+            outputLiquid = new LiquidStack(Liquids.cryofluid, 1f);
+
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(Liquids.cryofluid) {{
                 drawLiquidLight = true;
             }}, new DrawDefault(), new DrawRegion("-top"));
+
+            consumePower(3.5f);
+            consumeItem(Items.titanium, 3);
+            consumeLiquid(Liquids.water, 1f);
+            requirements(Category.crafting, with(Items.lead, 210, Items.silicon, 120, Items.graphite, 90, Items.titanium, 70));
+        }};
+        cryofluidStirrer = new GenericCrafter("cryofluid-stirrer") {{
+            hasPower = hasItems = hasLiquids = solid = outputsLiquid = true;
+            rotate = false;
+
+            size = 3;
             liquidCapacity = 60f;
             craftTime = 90;
+            envEnabled = Env.any;
+            outputLiquid = new LiquidStack(Liquids.cryofluid, 30f / 60f);
 
-            consumePower(1.5f);
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(Liquids.cryofluid) {{
+                drawLiquidLight = true;
+            }}, new DrawDefault(), new DrawRegion("-top"));
+
+            consumePower(2f);
             consumeItem(Items.titanium, 1);
             consumeLiquid(Liquids.water, 30f / 60f);
+            requirements(Category.crafting, with(Items.lead, 130, Items.silicon, 70, Items.titanium, 50));
         }};
         oxygenLiquifier = new GenericCrafter("oxygen-liquifier") {{
-            requirements(Category.crafting, with(Items.copper, 170, Items.silicon, 60, Items.titanium, 70, EIItems.starium, 10));
-            outputLiquid = new LiquidStack(EILiquids.lox, 15f / 60f);
-            size = 2;
-            hasPower = true;
-            hasItems = true;
-            hasLiquids = true;
+            hasPower = hasItems = hasLiquids = solid =  outputsLiquid = true;
             rotate = false;
-            solid = true;
-            outputsLiquid = true;
+
+            size = 2;
+            liquidCapacity = 30f;
+            craftTime = 240;
             envEnabled = Env.any;
+            outputLiquid = new LiquidStack(EILiquids.lox, 15f / 60f);
+
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(EILiquids.lox) {{
                 drawLiquidLight = true;
             }}, new DrawDefault(), new DrawRegion("-top"));
-            liquidCapacity = 30f;
-            craftTime = 240;
 
-            consumePower(1.75f);
+            consumePower(2.5f);
             consumeItem(EIItems.ice);
-            consumeLiquid(Liquids.water, 7.5f / 60f);
+            consumeLiquid(Liquids.water, 10f / 60f);
+            requirements(Category.crafting, with(Items.lead, 110, Items.silicon, 65, Items.graphite, 35, Items.titanium, 25));
         }};
         coalLiquifier = new GenericCrafter("coal-liquifier") {{
-            requirements(Category.crafting, with(Items.copper, 170, Items.silicon, 60, Items.titanium, 70, EIItems.starium, 10));
-            outputLiquid = new LiquidStack(Liquids.oil, 6f / 60f);
-            size = 2;
-            hasPower = true;
-            hasItems = true;
-            hasLiquids = true;
+            hasPower = hasItems = hasLiquids = solid = outputsLiquid = true;
             rotate = false;
-            solid = true;
-            outputsLiquid = true;
+
+            size = 2;
+            liquidCapacity = 30f;
+            craftTime = 30f;
             envEnabled = Env.any;
+            outputLiquid = new LiquidStack(Liquids.oil, 12f / 60f);
+
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(Liquids.oil) {{
                 drawLiquidLight = true;
             }}, new DrawDefault(), new DrawRegion("-top"));
-            liquidCapacity = 30f;
-            craftTime = 15f;
 
-            consumePower(2f);
-            consumeItem(Items.coal);
-            consumeLiquid(Liquids.water, 12f / 60f);
+            consumePower(3.5f);
+            consumeItem(Items.coal, 3);
+            consumeLiquid(Liquids.water, 24f / 60f);
+            requirements(Category.crafting, with(Items.copper, 90, Items.silicon, 70, Items.metaglass, 50, Items.titanium, 35));
         }};
         oilCrystaliser = new GenericCrafter("oil-crystaliser") {{
-            requirements(Category.crafting, with(Items.copper, 70, Items.titanium, 20, Items.graphite, 40, EIItems.starium, 30));
-            craftEffect = Fx.coalSmeltsmoke;
-            outputItem = new ItemStack(Items.coal, 5);
-            craftTime = 45f;
-            size = 3;
             hasPower = hasItems = hasLiquids = true;
             rotateDraw = false;
 
+            size = 3;
+            craftTime = 30f;
+            outputItem = new ItemStack(Items.coal, 5);
+
+            craftEffect = Fx.coalSmeltsmoke;
+
             consumeLiquid(Liquids.oil, 0.5f);
-            consumePower(1.2f);
+            consumePower(1.5f);
+            requirements(Category.crafting, with(Items.copper, 120, Items.silicon, 70, Items.graphite, 60, Items.plastanium, 20));
         }};
         electricDrill = new Drill("electric-drill") {{
-            requirements(Category.production, with(Items.graphite, 50, Items.titanium, 20, Items.silicon, 10));
-            tier = 4;
-            drillTime = 160;
+            hasPower = hasItems = true;
+            hasLiquids = false;
+
             size = 2;
+            tier = 4;
+            drillTime = 62.5f;
+            liquidBoostIntensity = 0;
 
             consumePower(1.25f);
-            hasLiquids = false;
-            hasPower = hasItems = true;
+            requirements(Category.production, with(Items.graphite, 50, Items.silicon, 30, Items.titanium, 20));
         }};
         precisionDrill = new Drill("precision-drill") {{
-            requirements(Category.production, with(Items.graphite, 165, Items.silicon, 80, Items.titanium, 75, Items.thorium, 65));
-            drillTime = 120;
-            size = 4;
             drawRim = true;
-            tier = 5;
-            updateEffect = Fx.pulverizeRed;
-            updateEffectChance = 0.03f;
-            drillEffect = Fx.mineHuge;
-            rotateSpeed = 6f;
-            warmupSpeed = 0.01f;
-            itemCapacity = 20;
 
+            size = 4;
+            tier = 5;
+            drillTime = 46.875f;
+            liquidBoostIntensity = 0;
+            rotateSpeed = 6f;
+            itemCapacity = 20;
+            warmupSpeed = 0.01f;
+            updateEffectChance = 0.03f;
+
+            drillEffect = Fx.mineHuge;
+            updateEffect = Fx.pulverizeRed;
+
+            requirements(Category.production, with(Items.lead, 200, Items.graphite, 165, Items.silicon, 80, Items.titanium, 75, Items.thorium, 65));
             consumeLiquid(Liquids.water, 0.4f);
         }};
         hammerDrill = new Drill("hammer-drill") {{
-            requirements(Category.production, with(Items.lead, 265, Items.silicon, 160, Items.titanium, 70, Items.thorium, 95));
-            drillTime = 250;
-            size = 5;
-            drawRim = true;
-            hasPower = true;
-            tier = 5;
-            updateEffect = Fx.pulverizeRed;
-            updateEffectChance = 0.03f;
-            drillEffect = Fx.mineHuge;
-            rotateSpeed = 6f;
-            warmupSpeed = 0.01f;
-            itemCapacity = 20;
+            hasPower = drawRim = true;
 
+            size = 5;
+            tier = 5;
+            drillTime = 90;
+            rotateSpeed = 7f;
+            itemCapacity = 60;
+            warmupSpeed = 0.03f;
             liquidBoostIntensity = 2f;
+            updateEffectChance = 0.03f;
+
+            drillEffect = Fx.mineHuge;
+            updateEffect = Fx.pulverizeRed;
 
             consumePower(5f);
             consumeLiquid(Liquids.cryofluid, 0.1f).boost();
+            requirements(Category.production, with(Items.lead, 265, Items.silicon, 160, Items.titanium, 70, Items.thorium, 95));
         }};
         siliconFabricator = new AttributeCrafter("silicon-fabricator") {{
-            requirements(Category.crafting, with(Items.titanium, 170, Items.metaglass, 90, Items.plastanium, 55, Items.silicon, 90, Items.phaseFabric, 10));
-            craftEffect = Fx.smeltsmoke;
-            outputItem = new ItemStack(Items.silicon, 16);
-            craftTime = 90f;
-            size = 4;
             hasPower = true;
             hasLiquids = false;
+
+            size = 4;
+            craftTime = 90f;
             itemCapacity = 30;
             boostScale = 0.15f;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
-            ambientSound = Sounds.smelter;
-            ambientSoundVolume = 0.07f;
+            outputItem = new ItemStack(Items.silicon, 18);
 
-            consumeItems(with(Items.coal, 6, Items.sand, 8, Items.blastCompound, 1));
-            consumePower(5f);
+            craftEffect = Fx.smeltsmoke;
+            ambientSound = Sounds.smelter;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
+
+            consumeItems(with(Items.coal, 8, Items.sand, 14, Items.blastCompound, 1));
+            consumePower(8f);
+            requirements(Category.crafting, with(Items.lead, 320, Items.silicon, 270, Items.titanium, 220, Items.thorium, 160, Items.plastanium, 80, Items.phaseFabric, 50));
         }};
         lumiumSmelter = new GenericCrafter("lumium-smelter") {{
-            requirements(Category.crafting, with(Items.copper, 165, Items.silicon, 80, Items.lead, 80, Items.thorium, 30, EIItems.starium, 25));
-            craftEffect = Fx.smeltsmoke;
-            outputItem = new ItemStack(EIItems.lumium, 1);
-            craftTime = 90f;
-            size = 4;
             hasPower = true;
-            itemCapacity = 40;
+
+            size = 4;
+            craftTime = 75f;
+            itemCapacity = 20;
+            outputItem = new ItemStack(EIItems.lumium, 1);
+
+            craftEffect = Fx.smeltsmoke;
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame());
 
-            consumePower(3.5f);
-            consumeItems(with(Items.thorium, 10, EIItems.starium, 10));
+            consumePower(7.5f);
+            consumeItems(with(Items.thorium, 5, Items.coal, 3, EIItems.starium, 2));
+            requirements(Category.crafting, with(Items.copper, 270, Items.silicon, 230, Items.titanium, 210, Items.thorium, 70, Items.plastanium, 60, EIItems.starium, 60));
         }};
         metaglassFabricator = new AttributeCrafter("metaglass-fabricator") {{
-            requirements(Category.crafting, with(Items.copper, 125, Items.graphite, 90, Items.titanium, 75, EIItems.starium, 60));
-            craftEffect = Fx.smeltsmoke;
-            outputItem = new ItemStack(Items.metaglass, 10);
-            craftTime = 90f;
-            size = 3;
             hasPower = true;
             hasLiquids = false;
+
+            size = 3;
+            craftTime = 90f;
             itemCapacity = 40;
             boostScale = 0.15f;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
-            ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.07f;
+            outputItem = new ItemStack(Items.metaglass, 10);
+
+            ambientSound = Sounds.smelter;
+            craftEffect = Fx.smeltsmoke;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
 
             consumeItems(with(Items.sand, 10, Items.lead, 10, Items.pyratite, 1));
-            consumePower(1.5f);
+            consumePower(3f);
+            requirements(Category.crafting, with(Items.copper, 170, Items.lead, 120, Items.silicon, 70, Items.titanium, 60, Items.plastanium, 20));
         }};
         peridotiumSynthesizer = new GenericCrafter("peridotium-synthesizer") {{
-            requirements(Category.crafting, with(Items.copper, 260, Items.silicon, 90, Items.titanium, 80, Items.thorium, 50));
-            craftEffect = Fx.blockCrash;
-            outputItem = new ItemStack(EIItems.peridotium, 1);
-            craftTime = 120f;
-            size = 3;
             hasPower = true;
             hasLiquids = false;
-            itemCapacity = 30;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
-            ambientSound = Sounds.smelter;
-            ambientSoundVolume = 0.07f;
 
-            consumeItems(with(Items.thorium, 10));
-            consumePower(1.2f);
+            size = 3;
+            craftTime = 90f;
+            itemCapacity = 30;
+            ambientSoundVolume = 0.07f;
+            outputItem = new ItemStack(EIItems.peridotium, 1);
+
+            craftEffect = Fx.blockCrash;
+            ambientSound = Sounds.smelter;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
+
+            consumeItems(with(Items.thorium, 5));
+            consumePower(4.5f);
+            requirements(Category.crafting, with(Items.copper, 260, Items.silicon, 90, Items.titanium, 80, Items.thorium, 50));
         }};
         stariumSynthesizer = new GenericCrafter("starium-synthesizer") {{
-            requirements(Category.crafting, with(Items.copper, 260, Items.silicon, 90, Items.titanium, 80, Items.thorium, 50));
-            craftEffect = Fx.blockCrash;
-            outputItem = new ItemStack(EIItems.starium, 5);
-            craftTime = 120f;
-            size = 3;
             hasPower = true;
             hasLiquids = false;
-            itemCapacity = 30;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
-            ambientSound = Sounds.smelter;
+
+            size = 3;
+            itemCapacity = 50;
+            craftTime = 90f;
             ambientSoundVolume = 0.07f;
+            outputItem = new ItemStack(EIItems.starium, 5);
+
+            craftEffect = Fx.blockCrash;
+            ambientSound = Sounds.smelter;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
 
             consumeItems(with(Items.titanium, 10, Items.silicon, 5));
-            consumePower(1.2f);
+            consumePower(6f);
+            requirements(Category.crafting, with(Items.lead, 310, Items.silicon, 170, Items.titanium, 120));
         }};
         stariumRefiner = new GenericCrafter("starium-refiner") {{
-            requirements(Category.crafting, with(Items.copper, 265, Items.silicon, 130, Items.lead, 95, Items.thorium, 30, Items.surgeAlloy, 15, EIItems.starium, 25));
-            craftEffect = Fx.smeltsmoke;
-            outputItem = new ItemStack(EIItems.stariumAlloy, 1);
-            craftTime = 45f;
-            size = 3;
             hasPower = true;
-            itemCapacity = 40;
+
+            size = 3;
+            craftTime = 45f;
+            itemCapacity = 50;
+            outputItem = new ItemStack(EIItems.stariumAlloy, 1);
+
+            craftEffect = Fx.smeltsmoke;
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame());
 
-            consumePower(0.85f);
-            consumeItems(with(Items.surgeAlloy, 1, EIItems.starium, 15));
+            consumePower(4.5f);
+            consumeItems(with(Items.surgeAlloy, 1, EIItems.starium, 10));
+            requirements(Category.crafting, with(Items.lead, 330, Items.silicon, 240, Items.titanium, 200, Items.plastanium, 120, Items.surgeAlloy, 70, EIItems.starium, 40));
         }};
         graphiteCompressor = new GenericCrafter("graphite-compressor") {{
-            requirements(Category.crafting, with(Items.copper, 235, Items.graphite, 130, Items.titanium, 70, Items.silicon, 50, EIItems.starium, 25));
+            hasItems = hasLiquids = true;
+            hasPower = false;
 
-            craftEffect = Fx.steam;
-            outputItem = new ItemStack(Items.graphite, 7);
+            size = 4;
             craftTime = 45f;
             itemCapacity = 40;
             liquidCapacity = 160;
-            size = 4;
-            hasItems = true;
-            hasLiquids = true;
-            hasPower = false;
+            outputItem = new ItemStack(Items.graphite, 5);
 
-            consumeItem(Items.coal, 5);
+            craftEffect = Fx.steam;
+
+            consumeItem(Items.coal, 10);
             consumeLiquid(EILiquids.steam, 0.125f);
+            requirements(Category.crafting, with(Items.copper, 310, Items.graphite, 270, Items.silicon, 190, Items.metaglass, 150, Items.titanium, 130, Items.thorium, 30));
         }};
         peridotiumEnhancer = new GenericCrafter("peridotium-enhancer") {{
-            requirements(Category.crafting, with(Items.copper, 130, Items.graphite, 60, Items.silicon, 40, Items.titanium, 25, EIItems.starium, 15));
-
-            craftEffect = Fx.pulverizeMedium;
-            outputItem = new ItemStack(EIItems.enhancedPeridotium, 1);
-            craftTime = 180f;
-            itemCapacity = 40;
-            size = 2;
             hasItems = true;
 
-            consumePower(0.5f);
+            size = 2;
+            craftTime = 150f;
+            itemCapacity = 15;
+            outputItem = new ItemStack(EIItems.enhancedPeridotium, 1);
+
+            craftEffect = Fx.pulverizeMedium;
+
+            consumePower(0.75f);
             consumeItem(EIItems.peridotium, 3);
+            requirements(Category.crafting, with(Items.copper, 80, Items.lead, 65, Items.silicon, 50, Items.titanium, 25));
         }};
         scrapper = new GenericCrafter("scrapper") {{
-            requirements(Category.crafting, with(Items.copper, 130, Items.lead, 60, Items.graphite, 20, Items.silicon, 5));
+            hasItems = true;
 
-            craftEffect = Fx.pulverizeMedium;
-            outputItem = new ItemStack(Items.scrap, 1);
+            size = 2;
             craftTime = 30f;
             itemCapacity = 15;
-            size = 2;
-            hasItems = true;
+            ambientSoundVolume = 0.025f;
+            outputItem = new ItemStack(Items.scrap, 1);
+
+            craftEffect = Fx.pulverizeMedium;
+            ambientSound = Sounds.grinding;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator") {{
                 spinSprite = true;
                 rotateSpeed = 2.25f;
             }}, new DrawRegion("-top"));
-            ambientSound = Sounds.grinding;
-            ambientSoundVolume = 0.025f;
 
             consumePower(1f);
             consumeItems(with(Items.copper, 2, Items.sand, 3));
+            requirements(Category.crafting, with(Items.lead, 70, Items.graphite, 30, Items.silicon, 10));
         }};
         plastaniumCondenser = new GenericCrafter("plastanium-condenser") {{
-            requirements(Category.crafting, with(Items.silicon, 110, Items.lead, 115, Items.graphite, 70, Items.titanium, 80, Items.plastanium, 40));
-            hasItems = true;
-            liquidCapacity = 60f;
-            craftTime = 45f;
-            outputItem = new ItemStack(Items.plastanium, 2);
+            hasItems = hasPower = hasLiquids = true;
+
             size = 3;
             health = 420;
-            hasPower = hasLiquids = true;
+            craftTime = 45f;
+            liquidCapacity = 90f;
+            outputItem = new ItemStack(Items.plastanium, 3);
+
             craftEffect = Fx.formsmoke;
             updateEffect = Fx.plasticburn;
             drawer = new DrawMulti(new DrawDefault(), new DrawFade());
 
-            consumeLiquid(Liquids.oil, 0.5f);
-            consumePower(3.5f);
-            consumeItem(Items.titanium, 3);
+            consumeLiquid(Liquids.oil, 0.75f);
+            consumePower(4f);
+            consumeItem(Items.titanium, 5);
+            requirements(Category.crafting, with(Items.lead, 270, Items.silicon, 180, Items.titanium, 130, Items.plastanium, 60));
         }};
         freezer = new GenericCrafter("freezer") {{
-            requirements(Category.crafting, with(Items.lead, 75, Items.metaglass, 30, Items.silicon, 15));
-
-            craftEffect = Fx.pulverizeSmall;
-            outputItem = new ItemStack(EIItems.ice, 1);
-            craftTime = 75f;
-            size = 2;
             hasItems = true;
 
-            consumeLiquid(Liquids.water, 2);
-            consumePower(0.5f);
+            size = 2;
+            craftTime = 90f;
+            outputItem = new ItemStack(EIItems.ice, 1);
+
+            craftEffect = Fx.pulverizeSmall;
+
+            consumeLiquid(Liquids.water, 0.75f);
+            consumePower(2.5f);
+            requirements(Category.crafting, with(Items.lead, 75, Items.metaglass, 30, Items.silicon, 15));
         }};
         oilPurifier = new GenericCrafter("oil-purifier"){{
-            requirements(Category.crafting, with(Items.copper, 170, Items.metaglass, 70, Items.silicon, 60, Items.titanium, 60, Items.thorium, 30));
+            rotate = invertFlip = true;
+
             size = 3;
-
-            researchCostMultiplier = 1.2f;
             craftTime = 10f;
-            rotate = true;
-            invertFlip = true;
-
+            regionRotated1 = 3;
             liquidCapacity = 45f;
+            researchCostMultiplier = 1.2f;
+            ambientSoundVolume = 0.08f;
+            liquidOutputDirections = new int[]{1, 3};
+            outputLiquids = LiquidStack.with(EILiquids.heavyOil, 4f / 60, EILiquids.lightOil, 11f / 60);
 
-            consumeLiquid(Liquids.oil, 15f / 60f);
-            consumePower(3f);
-
+            ambientSound = Sounds.spark;
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.oil), new DrawDefault(), new DrawRegion("-rotator") {{
                 spinSprite = true;
                 rotateSpeed = 3.35f;
             }}, new DrawRegion("-top"));
 
-            ambientSound = Sounds.spark;
-            ambientSoundVolume = 0.08f;
-
-            regionRotated1 = 3;
-            outputLiquids = LiquidStack.with(EILiquids.heavyOil, 4f / 60, EILiquids.lightOil, 11f / 60);
-            liquidOutputDirections = new int[]{1, 3};
+            consumeLiquid(Liquids.oil, 15f / 60f);
+            consumePower(4f);
+            requirements(Category.crafting, with(Items.copper, 220, Items.silicon, 160, Items.graphite, 130, Items.metaglass, 80, Items.titanium, 40));
         }};
-        heavyOilRefinery = new GenericCrafter("heavy-oil-refinery"){
-            {
-                requirements(Category.crafting, with(Items.lead, 270, Items.metaglass, 90, Items.silicon, 70, Items.titanium, 30, Items.thorium, 45));
-                size = 3;
-
-                researchCostMultiplier = 1.2f;
-                craftTime = 90f;
-
-                liquidCapacity = 45f;
-
-                consumeLiquid(EILiquids.heavyOil, 12f / 60f);
-                consumePower(2f);
-
-                drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.oil), new DrawLiquidTile(EILiquids.lightOil), new DrawRegion("-rotator") {{
-                    spinSprite = true;
-                    rotateSpeed = 1.7f;
-                }}, new DrawDefault());
-
-                ambientSound = Sounds.spark;
-                ambientSoundVolume = 0.08f;
-
-                regionRotated1 = 3;
-                outputLiquids = LiquidStack.with(EILiquids.lightOil, 8f / 60);
-                outputItem = new ItemStack(Items.scrap, 1);
-            }};
-        fuelAssembler = new GenericCrafter("fuel-assembler"){{
-            requirements(Category.crafting, with(Items.lead, 310, Items.metaglass, 110, Items.silicon, 90, Items.titanium, 35, Items.thorium, 45));
-            size = 4;
-
+        heavyOilRefinery = new GenericCrafter("heavy-oil-refinery"){{
+            size = 3;
+            craftTime = 90f;
+            regionRotated1 = 3;
+            liquidCapacity = 45f;
+            ambientSoundVolume = 0.08f;
             researchCostMultiplier = 1.2f;
+            outputItem = new ItemStack(Items.scrap, 1);
+            outputLiquids = LiquidStack.with(EILiquids.lightOil, 8f / 60);
+
+            ambientSound = Sounds.spark;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.oil), new DrawLiquidTile(EILiquids.lightOil), new DrawRegion("-rotator") {{
+                spinSprite = true;
+                rotateSpeed = 1.7f;
+            }}, new DrawDefault());
+
+            consumeLiquid(EILiquids.heavyOil, 12f / 60f);
+            consumePower(5.5f);
+            requirements(Category.crafting, with(Items.lead, 220, Items.silicon, 170, Items.metaglass, 110, Items.titanium, 90, Items.plastanium, 35));
+        }};
+        fuelAssembler = new GenericCrafter("fuel-assembler"){{
+            size = 4;
             craftTime = 30f;
-
             liquidCapacity = 20f;
+            researchCostMultiplier = 1.2f;
+            ambientSoundVolume = 0.08f;
+            outputItem = new ItemStack(EIItems.solidFuel, 1);
 
-            consumeLiquid(EILiquids.lightOil, 7.5f / 60f);
-            consumePower(2.5f);
-
+            ambientSound = Sounds.spark;
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.oil), new DrawLiquidTile(EILiquids.lightOil), new DrawRegion("-rotator") {{
                 spinSprite = true;
                 rotateSpeed = 2.1f;
             }}, new DrawDefault());
 
-            ambientSound = Sounds.spark;
-            ambientSoundVolume = 0.08f;
-            outputItem = new ItemStack(EIItems.solidFuel, 1);
+            requirements(Category.crafting, with(Items.lead, 310, Items.silicon, 180, Items.metaglass, 125, Items.titanium, 85, Items.plastanium, 20));
+            consumeLiquid(EILiquids.lightOil, 7.5f / 60f);
+            consumePower(2.5f);
         }};
         steamTurbine = new ConsumeGenerator("steam-turbine") {{
-            requirements(Category.power, with(Items.copper, 370, Items.lead, 220, Items.silicon, 240, Items.graphite, 130, Items.titanium, 170));
-            powerProduction = 15f;
-            consumeLiquid(Liquids.water, 15f / 60f);
-            itemDuration = 180;
-            consume(new ConsumeItemFlammable(0.75f));
-            explodeOnFull = false;
-            outputLiquid = new LiquidStack(EILiquids.steam, 15f / 60f);
             hasLiquids = hasItems = hasPower = true;
-            itemCapacity = 15;
+            explodeOnFull = false;
+
+            powerProduction = 15f;
+            itemDuration = 150;
+            itemCapacity = 20;
             size = 3;
             health = 925;
-            generateEffect = Fx.generatespark;
-
-            ambientSound = Sounds.steam;
             ambientSoundVolume = 0.06f;
 
+            ambientSound = Sounds.steam;
+            generateEffect = Fx.generatespark;
             drawer = new DrawMulti(
                     new DrawDefault(),
                     new DrawWarmupRegion(),
@@ -600,192 +697,206 @@ public class EIBlocks {
                     new DrawLiquidRegion(Liquids.water),
                     new DrawLiquidRegion(EILiquids.steam)
             );
+
+            consumeLiquid(Liquids.water, 15f / 60f);
+            consume(new ConsumeItemFlammable(0.75f));
+            outputLiquid = new LiquidStack(EILiquids.steam, 15f / 60f);
+            requirements(Category.power, with(Items.copper, 270, Items.silicon, 190, Items.graphite, 155, Items.titanium, 90, EIItems.starium, 40));
         }};
         peridotiumGenerator = new ConsumeGenerator("peridotium-generator") {{
-            requirements(Category.power, with(Items.lead, 630, Items.silicon, 170, Items.phaseFabric, 100, Items.plastanium, 180, Items.thorium, 80, EIItems.enhancedPeridotium, 30));
             size = 5;
             health = 2420;
             powerProduction = 35f;
-            itemDuration = 60 * 14f;
+            itemDuration = 840f;
             envEnabled = Env.any;
-            generateEffect = Fx.generatespark;
 
+            generateEffect = Fx.generatespark;
             drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
+
+            requirements(Category.power, with(Items.lead, 420, Items.silicon, 270, Items.metaglass, 235, Items.titanium, 185, Items.thorium, 130, Items.plastanium, 70, EIItems.stariumAlloy, 45));
             consume(new ConsumeItemRadioactive());
             consumeLiquid(Liquids.cryofluid, 0.05f);
         }};
         peridotiumReactor = new NuclearReactor("peridotium-reactor"){{
-            requirements(Category.power, with(Items.copper, 650, Items.graphite, 340, Items.titanium, 340, Items.silicon, 300, Items.thorium, 200, EIItems.starium, 175));
             size = 4;
             health = 1740;
             powerProduction = 80;
             itemCapacity = 20;
-            itemDuration = 60 * 7f;
-            ambientSound = Sounds.hum;
+            itemDuration = 420f;
             ambientSoundVolume = 0.24f;
             heating = 0.02f;
-            explosionRadius = 25 * tilesize;
-            explosionDamage = health * itemCapacity;
+            explosionRadius = 25;
+            explosionDamage = 27500;
+
+            ambientSound = Sounds.hum;
 
             fuelItem = EIItems.peridotium;
             consumeLiquid(Liquids.water, 0.5f);
             consumeItem(EIItems.peridotium);
+            requirements(Category.power, with(Items.lead, 410, Items.silicon, 330, Items.graphite, 310, Items.titanium, 170, Items.thorium, 120, EIItems.starium, 90));
         }};
         lumiumReactor = new ImpactReactor("lumium-reactor") {{
-            requirements(Category.power, with(Items.lead, 1250, Items.silicon, 750, Items.titanium, 700, Items.surgeAlloy, 650, Items.plastanium, 450, EIItems.stariumAlloy, 250));
             size = 5;
             health = 4500;
             powerProduction = 652.5f;
             itemDuration = 240f;
-            ambientSound = Sounds.pulse;
             ambientSoundVolume = 0.5f;
+
+            ambientSound = Sounds.pulse;
 
             consumePower(52.5f);
             consumeItem(EIItems.lumium);
             consumeLiquid(EILiquids.lox, 1);
+            requirements(Category.power, with(Items.lead, 1250, Items.silicon, 750, Items.titanium, 700, Items.plastanium, 625, EIItems.enhancedPeridotium, 335, EIItems.stariumAlloy, 270));
         }};
         controllerProcessor = new LogicBlock("controller-processor") {{
-            requirements(Category.logic, with(Items.copper, 120, Items.lead, 160, Items.silicon, 90));
+            hasPower = true;
 
             instructionsPerTick = 6;
-            consumePower(0.25f);
-            hasPower = true;
-
             size = 1;
             range = 100;
+
+            consumePower(0.25f);
+            requirements(Category.logic, with(Items.copper, 120, Items.lead, 160, Items.silicon, 90));
         }};
         armProcessor = new LogicBlock("arm-processor") {{
-            requirements(Category.logic, with(Items.lead, 430, Items.silicon, 170, Items.graphite, 120, Items.thorium, 90));
-
-            instructionsPerTick = 12;
-            consumePower(0.5f);
             hasPower = true;
 
+            instructionsPerTick = 18;
             size = 2;
             range = 225;
+
+            consumePower(1f);
+            requirements(Category.logic, with(Items.lead, 430, Items.silicon, 170, Items.graphite, 120, Items.thorium, 90));
         }};
         threadripperProcessor = new LogicBlock("threadripper-processor") {{
-            requirements(Category.logic, with(Items.lead, 650, Items.silicon, 210, Items.thorium, 95, Items.surgeAlloy, 70));
-
-            consumeLiquid(Liquids.cryofluid, 0.15f);
-            hasLiquids = true;
+            hasPower = hasLiquids = true;
 
             instructionsPerTick = 50;
-            consumePower(2.25f);
-            hasPower = true;
-
             range = 550;
             size = 3;
+
+            consumePower(3f);
+            consumeLiquid(Liquids.cryofluid, 0.25f);
+            requirements(Category.logic, with(Items.lead, 650, Items.silicon, 210, Items.thorium, 95, Items.surgeAlloy, 70));
         }};
         coreFrag = new CoreBlock("core-frag") {{
-            requirements(Category.effect, with(Items.copper, 250, Items.lead, 125));
-
             isFirstTier = true;
+
             unitType = piece;
-            health = 600;
+            health = 500;
             itemCapacity = 1000;
             size = 2;
-
             unitCapModifier = 4;
+
+            requirements(Category.effect, with(Items.copper, 250, Items.lead, 125));
         }};
         coreExtensio = new CoreBlock("core-extensio") {{
-            requirements(Category.effect, with(Items.copper, 18000, Items.lead, 18000, Items.silicon, 10500, Items.thorium, 7000, Items.surgeAlloy, 1025));
-
-            unitType = UnitTypes.mega;
+            unitType = UnitTypes.gamma;
             health = 12000;
             itemCapacity = 35000;
             size = 6;
-
             unitCapModifier = 48;
+
+            requirements(Category.effect, with(Items.copper, 18000, Items.lead, 18000, Items.silicon, 10500, Items.thorium, 7000, Items.surgeAlloy, 1025));
         }};
         microPad = new LaunchPad("micro-pad") {{
-            requirements(Category.effect, BuildVisibility.campaignOnly, with(Items.copper, 175, Items.silicon, 70, Items.lead, 100, Items.titanium, 75));
+            hasPower = true;
+
             size = 2;
             itemCapacity = 50;
             launchTime = 750f;
-            hasPower = true;
-            consumePower(2f);
+
+            consumePower(3f);
+            requirements(Category.effect, BuildVisibility.campaignOnly, with(Items.copper, 175, Items.lead, 140, Items.silicon, 90, Items.titanium, 50));
         }};
         planetaryMender = new MendProjector("planetary-mender"){{
-            requirements(Category.effect, with(Items.copper, 9425, Items.lead, 8750, Items.silicon, 5230, Items.titanium, 4300, Items.thorium, 4230, Items.surgeAlloy, 1235));
+            hasPower = true;
+
             size = 5;
             reload = 450;
             range = 100 * 100 * tilesize;
             healPercent = 25f;
             phaseBoost = 25f;
-            hasPower = true;
-            consumePower(160f);
+
+            consumePower(250f);
             consumeItem(Items.surgeAlloy, 3).boost();
+            requirements(Category.effect, with(Items.copper, 9425, Items.lead, 8750, Items.silicon, 5230, Items.titanium, 4300, Items.thorium, 4230, Items.surgeAlloy, 1235));
         }};
         planetaryOverdrive = new OverdriveProjector("planetary-overdrive"){{
-            requirements(Category.effect, with(Items.copper, 8425, Items.lead, 6350, Items.silicon, 5430, Items.titanium, 4100, Items.thorium, 3950, EIItems.stariumAlloy, 535, EIItems.enhancedPeridotium, 430));
+            hasPower = true;
+            hasBoost = false;
+
             size = 5;
             range = 100 * 100 * tilesize;
-            hasPower = true;
             speedBoost = 4f;
-            hasBoost = false;
             useTime = 60f;
+
             consumePower(240f);
             consumeItems(with(Items.phaseFabric, 1, Items.silicon, 2));
+            requirements(Category.effect, with(Items.copper, 8425, Items.lead, 6350, Items.silicon, 5430, Items.titanium, 4100, Items.thorium, 3950, EIItems.stariumAlloy, 535, EIItems.enhancedPeridotium, 430));
         }};
         hardenedUnloader = new Unloader("hardened-unloader"){{
-            requirements(Category.effect, with(Items.titanium, 90, Items.silicon, 55));
             speed = 60f / 20f;
-            group = BlockGroup.transportation;
             health = 120;
+
+            group = BlockGroup.transportation;
+            requirements(Category.effect, with(Items.titanium, 90, Items.silicon, 55));
         }};
         advancedUnloader = new Unloader("advanced-unloader"){{
-            requirements(Category.effect, with(Items.titanium, 225, Items.silicon, 130, Items.graphite, 65));
+            conductivePower = hasPower = true;
+
             speed = 60f / 40f;
-            group = BlockGroup.transportation;
             health = 180;
-            conductivePower = true;
-            hasPower = true;
+
+            group = BlockGroup.transportation;
+            requirements(Category.effect, with(Items.titanium, 225, Items.silicon, 130, Items.graphite, 65));
         }};
         stariumWall = new Wall("starium-wall") {{
-            requirements(Category.defense, with(EIItems.stariumAlloy, 6, Items.plastanium, 2));
+            absorbLasers = insulated = flashHit = true;
+
             health = 1950;
-            insulated = true;
-            flashHit = true;
             chanceDeflect = 25;
-            absorbLasers = true;
             schematicPriority = 10;
             envDisabled |= Env.scorching;
+
+            requirements(Category.defense, with(EIItems.stariumAlloy, 6, Items.plastanium, 2));
         }};
         largeStariumWall = new Wall("large-starium-wall") {{
-            requirements(Category.defense, ItemStack.mult(stariumWall.requirements, 4));
+            absorbLasers = insulated = flashHit = true;
+
             health = 1950 * 4;
             size = 2;
-            insulated = true;
-            flashHit = true;
             chanceDeflect = 25;
-            absorbLasers = true;
             schematicPriority = 10;
             envDisabled |= Env.scorching;
+
+            requirements(Category.defense, ItemStack.mult(stariumWall.requirements, 4));
         }};
         graphiteWall = new Wall("graphite-wall") {{
-            requirements(Category.defense, with(Items.graphite, 6));
             health = 400;
             envDisabled |= Env.scorching;
+
+            requirements(Category.defense, with(Items.graphite, 6));
         }};
         largeGraphiteWall = new Wall("large-graphite-wall") {{
-            requirements(Category.defense, ItemStack.mult(graphiteWall.requirements, 4));
             health = 400 * 4;
             size = 2;
             envDisabled |= Env.scorching;
+
+            requirements(Category.defense, ItemStack.mult(graphiteWall.requirements, 4));
         }};
         anado = new ItemTurret("anado") {{
-            requirements(Category.turret, with(Items.copper, 45, Items.lead, 20));
             ammo(
                     Items.scrap, new BasicBulletType(2f, 8) {{
                         width = 6f;
                         height = 8f;
                         lifetime = 60f;
-                        fragBullets = 4;
+                        splashDamage = 3f;
+                        splashDamageRadius = 16f;
                         reloadMultiplier = 0.66f;
+                        fragBullets = 4;
                         fragBullet = new BasicBulletType(1f, 5) {{
-                            splashDamage = 3f;
-                            splashDamageRadius = 40f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -796,10 +907,10 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 60f;
                         ammoMultiplier = 2;
+                        splashDamage = 2f;
+                        splashDamageRadius = 24f;
                         fragBullets = 3;
                         fragBullet = new BasicBulletType(1f, 4) {{
-                            splashDamage = 2f;
-                            splashDamageRadius = 40f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -810,10 +921,10 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 75f;
                         ammoMultiplier = 4;
+                        splashDamage = 6f;
+                        splashDamageRadius = 32f;
                         fragBullets = 6;
                         fragBullet = new BasicBulletType(1f, 7) {{
-                            splashDamage = 6f;
-                            splashDamageRadius = 40f;
                             height = 5f;
                             width = 3f;
                             lifetime = 30f;
@@ -824,26 +935,27 @@ public class EIBlocks {
             reload = 20f;
             range = 120;
             shootCone = 15f;
-            ammoUseEffect = Fx.casing1;
             health = 320;
             inaccuracy = 1f;
             rotateSpeed = 7.2f;
-            coolant = consumeCoolant(0.1f);
 
+            ammoUseEffect = Fx.casing1;
+
+            coolant = consumeCoolant(0.1f);
             limitRange();
+            requirements(Category.turret, with(Items.lead, 45, Items.copper, 15));
         }};
         deuse = new ItemTurret("deuse") {{
-            requirements(Category.turret, with(Items.lead, 200, Items.copper, 100, Items.graphite, 80, Items.titanium, 50));
             ammo(
                     Items.scrap, new BasicBulletType(3f, 14) {{
                         width = 6f;
                         height = 8f;
                         lifetime = 60f;
-                        fragBullets = 4;
                         reloadMultiplier = 0.66f;
+                        splashDamage = 6f;
+                        splashDamageRadius = 24f;
+                        fragBullets = 4;
                         fragBullet = new BasicBulletType(1.5f, 5) {{
-                            splashDamage = 6f;
-                            splashDamageRadius = 45f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -854,10 +966,10 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 60f;
                         ammoMultiplier = 2f;
+                        splashDamage = 7f;
+                        splashDamageRadius = 32f;
                         fragBullets = 3;
                         fragBullet = new BasicBulletType(1.75f, 4) {{
-                            splashDamage = 7f;
-                            splashDamageRadius = 50f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -868,10 +980,10 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 60f;
                         ammoMultiplier = 4f;
+                        splashDamage = 12f;
+                        splashDamageRadius = 40f;
                         fragBullets = 6;
                         fragBullet = new BasicBulletType(2.125f, 7) {{
-                            splashDamage = 12f;
-                            splashDamageRadius = 60f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -882,11 +994,11 @@ public class EIBlocks {
                         height = 8f;
                         lifetime = 60f;
                         ammoMultiplier = 5f;
-                        fragBullets = 8;
                         reloadMultiplier = 1.2f;
+                        splashDamage = 16f;
+                        splashDamageRadius = 48f;
+                        fragBullets = 8;
                         fragBullet = new BasicBulletType(2.25f, 13) {{
-                            splashDamage = 16f;
-                            splashDamageRadius = 60f;
                             height = 5f;
                             width = 3f;
                             lifetime = 20f;
@@ -903,136 +1015,120 @@ public class EIBlocks {
             shake = 2f;
             shoot.shots = 6;
             shoot.shotDelay = 5f;
-
-            ammoUseEffect = Fx.casing2;
             health = 510;
-            shootSound = Sounds.shootBig;
 
-            limitRange();
+            shootSound = Sounds.shootBig;
+            ammoUseEffect = Fx.casing2;
+
             coolant = consumeCoolant(0.3f);
+            limitRange();
+            requirements(Category.turret, with(Items.lead, 130, Items.copper, 70, Items.silicon, 60, Items.titanium, 40));
         }};
         exagonArtillery = new ItemTurret("exagon-altillery") {{
-            requirements(Category.turret, with(Items.copper, 370, Items.silicon, 280, Items.titanium, 210, Items.plastanium, 170, Items.surgeAlloy, 120, EIItems.starium, 70));
             ammo(
-                    Items.surgeAlloy, new ArtilleryBulletType(5f, 275) {{
+                    Items.surgeAlloy, new ArtilleryBulletType(5f, 42) {{
+                        collidesTiles = collidesAir = false;
+
                         knockback = 0.8f;
                         lifetime = 120f;
                         width = height = 12f;
-                        buildingDamageMultiplier = 3f;
-                        collidesTiles = false;
+                        buildingDamageMultiplier = 10f;
                         splashDamageRadius = 20f;
-                        splashDamage = 125f;
+                        splashDamage = 18f;
                         ammoMultiplier = 3f;
                         lightning = 3;
-                        lightningLength = 15;
-                        lightningDamage = 15f;
+                        lightningLength = 7;
+                        lightningDamage = 2.5f;
                     }},
-                    EIItems.stariumAlloy, new ArtilleryBulletType(5f, 465) {{
+                    EIItems.stariumAlloy, new ArtilleryBulletType(5f, 60) {{
+                        collidesTiles = collidesAir = false;
+
                         knockback = 0.8f;
                         lifetime = 120f;
                         width = height = 12f;
-                        collidesTiles = false;
-                        buildingDamageMultiplier = 4.25f;
-                        splashDamageRadius = 35f;
-                        splashDamage = 200f;
+                        buildingDamageMultiplier = 10f;
+                        splashDamageRadius = 36f;
+                        splashDamage = 20f;
                         reloadMultiplier = 1.2f;
                         ammoMultiplier = 5f;
                         lightning = 4;
-                        lightningLength = 25;
-                        lightningDamage = 15f;
+                        lightningLength = 10;
+                        lightningDamage = 5f;
                         fragBullets = 3;
-                        fragBullet = new BasicBulletType(3.25f, 125) {{
+                        fragBullet = new BasicBulletType(3.25f, 6f) {{
+                            collidesTiles = collidesAir = false;
+
+                            buildingDamageMultiplier = 10f;
                             lifetime = 15f;
                             width = height = 6f;
-                            collidesTiles = false;
                             splashDamageRadius = 45f;
-                            splashDamage = 55f;
+                            splashDamage = 4f;
                             lightning = 2;
                             lightningLength = 10;
-                            lightningDamage = 15f;
+                            lightningDamage = 2.5f;
                         }};
                     }}
             );
 
             targetAir = false;
+
             reload = 210f;
             recoil = 4.7f;
             size = 3;
             range = 600f;
             shoot.shots = 3;
-            shoot.shotDelay = 3f;
+            shoot.shotDelay = 5f;
             health = 920;
             shake = 2.3f;
+
             shootSound = Sounds.bang;
-            consumePower(1.25f);
+
             coolant = consumeCoolant(0.5f);
+            consumePower(2.5f);
             limitRange(0f);
+            requirements(Category.turret, with(Items.copper, 360, Items.lead, 290, Items.silicon, 220, Items.titanium, 160, Items.plastanium, 130, Items.surgeAlloy, 90));
         }};
         slowRay = new PowerTurret("slowray") {{
-            requirements(Category.turret, with(Items.copper, 560, Items.lead, 510, Items.silicon, 270, Items.titanium, 350, Items.thorium, 260, EIItems.starium, 300, Items.surgeAlloy, 75));
+            moveWhileCharging = false;
+
             range = 230;
             size = 3;
             recoil = 2.7f;
-            reload = 330f;
+            reload = 345f;
             health = 1650;
-            shootSound = Sounds.plasmaboom;
-            consumePower(9.5f);
             coolantMultiplier = 1.2f;
-            consumeCoolant(0.25f);
-
-
             shoot.firstShotDelay = 75f;
+
             chargeSound = Sounds.lasercharge;
-            moveWhileCharging = false;
+            shootSound = Sounds.plasmaboom;
+
+            consumeCoolant(0.25f);
+            consumePower(15f);
+            requirements(Category.turret, with(Items.lead, 570, Items.silicon, 490, Items.titanium, 470, Items.plastanium, 380, Items.phaseFabric, 350, EIItems.stariumAlloy, 220));
+
             shootType = new EmpBulletType() {
                 {
                     chargeEffect = new MultiEffect(
-                            new WaveEffect() {{
-                                sizeFrom = 0;
-                                sizeTo = 30;
-                                lifetime = 30f;
-                                colorFrom = Color.valueOf("84f491");
-                                colorTo = Color.valueOf("84f491");
+                            new ParticleEffect(){{
+                                line = true;
+                                lenFrom = 5;
+                                lenTo = 2;
+                                strokeFrom = 2;
+                                strokeTo = 1;
+                                colorFrom = Color.valueOf("a5f5af");
+                                colorTo = Color.valueOf("ffffff");
+                                length = 24;
+                                baseLength = 24;
+                                lifetime = 70f;
+                                particles = 9;
                             }},
-                            new WaveEffect() {{
-                                startDelay(15f);
-                                sizeFrom = 0;
-                                sizeTo = 15;
-                                lifetime = 30f;
-                                colorFrom = Color.valueOf("3bf550");
-                                colorTo = Color.valueOf("3bf550");
-                            }},
-                            new WaveEffect() {{
-                                startDelay(30f);
-                                sizeFrom = 0;
-                                sizeTo = 15;
-                                lifetime = 30f;
-                                colorFrom = Color.valueOf("3bf550");
-                                colorTo = Color.valueOf("3bf550");
-                            }},
-                            new WaveEffect() {{
-                                startDelay(45f);
-                                sizeFrom = 0;
-                                sizeTo = 15;
-                                lifetime = 30f;
-                                colorFrom = Color.valueOf("3bf550");
-                                colorTo = Color.valueOf("3bf550");
-                            }},
-                            new WaveEffect() {{
+                            new WaveEffect(){{
                                 sprite = "circle-bullet";
+                                frontColor = Color.valueOf("ffffff");
+                                backColor = Color.valueOf("83f793");
                                 sizeFrom = 0;
-                                sizeTo = 15;
-                                lifetime = shoot.firstShotDelay;
-                                colorFrom = Color.valueOf("84f491");
-                                colorTo = Color.valueOf("84f491");
-                            }},
-                            new WaveEffect() {{
-                                sprite = "circle-bullet";
-                                sizeFrom = 0;
-                                sizeTo = 9;
-                                lifetime = shoot.firstShotDelay;
-                                colorFrom = Color.valueOf("3bf550");
-                                colorTo = Color.valueOf("3bf550");
+                                sizeTo = 7.5f;
+                                lifetime = 75;
                             }}
                     );
                     speed = 5;
@@ -1546,16 +1642,12 @@ public class EIBlocks {
             };
         }};
         fastRay = new PowerTurret("fastray") {{
-            requirements(Category.turret, with(Items.copper, 1250, Items.graphite, 780, Items.silicon, 620, Items.plastanium, 430, Items.phaseFabric, 210, EIItems.stariumAlloy, 140));
-            consumePower(20);
             range = 210;
-
             coolantMultiplier = 1.1f;
-            consumeCoolant(0.5f);
-
             recoil = 7;
             reload = 75;
             size = 4;
+
             shootEffect = new MultiEffect(
                 new ParticleEffect(){{
                     length = sizeTo = 0;
@@ -1589,6 +1681,11 @@ public class EIBlocks {
                 colorTo = Color.valueOf("454545");
                 sizeFrom = 3;
             }};
+
+            consumeCoolant(0.5f);
+            consumePower(20);
+            requirements(Category.turret, with(Items.copper, 1250, Items.graphite, 780, Items.silicon, 620, Items.plastanium, 430, Items.phaseFabric, 210, EIItems.stariumAlloy, 140));
+
             shootType = new EmpBulletType(){{
                 damage = 40;
                 splashDamage = 50;
@@ -1605,20 +1702,22 @@ public class EIBlocks {
                 fragBullets = 25;
                 fragLifeMin = 0;
                 fragBullet = new EmpBulletType(){{
+                    despawnHit = true;
+                    collides = absorbable = hittable = false;
+
                     status = EIStatusEffects.lockdown;
                     statusDuration = 360;
                     damage = 25;
                     speed = width = height = 0;
                     lifetime = 150;
-                    collides = absorbable = hittable = false;
                     radius = 120;
                     timeDuration = 0;
                     lightning = 2;
                     lightningDamage = 8;
                     lightningLength = 4;
                     lightningLengthRand = 24;
+
                     lightningColor = hitColor = Color.valueOf("eb8778");
-                    despawnHit = true;
                     hitEffect = despawnEffect = applyEffect = none;
                     hitPowerEffect = new MultiEffect(
                             new ParticleEffect(){{
@@ -1675,19 +1774,21 @@ public class EIBlocks {
             }};
         }};
         piercer = new PowerTurret("piercer") {{
-            requirements(Category.turret, with(Items.copper, 270, Items.lead, 210, Items.silicon, 190, Items.titanium, 130, Items.thorium, 75, EIItems.starium, 70));
+            moveWhileCharging = targetAir = accurateDelay = false;
+
             range = 200f;
-
-            coolantMultiplier = 1.3f;
-            consumeCoolant(0.2f);
-
             shoot.firstShotDelay = 40f;
-            chargeSound = Sounds.lasercharge2;
-            moveWhileCharging = false;
-
             recoil = 2f;
             reload = 120f;
             shake = 2f;
+            size = 3;
+            health = 2000;
+            coolantMultiplier = 1.6f;
+
+            heatColor = Color.red;
+            smokeEffect = none;
+            chargeSound = Sounds.lasercharge2;
+            shootSound = Sounds.shotgun;
             shootEffect = new ParticleEffect() {{
                 line = true;
                 lenFrom = 5;
@@ -1698,20 +1799,13 @@ public class EIBlocks {
                 colorTo = Color.valueOf("ffffffaa");
                 length = 24;
                 baseLength = 24;
-                lifetime = 24f;
+                lifetime = 35f;
                 particles = 9;
             }};
-            smokeEffect = none;
-            heatColor = Color.red;
-            size = 3;
-            health = 2000;
-            targetAir = false;
-            moveWhileCharging = false;
-            accurateDelay = false;
-            shootSound = Sounds.shotgun;
-            coolant = consumeCoolant(0.2f);
 
+            consumeCoolant(0.2f);
             consumePower(9.5f);
+            requirements(Category.turret, with(Items.lead, 290, Items.silicon, 220, Items.titanium, 190, Items.thorium, 120, EIItems.starium, 70));
 
             shootType = new BasicBulletType(8f, 370) {{
                 chargeEffect = new MultiEffect(
@@ -1734,12 +1828,15 @@ public class EIBlocks {
                             colorTo = Color.valueOf("a9d8ff");
                         }}
                 );
+                pierceBuilding = true;
+                collidesAir = false;
+
                 status = StatusEffects.slow;
                 statusDuration = 300;
                 width = height = 12f;
                 lifetime = 25f;
-                pierceBuilding = true;
                 pierceCap = 10;
+
                 frontColor = Color.valueOf("ffffff");
                 backColor = Color.valueOf("a9d8ff");
                 hitColor = Color.valueOf("a9d8ff");
@@ -1756,8 +1853,11 @@ public class EIBlocks {
                     particles = 8;
                     lifetime = 50f;
                 }};
+
                 fragBullets = 4;
                 fragBullet = new LaserBulletType() {{
+                    collidesAir = false;
+
                     damage = 135;
                     length = 85;
                     status = StatusEffects.slow;
@@ -1766,18 +1866,22 @@ public class EIBlocks {
             }};
         }};
         enforcer = new PowerTurret("enforcer") {{
-            requirements(Category.turret, with(Items.copper, 270, Items.lead, 210, Items.silicon, 130, Items.titanium, 70, Items.thorium, 40));
+            moveWhileCharging = false;
+
             health = 720;
             size = 3;
             reload = 105f;
-            shootSound = Sounds.plasmaboom;
+            shoot.firstShotDelay = 60f;
             range = 200;
             recoil = 2.7f;
-            consumePower(7.5f);
 
-            shoot.firstShotDelay = 60f;
+
             chargeSound = Sounds.lasercharge;
-            moveWhileCharging = false;
+            shootSound = Sounds.plasmaboom;
+
+            consumePower(7.5f);
+            requirements(Category.turret, with(Items.copper, 270, Items.lead, 210, Items.silicon, 170, Items.titanium, 120, Items.thorium, 90, EIItems.enhancedPeridotium, 30));
+
             shootType = new EmpBulletType() {{
                 chargeEffect = new MultiEffect(
                         new WaveEffect() {{
@@ -1812,20 +1916,22 @@ public class EIBlocks {
                             colorTo = Color.valueOf("3bf550");
                         }}
                 );
-                spin = 2f;
                 scaleLife = true;
+
+                spin = 2f;
                 status = StatusEffects.electrified;
                 statusDuration = 450;
-                lightOpacity = 0.7f;
                 unitDamageScl = 1.25f;
                 healPercent = 20f;
-                sprite = "circle-bullet";
                 damage = 70;
                 lifetime = 60;
                 speed = 5;
                 radius = 90f;
                 width = height = 15;
                 shrinkX = shrinkY = 0;
+
+                lightOpacity = 0.7f;
+                sprite = "circle-bullet";
                 frontColor = Color.valueOf("ffffff");
                 backColor = Color.valueOf("83f793");
                 lightColor = Color.valueOf("83f793");
@@ -1855,27 +1961,30 @@ public class EIBlocks {
                             colorFrom = Color.valueOf("3bf550");
                         }}
                 );
+
                 lightning = 1;
                 lightningLength = 1;
                 lightningType = new BasicBulletType(0, 0) {{
-                    sprite = "circle-bullet";
-                    backColor = Color.valueOf("3bf550");
-                    frontColor = Color.valueOf("ffffff");
-                    lightColor = Color.valueOf("83f793");
+                    collides = false;
+
                     width = height = 15;
                     shrinkX = shrinkY = 0;
                     rotationOffset = 0;
                     spin = 0f;
                     lifetime = 30;
-                    collides = false;
                     lightning = 3;
                     lightningLength = 5;
                     lightningDamage = 5f;
+
+                    sprite = "circle-bullet";
+                    backColor = Color.valueOf("3bf550");
+                    frontColor = Color.valueOf("ffffff");
+                    lightColor = Color.valueOf("83f793");
                 }};
             }};
         }};
         renoit = new LiquidTurret("renoit"){{
-            requirements(Category.turret, with(Items.metaglass, 235, Items.lead, 520, Items.titanium, 170, Items.thorium, 100, Items.silicon, 110, Items.plastanium, 70));
+            requirements(Category.turret, with(Items.lead, 420, Items.metaglass, 330, Items.titanium, 270, Items.thorium, 140, Items.plastanium, 60));
             ammo(
                     Liquids.water, new LiquidBulletType(Liquids.water){{
                         lifetime = 49f;
@@ -1954,90 +2063,91 @@ public class EIBlocks {
             inaccuracy = 4f;
             recoil = 1f;
             shootCone = 45f;
-            liquidCapacity = 40f;
-            shootEffect = Fx.shootLiquid;
+            liquidCapacity = 120f;
             range = 240f;
             health = 1725;
             flags = EnumSet.of(BlockFlag.turret, BlockFlag.extinguisher);
+
+            shootEffect = Fx.shootLiquid;
         }};
         groundFactory = new UnitFactory("ground-factory"){{
-            requirements(Category.units, with(Items.copper, 90, Items.titanium, 80, Items.silicon, 120));
+            size = 3;
+
+            consumePower(1.25f);
+            requirements(Category.units, with(Items.copper, 90, Items.silicon, 70, Items.titanium, 50));
+
             plans = Seq.with(
                     new UnitPlan(stormer, 60f * 10, with(Items.silicon, 30, Items.titanium, 10)),
                     new UnitPlan(breadnight, 60f * 15, with(Items.silicon, 25, Items.graphite, 20))
             );
-            size = 3;
-            consumePower(1.2f);
         }};
         airFactory = new UnitFactory("air-factory"){{
-            requirements(Category.units, with(Items.copper, 90, Items.titanium, 80, Items.silicon, 120));
-            plans = Seq.with(
-                    new UnitPlan(EIUnits.pygmy, 60f * 15, with(Items.silicon, 25, Items.graphite, 10)),
-                    new UnitPlan(EIUnits.centurion, 60f * 25, with(Items.silicon, 30, Items.titanium, 20, Items.lead, 15)),
-                    new UnitPlan(EIUnits.SmolBoi, 60f * 10, with(Items.silicon, 30, Items.titanium, 15))
-            );
             size = 3;
-            consumePower(1.2f);
+
+            consumePower(1.25f);
+            requirements(Category.units, with(Items.copper, 90, Items.silicon, 70, Items.titanium, 50));
+
+            plans = Seq.with(
+                    new UnitPlan(pygmy, 60f * 15, with(Items.silicon, 25, Items.graphite, 10)),
+                    new UnitPlan(SmolBoi, 60f * 10, with(Items.silicon, 30, Items.titanium, 15))
+            );
         }};
         starruneReconstructor = new Reconstructor("starrune-reconstructor"){{
-            requirements(Category.units, with(Items.copper, 200, Items.lead, 120, Items.silicon, 90, Items.graphite, 60));
-
             size = 3;
-            consumePower(3f);
-            consumeItems(with(Items.silicon, 40, Items.graphite, 40, EIItems.starium, 10));
-
             constructTime = 60f * 10f;
 
+            consumePower(3f);
+            consumeItems(with(Items.silicon, 40, Items.graphite, 40, Items.titanium, 20));
+            requirements(Category.units, with(Items.copper, 200, Items.lead, 120, Items.silicon, 90, Items.graphite, 70));
+
             upgrades.addAll(
-                    new UnitType[]{EIUnits.stormer, EIUnits.rusher},
-                    new UnitType[]{EIUnits.pygmy, EIUnits.schaus},
-                    new UnitType[]{EIUnits.SmolBoi, EIUnits.MediumBoi},
-                    new UnitType[]{centurion, alturion},
-                    new UnitType[]{breadnight, toastnight}
+                    new UnitType[]{stormer, rusher},
+                    new UnitType[]{breadnight, toastnight},
+                    new UnitType[]{pygmy, schaus},
+                    new UnitType[]{UnitTypes.mono, centurion},
+                    new UnitType[]{SmolBoi, MediumBoi}
             );
         }};
         eraniteReconstructor = new Reconstructor("eranite-reconstructor"){{
-            requirements(Category.units, with(Items.copper, 200, Items.lead, 120, Items.silicon, 90, Items.metaglass, 70, EIItems.starium, 125));
-
             size = 5;
-            consumePower(3f);
-            consumeItems(with(Items.silicon, 180, Items.graphite, 70, Items.titanium, 60, EIItems.starium, 50));
-
             constructTime = 60f * 20f;
 
+            consumePower(6f);
+            consumeItems(with(Items.silicon, 130, Items.titanium, 80, Items.metaglass, 40, EIItems.starium, 30));
+            requirements(Category.units, with(Items.lead, 650, Items.silicon, 450, Items.titanium, 350, Items.thorium, 650, EIItems.starium, 250));
+
             upgrades.addAll(
-                    new UnitType[]{EIUnits.rusher, EIUnits.escapade},
-                    new UnitType[]{EIUnits.schaus, EIUnits.ageronia},
-                    new UnitType[]{EIUnits.MediumBoi, EIUnits.LargeBoi}
+                    new UnitType[]{rusher, escapade},
+                    new UnitType[]{schaus, ageronia},
+                    new UnitType[]{centurion, alturion},
+                    new UnitType[]{MediumBoi, LargeBoi}
             );
         }};
         ultraReconstructor = new Reconstructor("ultra-reconstructor"){{
-            requirements(Category.units, with(Items.copper, 900, Items.lead, 1200, Items.silicon, 905, Items.metaglass, 230, Items.plastanium, 475, Items.phaseFabric, 100, EIItems.starium, 435));
-
             size = 9;
-            consumePower(3f);
-            consumeItems(with(Items.silicon, 650, Items.plastanium, 700, Items.graphite, 555, EIItems.enhancedPeridotium, 75));
-            consumeLiquid(Liquids.cryofluid, 1.25f);
-
             constructTime = 60f * 25f;
 
+            consumePower(13f);
+            consumeItems(with(Items.silicon, 850, Items.titanium, 750, Items.plastanium, 650, EIItems.starium, 550));
+            consumeLiquid(Liquids.cryofluid, 1f);
+            requirements(Category.units, with(Items.lead, 2000, Items.silicon, 1000, Items.titanium, 2000, Items.thorium, 750, Items.plastanium, 450, EIItems.enhancedPeridotium, 600, EIItems.starium, 400));
+
             upgrades.addAll(
-                    new UnitType[]{EIUnits.escapade, EIUnits.natorin},
+                    new UnitType[]{escapade, natorin},
                     new UnitType[]{LargeBoi, PayloadBoi}
             );
         }};
         terraReconstructor = new Reconstructor("terra-reconstructor"){{
-            requirements(Category.units, with(Items.copper, 1900, Items.lead, 1200, Items.silicon, 1105, Items.metaglass, 730, Items.plastanium, 675, Items.phaseFabric, 500, EIItems.starium, 435, Items.surgeAlloy, 500));
-
-            size = 11;
-            consumePower(3f);
-            consumeItems(with(Items.silicon, 970, Items.plastanium, 830, Items.graphite, 655, EIItems.enhancedPeridotium, 275, EIItems.stariumAlloy, 175));
-            consumeLiquid(EILiquids.lox, 3f);
-
             constructTime = 60f * 25f;
+            size = 11;
+
+            consumePower(25f);
+            consumeItems(with(Items.silicon, 1200, Items.plastanium, 750, EIItems.stariumAlloy, 400, EIItems.enhancedPeridotium, 270));
+            consumeLiquid(EILiquids.lox, 3f);
+            requirements(Category.units, with(Items.lead, 4000, Items.silicon, 3000, Items.thorium, 1000, Items.plastanium, 600, Items.phaseFabric, 600, EIItems.stariumAlloy, 475));
 
             upgrades.addAll(
-                    new UnitType[]{EIUnits.natorin, EIUnits.terrand}
+                    new UnitType[]{natorin, terrand}
             );
         }};
         /*overkillAssembler = new UnitAssembler("overkill-assembler"){{
@@ -2051,5 +2161,7 @@ public class EIBlocks {
             consumePower(5.75f);
             consumeLiquid(EILiquids.heavyOil, 18f / 60f);
         }};*/
+
+        //TODO Planet Blocks
     }
 }

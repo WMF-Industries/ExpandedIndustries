@@ -33,7 +33,9 @@ public class LifestealBulletType extends BulletType {
     public TextureRegion frontRegion;
 
     public LifestealBulletType(float speed, float damage, float intensity, String bulletSprite) {
-        super(speed, damage);
+        this.speed = speed;
+        this.damage = damage;
+        this.intensity = intensity;
         this.sprite = bulletSprite;
     }
 

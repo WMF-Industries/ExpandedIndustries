@@ -5,7 +5,7 @@ import mindustry.content.StatusEffects;
 import mindustry.type.*;
 
 public class EILiquids {
-    public static Liquid lox, steam, lightOil, heavyOil, reurium;
+    public static Liquid lox, steam, lightOil, heavyOil, reurium, cryoplasm;
 
     public static void load(){
         lox = new Liquid("lox", Color.valueOf("83c7ff")){{
@@ -13,6 +13,7 @@ public class EILiquids {
             temperature = 0.1f;
             heatCapacity = 1.3f;
             lightColor = Color.valueOf("83c7ff80");
+            coolant = true;
         }};
         steam = new Liquid("steam", Color.valueOf("83c7ff")){{
             gas = true;
@@ -44,6 +45,12 @@ public class EILiquids {
             explosiveness = 1.4f;
             viscosity = 0.45f;
             coolant = false;
+        }};
+        cryoplasm = new Liquid("cryoplasm"){{
+            temperature = 0.1f;
+            heatCapacity = 1.6f;
+            viscosity = 0.15f;
+            coolant = true;
         }};
     }
 }
