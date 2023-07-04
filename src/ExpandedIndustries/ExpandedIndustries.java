@@ -38,6 +38,7 @@ public class ExpandedIndustries extends Mod{
         EIUnits.load();
         EIBlocks.load();
         EITechTree.load();
+        EILoadouts.load();
 
         Log.info("Loading content complete.");
     }
