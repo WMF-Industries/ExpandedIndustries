@@ -389,7 +389,7 @@ public class EIBlocks {
             size = 2;
             tier = 4;
             drillTime = 62.5f;
-            liquidBoostIntensity = 0;
+            liquidBoostIntensity = 1f;
 
             consumePower(1.25f);
             requirements(Category.production, with(Items.graphite, 50, Items.silicon, 30, Items.titanium, 20));
@@ -399,8 +399,8 @@ public class EIBlocks {
 
             size = 4;
             tier = 5;
-            drillTime = 46.875f;
-            liquidBoostIntensity = 0;
+            drillTime = 75f;
+            liquidBoostIntensity = 1f;
             rotateSpeed = 6f;
             itemCapacity = 20;
             warmupSpeed = 0.01f;
@@ -417,7 +417,7 @@ public class EIBlocks {
 
             size = 5;
             tier = 5;
-            drillTime = 90;
+            drillTime = 187.5f;
             rotateSpeed = 7f;
             itemCapacity = 60;
             warmupSpeed = 0.03f;
@@ -427,8 +427,8 @@ public class EIBlocks {
             drillEffect = Fx.mineHuge;
             updateEffect = Fx.pulverizeRed;
 
-            consumePower(5f);
-            consumeLiquid(Liquids.cryofluid, 0.1f).boost();
+            consumePower(6f);
+            consumeLiquid(Liquids.cryofluid, 0.2f).boost();
             requirements(Category.production, with(Items.lead, 265, Items.silicon, 160, Items.titanium, 70, Items.thorium, 95));
         }};
         siliconFabricator = new AttributeCrafter("silicon-fabricator") {{
