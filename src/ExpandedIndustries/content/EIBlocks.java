@@ -374,11 +374,11 @@ public class EIBlocks {
 
             size = 3;
             craftTime = 30f;
-            outputItem = new ItemStack(Items.coal, 5);
+            outputItem = new ItemStack(Items.coal, 3);
 
             craftEffect = Fx.coalSmeltsmoke;
 
-            consumeLiquid(Liquids.oil, 0.5f);
+            consumeLiquid(Liquids.oil, 0.6f);
             consumePower(1.5f);
             requirements(Category.crafting, with(Items.copper, 120, Items.silicon, 70, Items.graphite, 60, Items.plastanium, 20));
         }};

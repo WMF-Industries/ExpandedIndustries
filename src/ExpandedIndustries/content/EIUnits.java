@@ -12,10 +12,7 @@ import mindustry.ai.types.MinerAI;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
-import mindustry.entities.abilities.EnergyFieldAbility;
-import mindustry.entities.abilities.ForceFieldAbility;
-import mindustry.entities.abilities.StatusFieldAbility;
-import mindustry.entities.abilities.UnitSpawnAbility;
+import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
@@ -589,6 +586,8 @@ public class EIUnits {
 
             engineSize = 2.5f;
             engineOffset = 8f;
+
+            abilities.add(new RepairFieldAbility(12f, 60f * 15, 75f));
         }};
         alturion = new UnitType("alturion") {{
             constructor = UnitEntity::create;
@@ -612,6 +611,8 @@ public class EIUnits {
 
             engineSize = 2.5f;
             engineOffset = 12f;
+
+            abilities.add(new RepairFieldAbility(18f, 60f * 10, 75f));
         }};
         pygmy = new UnitType("pygmy") {{
             constructor = UnitEntity::create;
@@ -946,7 +947,7 @@ public class EIUnits {
             drag = 0.1f;
             accel = 0.2f;
             itemCapacity = 340;
-            payloadCapacity = 800;
+            payloadCapacity = (4 * 4) * tilePayload;
 
             engineSize = 4.5f;
             engineOffset = 16;
@@ -1061,7 +1062,7 @@ public class EIUnits {
 
             abilities.add(
                     new ForceFieldAbility(15*tilesize, 6, 3000, 180, 16, 45),
-                    new EnergyFieldAbility(5f, 12f, 12.5f*tilesize){{
+                    new EnergyFieldAbility(15f, 12f, 12.5f*tilesize){{
                         maxTargets = 65;
                         healPercent = 0.05f;
                         statusDuration = 20f;

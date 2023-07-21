@@ -12,12 +12,6 @@ import mindustry.net.ServerGroup;
 public class ExpandedIndustries extends Mod{
     public ExpandedIndustries(){
         Log.info("Loaded EI constructor.");
-        Events.on(EventType.ClientLoadEvent.class, e -> {
-            Core.app.post(() -> Core.app.post(() -> {
-                Vars.defaultServers.add(new ServerGroup("[white][gold]Expanded Industries Server[][]", new String[]{"phoenix-network.dev:4000"}));
-                Log.info("Added EI server to the list");
-            }));
-        });
     }
 
     @Override
