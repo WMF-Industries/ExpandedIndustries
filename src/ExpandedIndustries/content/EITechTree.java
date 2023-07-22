@@ -56,6 +56,7 @@ public class EITechTree {
         nodeProduce(content, new Seq<>(), children);
     }
     public static void load() {
+        //serpulo
         mergeNode(Blocks.coreShard, () -> {
             node(coreFrag, () -> {
             });
@@ -294,36 +295,49 @@ public class EITechTree {
         });
 
         mergeNode(Items.titanium, () -> {
-            nodeProduce(EIItems.starium, () -> {
-                nodeProduce(EIItems.stariumAlloy, () -> {
+            node(EIItems.starium, () -> {
+                node(EIItems.stariumAlloy, () -> {
                 });
             });
         });
         mergeNode(Items.thorium, () -> {
-            nodeProduce(EIItems.peridotium, () -> {
-                nodeProduce(EIItems.enhancedPeridotium, () -> {
+            node(EIItems.peridotium, () -> {
+                node(EIItems.enhancedPeridotium, () -> {
                 });
             });
-            nodeProduce(EIItems.lumium, () -> {
+            node(EIItems.lumium, () -> {
             });
         });
         mergeNode(Liquids.oil, () -> {
-            nodeProduce(EILiquids.heavyOil, () -> {
-                nodeProduce(EILiquids.lightOil, () -> {
-                    nodeProduce(EIItems.solidFuel, () -> {
+            node(EILiquids.heavyOil, () -> {
+                node(EILiquids.lightOil, () -> {
+                    node(EIItems.solidFuel, () -> {
                     });
                 });
             });
         });
         mergeNode(Liquids.cryofluid, () -> {
-            nodeProduce(EILiquids.lox, () -> {
+            node(EILiquids.lox, () -> {
             });
         });
         mergeNode(Liquids.water, () -> {
-            nodeProduce(EIItems.ice, () -> {
+            node(EIItems.ice, () -> {
             });
-            nodeProduce(EILiquids.steam, () -> {
+            node(EILiquids.steam, () -> {
             });
+        });
+        //erekir
+        mergeNode(Blocks.turbineCondenser, () -> {
+            node(reinforcedSolarPanel);
+        });
+        mergeNode(Blocks.armoredDuct, () -> {
+            node(tungstenConveyor);
+        });
+        mergeNode(Blocks.largePlasmaBore, () -> {
+            node(hugePlasmaBore);
+        });
+        mergeNode(Blocks.cliffCrusher, () -> {
+            node(largeCliffCrusher);
         });
     }
 }

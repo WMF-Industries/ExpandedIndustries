@@ -1,5 +1,6 @@
 package ExpandedIndustries.content;
 
+import ExpandedIndustries.world.blocks.power.OverheatSolarGenerator;
 import arc.Core;
 import arc.graphics.*;
 import arc.math.*;
@@ -42,18 +43,18 @@ public class EIBlocks {
     grassWater, liquidReurium, cryoplasm,
     //distribution
     stariumConveyor, starlightJunction, massStariumConveyor, titaniumBridge, stariumBridge,
-    alloyBridge, titaniumBridgeConduit, stariumBridgeConduit, stariumConduit,
+    alloyBridge, titaniumBridgeConduit, stariumBridgeConduit, stariumConduit, tungstenConveyor,
     //storage
     crate,
     //extraction
-    electricDrill, precisionDrill, hammerDrill,
+    electricDrill, precisionDrill, hammerDrill, hugePlasmaBore, largeCliffCrusher,
     //production
     cryofluidPlant, cryofluidStirrer, oxygenLiquifier, coalLiquifier, oilCrystaliser,
     freezer, oilPurifier, heavyOilRefinery, fuelAssembler, siliconFabricator,
     lumiumSmelter, metaglassFabricator, peridotiumSynthesizer, stariumSynthesizer,
     stariumRefiner, graphiteCompressor, peridotiumEnhancer, scrapper, plastaniumCondenser,
     //power
-    steamTurbine, peridotiumGenerator, peridotiumReactor, lumiumReactor,
+    steamTurbine, peridotiumGenerator, peridotiumReactor, lumiumReactor, reinforcedSolarPanel,
     //logic
     controllerProcessor, armProcessor, threadripperProcessor,
     //other
@@ -284,6 +285,15 @@ public class EIBlocks {
 
             requirements(Category.liquid, with(Items.metaglass, 10, Items.graphite, 6, EIItems.starium, 6));
         }};
+        tungstenConveyor = new StackConveyor("tungsten-conveyor"){{
+            outputRouter = false;
+
+            health = 140;
+            speed = 6f / 60f;
+            itemCapacity = 5;
+
+            requirements(Category.distribution, with(Items.tungsten, 2, Items.graphite, 1));
+        }};
         crate = new StorageBlock("crate") {{
             size = 1;
             itemCapacity = 75;
@@ -430,6 +440,34 @@ public class EIBlocks {
             consumePower(6f);
             consumeLiquid(Liquids.cryofluid, 0.2f).boost();
             requirements(Category.production, with(Items.lead, 265, Items.silicon, 160, Items.titanium, 70, Items.thorium, 95));
+        }};
+        hugePlasmaBore = new BeamDrill("huge-plasma-bore"){{
+            drillTime = 60f;
+            tier = 5;
+            size = 4;
+            range = 8;
+            fogRadius = 4;
+            laserWidth = 0.7f;
+            itemCapacity = 30;
+            optionalBoostIntensity = 2.5f;
+
+            consumePower(2f);
+            consumeLiquid(Liquids.hydrogen, 4f / 60f);
+            consumeLiquids(LiquidStack.with(Liquids.nitrogen, 4f / 60f, Liquids.cyanogen, 2f / 60f)).boost();
+            requirements(Category.production, with(Items.silicon, 260, Items.oxide, 90, Items.thorium, 160, Items.tungsten, 270));
+        }};
+        largeCliffCrusher = new WallCrafter("large-cliff-crusher"){{
+            drillTime = 45f;
+            size = 3;
+            attribute = Attribute.sand;
+            output = Items.sand;
+            fogRadius = 2;
+            ambientSound = Sounds.drill;
+            ambientSoundVolume = 0.04f;
+
+            consumePower(1.5f);
+            consumeLiquid(Liquids.hydrogen, 3f / 60f);
+            requirements(Category.production, with(Items.silicon, 70, Items.tungsten, 90, Items.beryllium, 80));
         }};
         siliconFabricator = new AttributeCrafter("silicon-fabricator") {{
             hasPower = true;
@@ -748,6 +786,12 @@ public class EIBlocks {
             consumeItem(EIItems.lumium);
             consumeLiquid(EILiquids.lox, 1);
             requirements(Category.power, with(Items.lead, 1250, Items.silicon, 750, Items.titanium, 700, Items.plastanium, 625, EIItems.enhancedPeridotium, 335, EIItems.stariumAlloy, 270));
+        }};
+        reinforcedSolarPanel = new OverheatSolarGenerator("reinforced-solar-panel") {{
+                size = 2;
+
+                consumeLiquid(Liquids.water, heating / coolantPower).update(false);
+                requirements(Category.power, with(Items.beryllium, 60, Items.tungsten, 110, Items.silicon, 70));
         }};
         controllerProcessor = new LogicBlock("controller-processor") {{
             hasPower = true;
