@@ -12,7 +12,6 @@ import static mindustry.content.SectorPresets.windsweptIslands;
 import static mindustry.content.TechTree.TechNode;
 
 public class EITechTree {
-    //this is stupid but seems to work
     public static TechNode context = null;
 
     public static void mergeNode(UnlockableContent p, Runnable c) {
@@ -230,15 +229,15 @@ public class EITechTree {
             });
         });
         mergeNode(Blocks.ripple, () -> {
-            node(exagonArtillery);
+            node(hexagon);
         });
         mergeNode(Blocks.tsunami, () -> {
             node(renoit);
         });
         mergeNode(Blocks.lancer, () -> {
             node(enforcer, () -> {
-                node(slowRay, () -> {
-                    node(fastRay);
+                node(cavern, () -> {
+                    node(underglow);
                 });
             });
             node(piercer);
@@ -264,13 +263,13 @@ public class EITechTree {
             });
         });
         mergeNode(UnitTypes.dagger, () -> {
-            node(breadnight, () -> {
-                node(toastnight);
+            node(requer, () -> {
+                node(convoy);
             });
         });
         mergeNode(UnitTypes.nova, () -> {
-            node(stormer, () -> {
-                node(rusher, () -> {
+            node(agrid, () -> {
+                node(xerad, () -> {
                     node(escapade, () -> {
                         node(natorin, () -> {
                             node(terrand);
@@ -278,6 +277,7 @@ public class EITechTree {
                     });
                 });
             });
+            node(creo);
         });
         mergeNode(UnitTypes.flare, () -> {
             node(pygmy, () -> {
@@ -285,45 +285,38 @@ public class EITechTree {
                     node(ageronia);
                 });
             });
-            node(SmolBoi, () -> {
-                node(MediumBoi, () -> {
-                    node(LargeBoi, () -> {
-                        node(PayloadBoi);
-                    });
-                });
-            });
         });
 
         mergeNode(Items.titanium, () -> {
-            node(EIItems.starium, () -> {
-                node(EIItems.stariumAlloy, () -> {
+            nodeProduce(EIItems.starium, () -> {
+                nodeProduce(EIItems.stariumAlloy, () -> {
                 });
             });
         });
         mergeNode(Items.thorium, () -> {
-            node(EIItems.peridotium, () -> {
-                node(EIItems.enhancedPeridotium, () -> {
+            nodeProduce(EIItems.peridotium, () -> {
+                nodeProduce(EIItems.enhancedPeridotium, () -> {
                 });
             });
-            node(EIItems.lumium, () -> {
+            nodeProduce(EIItems.lumium, () -> {
             });
         });
         mergeNode(Liquids.oil, () -> {
-            node(EILiquids.heavyOil, () -> {
-                node(EILiquids.lightOil, () -> {
-                    node(EIItems.solidFuel, () -> {
+            nodeProduce(EILiquids.heavyOil, () -> {
+                nodeProduce(EILiquids.lightOil, () -> {
+                    nodeProduce(EIItems.solidFuel, () -> {
                     });
                 });
             });
         });
         mergeNode(Liquids.cryofluid, () -> {
-            node(EILiquids.lox, () -> {
+            nodeProduce(EILiquids.lox, () -> {
             });
         });
         mergeNode(Liquids.water, () -> {
-            node(EIItems.ice, () -> {
+            nodeProduce(EIItems.ice, () -> {
             });
-            node(EILiquids.steam, () -> {
+            nodeProduce(EILiquids.steam, () -> {
             });
         });
         //erekir

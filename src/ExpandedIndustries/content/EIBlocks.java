@@ -1,6 +1,9 @@
 package ExpandedIndustries.content;
 
+import ExpandedIndustries.world.blocks.environment.PropOre;
 import ExpandedIndustries.world.blocks.power.OverheatSolarGenerator;
+import ExpandedIndustries.world.blocks.production.WhitelistDrill;
+import ExpandedIndustries.world.blocks.storage.StatusCore;
 import arc.Core;
 import arc.graphics.*;
 import arc.math.*;
@@ -28,8 +31,10 @@ import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
+import java.beans.Visibility;
+
 import static ExpandedIndustries.content.EIUnits.*;
-import static mindustry.Vars.tilesize;
+import static mindustry.Vars.*;
 import static mindustry.content.Fx.none;
 import static mindustry.type.ItemStack.with;
 
@@ -38,7 +43,7 @@ public class EIBlocks {
     public static Block
 
     //environment
-    flower, orePeridotium, oreStarium, oreNeorium, oreTeranite, ion,
+    flower, orePeridotium, oreStarium, oreNeorium, oreTeranite, ion, propAmethyst, oreAmethyst,
     crayoneFloor, crayoneWall, crayoneVent, ioniteFloor, ioniteWall, xeniteFloor, xeniteWall, arcaniteFloor, arcaniteWall, arcaniteVent,
     grassWater, liquidReurium, cryoplasm,
     //distribution
@@ -47,7 +52,7 @@ public class EIBlocks {
     //storage
     crate,
     //extraction
-    electricDrill, precisionDrill, hammerDrill, hugePlasmaBore, largeCliffCrusher,
+    electricDrill, precisionDrill, hammerDrill, hugePlasmaBore, largeCliffCrusher, crystalCutter,
     //production
     cryofluidPlant, cryofluidStirrer, oxygenLiquifier, coalLiquifier, oilCrystaliser,
     freezer, oilPurifier, heavyOilRefinery, fuelAssembler, siliconFabricator,
@@ -58,10 +63,10 @@ public class EIBlocks {
     //logic
     controllerProcessor, armProcessor, threadripperProcessor,
     //other
-    coreFrag, coreExtensio, microPad, planetaryMender, planetaryOverdrive, hardenedUnloader, advancedUnloader,
+    coreFrag, coreExtensio, coreArk, microPad, planetaryMender, planetaryOverdrive, hardenedUnloader, advancedUnloader,
     //defense
     stariumWall, largeStariumWall, graphiteWall, largeGraphiteWall, anado, deuse,
-    exagonArtillery, slowRay, fastRay, piercer, enforcer, renoit, raven, region,
+    hexagon, cavern, underglow, piercer, enforcer, renoit, raven, region,
     //factories & recons
     groundFactory, airFactory, starruneReconstructor, eraniteReconstructor, ultraReconstructor,
     terraReconstructor,
@@ -69,7 +74,6 @@ public class EIBlocks {
     overkillAssembler;
 
     public static void load() {
-
         crayoneFloor = new Floor("crayone") {{
             variants = 4;
             mapColor = Color.valueOf("853399");
@@ -129,9 +133,21 @@ public class EIBlocks {
 
             attributes.set(Attribute.steam, 1f);
         }};
+        propAmethyst = new Prop("amethyst-crystal"){{
+            breakable = false;
+            alwaysReplace = false;
+            solid = true;
+
+            cacheLayer = CacheLayer.normal;
+            buildVisibility = BuildVisibility.hidden;
+        }};
+        oreAmethyst = new PropOre("ore-amethyst", EIItems.amethyst){{
+            parent = propAmethyst;
+            blendGroup = crayoneFloor;
+        }};
         grassWater = new Floor("grass-water") {{
             shallow = supportsOverlay = isLiquid = placeableOn = true;
-            editorIcon = Core.atlas.find(name + "1");
+            if(net.client()) editorIcon = Core.atlas.find(name + "1");
 
             liquidDrop = Liquids.water;
             liquidMultiplier = 0.75f;
@@ -468,6 +484,18 @@ public class EIBlocks {
             consumePower(1.5f);
             consumeLiquid(Liquids.hydrogen, 3f / 60f);
             requirements(Category.production, with(Items.silicon, 70, Items.tungsten, 90, Items.beryllium, 80));
+        }};
+        crystalCutter = new WhitelistDrill("crystal-cutter"){{
+            hasLiquids = hasPower = false;
+
+            itemsWhitelisted = Seq.with(EIItems.amethyst);
+            drillTime = 360;
+            size = 5;
+            liquidBoostIntensity = 1;
+
+            rotateSpeed = 3.7f;
+
+            requirements(Category.production, BuildVisibility.sandboxOnly, with(EIItems.neorium, 1));
         }};
         siliconFabricator = new AttributeCrafter("silicon-fabricator") {{
             hasPower = true;
@@ -844,6 +872,16 @@ public class EIBlocks {
 
             requirements(Category.effect, with(Items.copper, 18000, Items.lead, 18000, Items.silicon, 10500, Items.thorium, 7000, Items.surgeAlloy, 1025));
         }};
+        coreArk = new StatusCore("core-ark"){{
+            isFirstTier = alwaysUnlocked = true;
+
+            unitType = piece;
+            health = 7000;
+            itemCapacity = 3500;
+            size = 4;
+            unitCapModifier = 8;
+            requirements(Category.effect, BuildVisibility.campaignOnly, with(EIItems.neorium, 1500, EIItems.xenite, 1000));
+        }};
         microPad = new LaunchPad("micro-pad") {{
             hasPower = true;
 
@@ -1068,7 +1106,7 @@ public class EIBlocks {
             limitRange();
             requirements(Category.turret, with(Items.lead, 130, Items.copper, 70, Items.silicon, 60, Items.titanium, 40));
         }};
-        exagonArtillery = new ItemTurret("exagon-altillery") {{
+        hexagon = new ItemTurret("hexagon") {{
             ammo(
                     Items.surgeAlloy, new ArtilleryBulletType(5f, 42) {{
                         collidesTiles = collidesAir = false;
@@ -1132,7 +1170,7 @@ public class EIBlocks {
             limitRange(0f);
             requirements(Category.turret, with(Items.copper, 360, Items.lead, 290, Items.silicon, 220, Items.titanium, 160, Items.plastanium, 130, Items.surgeAlloy, 90));
         }};
-        slowRay = new PowerTurret("slowray") {{
+        cavern = new PowerTurret("cavern") {{
             moveWhileCharging = false;
 
             range = 230;
@@ -1685,7 +1723,7 @@ public class EIBlocks {
                 }
             };
         }};
-        fastRay = new PowerTurret("fastray") {{
+        underglow = new PowerTurret("underglow") {{
             range = 210;
             coolantMultiplier = 1.1f;
             recoil = 7;
@@ -1995,7 +2033,6 @@ public class EIBlocks {
                             colorTo = Color.valueOf("84f491");
                         }},
                         new ParticleEffect() {{
-                            startDelay(30);
                             line = true;
                             lenFrom = 4;
                             lenTo = 5;
@@ -2121,8 +2158,8 @@ public class EIBlocks {
             requirements(Category.units, with(Items.copper, 90, Items.silicon, 70, Items.titanium, 50));
 
             plans = Seq.with(
-                    new UnitPlan(stormer, 60f * 10, with(Items.silicon, 30, Items.titanium, 10)),
-                    new UnitPlan(breadnight, 60f * 15, with(Items.silicon, 25, Items.graphite, 20))
+                    new UnitPlan(agrid, 60f * 10, with(Items.silicon, 30, Items.titanium, 10)),
+                    new UnitPlan(requer, 60f * 15, with(Items.silicon, 25, Items.graphite, 20))
             );
         }};
         airFactory = new UnitFactory("air-factory"){{
@@ -2133,7 +2170,7 @@ public class EIBlocks {
 
             plans = Seq.with(
                     new UnitPlan(pygmy, 60f * 15, with(Items.silicon, 25, Items.graphite, 10)),
-                    new UnitPlan(SmolBoi, 60f * 10, with(Items.silicon, 30, Items.titanium, 15))
+                    new UnitPlan(creo, 60f * 25, with(Items.silicon, 25, Items.titanium, 20))
             );
         }};
         starruneReconstructor = new Reconstructor("starrune-reconstructor"){{
@@ -2145,11 +2182,10 @@ public class EIBlocks {
             requirements(Category.units, with(Items.copper, 200, Items.lead, 120, Items.silicon, 90, Items.graphite, 70));
 
             upgrades.addAll(
-                    new UnitType[]{stormer, rusher},
-                    new UnitType[]{breadnight, toastnight},
+                    new UnitType[]{agrid, xerad},
+                    new UnitType[]{requer, convoy},
                     new UnitType[]{pygmy, schaus},
-                    new UnitType[]{UnitTypes.mono, centurion},
-                    new UnitType[]{SmolBoi, MediumBoi}
+                    new UnitType[]{UnitTypes.mono, centurion}
             );
         }};
         eraniteReconstructor = new Reconstructor("eranite-reconstructor"){{
@@ -2161,10 +2197,9 @@ public class EIBlocks {
             requirements(Category.units, with(Items.lead, 650, Items.silicon, 450, Items.titanium, 350, Items.thorium, 650, EIItems.starium, 250));
 
             upgrades.addAll(
-                    new UnitType[]{rusher, escapade},
+                    new UnitType[]{xerad, escapade},
                     new UnitType[]{schaus, ageronia},
-                    new UnitType[]{centurion, alturion},
-                    new UnitType[]{MediumBoi, LargeBoi}
+                    new UnitType[]{centurion, alturion}
             );
         }};
         ultraReconstructor = new Reconstructor("ultra-reconstructor"){{
@@ -2177,8 +2212,7 @@ public class EIBlocks {
             requirements(Category.units, with(Items.lead, 2000, Items.silicon, 1000, Items.titanium, 2000, Items.thorium, 750, Items.plastanium, 450, EIItems.enhancedPeridotium, 600, EIItems.starium, 400));
 
             upgrades.addAll(
-                    new UnitType[]{escapade, natorin},
-                    new UnitType[]{LargeBoi, PayloadBoi}
+                    new UnitType[]{escapade, natorin}
             );
         }};
         terraReconstructor = new Reconstructor("terra-reconstructor"){{

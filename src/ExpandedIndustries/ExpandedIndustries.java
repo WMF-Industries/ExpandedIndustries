@@ -20,7 +20,7 @@ public class ExpandedIndustries extends Mod{
 
         loadAllContent();
         
-        Log.info("EI loaded.");
+        Log.info("Expanded Industries initialized successfully :D");
     }
 
     private void loadAllContent() {
@@ -31,9 +31,10 @@ public class ExpandedIndustries extends Mod{
         EIBullets.load();
         EIUnits.load();
         EIBlocks.load();
+        EIWeathers.load();
         EITechTree.load();
         EILoadouts.load();
 
-        Log.info("Loading content complete.");
+        Log.info("Loading content complete!");
     }
 }

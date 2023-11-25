@@ -20,14 +20,15 @@ import mindustry.type.StatusEffect;
 
 public class OverloadAbility extends Ability {
     private static final Seq<Healthc> all = new Seq<>();
+    public boolean applyToSelf = false, infiniteSelfStatus = false;
 
     public float reload = 100, range = 60;
     public StatusEffect status = EIStatusEffects.overload;
     public StatusEffect teamStatus = StatusEffects.overclock;
     public float statusDuration = 60f * 15f, teamStatusDuration = 60f * 10.5f;
     public float x, y;
-    protected float timer, curStroke;
-    protected boolean anyNearby = false;
+    protected float timer, curStroke, selfStatusDuration = teamStatusDuration;
+    protected boolean anyNearby = false, reapply = true;
     public Effect activeEffect = EIFx.overload;
 
     public OverloadAbility(float reload, float range){
@@ -37,7 +38,7 @@ public class OverloadAbility extends Ability {
 
     @Override
     public String localized(){
-        return Core.bundle.format("ability.ei-overload", range / Vars.tilesize, statusDuration/60, reload/60);
+        return Core.bundle.format("ability.ei-overload", range / Vars.tilesize, statusDuration / 60, reload / 60);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class OverloadAbility extends Ability {
 
                 if(((Teamc)other).team() == unit.team){
                     anyNearby = true;
-                    if(other instanceof Statusc s){
+                    if(other instanceof Statusc s) {
                         s.apply(teamStatus, teamStatusDuration);
                     }
                 }else{
@@ -75,8 +76,17 @@ public class OverloadAbility extends Ability {
                 }
             }
 
-            if(anyNearby){
-                activeEffect.at(unit, range);
+            if(anyNearby || (applyToSelf && reapply)){
+                if(anyNearby){
+                    activeEffect.at(unit, range);
+                }
+                if(applyToSelf){
+                    if(infiniteSelfStatus){
+                       selfStatusDuration = Float.MAX_VALUE;
+                       reapply = false;
+                    }
+                    unit.apply(teamStatus, selfStatusDuration);
+                }
                 timer = 0f;
             }
         }

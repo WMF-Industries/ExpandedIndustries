@@ -1,14 +1,15 @@
 package ExpandedIndustries.content;
 
+import ExpandedIndustries.ai.EICommands;
 import ExpandedIndustries.ai.types.CircleTargetFlyingAI;
 import ExpandedIndustries.entities.bullet.LifestealBulletType;
 import ExpandedIndustries.entities.bullet.abilities.OverloadAbility;
 import arc.graphics.Color;
+import arc.struct.Seq;
+import mindustry.Vars;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.BuilderAI;
-import mindustry.ai.types.FlyingAI;
 import mindustry.ai.types.FlyingFollowAI;
-import mindustry.ai.types.MinerAI;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
@@ -23,9 +24,10 @@ import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.ammo.PowerAmmoType;
+import mindustry.type.weapons.RepairBeamWeapon;
 import mindustry.world.meta.BlockFlag;
 
-import static ExpandedIndustries.content.EIBullets.SuicideBulletType;
+import static ExpandedIndustries.content.EIStatusEffects.frozen;
 import static mindustry.Vars.tilePayload;
 import static mindustry.Vars.tilesize;
 import static mindustry.content.Fx.none;
@@ -33,22 +35,24 @@ import static mindustry.gen.Sounds.laserblast;
 
 public class EIUnits {
     public static UnitType
-    stormer, rusher, escapade, natorin, terrand,
+    agrid, xerad, escapade, natorin, terrand,
 
-    breadnight, toastnight,
+    requer, convoy,
 
     centurion, alturion,
 
     pygmy, schaus, ageronia,
 
-    SmolBoi, MediumBoi, LargeBoi, PayloadBoi,
+    creo,
 
-    piece, guardian,
+    quark, atrias, exatro,
+
+    piece, guardian, quarad,
     //Overkill Content;
     starnight;
     public static void load() {
 
-        stormer = new UnitType("stormer") {{
+        agrid = new UnitType("agrid") {{
             constructor = LegsUnit::create;
             groundLayer = Layer.legUnit;
 
@@ -70,7 +74,7 @@ public class EIUnits {
             ammoType = new PowerAmmoType(750);
 
             weapons.add(
-                    new Weapon("ei-stormer-weapon") {{
+                    new Weapon("ei-agrid-weapon") {{
                         top = false;
 
                         shake = 2f;
@@ -94,9 +98,14 @@ public class EIUnits {
                     }}
             );
         }};
-        rusher = new UnitType("rusher") {{
+        xerad = new UnitType("xerad") {{
             constructor = LegsUnit::create;
             groundLayer = Layer.legUnit;
+
+            legRegion = UnitTypes.atrax.legRegion;
+            legBaseRegion = UnitTypes.atrax.legBaseRegion;
+            jointRegion = UnitTypes.atrax.jointRegion;
+            footRegion = UnitTypes.atrax.footRegion;
 
             allowLegStep = hovering = true;
             outlines = false;
@@ -117,7 +126,7 @@ public class EIUnits {
             ammoType = new PowerAmmoType(1000);
 
             weapons.add(
-                    new Weapon("ei-rusher-weapon") {{
+                    new Weapon("ei-xerad-weapon") {{
                         top = rotate = false;
 
                         reload = 75f;
@@ -140,7 +149,7 @@ public class EIUnits {
                             colors = new Color[]{Pal.heal.cpy().a(0.4f), Pal.heal, Color.white};
                         }};
                     }},
-                    new Weapon("ei-rusher-artillery") {{
+                    new Weapon("ei-xerad-artillery") {{
                         top = rotate = true;
                         mirror = false;
 
@@ -480,7 +489,7 @@ public class EIUnits {
                 }}
             );
         }};
-        breadnight = new UnitType("breadnight"){{
+        requer = new UnitType("requer"){{
             constructor = MechUnit::create;
 
             outlines = false;
@@ -496,7 +505,7 @@ public class EIUnits {
             );
 
             weapons.add(
-                    new Weapon("ei-breadnight-laser"){{
+                    new Weapon("ei-requer-laser"){{
                         mirror = alternate = true;
                         rotate = top = false;
 
@@ -514,7 +523,7 @@ public class EIUnits {
                             length = 18 * tilesize;
                         }};
                     }},
-                    new Weapon("ei-breadnight-weapon"){{
+                    new Weapon("ei-requer-weapon"){{
                         autoTarget = rotate = top = mirror = alternate = true;
                         controllable = false;
 
@@ -528,7 +537,7 @@ public class EIUnits {
                     }}
             );
         }};
-        toastnight = new UnitType("toastnight"){{
+        convoy = new UnitType("convoy"){{
             constructor = MechUnit::create;
 
             outlines = false;
@@ -544,7 +553,7 @@ public class EIUnits {
             );
 
             weapons.add(
-                    new Weapon("ei-toastnight-weapon"){{
+                    new Weapon("ei-convoy-weapon"){{
                         mirror = alternate = true;
                         rotate = top = false;
 
@@ -842,116 +851,50 @@ public class EIUnits {
                 }};
             }});
         }};
-        SmolBoi = new UnitType("small-boi"){{
+        /*quark = new UnitType("quark"){{
+
+        }};*/
+        creo = new UnitType("creo"){{
             constructor = UnitEntity::create;
-            aiController = FlyingAI::new;
+            defaultCommand = EICommands.healUnitsCommand;
 
-            flying = faceTarget = true;
-            outlines = false;
+            flying = faceTarget = lowAltitude = true;
+            outlines = logicControllable = isEnemy = false;
 
-            health = 210;
+            health = 170;
             hitSize = 6f;
-            speed = 1.9f;
-            rotateSpeed = 3;
-            itemCapacity = 50;
+            speed = 2.35f;
+            rotateSpeed = 3.4f;
+            itemCapacity = 5;
 
-            lightRadius = 50;
+            lightRadius = 25;
 
-            targetFlags = new BlockFlag[]{BlockFlag.factory, BlockFlag.battery, null};
-
-            weapons.add(new Weapon() {{
+            weapons.add(new RepairBeamWeapon() {{
+                targetUnits = targetBuildings = true;
                 top = mirror = false;
 
-                reload = 24;
-                shootCone = 180;
+                range = 60;
+                beamWidth = 0.7f;
+                repairSpeed = 0.9f;
+                fractionRepairSpeed = 0.025f;
+
                 x = 0;
-                y = 0;
-
-                shootSound = Sounds.explosion;
-
-                bullet = SuicideBulletType;
+                y = 1.25f;
             }});
-        }};
-        MediumBoi = new UnitType("medium-boi"){{
-            constructor = UnitEntity::create;
-            aiController = FlyingAI::new;
+        }public void init(){
+            super.init();
 
-            flying = faceTarget = true;
-            outlines = false;
+            Seq<UnitCommand> cmds = Seq.with(commands);
+                cmds.add(EICommands.healUnitsCommand);
 
-            health = 280;
-            hitSize = 12f;
-            speed = 1.8f;
-            rotateSpeed = 3;
-            itemCapacity = 90;
-
-            engineOffset = 6.25f;
-
-            lightRadius = 50;
-
-            weapons.add(new Weapon() {{
-                top = mirror = false;
-
-                reload = 24;
-                shootCone = 180;
-                x = 0;
-                y = 0;
-
-                shootSound = Sounds.explosion;
-
-                bullet = SuicideBulletType;
-            }});
-        }};
-        LargeBoi = new UnitType("large-boi"){{
-            constructor = UnitEntity::create;
-            aiController = FlyingAI::new;
-
-            flying = faceTarget = true;
-            outlines = false;
-
-            health = 470;
-            hitSize = 20;
-            speed = 1.6f;
-            rotateSpeed = 3;
-            itemCapacity = 170;
-
-            engineOffset = 11.25f;
-            engineSize = 2.75f;
-            lightRadius = 50;
-
-            abilities.add(new UnitSpawnAbility(SmolBoi, 1050, 0, 2));
-
-            weapons.add(new Weapon() {{
-                top = mirror = false;
-
-                reload = 24;
-                shootCone = 180;
-                x = 0;
-                y = 0;
-
-                shootSound = Sounds.explosion;
-
-                bullet = SuicideBulletType;
-            }});
-        }};
-        PayloadBoi = new UnitType("payload-boi"){{
-            constructor = PayloadUnit::create;
-
-            flying = true;
-            outlines = false;
-
-            health = 5300;
-            hitSize = 40f;
-            speed = 3.35f;
-            rotateSpeed = 3.3f;
-            drag = 0.1f;
-            accel = 0.2f;
-            itemCapacity = 340;
-            payloadCapacity = (4 * 4) * tilePayload;
-
-            engineSize = 4.5f;
-            engineOffset = 16;
-        }};
+            commands = cmds.toArray();
+        }
+        public void update(Unit unit){
+            super.update(unit);
+            if(unit.isPlayer() && (Vars.net.server() || !Vars.net.active())){
+                unit.getPlayer().clearUnit();
+            }}
+        };
         piece = new UnitType("piece"){{
             constructor = UnitEntity::create;
             aiController = BuilderAI::new;
@@ -1038,6 +981,13 @@ public class EIUnits {
                 }};
             }});
         }};
+        /*quarad = new UnitType("quarad"){{
+            constructor = UnitEntity::create;
+
+            flying = lowAltitude = true;
+
+            engineSize = -1;
+        }};*/
         starnight = new UnitType("starnight"){{
             constructor = UnitEntity::create;
             aiController = FlyingFollowAI::new;
