@@ -31,7 +31,6 @@ import mindustry.type.ammo.PowerAmmoType;
 import mindustry.type.weapons.RepairBeamWeapon;
 import mindustry.world.meta.BlockFlag;
 
-import static ExpandedIndustries.content.EIStatusEffects.frozen;
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
@@ -889,9 +888,7 @@ public class EIUnits {
                 }};
             }});
         }};
-        /*quark = new UnitType("quark"){{
-
-        }};*/
+        
         creo = new UnitType("creo"){{
             constructor = UnitEntity::create;
             defaultCommand = EICommands.healUnitsCommand;
