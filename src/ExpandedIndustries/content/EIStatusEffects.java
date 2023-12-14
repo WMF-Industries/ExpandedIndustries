@@ -11,7 +11,7 @@ import static mindustry.Vars.state;
 import static mindustry.content.StatusEffects.*;
 
 public class EIStatusEffects {
-    public static StatusEffect lockdown, overload, sticky, frozen, warm;
+    public static StatusEffect lockdown, overload, sticky;
 
     public static void load() {
         lockdown = new StatusEffect("lockdown") {{
@@ -34,7 +34,7 @@ public class EIStatusEffects {
             effect = EIFx.reu;
 
             init(() -> {
-                opposite(freezing, frozen);
+                opposite(freezing);
                 affinity(burning, (unit, result, time) -> {
                     unit.damagePierce(transitionDamage);
                     Fx.burning.at(unit.x + Mathf.range(unit.bounds() / 2f), unit.y + Mathf.range(unit.bounds() / 2f));
@@ -42,13 +42,5 @@ public class EIStatusEffects {
                 });
             });
         }};
-        frozen = new StatusEffect("frozen") {{
-            speedMultiplier = 0;
-            reloadMultiplier = 0;
-            damage = 0.11f;
-            permanent = true;
-            init(() -> opposite(warm, burning, melting));
-        }};
-        warm = new StatusEffect("warm");
     }
 }

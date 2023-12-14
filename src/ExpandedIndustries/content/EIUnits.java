@@ -5,6 +5,8 @@ import ExpandedIndustries.ai.types.CircleTargetFlyingAI;
 import ExpandedIndustries.entities.bullet.LifestealBulletType;
 import ExpandedIndustries.entities.bullet.abilities.OverloadAbility;
 import arc.graphics.Color;
+import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.Lines;
 import arc.struct.Seq;
 import mindustry.Vars;
 import mindustry.ai.UnitCommand;
@@ -13,12 +15,14 @@ import mindustry.ai.types.FlyingFollowAI;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
+import mindustry.entities.Effect;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
 import mindustry.gen.*;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
@@ -28,6 +32,9 @@ import mindustry.type.weapons.RepairBeamWeapon;
 import mindustry.world.meta.BlockFlag;
 
 import static ExpandedIndustries.content.EIStatusEffects.frozen;
+import static arc.graphics.g2d.Draw.color;
+import static arc.graphics.g2d.Lines.stroke;
+import static arc.math.Angles.randLenVectors;
 import static mindustry.Vars.tilePayload;
 import static mindustry.Vars.tilesize;
 import static mindustry.content.Fx.none;
@@ -36,18 +43,11 @@ import static mindustry.gen.Sounds.laserblast;
 public class EIUnits {
     public static UnitType
     agrid, xerad, escapade, natorin, terrand,
-
     requer, convoy,
-
     centurion, alturion,
-
     pygmy, schaus, ageronia,
-
     creo,
-
-    quark, atrias, exatro,
-
-    piece, guardian, quarad,
+    piece, guardian,
     //Overkill Content;
     starnight;
     public static void load() {
@@ -317,7 +317,7 @@ public class EIUnits {
                 new Weapon(){{
                     mirror = top = false;
 
-                    shoot.firstShotDelay = 90;
+                    shoot.firstShotDelay = 85;
                     reload = 360;
                     x = 0;
                     y = 2.5f;
@@ -337,7 +337,46 @@ public class EIUnits {
                         width = height = 25;
                         shrinkX = shrinkY = 0;
 
-                        chargeEffect = Fx.greenLaserCharge;
+                        chargeEffect = new MultiEffect(
+                            new Effect(80f,55f,e -> {
+                                color(Pal.heal);
+                                stroke(e.fin() * 2f);
+                                Lines.circle(e.x, e.y, 2f + e.fout() * 100f);
+
+                                Fill.circle(e.x, e.y, e.fin() * 20);
+
+                                randLenVectors(e.id, 20, 40f * e.fout(), (x, y) -> {
+                                    Fill.circle(e.x + x, e.y + y, e.fin() * 5f);
+                                    Drawf.light(e.x + x, e.y + y, e.fin() * 15f, Pal.heal, 0.7f);
+                                });
+
+                                color();
+
+                                Fill.circle(e.x, e.y, e.fin() * 10);
+                                Drawf.light(e.x, e.y, e.fin() * 20f, Pal.heal, 0.7f);
+                            }).followParent(true).rotWithParent(true),
+                            new ParticleEffect(){{
+                                randLength = true;
+
+                                sizeFrom = 10;
+                                sizeTo = 2;
+                                baseLength = 2;
+                                length = 5;
+                                lifetime = 80;
+                                color(Pal.heal);
+                            }},
+                            new ParticleEffect(){{
+                                randLength = true;
+
+                                startDelay = 30;
+                                sizeFrom = 10;
+                                sizeTo = 2;
+                                baseLength = 2;
+                                length = 5;
+                                lifetime = 50;
+                                color(Pal.heal);
+                            }}
+                        );
                         trailLength = 25;
                         trailWidth = 13;
                         frontColor = Color.valueOf("ffffff");
@@ -351,7 +390,7 @@ public class EIUnits {
                             collides = hittable = false;
                             despawnHit = true;
 
-                            buildingDamageMultiplier = 0.4444444444444444f;
+                            buildingDamageMultiplier = 0.444f;
                             lifetime = 195;
                             width = height = 30;
                             shrinkX = shrinkY = 0;
@@ -359,7 +398,6 @@ public class EIUnits {
                             frontColor = Color.valueOf("ffffff");
                             backColor = Color.valueOf("83f793");
                             lightColor = Color.valueOf("83f793");
-                            despawnEffect = none;
                             despawnEffect = new MultiEffect(
                                     new WaveEffect(){{
                                         sizeFrom = 28;
@@ -382,7 +420,7 @@ public class EIUnits {
                             collides = absorbable = hittable = false;
                             despawnHit = true;
 
-                            buildingDamageMultiplier = 0.4444444444444444f;
+                            buildingDamageMultiplier = 0.444f;
                             lifetime = 180;
                             width = height = 0;
 
@@ -404,7 +442,7 @@ public class EIUnits {
                                 homingPower = 0.4f;
                                 homingRange = 60;
                                 statusDuration = 240;
-                                buildingDamageMultiplier = 0.4444444444444444f;
+                                buildingDamageMultiplier = 0.444f;
                                 width = height = 14;
 
                                 frontColor = Color.valueOf("ffffff");
@@ -858,34 +896,37 @@ public class EIUnits {
             constructor = UnitEntity::create;
             defaultCommand = EICommands.healUnitsCommand;
 
-            flying = faceTarget = lowAltitude = true;
-            outlines = logicControllable = isEnemy = false;
+            outlines = flying = faceTarget = lowAltitude = true;
+            logicControllable = isEnemy = false;
 
-            health = 170;
+            health = 110;
             hitSize = 6f;
             speed = 2.35f;
             rotateSpeed = 3.4f;
             itemCapacity = 5;
 
             lightRadius = 25;
+            outlineRadius = 3;
 
-            weapons.add(new RepairBeamWeapon() {{
+            weapons.add(new RepairBeamWeapon(){{
                 targetUnits = targetBuildings = true;
-                top = mirror = false;
+                outlines = top = mirror = rotate = false;
 
-                range = 60;
+                maxRange = range = 60;
+                shootCone = 5;
                 beamWidth = 0.7f;
-                repairSpeed = 0.9f;
-                fractionRepairSpeed = 0.025f;
+                repairSpeed = 0.4f;
+                fractionRepairSpeed = 0.05f;
 
                 x = 0;
-                y = 1.25f;
+                y = 1.5f;
             }});
         }public void init(){
             super.init();
 
             Seq<UnitCommand> cmds = Seq.with(commands);
                 cmds.add(EICommands.healUnitsCommand);
+                cmds.remove(UnitCommand.repairCommand);
 
             commands = cmds.toArray();
         }
@@ -981,13 +1022,6 @@ public class EIUnits {
                 }};
             }});
         }};
-        /*quarad = new UnitType("quarad"){{
-            constructor = UnitEntity::create;
-
-            flying = lowAltitude = true;
-
-            engineSize = -1;
-        }};*/
         starnight = new UnitType("starnight"){{
             constructor = UnitEntity::create;
             aiController = FlyingFollowAI::new;

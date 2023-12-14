@@ -4,7 +4,7 @@ import arc.graphics.*;
 import mindustry.type.*;
 
 public class EIItems {
-     public static Item starium, peridotium, lumium, stariumAlloy, enhancedPeridotium, ice, solidFuel, neorium, teranite, xenite, ion, amethyst;
+     public static Item starium, peridotium, lumium, stariumAlloy, enhancedPeridotium, ice, solidFuel;
 
     public static void load(){
         starium = new Item("starium", Color.valueOf("4c4379")){{
@@ -39,23 +39,6 @@ public class EIItems {
         solidFuel = new Item("solid-fuel", Color.valueOf("9E9E9E")){{
             flammability = 2.75f;
             explosiveness = 1.3f;
-        }};
-
-        neorium = new Item("neorium"){{
-            hardness = 1;
-        }};
-
-        teranite = new Item("teranite", Color.valueOf("30b4c0")){{
-            hardness = 2;
-        }};
-
-        xenite = new Item("xenite"){{
-            hardness = 1;
-        }};
-
-        ion = new Item("ion");
-        amethyst = new Item("amethyst"){{
-            hardness = Integer.MAX_VALUE;
         }};
     }
 }
