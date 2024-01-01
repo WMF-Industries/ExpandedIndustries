@@ -5,6 +5,7 @@ import ExpandedIndustries.ai.types.CircleTargetFlyingAI;
 import ExpandedIndustries.entities.bullet.LifestealBulletType;
 import ExpandedIndustries.entities.bullet.abilities.OverloadAbility;
 import arc.graphics.Color;
+import arc.graphics.Colors;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.struct.Seq;
@@ -12,6 +13,7 @@ import mindustry.Vars;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.BuilderAI;
 import mindustry.ai.types.FlyingFollowAI;
+import mindustry.ai.types.SuicideAI;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.content.UnitTypes;
@@ -44,6 +46,7 @@ public class EIUnits {
     agrid, xerad, escapade, natorin, terrand,
     requer, convoy,
     centurion, alturion,
+    SmolBoi, MediumBoi, LargeBoi, PayloadBoi,
     pygmy, schaus, ageronia,
     creo,
     piece, guardian,
@@ -100,11 +103,6 @@ public class EIUnits {
         xerad = new UnitType("xerad") {{
             constructor = LegsUnit::create;
             groundLayer = Layer.legUnit;
-
-            legRegion = UnitTypes.atrax.legRegion;
-            legBaseRegion = UnitTypes.atrax.legBaseRegion;
-            jointRegion = UnitTypes.atrax.jointRegion;
-            footRegion = UnitTypes.atrax.footRegion;
 
             allowLegStep = hovering = true;
             outlines = false;
@@ -888,7 +886,246 @@ public class EIUnits {
                 }};
             }});
         }};
-        
+        SmolBoi = new UnitType("small-boi"){{
+            constructor = UnitEntity::create;
+            aiController = SuicideAI::new;
+
+            flying = faceTarget = true;
+            outlines = false;
+
+            health = 210;
+            hitSize = 6f;
+            speed = 1.9f;
+            rotateSpeed = 3;
+            itemCapacity = 50;
+
+            lightRadius = 50;
+
+            targetFlags = new BlockFlag[]{BlockFlag.factory, BlockFlag.battery, null};
+
+            weapons.add(new Weapon() {{
+                top = mirror = false;
+
+                reload = 24;
+                shootCone = 180;
+                x = 0;
+                y = 0;
+
+                shootSound = Sounds.explosion;
+
+                bullet = new BombBulletType(){{
+                    shootEffect = despawnEffect = new MultiEffect(
+                            new WaveEffect() {{
+                                sizeFrom = 120;
+                                sizeTo = 0;
+                                colorFrom = Color.valueOf("ffe266");
+                                colorTo = Color.valueOf("eec44f");
+                            }},
+                            new ParticleEffect() {{
+                                region = "circle";
+                                sizeFrom = 2;
+                                sizeTo = 0;
+                            }}
+                    );
+                    hitEffect = new MultiEffect(
+                            new ParticleEffect() {{
+                                region = "circle";
+                                sizeFrom = 2;
+                                sizeTo = 0;
+                                particles = 6;
+                            }},
+                            new WaveEffect() {{
+                                sizeFrom = 0;
+                                sizeTo = 2;
+                                colorFrom = Color.valueOf("ffe266");
+                                colorTo = Color.valueOf("eec44f");
+                            }}
+                    );
+                    splashDamageRadius = 40;
+                    instantDisappear = true;
+                    killShooter = true;
+                    hittable = false;
+                    splashDamage = 25;
+                    damage = 10;
+                    buildingDamageMultiplier = 0.5f;
+                    collidesAir = true;
+                    lifetime = 10;
+                    speed = 1;
+                }};
+            }});
+        }};
+        MediumBoi = new UnitType("medium-boi"){{
+            constructor = UnitEntity::create;
+            aiController = SuicideAI::new;
+
+            flying = faceTarget = true;
+            outlines = false;
+
+            health = 280;
+            hitSize = 12f;
+            speed = 1.8f;
+            rotateSpeed = 3;
+            itemCapacity = 90;
+
+            engineOffset = 6.25f;
+
+            lightRadius = 50;
+
+            weapons.add(new Weapon() {{
+                top = mirror = false;
+
+                reload = 24;
+                shootCone = 180;
+                x = 0;
+                y = 0;
+
+                shootSound = Sounds.explosion;
+
+                bullet = new BombBulletType(){{
+                        shootEffect = despawnEffect = new MultiEffect(
+                                new WaveEffect() {{
+                                    sizeFrom = 120;
+                                    sizeTo = 0;
+                                    colorFrom = Color.valueOf("ffe266");
+                                    colorTo = Color.valueOf("eec44f");
+                                }},
+                                new ParticleEffect() {{
+                                    region = "circle";
+                                    sizeFrom = 2;
+                                    sizeTo = 0;
+                                }}
+                        );
+                        hitEffect = new MultiEffect(
+                                new ParticleEffect() {{
+                                    region = "circle";
+                                    sizeFrom = 2;
+                                    sizeTo = 0;
+                                    particles = 6;
+                                }},
+                                new WaveEffect() {{
+                                    sizeFrom = 0;
+                                    sizeTo = 2;
+                                    colorFrom = Color.valueOf("ffe266");
+                                    colorTo = Color.valueOf("eec44f");
+                                }}
+                        );
+                        splashDamageRadius = 60;
+                        instantDisappear = true;
+                        killShooter = true;
+                        hittable = false;
+                        splashDamage = 30;
+                        damage = 15;
+                        buildingDamageMultiplier = 0.5f;
+                        collidesAir = true;
+                        lifetime = 10;
+                        speed = 1;
+                }};
+            }});
+        }};
+        LargeBoi = new UnitType("large-boi"){{
+            constructor = UnitEntity::create;
+            aiController = SuicideAI::new;
+
+            flying = faceTarget = true;
+            outlines = false;
+
+            health = 470;
+            hitSize = 20;
+            speed = 1.6f;
+            rotateSpeed = 3;
+            itemCapacity = 170;
+
+            engineOffset = 11.25f;
+            engineSize = 2.75f;
+            lightRadius = 50;
+            weapons.add(new Weapon() {{
+                top = mirror = false;
+
+                reload = 24;
+                shootCone = 180;
+                x = 0;
+                y = 0;
+
+                shootSound = Sounds.explosion;
+
+                bullet = new BombBulletType(){{
+                    shootEffect = despawnEffect = new MultiEffect(
+                            new WaveEffect() {{
+                                sizeFrom = 120;
+                                sizeTo = 0;
+                                colorFrom = Color.valueOf("ffe266");
+                                colorTo = Color.valueOf("eec44f");
+                            }},
+                            new ParticleEffect() {{
+                                region = "circle";
+                                sizeFrom = 2;
+                                sizeTo = 0;
+                            }}
+                    );
+                    hitEffect = new MultiEffect(
+                            new ParticleEffect() {{
+                                region = "circle";
+                                sizeFrom = 2;
+                                sizeTo = 0;
+                                particles = 6;
+                            }},
+                            new WaveEffect() {{
+                                sizeFrom = 0;
+                                sizeTo = 2;
+                                colorFrom = Color.valueOf("ffe266");
+                                colorTo = Color.valueOf("eec44f");
+                            }}
+                    );
+                    splashDamageRadius = 120;
+                    instantDisappear = true;
+                    killShooter = true;
+                    hittable = false;
+                    splashDamage = 40;
+                    damage = 45;
+                    buildingDamageMultiplier = 0.5f;
+                    collidesAir = true;
+                    lifetime = 10;
+                    speed = 1;
+                    fragBullets = 4;
+                    fragAngle = 90;
+                    fragSpread = 270;
+                    fragBullet = new BasicBulletType(4, 15, "shoot-spike"){{
+                        shoot.shotDelay = 15;
+                        pierceArmor = pierceBuilding = pierce = true;
+
+                        pierceCap = 3;
+                        homingDelay = 15;
+                        homingPower = 0.75f;
+                        homingRange = 80;
+
+                        frontColor = Color.valueOf("#ffea00");
+                        backColor = hitColor = trailColor = Color.valueOf("#ffd500");
+                        trailLength = 3;
+                        trailInterval = 5;
+                    }};
+                }};
+            }});
+        }};
+        PayloadBoi = new UnitType("payload-boi"){{
+            constructor = PayloadUnit::create;
+
+            flying = true;
+            outlines = isEnemy = false;
+
+            health = 5300;
+            hitSize = 40f;
+            speed = 3.35f;
+            rotateSpeed = 3.3f;
+            drag = 0.1f;
+            accel = 0.2f;
+            itemCapacity = 340;
+            payloadCapacity = 800;
+
+            engineSize = 4.5f;
+            engineOffset = 16;
+
+            abilities.add(new UnitSpawnAbility(SmolBoi, 900, 0, 2));
+        }};
         creo = new UnitType("creo"){{
             constructor = UnitEntity::create;
             defaultCommand = EICommands.healUnitsCommand;
@@ -909,7 +1146,6 @@ public class EIUnits {
                 targetUnits = targetBuildings = true;
                 outlines = top = mirror = rotate = false;
 
-                maxRange = range = 60;
                 shootCone = 5;
                 beamWidth = 0.7f;
                 repairSpeed = 0.4f;
@@ -917,6 +1153,10 @@ public class EIUnits {
 
                 x = 0;
                 y = 1.5f;
+
+                bullet = new BulletType(){{
+                    maxRange = range = 60;
+                }};
             }});
         }public void init(){
             super.init();
@@ -930,6 +1170,7 @@ public class EIUnits {
         public void update(Unit unit){
             super.update(unit);
             if(unit.isPlayer() && (Vars.net.server() || !Vars.net.active())){
+                unit.getPlayer().sendMessage("[accent]Creos cannot be controlled manually or with logic!");
                 unit.getPlayer().clearUnit();
             }}
         };
