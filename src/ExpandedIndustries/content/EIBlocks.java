@@ -2043,6 +2043,7 @@ public class EIBlocks {
 
             plans = Seq.with(
                     new UnitPlan(pygmy, 60f * 15, with(Items.silicon, 25, Items.graphite, 10)),
+                    new UnitPlan(SmolBoi, 60 * 20, with(Items.silicon, 10, Items.titanium, 30)),
                     new UnitPlan(creo, 60f * 25, with(Items.silicon, 25, Items.titanium, 20))
             );
         }};
@@ -2058,6 +2059,7 @@ public class EIBlocks {
                     new UnitType[]{agrid, xerad},
                     new UnitType[]{requer, convoy},
                     new UnitType[]{pygmy, schaus},
+                    new UnitType[]{SmolBoi, MediumBoi},
                     new UnitType[]{UnitTypes.mono, centurion}
             );
         }};
@@ -2072,6 +2074,7 @@ public class EIBlocks {
             upgrades.addAll(
                     new UnitType[]{xerad, escapade},
                     new UnitType[]{schaus, ageronia},
+                    new UnitType[]{MediumBoi, LargeBoi},
                     new UnitType[]{centurion, alturion}
             );
         }};
@@ -2085,7 +2088,8 @@ public class EIBlocks {
             requirements(Category.units, with(Items.lead, 2000, Items.silicon, 1000, Items.titanium, 2000, Items.thorium, 750, Items.plastanium, 450, EIItems.enhancedPeridotium, 600, EIItems.starium, 400));
 
             upgrades.addAll(
-                    new UnitType[]{escapade, natorin}
+                    new UnitType[]{escapade, natorin},
+                    new UnitType[]{LargeBoi, PayloadBoi}
             );
         }};
         terraReconstructor = new Reconstructor("terra-reconstructor"){{

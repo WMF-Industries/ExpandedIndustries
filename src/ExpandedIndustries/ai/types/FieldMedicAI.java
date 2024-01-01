@@ -1,5 +1,6 @@
 package ExpandedIndustries.ai.types;
 
+import arc.math.Angles;
 import arc.math.geom.Vec2;
 import arc.util.*;
 import mindustry.entities.*;
@@ -28,7 +29,7 @@ public class FieldMedicAI extends AIController{
             if(!unit.within(target, unit.range())){
                 unit.controlWeapons(false);
             }else{
-                unit.controlWeapons(true);
+                unit.controlWeapons(Angles.within(unit.rotation, Angles.angle(target.x(), target.y()), 2.5f));
                 unit.aim(target);
             }
             unit.lookAt(target);

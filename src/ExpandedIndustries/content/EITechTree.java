@@ -285,6 +285,13 @@ public class EITechTree {
                     node(ageronia);
                 });
             });
+            node(SmolBoi, () -> {
+                node(MediumBoi, () -> {
+                    node(LargeBoi, () -> {
+                        node(PayloadBoi);
+                    });
+                });
+            });
         });
 
         mergeNode(Items.titanium, () -> {
