@@ -1,45 +1,27 @@
 package ExpandedIndustries.content;
 
-import ExpandedIndustries.ai.EICommands;
-import ExpandedIndustries.ai.types.CircleTargetFlyingAI;
-import ExpandedIndustries.entities.bullet.LifestealBulletType;
-import ExpandedIndustries.entities.bullet.abilities.OverloadAbility;
-import arc.graphics.Color;
-import arc.graphics.Colors;
-import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.Lines;
-import arc.struct.Seq;
-import mindustry.Vars;
-import mindustry.ai.UnitCommand;
-import mindustry.ai.types.BuilderAI;
-import mindustry.ai.types.FlyingFollowAI;
-import mindustry.ai.types.SuicideAI;
-import mindustry.content.Fx;
-import mindustry.content.StatusEffects;
-import mindustry.content.UnitTypes;
-import mindustry.entities.Effect;
+import ExpandedIndustries.ai.*;
+import ExpandedIndustries.ai.types.*;
+import ExpandedIndustries.entities.bullet.*;
+import ExpandedIndustries.entities.bullet.abilities.*;
+import arc.graphics.*;
+import arc.struct.*;
+import mindustry.*;
+import mindustry.ai.*;
+import mindustry.ai.types.*;
+import mindustry.content.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.ParticleEffect;
-import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.effect.*;
 import mindustry.gen.*;
-import mindustry.graphics.Drawf;
-import mindustry.graphics.Layer;
-import mindustry.graphics.Pal;
-import mindustry.type.UnitType;
-import mindustry.type.Weapon;
-import mindustry.type.ammo.PowerAmmoType;
-import mindustry.type.weapons.RepairBeamWeapon;
-import mindustry.world.meta.BlockFlag;
+import mindustry.graphics.*;
+import mindustry.type.*;
+import mindustry.type.ammo.*;
+import mindustry.type.weapons.*;
+import mindustry.world.meta.*;
 
-import static arc.graphics.g2d.Draw.color;
-import static arc.graphics.g2d.Lines.stroke;
-import static arc.math.Angles.randLenVectors;
-import static mindustry.Vars.tilePayload;
-import static mindustry.Vars.tilesize;
-import static mindustry.content.Fx.none;
-import static mindustry.gen.Sounds.laserblast;
+import static mindustry.Vars.*;
+import static mindustry.gen.Sounds.*;
 
 public class EIUnits {
     public static UnitType
@@ -335,23 +317,7 @@ public class EIUnits {
                         shrinkX = shrinkY = 0;
 
                         chargeEffect = new MultiEffect(
-                            new Effect(80f,55f,e -> {
-                                color(Pal.heal);
-                                stroke(e.fin() * 2f);
-                                Lines.circle(e.x, e.y, 2f + e.fout() * 100f);
-
-                                Fill.circle(e.x, e.y, e.fin() * 20);
-
-                                randLenVectors(e.id, 20, 40f * e.fout(), (x, y) -> {
-                                    Fill.circle(e.x + x, e.y + y, e.fin() * 5f);
-                                    Drawf.light(e.x + x, e.y + y, e.fin() * 15f, Pal.heal, 0.7f);
-                                });
-
-                                color();
-
-                                Fill.circle(e.x, e.y, e.fin() * 10);
-                                Drawf.light(e.x, e.y, e.fin() * 20f, Pal.heal, 0.7f);
-                            }).followParent(true).rotWithParent(true),
+                            Fx.greenLaserCharge,
                             new ParticleEffect(){{
                                 randLength = true;
 
@@ -360,7 +326,7 @@ public class EIUnits {
                                 baseLength = 2;
                                 length = 5;
                                 lifetime = 80;
-                                color(Pal.heal);
+                                colorFrom = colorTo = Pal.heal;
                             }},
                             new ParticleEffect(){{
                                 randLength = true;
@@ -371,7 +337,7 @@ public class EIUnits {
                                 baseLength = 2;
                                 length = 5;
                                 lifetime = 50;
-                                color(Pal.heal);
+                                colorFrom = colorTo = Pal.heal;
                             }}
                         );
                         trailLength = 25;
@@ -421,7 +387,7 @@ public class EIUnits {
                             lifetime = 180;
                             width = height = 0;
 
-                            despawnEffect = hitEffect = none;
+                            despawnEffect = hitEffect = Fx.none;
                             despawnSound = Sounds.shockBlast;
 
                             lightning = 1;
@@ -1283,18 +1249,18 @@ public class EIUnits {
             ammoType = new PowerAmmoType(12500);
 
             abilities.add(
-                    new ForceFieldAbility(15*tilesize, 6, 3000, 180, 16, 45),
-                    new EnergyFieldAbility(15f, 12f, 12.5f*tilesize){{
-                        maxTargets = 65;
-                        healPercent = 0.05f;
-                        statusDuration = 20f;
-                        status = StatusEffects.electrified;
+                new ForceFieldAbility(15*tilesize, 6, 3000, 180, 16, 45),
+                new EnergyFieldAbility(15f, 12f, 12.5f*tilesize){{
+                    maxTargets = 65;
+                    healPercent = 0.05f;
+                    statusDuration = 20f;
+                    status = StatusEffects.electrified;
 
-                        color = Color.valueOf("6cf5d7");
-                    }},
-                    new OverloadAbility(300, 15*tilesize){{
-                        statusDuration = 360;
-                    }}
+                    color = Color.valueOf("6cf5d7");
+                }},
+                new OverloadAbility(300, 15*tilesize){{
+                    statusDuration = 360;
+                }}
             );
         }};
     }}
