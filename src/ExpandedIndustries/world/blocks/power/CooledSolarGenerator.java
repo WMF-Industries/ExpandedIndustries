@@ -15,7 +15,7 @@ import mindustry.world.meta.*;
 
 import static mindustry.Vars.*;
 
-public class OverheatSolarGenerator extends PowerGenerator {
+public class CooledSolarGenerator extends SolarGenerator{
     public Color coolColor = new Color(1, 1, 1, 0f);
     public Color hotColor = Color.valueOf("ff9575a3");
     public float heating = 0.01f;
@@ -23,7 +23,7 @@ public class OverheatSolarGenerator extends PowerGenerator {
     public float coolantPower = 0.5f;
     public TextureRegion topRegion;
 
-    public OverheatSolarGenerator(String name){
+    public CooledSolarGenerator(String name){
         super(name);
         rebuildable = false;
         hasLiquids = true;
@@ -37,16 +37,9 @@ public class OverheatSolarGenerator extends PowerGenerator {
     }
 
     @Override
-    public void setStats(){
-        super.setStats();
-        stats.remove(generationType);
-        stats.add(generationType, powerProduction * 60.0f, StatUnit.powerSecond);
-    }
-
-    @Override
     public void setBars(){
         super.setBars();
-        addBar("heat", (OverheatSolarGeneratorBuild entity) -> new Bar("bar.heat", Pal.lightOrange, () -> entity.heat));
+        addBar("heat", (CooledSolarGeneratorBuild entity) -> new Bar("bar.heat", Pal.lightOrange, () -> entity.heat));
     }
 
     @Override
@@ -55,38 +48,34 @@ public class OverheatSolarGenerator extends PowerGenerator {
         topRegion = Core.atlas.find(name + "-top");
     }
 
-    public class OverheatSolarGeneratorBuild extends GeneratorBuild {
+    public class CooledSolarGeneratorBuild extends SolarGeneratorBuild{
         public float heat;
+
         @Override
         public void updateTile(){
-            productionEfficiency = enabled ?
-                    state.rules.solarMultiplier * Mathf.maxZero(Attribute.light.env() +
-                            (state.rules.lighting ?
-                                    1f - state.rules.ambientLight.a :
-                                    1f
-                            )) : 0f;
+            super.updateTile();
 
             heat += productionEfficiency * heating * Math.min(delta(), 4f);
-
             if(heat > 0){
                 float maxUsed = Math.min(liquids.currentAmount(), heat / coolantPower);
                 heat -= maxUsed * coolantPower;
-                liquids.remove(liquids.current(), maxUsed);
-            }
 
-            if(heat > smokeThreshold){
-                float smoke = 1.0f + (heat - smokeThreshold) / (1f - smokeThreshold); //ranges from 1.0 to 2.0
-                if(Mathf.chance(smoke / 20.0 * delta())){
-                    Fx.reactorsmoke.at(x + Mathf.range(size * tilesize / 2f),
-                            y + Mathf.range(size * tilesize / 2f));
+                if(Mathf.chance((liquids.currentAmount() / liquidCapacity) / 10f * delta()))
+                    Fx.steam.at(x + fxOffset(4f), y + fxOffset(4f), Mathf.random(359));
+
+                liquids.remove(liquids.current(), maxUsed);
+
+                if(heat > smokeThreshold){
+                    float smoke = 1.0f + (heat - smokeThreshold) / (1f - smokeThreshold);
+                    if(Mathf.chance(smoke / 20f * delta()))
+                        Fx.reactorsmoke.at(x + fxOffset(2f), y + fxOffset(2f));
                 }
+
+                if(heat >= 0.999f)
+                    kill();
             }
 
             heat = Mathf.clamp(heat);
-
-            if(heat >= 0.999f){
-                kill();
-            }
         }
 
         @Override
@@ -119,6 +108,10 @@ public class OverheatSolarGenerator extends PowerGenerator {
         public void read(Reads read, byte revision){
             super.read(read, revision);
             heat = read.f();
+        }
+
+        float fxOffset(float data){
+            return Mathf.range(size * tilesize / data);
         }
     }
 }

@@ -10,35 +10,67 @@ import mindustry.type.StatusEffect;
 import static mindustry.Vars.state;
 import static mindustry.content.StatusEffects.*;
 
-public class EIStatusEffects {
-    public static StatusEffect lockdown, overload, sticky;
+public class EIStatusEffects{
+    public static StatusEffect lockdown, overload, sticky, oily;
 
     public static void load() {
-        lockdown = new StatusEffect("lockdown") {{
+        lockdown = new StatusEffect("lockdown"){{
             speedMultiplier = 0.6f;
             reloadMultiplier = 0.7f;
             buildSpeedMultiplier = 0.5f;
             effectChance = 0.05f;
+
             color = Color.clear;
             effect = Fx.none;
         }};
-        overload = new StatusEffect("overload") {{
-            speedMultiplier = 0.2f;
+        overload = new StatusEffect("overload"){{
             disarm = true;
+
+            speedMultiplier = 0.35f;
         }};
-        sticky = new StatusEffect("sticky") {{
+        sticky = new StatusEffect("sticky"){{
             speedMultiplier = 0.4f;
             reloadMultiplier = 0.6f;
             damageMultiplier = 0.7f;
+
             color = Color.valueOf("FFAF5FE8");
             effect = EIFx.reu;
 
             init(() -> {
                 opposite(freezing);
+                affinity(wet, (unit, result, time) -> { // spores grow in water
+                    result.set(sticky, Math.min(time + result.time, 900f));
+                });
                 affinity(burning, (unit, result, time) -> {
-                    unit.damagePierce(transitionDamage);
+                    unit.damagePierce(unit.maxHealth() / 7.5f);
                     Fx.burning.at(unit.x + Mathf.range(unit.bounds() / 2f), unit.y + Mathf.range(unit.bounds() / 2f));
                     result.set(burning, Math.min(time + result.time, 450f));
+                });
+                affinity(melting, (unit, result, time) -> {
+                    unit.damagePierce(unit.maxHealth() / 7.5f);
+                    Fx.burning.at(unit.x + Mathf.range(unit.bounds() / 2f), unit.y + Mathf.range(unit.bounds() / 2f));
+                    result.set(burning, Math.min(time + result.time, 450f));
+                });
+            });
+        }};
+        oily = new StatusEffect("oily"){{
+           speedMultiplier = 1.4f;
+           healthMultiplier = 0.8f;
+
+           color = Color.valueOf("BDB88B");
+           effect = Fx.oily;
+
+            init(() -> {
+                opposite(wet);
+                affinity(burning, (unit, result, time) -> {
+                    unit.damagePierce(unit.maxHealth() / 10);
+                    Fx.burning.at(unit.x + Mathf.range(unit.bounds() / 2f), unit.y + Mathf.range(unit.bounds() / 2f));
+                    result.set(burning, Math.min(time + result.time, 600f));
+                });
+                affinity(melting, (unit, result, time) -> {
+                    unit.damagePierce(unit.maxHealth() / 10);
+                    Fx.burning.at(unit.x + Mathf.range(unit.bounds() / 2f), unit.y + Mathf.range(unit.bounds() / 2f));
+                    result.set(burning, Math.min(time + result.time, 600f));
                 });
             });
         }};

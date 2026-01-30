@@ -1,15 +1,15 @@
 package ExpandedIndustries.ai.types;
 
-import mindustry.ai.types.FlyingAI;
+import mindustry.ai.types.*;
 
-public class CircleTargetFlyingAI extends FlyingAI {
+public class CircleTargetAI extends FlyingAI{
     @Override
     public void updateMovement(){
         unloadPayloads();
 
         if(target != null && unit.hasWeapons()){
-                unit.lookAt(target);
-                circleAttack(120f);
+            unit.lookAt(target);
+            circleAttack(120f);
         }
     }
 }

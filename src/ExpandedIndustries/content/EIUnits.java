@@ -27,15 +27,14 @@ public class EIUnits {
     public static UnitType
     agrid, xerad, escapade, natorin, terrand,
     requer, convoy,
-    centurion, alturion,
-    SmolBoi, MediumBoi, LargeBoi, PayloadBoi,
-    pygmy, schaus, ageronia,
+    centurion, alturion, //
+    SmolBoi, MediumBoi, LargeBoi, PayloadBoi, //
+    pygmy, schaus, ageronia, // hit-and-run tree
     creo,
     piece, guardian,
     //Overkill Content;
     starnight;
     public static void load() {
-
         agrid = new UnitType("agrid") {{
             constructor = LegsUnit::create;
             groundLayer = Layer.legUnit;
@@ -58,28 +57,28 @@ public class EIUnits {
             ammoType = new PowerAmmoType(750);
 
             weapons.add(
-                    new Weapon("ei-agrid-weapon") {{
-                        top = false;
+                new Weapon("ei-agrid-weapon"){{
+                    top = false;
 
-                        shake = 2f;
-                        shootY = 4f;
-                        x = 6.5f;
-                        reload = 60f;
-                        recoil = 1.2f;
+                    shake = 2f;
+                    shootY = 4f;
+                    x = 6.5f;
+                    reload = 60f;
+                    recoil = 1.2f;
 
-                        shootSound = Sounds.laser;
+                    shootSound = Sounds.shootLaser;
 
-                        bullet = new LaserBulletType() {{
-                            pierce = true;
+                    bullet = new LaserBulletType(){{
+                        pierce = true;
 
-                            damage = 35;
-                            pierceCap = 3;
-                            healPercent = 20f;
-                            length = 100f;
+                        damage = 35;
+                        pierceCap = 3;
+                        healPercent = 20f;
+                        length = 100f;
 
-                            colors = new Color[]{Pal.heal.cpy().a(0.4f), Pal.heal, Color.white};
-                        }};
-                    }}
+                        colors = new Color[]{Pal.heal.cpy().a(0.4f), Pal.heal, Color.white};
+                    }};
+                }}
             );
         }};
         xerad = new UnitType("xerad") {{
@@ -114,7 +113,7 @@ public class EIUnits {
                         x = 11;
                         shootY = 4f;
 
-                        shootSound = Sounds.laser;
+                        shootSound = shootLaser;
 
                         bullet = new LaserBulletType() {{
                             pierce = true;
@@ -137,7 +136,7 @@ public class EIUnits {
                         reload = 150;
                         shake = 2.7f;
 
-                        shootSound = Sounds.artillery;
+                        shootSound = shootArtillery;
 
                         bullet = new ArtilleryBulletType(4, 15) {{
                             collidesTeam = false;
@@ -181,7 +180,7 @@ public class EIUnits {
                         y = 2;
                         reload = 40;
 
-                        shootSound = Sounds.laser;
+                        shootSound = shootLaser;
 
                         bullet = new LaserBulletType() {{
                             pierce = true;
@@ -204,7 +203,7 @@ public class EIUnits {
                         rotateSpeed = 1.6f;
                         shake = 4;
 
-                        shootSound = Sounds.artillery;
+                        shootSound = shootArtillery;
 
                         bullet = new ArtilleryBulletType(4.5f, 60) {{
                             collidesTeam = collidesAir = targetAir = false;
@@ -250,7 +249,7 @@ public class EIUnits {
                 y = 4;
                 shootY = 18;
 
-                shootSound = Sounds.beam;
+                shootSound = beamPlasma;
 
                     bullet = new ContinuousLaserBulletType() {{
                         pierceArmor = collidesTeam = true;
@@ -302,10 +301,10 @@ public class EIUnits {
                     y = 2.5f;
                     recoil = 0;
 
-                    chargeSound = Sounds.lasercharge;
+                    chargeSound = chargeLancer;
                     shootStatus = StatusEffects.unmoving;
                     shootStatusDuration = shoot.firstShotDelay;
-                    shootSound = laserblast;
+                    shootSound = explosionPlasmaSmall;
 
                     bullet = new ArtilleryBulletType(5, 45, "circle-bullet"){{
                         collides = absorbable = hittable = false;
@@ -388,7 +387,7 @@ public class EIUnits {
                             width = height = 0;
 
                             despawnEffect = hitEffect = Fx.none;
-                            despawnSound = Sounds.shockBlast;
+                            despawnSound = Sounds.shockBullet;
 
                             lightning = 1;
                             lightningLength = 2;
@@ -444,7 +443,7 @@ public class EIUnits {
                     shoot.shotDelay =  1;
                     recoil = 1;
 
-                    shootSound = Sounds.artillery;
+                    shootSound = shootArtillery;
 
                     bullet = new ArtilleryBulletType(3, 80){{
                         lifetime = 100;
@@ -456,7 +455,7 @@ public class EIUnits {
                             length = 80;
                             width = 50;
 
-                            hitSound = despawnSound = Sounds.shotgun;
+                            hitSound = despawnSound = Sounds.shootFuse;
                             hitEffect = Fx.hitLancer;
                         }};
                     }};
@@ -472,7 +471,7 @@ public class EIUnits {
                     shootY = 5;
                     shake = 4;
 
-                    shootSound = Sounds.beam;
+                    shootSound = beamPlasma;
 
                     bullet = new ContinuousLaserBulletType(){{
                         collidesTeam = true;
@@ -502,40 +501,40 @@ public class EIUnits {
             rotateSpeed = 1.72f;
 
             abilities.add(
-                    new OverloadAbility(600, 7.5f*tilesize)
+                new StatusAbility(600, 7.5f * tilesize)
             );
 
             weapons.add(
-                    new Weapon("ei-requer-laser"){{
-                        mirror = alternate = true;
-                        rotate = top = false;
+                new Weapon("ei-requer-laser"){{
+                    mirror = alternate = true;
+                    rotate = top = false;
 
-                        x = 8;
-                        reload = 60;
-                        shake = 0.4f;
+                    x = 8;
+                    reload = 60;
+                    shake = 0.4f;
 
-                        shootSound = Sounds.laser;
+                    shootSound = shootLaser;
 
-                        bullet = new LaserBulletType(){{
-                            collidesTeam = false;
+                    bullet = new LaserBulletType(){{
+                        collidesTeam = false;
 
-                            damage = 9;
-                            lifetime = 30;
-                            length = 18 * tilesize;
-                        }};
-                    }},
-                    new Weapon("ei-requer-weapon"){{
-                        autoTarget = rotate = top = mirror = alternate = true;
-                        controllable = false;
+                        damage = 9;
+                        lifetime = 30;
+                        length = 18 * tilesize;
+                    }};
+                }},
+                new Weapon("ei-requer-weapon"){{
+                    autoTarget = rotate = top = mirror = alternate = true;
+                    controllable = false;
 
-                        x = 3.25f;
-                        y = 1.5f;
-                        reload = 15;
+                    x = 3.25f;
+                    y = 1.5f;
+                    reload = 15;
 
-                        bullet = new LifestealBulletType(4, 4, 0.75f){{
-                            lifetime = 30;
-                        }};
-                    }}
+                    bullet = new LifestealBulletType(4, 4, 0.75f){{
+                        lifetime = 30;
+                    }};
+                }}
             );
         }};
         convoy = new UnitType("convoy"){{
@@ -550,28 +549,29 @@ public class EIUnits {
             rotateSpeed = 1.72f;
 
             abilities.add(
-                    new OverloadAbility(600, 7.5f*tilesize)
+                new StatusAbility(600, 7.5f*tilesize)
             );
 
             weapons.add(
-                    new Weapon("ei-convoy-weapon"){{
-                        mirror = alternate = true;
-                        rotate = top = false;
+                new Weapon("ei-convoy-weapon"){{
+                    mirror = alternate = true;
+                    rotate = top = false;
 
-                        x = 9;
-                        reload = 45;
-                        shake = 0.4f;
-                        shoot.shotDelay = 3.5f;
-                        shoot.shots = 3;
+                    x = 9;
+                    reload = 45;
+                    shake = 0.4f;
+                    shoot.shotDelay = 3.5f;
+                    shoot.shots = 3;
 
-                        shootSound = Sounds.shootBig;
+                    shootSound = shootSalvo;
 
-                        bullet = new LifestealBulletType(4, 24, 0.5f) {{
-                            lifetime = 50;
-                            width = 7;
-                            height = 10;
-                        }};
-                    }}
+                    bullet = //new LifestealBulletType(4, 24, 0.5f){{
+                    new PulseBulletType(4f, 19f){{
+                        lifetime = 50;
+                        width = 7;
+                        height = 10;
+                    }};
+                }}
             );
         }};
         centurion = new UnitType("centurion") {{
@@ -626,7 +626,7 @@ public class EIUnits {
         }};
         pygmy = new UnitType("pygmy") {{
             constructor = UnitEntity::create;
-            aiController = CircleTargetFlyingAI::new;
+            aiController = CircleTargetAI::new;
 
             flying = lowAltitude = circleTarget = true;
 
@@ -648,7 +648,7 @@ public class EIUnits {
                 x = y = recoil = 0;
                 reload = 45f;
 
-                shootSound = Sounds.blaster;
+                shootSound = shootAlpha;
 
                 bullet = new LifestealBulletType(3, 9, 1.5f) {{
                     homingPower = 0.24f;
@@ -687,7 +687,7 @@ public class EIUnits {
         }};
         schaus = new UnitType("schaus"){{
             constructor = UnitEntity::create;
-            aiController = CircleTargetFlyingAI::new;
+            aiController = CircleTargetAI::new;
 
             flying = lowAltitude = circleTarget = true;
 
@@ -712,7 +712,7 @@ public class EIUnits {
                 recoil = 0;
                 x = y = 0;
 
-                shootSound = Sounds.shockBlast;
+                shootSound = Sounds.shockBullet;
 
                 bullet = new LifestealBulletType(4, 65, 5.5f) {{
                     splashDamage = 15;
@@ -779,7 +779,7 @@ public class EIUnits {
                 reload = 50;
                 shootCone = 200;
 
-                shootSound = Sounds.shockBlast;
+                shootSound = shockBullet; 
 
                 bullet = new LifestealBulletType(5f, 45, 2.75f, "circle-bullet"){{
                     pierce = pierceBuilding = true;
@@ -1127,11 +1127,8 @@ public class EIUnits {
         }public void init(){
             super.init();
 
-            Seq<UnitCommand> cmds = Seq.with(commands);
-                cmds.add(EICommands.healUnitsCommand);
-                cmds.remove(UnitCommand.repairCommand);
-
-            commands = cmds.toArray();
+            commands.add(EICommands.healUnitsCommand);
+            commands.remove(UnitCommand.repairCommand);
         }
         public void update(Unit unit){
             super.update(unit);
@@ -1258,7 +1255,7 @@ public class EIUnits {
 
                     color = Color.valueOf("6cf5d7");
                 }},
-                new OverloadAbility(300, 15*tilesize){{
+                new StatusAbility(300, 15*tilesize){{
                     statusDuration = 360;
                 }}
             );

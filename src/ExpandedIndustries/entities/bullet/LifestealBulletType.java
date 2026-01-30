@@ -1,101 +1,63 @@
 package ExpandedIndustries.entities.bullet;
 
-import arc.Core;
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.TextureRegion;
-import arc.math.Interp;
-import arc.math.Mathf;
-import arc.math.geom.Vec2;
-import arc.util.Nullable;
-import arc.util.Tmp;
-import mindustry.entities.Damage;
-import mindustry.entities.bullet.BulletType;
-import mindustry.gen.Building;
-import mindustry.gen.Bullet;
-import mindustry.gen.Healthc;
-import mindustry.gen.Hitboxc;
-import mindustry.graphics.Pal;
+import arc.*;
+import arc.util.*;
+import mindustry.entities.*;
+import mindustry.entities.bullet.*;
+import mindustry.game.*;
+import mindustry.gen.*;
 
-public class LifestealBulletType extends BulletType {
-    public Color backColor = Pal.bulletYellowBack, frontColor = Pal.bulletYellow;
-    public Color mixColorFrom = new Color(1f, 1f, 1f, 0f), mixColorTo = new Color(1f, 1f, 1f, 0f);
-    public float width = 5f, height = 7f;
-    public float lifetime = 100f;
+public class LifestealBulletType extends BasicBulletType{
+    static final EventType.UnitDamageEvent bulletDamageEvent = new EventType.UnitDamageEvent();
+
+    /** Multiplier of damage done that's converted to health */
     public float intensity = 0.75f;
-    public float shrinkX = 0f, shrinkY = 0.5f;
-    public Interp shrinkInterp = Interp.linear;
-    public float spin = 0, rotationOffset = 0f;
-    public String sprite;
-    public @Nullable String backSprite;
 
-    public TextureRegion backRegion;
-    public TextureRegion frontRegion;
-
-    public LifestealBulletType(float speed, float damage, float intensity, String bulletSprite) {
+    public LifestealBulletType(float speed, float damage, float intensity, String bulletSprite){
         this.speed = speed;
         this.damage = damage;
         this.intensity = intensity;
         this.sprite = bulletSprite;
     }
 
-    public LifestealBulletType(float speed, float damage, float intensity) {
+    public LifestealBulletType(float speed, float damage, float intensity){
         this(speed, damage, intensity, "bullet");
     }
 
     @Override
-    public void load() {
-        backRegion = Core.atlas.find(backSprite == null ? (sprite + "-back") : backSprite);
-        frontRegion = Core.atlas.find(sprite);
-    }
+    public void hitEntity(Bullet b, Hitboxc entity, float health){
+        boolean wasDead = entity instanceof Unit u && u.dead;
+        float armor = 0, targetHealth = 0, healing = 0;
 
-    @Override
-    public void draw(Bullet b) {
-        super.draw(b);
-        float shrink = shrinkInterp.apply(b.fout());
-        float height = this.height * ((1f - shrinkY) + shrinkY * shrink);
-        float width = this.width * ((1f - shrinkX) + shrinkX * shrink);
-        float offset = -90 + (spin != 0 ? Mathf.randomSeed(b.id, 360f) + b.time * spin : 0f) + rotationOffset;
+        if(entity instanceof Healthc h){
+            targetHealth = h.health();
+            if(entity instanceof Building build)
+                armor = build.block.armor;
 
-        Color mix = Tmp.c1.set(mixColorFrom).lerp(mixColorTo, b.fin());
-
-        Draw.mixcol(mix, mix.a);
-
-        if (backRegion.found()) {
-            Draw.color(backColor);
-            Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() + offset);
+            if(pierceArmor)
+                h.damagePierce(b.damage);
+            else h.damage(b.damage);
         }
 
-        Draw.color(frontColor);
-        Draw.rect(frontRegion, b.x, b.y, width, height, b.rotation() + offset);
+        if(entity instanceof Unit unit){
+            armor = unit.type.armor;
 
-        Draw.reset();
-    }
+            Tmp.v3.set(unit).sub(b).nor().scl(knockback * 80f);
+            if(impact) Tmp.v3.setAngle(b.rotation() + (knockback < 0 ? 180f : 0f));
+            unit.impulse(Tmp.v3);
+            unit.apply(status, statusDuration);
 
-    @Override
-    public void init(Bullet b) {
-        super.init(b);
-
-        Healthc target = Damage.linecast(b, b.x, b.y, speed, lifetime);
-        b.data = target;
-
-        if (target != null) {
-            float result = Math.max(Math.min(target.health(), damage), 0);
-
-            if (b.owner instanceof Healthc h) {
-                h.heal(result * intensity);
-            }
+            Events.fire(bulletDamageEvent.set(unit, b));
         }
-        if (target instanceof Hitboxc hit) {
-            hit.collision(b, hit.x(), hit.y());
-            b.collision(hit, hit.x(), hit.y());
-        } else if (target instanceof Building tile) {
-            if (tile.collide(b)) {
-                tile.collision(b);
-                hit(b, tile.x, tile.y);
-            }
-        } else {
-            b.data = new Vec2().trns(b.rotation(), lifetime).add(b.x, b.y);
+
+        if(!wasDead && entity instanceof Unit unit && unit.dead){
+            Events.fire(new EventType.UnitBulletDestroyEvent(unit, b));
         }
+
+        handlePierce(b, health, entity.x(), entity.y());
+
+        healing = Math.max(0.5f, (Math.min(targetHealth, Damage.applyArmor(b.damage(), armor)) * intensity));
+        if(b.owner() instanceof Healthc o && healing > 0)
+            o.heal(healing);
     }
 }

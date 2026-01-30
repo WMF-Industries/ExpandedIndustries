@@ -1,7 +1,6 @@
 package ExpandedIndustries.content;
 
-import ExpandedIndustries.world.blocks.power.OverheatSolarGenerator;
-import arc.Core;
+import arc.*;
 import arc.graphics.*;
 import arc.math.*;
 import arc.struct.*;
@@ -13,13 +12,11 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
-import mindustry.world.blocks.campaign.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.liquid.*;
-import mindustry.world.blocks.logic.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.*;
@@ -28,50 +25,79 @@ import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
+import ExpandedIndustries.world.blocks.power.*;
+import ExpandedIndustries.world.blocks.distribution.*;
+
+import static ExpandedIndustries.content.EIItems.*;
+import static ExpandedIndustries.content.EILiquids.*;
+import static ExpandedIndustries.content.EIStatusEffects.*;
 import static ExpandedIndustries.content.EIUnits.*;
-import static mindustry.Vars.*;
-import static mindustry.content.Fx.none;
-import static mindustry.type.ItemStack.with;
+import static mindustry.content.Items.*;
+import static mindustry.content.Liquids.*;
+import static mindustry.content.StatusEffects.*;
+import static mindustry.type.ItemStack.*;
 
-public class EIBlocks {
-
+public class EIBlocks{
     public static Block
-
     //environment
-    flower, orePeridotium, oreStarium, grassWater, liquidReurium,
-    //distribution
-    stariumConveyor, starlightJunction, massStariumConveyor, titaniumBridge, stariumBridge,
-    alloyBridge, titaniumBridgeConduit, stariumBridgeConduit, stariumConduit, tungstenConveyor,
-    //storage
+    flower, orePeridotium, oreStarium,
+    grassWater, liquidReurium,
+
+    //distribution - serpulo
+    stariumConveyor, stariumAlloyConveyor, stariumJunction, titaniumBridge, stariumBridge, stariumAlloyBridge,
+    stariumConduit, titaniumBridgeConduit, stariumBridgeConduit,
+
+    //distribution - erekir
+    tungstenConveyor,
+
+    //storage - serpulo
     crate,
-    //extraction
-    electricDrill, precisionDrill, hammerDrill, hugePlasmaBore, largeCliffCrusher,
-    //production
-    cryofluidPlant, cryofluidStirrer, oxygenLiquifier, coalLiquifier, oilCrystaliser,
-    freezer, oilPurifier, heavyOilRefinery, fuelAssembler, siliconFabricator,
-    lumiumSmelter, metaglassFabricator, peridotiumSynthesizer, stariumSynthesizer,
-    stariumRefiner, graphiteCompressor, peridotiumEnhancer, scrapper, plastaniumCondenser,
-    //power
-    steamTurbine, peridotiumGenerator, peridotiumReactor, lumiumReactor, reinforcedSolarPanel,
-    //logic
-    controllerProcessor, armProcessor, threadripperProcessor,
-    //other
-    coreFrag, coreExtensio, microPad, planetaryMender, planetaryOverdrive, hardenedUnloader, advancedUnloader,
-    //defense
-    stariumWall, largeStariumWall, graphiteWall, largeGraphiteWall, anado, deuse,
-    hexagon, cavern, underglow, piercer, enforcer, renoit, raven, region,
-    //factories & recons
-    groundFactory, airFactory, starruneReconstructor, eraniteReconstructor, ultraReconstructor,
-    terraReconstructor,
-    //overkill content
-    overkillAssembler;
+    layeredUnloader, microUnloader,
 
-    public static void load() {
-        grassWater = new Floor("grass-water") {{
+    //extraction - serpulo
+    electricDrill, precisionDrill, hammerDrill,
+
+    //extraction - erekir
+    hugePlasmaBore,
+
+    //production (vanilla res) - serpulo
+    graphiteCompressor, siliconFabricator, metaglassFabricator, plastaniumCondenser,
+    cryofluidStirrer, cryofluidPlant, oilCrystallizer, coalLiquifier, scrapper,
+
+    //production (custom res) - serpulo
+    peridotiumSynthesizer, stariumSynthesizer, stariumRefiner, peridotiumEnricher, lumiumSmelter,
+    oilPurifier, oilRefiner, thermiteMixer, freezer, oxygenLiquefier,
+
+    //power - serpulo
+    steamTurbine, peridotiumReactor, peridotiumGenerator, lumiumReactor,
+
+    //power - erekir
+    reinforcedSolarPanel,
+
+    //logic - serpulo
+    poweredMicroProcessor, poweredLogicProcessor, poweredHyperProcessor, //todo: rework and implement
+
+    //other - serpulo
+    coreFrag, coreQuadrant,
+    planetaryMender, planetaryOverdrive,
+
+    //defense - serpulo
+    graphiteWall, largeGraphiteWall, stariumWall, largeStariumWall,
+    anado, deuse, enforcer,
+    hexagon, renoit, piercer,
+    cavern, underglow, raven, region,
+
+    //factories & recons - serpulo
+    groundFactory, airFactory,
+    starruneReconstructor, eraniteReconstructor, ultraReconstructor, terraReconstructor;
+
+    public static void load(){
+        grassWater = new Floor("grass-water"){{
             shallow = supportsOverlay = isLiquid = placeableOn = true;
-            if(net.client()) editorIcon = Core.atlas.find(name + "1");
 
-            liquidDrop = Liquids.water;
+            liquidDrop = water;
+            status = wet;
+
             liquidMultiplier = 0.75f;
             speedMultiplier = 0.7f;
             statusDuration = 90f;
@@ -86,8 +112,9 @@ public class EIBlocks {
             isLiquid = true;
             supportsOverlay = false;
 
-            liquidDrop = EILiquids.reurium;
-            status = EIStatusEffects.sticky;
+            liquidDrop = reurium;
+            status = sticky;
+
             speedMultiplier = 0.05f;
             liquidMultiplier = 0.35f;
             statusDuration = 900f;
@@ -116,211 +143,135 @@ public class EIBlocks {
             oreScale = 25.1f;
         }};
 
-        stariumConveyor = new Conveyor("starium-conveyor") {{
-            health = 100;
-            speed = 0.15f;
-            displayedSpeed = 20f;
+        stariumConveyor = new Conveyor("starium-conveyor"){{
+            requirements(Category.distribution, with(lead, 2, titanium, 2, starium, 1));
 
-            requirements(Category.distribution, with(Items.copper, 2, Items.titanium, 1, EIItems.starium, 1));
+            speed = 9f / 60f;
+            displayedSpeed = 20;
+            health = 60;
         }};
-        starlightJunction = new Junction("starlight-junction") {{
-            health = 80;
-            speed = 30f;
-            capacity = 10;
+        stariumAlloyConveyor = new StackConveyor("starium-alloy-conveyor"){{
+            requirements(Category.distribution, with(silicon, 2, plastanium, 1, starium, 1));
 
-            requirements(Category.distribution, with(Items.copper, 3, Items.titanium, 3, EIItems.starium, 2));
-        }};
-        massStariumConveyor = new StackConveyor("starium-alloy-conveyor") {{
-            health = 120;
             speed = 5f / 60f;
-            itemCapacity = 20; //maybe an overkill
-
-            requirements(Category.distribution, with(Items.silicon, 2, Items.titanium, 2, EIItems.stariumAlloy, 1));
+            itemCapacity = 20;
+            health = 105;
         }};
-        titaniumBridge = new BufferedItemBridge("titanium-bridge") {{
+        stariumJunction = new Junction("starium-junction"){{
+            requirements(Category.distribution, with(copper, 4, titanium, 3, starium, 3));
+
+            speed = 17.5f;
+            itemCapacity = 10;
+        }};
+        titaniumBridge = new BufferedItemBridge("titanium-bridge"){{
+            requirements(Category.distribution, with(copper, 6, lead, 6, titanium, 4));
+
             fadeIn = moveArrows = true;
 
             range = 7;
             bufferCapacity = 22;
 
             arrowSpacing = 6f;
-
-            requirements(Category.distribution, with(Items.copper, 10, Items.lead, 6, Items.titanium, 4));
         }};
-        stariumBridge = new BufferedItemBridge("starium-bridge") {{
+        stariumBridge = new CustomItemBridge("starium-bridge"){{
+            requirements(Category.distribution, with(copper, 8, titanium, 6, starium, 2));
+
             fadeIn = moveArrows = true;
 
-            range = 10;
-            bufferCapacity = 30;
+            range = 9;
+            bufferCapacity = 40;
+            speed = 2.5f;
+            displayedSpeed = 20f;
 
             arrowSpacing = 6f;
-
-            requirements(Category.distribution, with(Items.copper, 12, Items.titanium, 6, EIItems.starium, 2));
         }};
-        alloyBridge = new ItemBridge("starium-alloy-bridge") {{
+        stariumAlloyBridge = new ItemBridge("starium-alloy-bridge"){{
+            requirements(Category.distribution, with(titanium, 8, silicon, 8, stariumAlloy, 4));
+            consumePower(0.25f);
+
             hasPower = pulse = true;
 
-            range = 20;
-            envEnabled |= Env.space;
+            range = 18;
 
             arrowPeriod = 0.9f;
             arrowTimeScl = 2.75f;
-
-            consumePower(0.25f);
-            requirements(Category.distribution, with(Items.copper, 12, Items.silicon, 8, EIItems.stariumAlloy, 6));
         }};
-        stariumConduit = new Conduit("starium-conduit") {{
-            health = 110;
+        stariumConduit = new Conduit("starium-conduit"){{
+            requirements(Category.distribution, with(metaglass, 3, starium, 1));
+
             liquidCapacity = 24f;
             liquidPressure = 1.6f;
-
-            requirements(Category.liquid, with(Items.metaglass, 3, EIItems.starium, 1));
+            health = 105;
         }};
-        titaniumBridgeConduit = new LiquidBridge("titanium-bridge-conduit") {{
+        titaniumBridgeConduit = new LiquidBridge("titanium-bridge-conduit"){{
+            requirements(Category.distribution, with(metaglass, 6, graphite, 4, titanium, 2));
+
             fadeIn = moveArrows = hasPower = false;
 
-            health = 100;
+            health = 90;
             range = 7;
 
             arrowSpacing = 6f;
-
-            requirements(Category.liquid, with(Items.metaglass, 8, Items.graphite, 4, Items.titanium, 4));
         }};
-        stariumBridgeConduit = new LiquidBridge("starium-bridge-conduit") {{
+        stariumBridgeConduit = new LiquidBridge("starium-bridge-conduit"){{
+            requirements(Category.distribution, with(metaglass, 8, graphite, 6, starium, 2));
+
             fadeIn = moveArrows = hasPower = false;
 
-            health = 170;
-            range = 10;
+            health = 105;
+            range = 9;
 
             arrowSpacing = 6f;
-
-            requirements(Category.liquid, with(Items.metaglass, 10, Items.graphite, 6, EIItems.starium, 6));
         }};
+
         tungstenConveyor = new StackConveyor("tungsten-conveyor"){{
+            requirements(Category.distribution, with(graphite, 4, tungsten, 2));
+
             outputRouter = false;
 
             health = 140;
             speed = 6f / 60f;
             itemCapacity = 5;
-
-            requirements(Category.distribution, with(Items.tungsten, 2, Items.graphite, 1));
         }};
-        crate = new StorageBlock("crate") {{
-            size = 1;
-            itemCapacity = 75;
-            health = 70;
-            buildCost = 0.75f;
 
-            requirements(Category.effect, with(Items.copper, 50, Items.lead, 50));
+        crate = new StorageBlock("crate"){{
+            requirements(Category.effect, with(copper, 50, lead, 50));
+
+            itemCapacity = 50;
+            buildCostMultiplier = 0.75f;
         }};
-        cryofluidPlant = new GenericCrafter("cryofluid-plant") {{
-            hasPower = hasItems = hasLiquids = solid = outputsLiquid = true;
-            rotate = false;
+        microUnloader = new Unloader("micro-unloader"){{
+            requirements(Category.effect, with(copper, 20, lead, 5, graphite, 5));
 
-            size = 4;
-            liquidCapacity = 120f;
-            craftTime = 90;
-            envEnabled = Env.any;
-            outputLiquid = new LiquidStack(Liquids.cryofluid, 1f);
-
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(Liquids.cryofluid) {{
-                drawLiquidLight = true;
-            }}, new DrawDefault(), new DrawRegion("-top"));
-
-            consumePower(3.5f);
-            consumeItem(Items.titanium, 3);
-            consumeLiquid(Liquids.water, 1f);
-            requirements(Category.crafting, with(Items.lead, 210, Items.silicon, 120, Items.graphite, 90, Items.titanium, 70));
+            speed = 15f;
         }};
-        cryofluidStirrer = new GenericCrafter("cryofluid-stirrer") {{
-            hasPower = hasItems = hasLiquids = solid = outputsLiquid = true;
-            rotate = false;
+        layeredUnloader = new Unloader("layered-unloader"){{
+            requirements(Category.effect, with(titanium, 50, silicon, 60, graphite, 10));
 
-            size = 3;
-            liquidCapacity = 60f;
-            craftTime = 90;
-            envEnabled = Env.any;
-            outputLiquid = new LiquidStack(Liquids.cryofluid, 30f / 60f);
-
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(Liquids.cryofluid) {{
-                drawLiquidLight = true;
-            }}, new DrawDefault(), new DrawRegion("-top"));
-
-            consumePower(2f);
-            consumeItem(Items.titanium, 1);
-            consumeLiquid(Liquids.water, 30f / 60f);
-            requirements(Category.crafting, with(Items.lead, 130, Items.silicon, 70, Items.titanium, 50));
+            speed = 3f;
         }};
-        oxygenLiquifier = new GenericCrafter("oxygen-liquifier") {{
-            hasPower = hasItems = hasLiquids = solid =  outputsLiquid = true;
-            rotate = false;
 
-            size = 2;
-            liquidCapacity = 30f;
-            craftTime = 240;
-            envEnabled = Env.any;
-            outputLiquid = new LiquidStack(EILiquids.lox, 15f / 60f);
+        electricDrill = new Drill("electric-drill"){{
+            requirements(Category.production, with(lead, 35, titanium, 15, silicon, 10));
+            consumePower(1.75f);
 
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(EILiquids.lox) {{
-                drawLiquidLight = true;
-            }}, new DrawDefault(), new DrawRegion("-top"));
-
-            consumePower(2.5f);
-            consumeItem(EIItems.ice);
-            consumeLiquid(Liquids.water, 10f / 60f);
-            requirements(Category.crafting, with(Items.lead, 110, Items.silicon, 65, Items.graphite, 35, Items.titanium, 25));
-        }};
-        coalLiquifier = new GenericCrafter("coal-liquifier") {{
-            hasPower = hasItems = hasLiquids = solid = outputsLiquid = true;
-            rotate = false;
-
-            size = 2;
-            liquidCapacity = 30f;
-            craftTime = 30f;
-            envEnabled = Env.any;
-            outputLiquid = new LiquidStack(Liquids.oil, 12f / 60f);
-
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.water), new DrawLiquidTile(Liquids.oil) {{
-                drawLiquidLight = true;
-            }}, new DrawDefault(), new DrawRegion("-top"));
-
-            consumePower(3.5f);
-            consumeItem(Items.coal, 3);
-            consumeLiquid(Liquids.water, 24f / 60f);
-            requirements(Category.crafting, with(Items.copper, 90, Items.silicon, 70, Items.metaglass, 50, Items.titanium, 35));
-        }};
-        oilCrystaliser = new GenericCrafter("oil-crystaliser") {{
-            hasPower = hasItems = hasLiquids = true;
-            rotateDraw = false;
-
-            size = 3;
-            craftTime = 30f;
-            outputItem = new ItemStack(Items.coal, 3);
-
-            craftEffect = Fx.coalSmeltsmoke;
-
-            consumeLiquid(Liquids.oil, 0.6f);
-            consumePower(1.5f);
-            requirements(Category.crafting, with(Items.copper, 120, Items.silicon, 70, Items.graphite, 60, Items.plastanium, 20));
-        }};
-        electricDrill = new Drill("electric-drill") {{
-            hasPower = hasItems = true;
+            hasPower = true;
             hasLiquids = false;
 
             size = 2;
             tier = 4;
-            drillTime = 62.5f;
             liquidBoostIntensity = 1f;
-
-            consumePower(1.25f);
-            requirements(Category.production, with(Items.graphite, 50, Items.silicon, 30, Items.titanium, 20));
+            drillTime = 67.5f;
         }};
-        precisionDrill = new Drill("precision-drill") {{
+        precisionDrill = new Drill("precision-drill"){{
+            requirements(Category.production, with(lead, 120, metaglass, 80, titanium, 80, thorium, 20));
+            consumeLiquid(water, 0.4f);
+
             drawRim = true;
 
             size = 4;
             tier = 5;
-            drillTime = 75f;
+            drillTime = 80f;
             liquidBoostIntensity = 1f;
             rotateSpeed = 6f;
             itemCapacity = 20;
@@ -329,16 +280,17 @@ public class EIBlocks {
 
             drillEffect = Fx.mineHuge;
             updateEffect = Fx.pulverizeRed;
-
-            requirements(Category.production, with(Items.lead, 200, Items.graphite, 165, Items.silicon, 80, Items.titanium, 75, Items.thorium, 65));
-            consumeLiquid(Liquids.water, 0.4f);
         }};
-        hammerDrill = new Drill("hammer-drill") {{
+        hammerDrill = new Drill("hammer-drill"){{
+            requirements(Category.production, with(lead, 265, silicon, 160, titanium, 70, thorium, 95));
+            consumeLiquid(cryofluid, 0.2f).boost();
+            consumePower(6f);
+
             hasPower = drawRim = true;
 
             size = 5;
             tier = 5;
-            drillTime = 187.5f;
+            drillTime = 150f;
             rotateSpeed = 7f;
             itemCapacity = 60;
             warmupSpeed = 0.03f;
@@ -347,57 +299,310 @@ public class EIBlocks {
 
             drillEffect = Fx.mineHuge;
             updateEffect = Fx.pulverizeRed;
-
-            consumePower(6f);
-            consumeLiquid(Liquids.cryofluid, 0.2f).boost();
-            requirements(Category.production, with(Items.lead, 265, Items.silicon, 160, Items.titanium, 70, Items.thorium, 95));
         }};
+
         hugePlasmaBore = new BeamDrill("huge-plasma-bore"){{
+            requirements(Category.production, with(silicon, 260, oxide, 90, thorium, 160, tungsten, 270));
+            consumeLiquids(LiquidStack.with(nitrogen, 4f / 60f, cyanogen, 2f / 60f)).boost();
+            consumeLiquid(hydrogen, 4f / 60f);
+            consumePower(2f);
+
             drillTime = 60f;
             tier = 5;
             size = 4;
             range = 8;
-            fogRadius = 4;
-            laserWidth = 0.7f;
             itemCapacity = 30;
             optionalBoostIntensity = 2.5f;
 
-            consumePower(2f);
-            consumeLiquid(Liquids.hydrogen, 4f / 60f);
-            consumeLiquids(LiquidStack.with(Liquids.nitrogen, 4f / 60f, Liquids.cyanogen, 2f / 60f)).boost();
-            requirements(Category.production, with(Items.silicon, 260, Items.oxide, 90, Items.thorium, 160, Items.tungsten, 270));
+            fogRadius = 4;
+            laserWidth = 0.7f;
         }};
-        largeCliffCrusher = new WallCrafter("large-cliff-crusher"){{
-            drillTime = 45f;
-            size = 3;
-            attribute = Attribute.sand;
-            output = Items.sand;
-            fogRadius = 2;
-            ambientSound = Sounds.drill;
-            ambientSoundVolume = 0.04f;
 
-            consumePower(1.5f);
-            consumeLiquid(Liquids.hydrogen, 3f / 60f);
-            requirements(Category.production, with(Items.silicon, 70, Items.tungsten, 90, Items.beryllium, 80));
+        graphiteCompressor = new GenericCrafter("graphite-compressor"){{
+            requirements(Category.crafting, with(lead, 210, graphite, 70, titanium, 190, silicon, 90, thorium, 120));
+            consumeItem(coal, 8);
+            consumeLiquid(EILiquids.steam, 0.2f);
+            consumePower(3f);
+
+            hasItems = hasLiquids = hasPower = true;
+
+            size = 4;
+            craftTime = 45;
+            itemCapacity = 30;
+            liquidCapacity = 100;
+            outputItem = new ItemStack(graphite, 4);
+
+            craftEffect = Fx.steam;
         }};
-        siliconFabricator = new AttributeCrafter("silicon-fabricator") {{
-            hasPower = true;
+        siliconFabricator = new AttributeCrafter("silicon-fabricator"){{
+            requirements(Category.crafting, with(metaglass, 230, titanium, 140, plastanium, 70, silicon, 160));
+            consumeItems(with(graphite, 4, sand, 16, lead, 4));
+            consumePower(4.45f);
+
+            hasPower = hasItems = true;
             hasLiquids = false;
 
             size = 4;
             craftTime = 90f;
-            itemCapacity = 30;
+            itemCapacity = 60;
             boostScale = 0.15f;
-            outputItem = new ItemStack(Items.silicon, 18);
+            outputItem = new ItemStack(silicon, 16);
 
             craftEffect = Fx.smeltsmoke;
-            ambientSound = Sounds.smelter;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
-
-            consumeItems(with(Items.coal, 8, Items.sand, 14, Items.blastCompound, 1));
-            consumePower(8f);
-            requirements(Category.crafting, with(Items.lead, 320, Items.silicon, 270, Items.titanium, 220, Items.thorium, 160, Items.plastanium, 80, Items.phaseFabric, 50));
+            ambientSound = Sounds.loopSmelter;
+            drawer = new DrawMulti(
+                new DrawDefault(),
+                new DrawFlame(
+                    Color.valueOf("ffef99")
+                )
+            );
         }};
+        metaglassFabricator = new AttributeCrafter("metaglass-fabricator"){{
+            requirements(Category.crafting, with(titanium, 110, graphite, 75, lead, 95, plastanium, 20));
+            consumeItems(with(lead, 3, sand, 3, graphite, 2));
+            consumePower(1.4f);
+
+            hasPower = true;
+            hasLiquids = false;
+
+            size = 3;
+            craftTime = 60f;
+            itemCapacity = 40;
+            boostScale = 0.15f;
+            ambientSoundVolume = 0.07f;
+            outputItem = new ItemStack(metaglass, 8);
+
+            ambientSound = Sounds.loopSmelter;
+            craftEffect = Fx.smeltsmoke;
+            drawer = new DrawMulti(
+                new DrawDefault(),
+                new DrawFlame(
+                    Color.valueOf("ffef99")
+                )
+            );
+        }};
+        plastaniumCondenser = new AttributeCrafter("plastanium-condenser"){{
+            requirements(Category.crafting, with(lead, 210, silicon, 90, metaglass, 70, titanium, 90, plastanium, 15));
+            consumeItem(titanium, 4);
+            consumeLiquid(oil, 0.6f);
+            consumePower(4.5f);
+
+            hasItems = hasPower = hasLiquids = true;
+
+            size = 3;
+            health = 530;
+            craftTime = 60f;
+            liquidCapacity = 180f;
+            attribute = Attribute.oil;
+            outputItem = new ItemStack(plastanium, 3);
+
+            craftEffect = Fx.formsmoke;
+            updateEffect = Fx.plasticburn;
+            drawer = new DrawMulti(
+                new DrawDefault(),
+                new DrawFade()
+            );
+        }};
+        cryofluidStirrer = new GenericCrafter("cryofluid-stirrer"){{
+            requirements(Category.crafting, with(lead, 130, silicon, 70, titanium, 50, metaglass, 20));
+            consumeItem(titanium, 1);
+            consumeLiquid(water, 0.5f);
+            consumePower(2f);
+
+            hasPower = hasItems = hasLiquids = solid = outputsLiquid = true;
+            rotate = false;
+
+            size = 3;
+            craftTime = 90;
+            liquidCapacity = 120f;
+            outputLiquid = new LiquidStack(cryofluid, 0.5f);
+
+            drawer = new DrawMulti(
+                new DrawRegion("-bottom"),
+                new DrawLiquidTile(water),
+                new DrawLiquidTile(cryofluid){{
+                    drawLiquidLight = true;
+                }},
+                new DrawDefault(),
+                new DrawRegion("-top")
+            );
+        }};
+        cryofluidPlant = new GenericCrafter("cryofluid-plant"){{
+            requirements(Category.crafting, with(titanium, 210, silicon, 120, metaglass, 90, thorium, 40));
+            consumeItem(titanium, 3);
+            consumeLiquid(water, 1f);
+            consumePower(3.5f);
+
+            hasPower = hasItems = hasLiquids = solid = outputsLiquid = true;
+            rotate = false;
+
+            size = 4;
+            liquidCapacity = 120f;
+            craftTime = 90;
+            outputLiquid = new LiquidStack(cryofluid, 1f);
+
+            drawer = new DrawMulti(
+                new DrawRegion("-bottom"),
+                new DrawLiquidTile(water),
+                new DrawLiquidTile(cryofluid){{
+                    drawLiquidLight = true;
+                }},
+                new DrawDefault(),
+                new DrawRegion("-top")
+            );
+        }};
+        oilCrystallizer = new GenericCrafter("oil-crystallizer"){{
+            requirements(Category.crafting, with(copper, 120, silicon, 70, titanium, 110, Items.plastanium, 20));
+            consumeLiquid(Liquids.oil, 0.6f);
+            consumePower(1.5f);
+
+            hasPower = hasItems = hasLiquids = true;
+            rotateDraw = false;
+
+            size = 3;
+            craftTime = 30f;
+            outputItem = new ItemStack(Items.coal, 3);
+
+            craftEffect = Fx.coalSmeltsmoke;
+        }};
+
+        cavern = new PowerTurret("cavern"){{
+            requirements(Category.turret, with(Items.lead, 570, Items.silicon, 490, Items.titanium, 470, Items.plastanium, 380, Items.phaseFabric, 350, EIItems.stariumAlloy, 220));
+            consumePower(15f);
+            consumeCoolant(0.25f);
+
+            moveWhileCharging = false;
+
+            range = 230;
+            size = 3;
+            recoil = 2.7f;
+            reload = 345f;
+            health = 1650;
+            coolantMultiplier = 1.2f;
+            shoot.firstShotDelay = 75f;
+
+            chargeSound = Sounds.chargeLancer;
+            shootSound = Sounds.explosionPlasmaSmall;
+
+            shootType = new EmpBulletType(){{
+                scaleLife = despawnHit = true;
+                collides = false;
+
+                speed = 5f;
+                damage = 150f;
+                unitDamageScl = 1.2f;
+                healPercent = 0.09f;
+                status = StatusEffects.electrified;
+                statusDuration = 450f;
+                radius = 88.5f;
+                lifetime = 30f;
+                width = height = 15f;
+                shrinkX = shrinkY = 0f;
+
+                sprite = "circle-bullet";
+                chargeEffect = new MultiEffect(
+                    new ParticleEffect(){{
+                        line = true;
+                        lenFrom = 5;
+                        lenTo = 2;
+                        strokeFrom = 2;
+                        strokeTo = 1;
+                        colorFrom = Color.valueOf("a5f5af");
+                        colorTo = Color.valueOf("ffffff");
+                        length = 24;
+                        baseLength = 24;
+                        lifetime = 70f;
+                        particles = 9;
+                    }},
+                    new WaveEffect(){{
+                        sprite = "circle-bullet";
+                        frontColor = Color.valueOf("ffffff");
+                        backColor = Color.valueOf("83f793");
+                        sizeFrom = 0;
+                        sizeTo = 7.5f;
+                        lifetime = 75;
+                    }}
+                );
+                lightOpacity = 0.7f;
+                frontColor = Color.valueOf("ffffff");
+                backColor = lightColor = hitColor = Color.valueOf("83f793");
+                hitEffect = Fx.none;
+                despawnEffect = EIFx.cavernFx;
+
+                fragBullets = 1;
+                fragOffsetMin = fragOffsetMax = 0f;
+                fragBullet = new BasicBulletType(0f, 0f, "circle-bullet"){{
+                    collides = false;
+
+                    lifetime = 300f;
+                    intervalDelay = 30f;
+                    bulletInterval = 30f;
+                    intervalBullets = 1;
+
+                    intervalBullet = new EmpBulletType(){{
+                        despawnHit = instantDisappear = true;
+                        collides = false;
+
+                        speed = 0f;
+                        damage = 150f;
+                        unitDamageScl = 1.2f;
+                        healPercent = 0.09f;
+                        status = StatusEffects.electrified;
+                        statusDuration = 450f;
+                        radius = 88.5f;
+                        lifetime = 1f;
+                        width = height = 1f;
+                        hitEffect = Fx.none;
+                        despawnEffect = EIFx.cavernFx;
+
+                        sprite = "white";
+                        frontColor = backColor = Color.clear;
+                    }};
+
+                    lightOpacity = 0.7f;
+                    frontColor = Color.valueOf("ffffff");
+                    backColor = lightColor = hitColor = Color.valueOf("83f793");
+                    despawnEffect = new MultiEffect(
+                        EIFx.cavernFx,
+                        new ParticleEffect(){{
+                            startDelay(5);
+                            line = true;
+
+                            lifetime = 15f;
+                            lenFrom = 4;
+                            lenTo = 5;
+                            strokeFrom = 0;
+                            strokeTo = 6;
+                            particles = 12;
+                            colorFrom = Color.valueOf("3bf550");
+                        }},
+                        new ParticleEffect(){{
+                            startDelay(15);
+                            line = true;
+
+                            lifetime = 20f;
+                            lenFrom = 5;
+                            lenTo = 0;
+                            strokeFrom = 6;
+                            strokeTo = 0;
+                            particles = 12;
+                            colorFrom = Color.valueOf("3bf550");
+                        }},
+                        new WaveEffect(){{
+                            startDelay(20);
+
+                            sizeFrom = 20;
+                            sizeTo = 0;
+                            lifetime = 5;
+                            colorFrom = Color.valueOf("a5f5af");
+                            colorTo = Color.valueOf("ffffff");
+                        }}
+                    );
+                }};
+            }};
+        }};
+
+        //Todo: Finish this
         lumiumSmelter = new GenericCrafter("lumium-smelter") {{
             hasPower = true;
 
@@ -413,25 +618,6 @@ public class EIBlocks {
             consumeItems(with(Items.thorium, 5, Items.coal, 3, EIItems.starium, 2));
             requirements(Category.crafting, with(Items.copper, 270, Items.silicon, 230, Items.titanium, 210, Items.thorium, 70, Items.plastanium, 60, EIItems.starium, 60));
         }};
-        metaglassFabricator = new AttributeCrafter("metaglass-fabricator") {{
-            hasPower = true;
-            hasLiquids = false;
-
-            size = 3;
-            craftTime = 90f;
-            itemCapacity = 40;
-            boostScale = 0.15f;
-            ambientSoundVolume = 0.07f;
-            outputItem = new ItemStack(Items.metaglass, 10);
-
-            ambientSound = Sounds.smelter;
-            craftEffect = Fx.smeltsmoke;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
-
-            consumeItems(with(Items.sand, 10, Items.lead, 10, Items.pyratite, 1));
-            consumePower(3f);
-            requirements(Category.crafting, with(Items.copper, 170, Items.lead, 120, Items.silicon, 70, Items.titanium, 60, Items.plastanium, 20));
-        }};
         peridotiumSynthesizer = new GenericCrafter("peridotium-synthesizer") {{
             hasPower = true;
             hasLiquids = false;
@@ -443,7 +629,7 @@ public class EIBlocks {
             outputItem = new ItemStack(EIItems.peridotium, 1);
 
             craftEffect = Fx.blockCrash;
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
 
             consumeItems(with(Items.thorium, 5));
@@ -461,7 +647,7 @@ public class EIBlocks {
             outputItem = new ItemStack(EIItems.starium, 5);
 
             craftEffect = Fx.blockCrash;
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(Color.valueOf("ffef99")));
 
             consumeItems(with(Items.titanium, 10, Items.silicon, 5));
@@ -483,29 +669,13 @@ public class EIBlocks {
             consumeItems(with(Items.surgeAlloy, 1, EIItems.starium, 10));
             requirements(Category.crafting, with(Items.lead, 330, Items.silicon, 240, Items.titanium, 200, Items.plastanium, 120, Items.surgeAlloy, 70, EIItems.starium, 40));
         }};
-        graphiteCompressor = new GenericCrafter("graphite-compressor") {{
-            hasItems = hasLiquids = true;
-            hasPower = false;
-
-            size = 4;
-            craftTime = 45f;
-            itemCapacity = 40;
-            liquidCapacity = 160;
-            outputItem = new ItemStack(Items.graphite, 5);
-
-            craftEffect = Fx.steam;
-
-            consumeItem(Items.coal, 10);
-            consumeLiquid(EILiquids.steam, 0.125f);
-            requirements(Category.crafting, with(Items.copper, 310, Items.graphite, 270, Items.silicon, 190, Items.metaglass, 150, Items.titanium, 130, Items.thorium, 30));
-        }};
-        peridotiumEnhancer = new GenericCrafter("peridotium-enhancer") {{
+        peridotiumEnricher = new GenericCrafter("peridotium-enricher") {{
             hasItems = true;
 
             size = 2;
             craftTime = 150f;
             itemCapacity = 15;
-            outputItem = new ItemStack(EIItems.enhancedPeridotium, 1);
+            outputItem = new ItemStack(enrichedPeridotium, 1);
 
             craftEffect = Fx.pulverizeMedium;
 
@@ -523,7 +693,7 @@ public class EIBlocks {
             outputItem = new ItemStack(Items.scrap, 1);
 
             craftEffect = Fx.pulverizeMedium;
-            ambientSound = Sounds.grinding;
+            ambientSound = Sounds.loopGrind;
             drawer = new DrawMulti(new DrawDefault(), new DrawRegion("-rotator") {{
                 spinSprite = true;
                 rotateSpeed = 2.25f;
@@ -532,24 +702,6 @@ public class EIBlocks {
             consumePower(1f);
             consumeItems(with(Items.copper, 2, Items.sand, 3));
             requirements(Category.crafting, with(Items.lead, 70, Items.graphite, 30, Items.silicon, 10));
-        }};
-        plastaniumCondenser = new GenericCrafter("plastanium-condenser") {{
-            hasItems = hasPower = hasLiquids = true;
-
-            size = 3;
-            health = 420;
-            craftTime = 45f;
-            liquidCapacity = 90f;
-            outputItem = new ItemStack(Items.plastanium, 3);
-
-            craftEffect = Fx.formsmoke;
-            updateEffect = Fx.plasticburn;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFade());
-
-            consumeLiquid(Liquids.oil, 0.75f);
-            consumePower(4f);
-            consumeItem(Items.titanium, 5);
-            requirements(Category.crafting, with(Items.lead, 270, Items.silicon, 180, Items.titanium, 130, Items.plastanium, 60));
         }};
         freezer = new GenericCrafter("freezer") {{
             hasItems = true;
@@ -576,7 +728,7 @@ public class EIBlocks {
             liquidOutputDirections = new int[]{1, 3};
             outputLiquids = LiquidStack.with(EILiquids.heavyOil, 4f / 60, EILiquids.lightOil, 11f / 60);
 
-            ambientSound = Sounds.spark;
+            ambientSound = Sounds.loopElectricHum;
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.oil), new DrawDefault(), new DrawRegion("-rotator") {{
                 spinSprite = true;
                 rotateSpeed = 3.35f;
@@ -586,7 +738,7 @@ public class EIBlocks {
             consumePower(4f);
             requirements(Category.crafting, with(Items.copper, 220, Items.silicon, 160, Items.graphite, 130, Items.metaglass, 80, Items.titanium, 40));
         }};
-        heavyOilRefinery = new GenericCrafter("heavy-oil-refinery"){{
+        oilRefiner = new GenericCrafter("oil-refiner"){{
             size = 3;
             craftTime = 90f;
             regionRotated1 = 3;
@@ -596,7 +748,7 @@ public class EIBlocks {
             outputItem = new ItemStack(Items.scrap, 1);
             outputLiquids = LiquidStack.with(EILiquids.lightOil, 8f / 60);
 
-            ambientSound = Sounds.spark;
+            ambientSound = Sounds.loopElectricHum;
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.oil), new DrawLiquidTile(EILiquids.lightOil), new DrawRegion("-rotator") {{
                 spinSprite = true;
                 rotateSpeed = 1.7f;
@@ -606,15 +758,15 @@ public class EIBlocks {
             consumePower(5.5f);
             requirements(Category.crafting, with(Items.lead, 220, Items.silicon, 170, Items.metaglass, 110, Items.titanium, 90, Items.plastanium, 35));
         }};
-        fuelAssembler = new GenericCrafter("fuel-assembler"){{
+        thermiteMixer = new GenericCrafter("thermite-mixer"){{
             size = 4;
             craftTime = 30f;
             liquidCapacity = 20f;
             researchCostMultiplier = 1.2f;
             ambientSoundVolume = 0.08f;
-            outputItem = new ItemStack(EIItems.solidFuel, 1);
+            outputItem = new ItemStack(thermiteCompound, 1);
 
-            ambientSound = Sounds.spark;
+            ambientSound = Sounds.loopElectricHum;
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.oil), new DrawLiquidTile(EILiquids.lightOil), new DrawRegion("-rotator") {{
                 spinSprite = true;
                 rotateSpeed = 2.1f;
@@ -635,16 +787,16 @@ public class EIBlocks {
             health = 925;
             ambientSoundVolume = 0.06f;
 
-            ambientSound = Sounds.steam;
+            ambientSound = Sounds.loopSteam;
             generateEffect = Fx.generatespark;
             drawer = new DrawMulti(
-                    new DrawDefault(),
-                    new DrawWarmupRegion(),
-                    new DrawRegion("-turbine") {{
-                        rotateSpeed = 2f;
-                    }},
-                    new DrawLiquidRegion(Liquids.water),
-                    new DrawLiquidRegion(EILiquids.steam)
+                new DrawDefault(),
+                new DrawWarmupRegion(),
+                new DrawRegion("-turbine") {{
+                    rotateSpeed = 2f;
+                }},
+                new DrawLiquidRegion(Liquids.water),
+                new DrawLiquidRegion(EILiquids.steam)
             );
 
             consumeLiquid(Liquids.water, 15f / 60f);
@@ -677,7 +829,7 @@ public class EIBlocks {
             explosionRadius = 25;
             explosionDamage = 27500;
 
-            ambientSound = Sounds.hum;
+            ambientSound = Sounds.loopHum;
 
             fuelItem = EIItems.peridotium;
             consumeLiquid(Liquids.water, 0.5f);
@@ -691,49 +843,18 @@ public class EIBlocks {
             itemDuration = 240f;
             ambientSoundVolume = 0.5f;
 
-            ambientSound = Sounds.pulse;
+            ambientSound = Sounds.loopPulse;
 
             consumePower(52.5f);
             consumeItem(EIItems.lumium);
-            consumeLiquid(EILiquids.lox, 1);
-            requirements(Category.power, with(Items.lead, 1250, Items.silicon, 750, Items.titanium, 700, Items.plastanium, 625, EIItems.enhancedPeridotium, 335, EIItems.stariumAlloy, 270));
+            consumeLiquid(liquidOxygen, 1);
+            requirements(Category.power, with(Items.lead, 1250, Items.silicon, 750, Items.titanium, 700, Items.plastanium, 625, EIItems.enrichedPeridotium, 335, EIItems.stariumAlloy, 270));
         }};
-        reinforcedSolarPanel = new OverheatSolarGenerator("reinforced-solar-panel") {{
-                size = 2;
-
-                consumeLiquid(Liquids.water, heating / coolantPower).update(false);
-                requirements(Category.power, with(Items.beryllium, 60, Items.tungsten, 110, Items.silicon, 70));
-        }};
-        controllerProcessor = new LogicBlock("controller-processor") {{
-            hasPower = true;
-
-            instructionsPerTick = 6;
-            size = 1;
-            range = 100;
-
-            consumePower(0.25f);
-            requirements(Category.logic, with(Items.copper, 120, Items.lead, 160, Items.silicon, 90));
-        }};
-        armProcessor = new LogicBlock("arm-processor") {{
-            hasPower = true;
-
-            instructionsPerTick = 18;
+        reinforcedSolarPanel = new CooledSolarGenerator("reinforced-solar-panel") {{
             size = 2;
-            range = 225;
 
-            consumePower(1f);
-            requirements(Category.logic, with(Items.lead, 430, Items.silicon, 170, Items.graphite, 120, Items.thorium, 90));
-        }};
-        threadripperProcessor = new LogicBlock("threadripper-processor") {{
-            hasPower = hasLiquids = true;
-
-            instructionsPerTick = 50;
-            range = 550;
-            size = 3;
-
-            consumePower(3f);
-            consumeLiquid(Liquids.cryofluid, 0.25f);
-            requirements(Category.logic, with(Items.lead, 650, Items.silicon, 210, Items.thorium, 95, Items.surgeAlloy, 70));
+            consumeLiquid(Liquids.water, heating / coolantPower).update(false);
+            requirements(Category.power, with(Items.beryllium, 60, Items.tungsten, 110, Items.silicon, 70));
         }};
         coreFrag = new CoreBlock("core-frag") {{
             isFirstTier = true;
@@ -746,31 +867,12 @@ public class EIBlocks {
 
             requirements(Category.effect, with(Items.copper, 250, Items.lead, 125));
         }};
-        coreExtensio = new CoreBlock("core-extensio") {{
-            unitType = UnitTypes.gamma;
-            health = 12000;
-            itemCapacity = 35000;
-            size = 6;
-            unitCapModifier = 48;
-
-            requirements(Category.effect, with(Items.copper, 18000, Items.lead, 18000, Items.silicon, 10500, Items.thorium, 7000, Items.surgeAlloy, 1025));
-        }};
-        microPad = new LaunchPad("micro-pad") {{
-            hasPower = true;
-
-            size = 2;
-            itemCapacity = 50;
-            launchTime = 750f;
-
-            consumePower(3f);
-            requirements(Category.effect, BuildVisibility.campaignOnly, with(Items.copper, 175, Items.lead, 140, Items.silicon, 90, Items.titanium, 50));
-        }};
         planetaryMender = new MendProjector("planetary-mender"){{
             hasPower = true;
 
             size = 5;
             reload = 450;
-            range = 100 * 100 * tilesize;
+            range = 8000f;
             healPercent = 25f;
             phaseBoost = 25f;
 
@@ -783,29 +885,13 @@ public class EIBlocks {
             hasBoost = false;
 
             size = 5;
-            range = 100 * 100 * tilesize;
+            range = 8000f;
             speedBoost = 4f;
             useTime = 60f;
 
             consumePower(240f);
             consumeItems(with(Items.phaseFabric, 1, Items.silicon, 2));
-            requirements(Category.effect, with(Items.copper, 8425, Items.lead, 6350, Items.silicon, 5430, Items.titanium, 4100, Items.thorium, 3950, EIItems.stariumAlloy, 535, EIItems.enhancedPeridotium, 430));
-        }};
-        hardenedUnloader = new Unloader("hardened-unloader"){{
-            speed = 60f / 20f;
-            health = 120;
-
-            group = BlockGroup.transportation;
-            requirements(Category.effect, with(Items.titanium, 90, Items.silicon, 55));
-        }};
-        advancedUnloader = new Unloader("advanced-unloader"){{
-            conductivePower = hasPower = true;
-
-            speed = 60f / 40f;
-            health = 180;
-
-            group = BlockGroup.transportation;
-            requirements(Category.effect, with(Items.titanium, 225, Items.silicon, 130, Items.graphite, 65));
+            requirements(Category.effect, with(Items.copper, 8425, Items.lead, 6350, Items.silicon, 5430, Items.titanium, 4100, Items.thorium, 3950, EIItems.stariumAlloy, 535, EIItems.enrichedPeridotium, 430));
         }};
         stariumWall = new Wall("starium-wall") {{
             absorbLasers = insulated = flashHit = true;
@@ -843,48 +929,48 @@ public class EIBlocks {
         }};
         anado = new ItemTurret("anado") {{
             ammo(
-                    Items.scrap, new BasicBulletType(2f, 8) {{
-                        width = 6f;
-                        height = 8f;
-                        lifetime = 60f;
-                        splashDamage = 3f;
-                        splashDamageRadius = 16f;
-                        reloadMultiplier = 0.66f;
-                        fragBullets = 4;
-                        fragBullet = new BasicBulletType(1f, 5) {{
-                            height = 5f;
-                            width = 3f;
-                            lifetime = 20f;
-                        }};
-                    }},
-                    Items.lead, new BasicBulletType(2f, 7) {{
-                        width = 6f;
-                        height = 8f;
-                        lifetime = 60f;
-                        ammoMultiplier = 2;
-                        splashDamage = 2f;
-                        splashDamageRadius = 24f;
-                        fragBullets = 3;
-                        fragBullet = new BasicBulletType(1f, 4) {{
-                            height = 5f;
-                            width = 3f;
-                            lifetime = 20f;
-                        }};
-                    }},
-                    Items.metaglass, new BasicBulletType(3f, 14) {{
-                        width = 6f;
-                        height = 8f;
-                        lifetime = 75f;
-                        ammoMultiplier = 4;
-                        splashDamage = 6f;
-                        splashDamageRadius = 32f;
-                        fragBullets = 6;
-                        fragBullet = new BasicBulletType(1f, 7) {{
-                            height = 5f;
-                            width = 3f;
-                            lifetime = 30f;
-                        }};
-                    }}
+                Items.scrap, new BasicBulletType(2f, 8) {{
+                    width = 6f;
+                    height = 8f;
+                    lifetime = 60f;
+                    splashDamage = 3f;
+                    splashDamageRadius = 16f;
+                    reloadMultiplier = 0.66f;
+                    fragBullets = 4;
+                    fragBullet = new BasicBulletType(1f, 5) {{
+                        height = 5f;
+                        width = 3f;
+                        lifetime = 20f;
+                    }};
+                }},
+                Items.lead, new BasicBulletType(2f, 7) {{
+                    width = 6f;
+                    height = 8f;
+                    lifetime = 60f;
+                    ammoMultiplier = 2;
+                    splashDamage = 2f;
+                    splashDamageRadius = 24f;
+                    fragBullets = 3;
+                    fragBullet = new BasicBulletType(1f, 4) {{
+                        height = 5f;
+                        width = 3f;
+                        lifetime = 20f;
+                    }};
+                }},
+                Items.metaglass, new BasicBulletType(3f, 14) {{
+                    width = 6f;
+                    height = 8f;
+                    lifetime = 75f;
+                    ammoMultiplier = 4;
+                    splashDamage = 6f;
+                    splashDamageRadius = 32f;
+                    fragBullets = 6;
+                    fragBullet = new BasicBulletType(1f, 7) {{
+                        height = 5f;
+                        width = 3f;
+                        lifetime = 30f;
+                    }};
+                }}
             );
 
             reload = 20f;
@@ -902,63 +988,63 @@ public class EIBlocks {
         }};
         deuse = new ItemTurret("deuse") {{
             ammo(
-                    Items.scrap, new BasicBulletType(3f, 14) {{
-                        width = 6f;
-                        height = 8f;
-                        lifetime = 60f;
-                        reloadMultiplier = 0.66f;
-                        splashDamage = 6f;
-                        splashDamageRadius = 24f;
-                        fragBullets = 4;
-                        fragBullet = new BasicBulletType(1.5f, 5) {{
-                            height = 5f;
-                            width = 3f;
-                            lifetime = 20f;
-                        }};
-                    }},
-                    Items.lead, new BasicBulletType(3f, 13) {{
-                        width = 6f;
-                        height = 8f;
-                        lifetime = 60f;
-                        ammoMultiplier = 2f;
-                        splashDamage = 7f;
-                        splashDamageRadius = 32f;
-                        fragBullets = 3;
-                        fragBullet = new BasicBulletType(1.75f, 4) {{
-                            height = 5f;
-                            width = 3f;
-                            lifetime = 20f;
-                        }};
-                    }},
-                    Items.metaglass, new BasicBulletType(4.25f, 21) {{
-                        width = 6f;
-                        height = 8f;
-                        lifetime = 60f;
-                        ammoMultiplier = 4f;
-                        splashDamage = 12f;
-                        splashDamageRadius = 40f;
-                        fragBullets = 6;
-                        fragBullet = new BasicBulletType(2.125f, 7) {{
-                            height = 5f;
-                            width = 3f;
-                            lifetime = 20f;
-                        }};
-                    }},
-                    Items.plastanium, new BasicBulletType(4.5f, 29) {{
-                        width = 6f;
-                        height = 8f;
-                        lifetime = 60f;
-                        ammoMultiplier = 5f;
-                        reloadMultiplier = 1.2f;
-                        splashDamage = 16f;
-                        splashDamageRadius = 48f;
-                        fragBullets = 8;
-                        fragBullet = new BasicBulletType(2.25f, 13) {{
-                            height = 5f;
-                            width = 3f;
-                            lifetime = 20f;
-                        }};
-                    }}
+                Items.scrap, new BasicBulletType(3f, 14) {{
+                    width = 6f;
+                    height = 8f;
+                    lifetime = 60f;
+                    reloadMultiplier = 0.66f;
+                    splashDamage = 6f;
+                    splashDamageRadius = 24f;
+                    fragBullets = 4;
+                    fragBullet = new BasicBulletType(1.5f, 5) {{
+                        height = 5f;
+                        width = 3f;
+                        lifetime = 20f;
+                    }};
+                }},
+                Items.lead, new BasicBulletType(3f, 13) {{
+                    width = 6f;
+                    height = 8f;
+                    lifetime = 60f;
+                    ammoMultiplier = 2f;
+                    splashDamage = 7f;
+                    splashDamageRadius = 32f;
+                    fragBullets = 3;
+                    fragBullet = new BasicBulletType(1.75f, 4) {{
+                        height = 5f;
+                        width = 3f;
+                        lifetime = 20f;
+                    }};
+                }},
+                Items.metaglass, new BasicBulletType(4.25f, 21) {{
+                    width = 6f;
+                    height = 8f;
+                    lifetime = 60f;
+                    ammoMultiplier = 4f;
+                    splashDamage = 12f;
+                    splashDamageRadius = 40f;
+                    fragBullets = 6;
+                    fragBullet = new BasicBulletType(2.125f, 7) {{
+                        height = 5f;
+                        width = 3f;
+                        lifetime = 20f;
+                    }};
+                }},
+                Items.plastanium, new BasicBulletType(4.5f, 29) {{
+                    width = 6f;
+                    height = 8f;
+                    lifetime = 60f;
+                    ammoMultiplier = 5f;
+                    reloadMultiplier = 1.2f;
+                    splashDamage = 16f;
+                    splashDamageRadius = 48f;
+                    fragBullets = 8;
+                    fragBullet = new BasicBulletType(2.25f, 13) {{
+                        height = 5f;
+                        width = 3f;
+                        lifetime = 20f;
+                    }};
+                }}
             );
 
             size = 2;
@@ -972,7 +1058,7 @@ public class EIBlocks {
             shoot.shotDelay = 5f;
             health = 510;
 
-            shootSound = Sounds.shootBig;
+            shootSound = Sounds.shootSalvo;
             ammoUseEffect = Fx.casing2;
 
             coolant = consumeCoolant(0.3f);
@@ -981,48 +1067,48 @@ public class EIBlocks {
         }};
         hexagon = new ItemTurret("hexagon") {{
             ammo(
-                    Items.surgeAlloy, new ArtilleryBulletType(5f, 42) {{
+                Items.surgeAlloy, new ArtilleryBulletType(5f, 42) {{
+                    collidesTiles = collidesAir = false;
+
+                    knockback = 0.8f;
+                    lifetime = 120f;
+                    width = height = 12f;
+                    buildingDamageMultiplier = 10f;
+                    splashDamageRadius = 20f;
+                    splashDamage = 18f;
+                    ammoMultiplier = 3f;
+                    lightning = 3;
+                    lightningLength = 7;
+                    lightningDamage = 2.5f;
+                }},
+                EIItems.stariumAlloy, new ArtilleryBulletType(5f, 60) {{
+                    collidesTiles = collidesAir = false;
+
+                    knockback = 0.8f;
+                    lifetime = 120f;
+                    width = height = 12f;
+                    buildingDamageMultiplier = 10f;
+                    splashDamageRadius = 36f;
+                    splashDamage = 20f;
+                    reloadMultiplier = 1.2f;
+                    ammoMultiplier = 5f;
+                    lightning = 4;
+                    lightningLength = 10;
+                    lightningDamage = 5f;
+                    fragBullets = 3;
+                    fragBullet = new BasicBulletType(3.25f, 6f) {{
                         collidesTiles = collidesAir = false;
 
-                        knockback = 0.8f;
-                        lifetime = 120f;
-                        width = height = 12f;
                         buildingDamageMultiplier = 10f;
-                        splashDamageRadius = 20f;
-                        splashDamage = 18f;
-                        ammoMultiplier = 3f;
-                        lightning = 3;
-                        lightningLength = 7;
-                        lightningDamage = 2.5f;
-                    }},
-                    EIItems.stariumAlloy, new ArtilleryBulletType(5f, 60) {{
-                        collidesTiles = collidesAir = false;
-
-                        knockback = 0.8f;
-                        lifetime = 120f;
-                        width = height = 12f;
-                        buildingDamageMultiplier = 10f;
-                        splashDamageRadius = 36f;
-                        splashDamage = 20f;
-                        reloadMultiplier = 1.2f;
-                        ammoMultiplier = 5f;
-                        lightning = 4;
+                        lifetime = 15f;
+                        width = height = 6f;
+                        splashDamageRadius = 45f;
+                        splashDamage = 4f;
+                        lightning = 2;
                         lightningLength = 10;
-                        lightningDamage = 5f;
-                        fragBullets = 3;
-                        fragBullet = new BasicBulletType(3.25f, 6f) {{
-                            collidesTiles = collidesAir = false;
-
-                            buildingDamageMultiplier = 10f;
-                            lifetime = 15f;
-                            width = height = 6f;
-                            splashDamageRadius = 45f;
-                            splashDamage = 4f;
-                            lightning = 2;
-                            lightningLength = 10;
-                            lightningDamage = 2.5f;
-                        }};
-                    }}
+                        lightningDamage = 2.5f;
+                    }};
+                }}
             );
 
             targetAir = false;
@@ -1036,565 +1122,12 @@ public class EIBlocks {
             health = 920;
             shake = 2.3f;
 
-            shootSound = Sounds.bang;
+            shootSound = Sounds.shootRipple;
 
             coolant = consumeCoolant(0.5f);
             consumePower(2.5f);
             limitRange(0f);
             requirements(Category.turret, with(Items.copper, 360, Items.lead, 290, Items.silicon, 220, Items.titanium, 160, Items.plastanium, 130, Items.surgeAlloy, 90));
-        }};
-        cavern = new PowerTurret("cavern") {{
-            moveWhileCharging = false;
-
-            range = 230;
-            size = 3;
-            recoil = 2.7f;
-            reload = 345f;
-            health = 1650;
-            coolantMultiplier = 1.2f;
-            shoot.firstShotDelay = 75f;
-
-            chargeSound = Sounds.lasercharge;
-            shootSound = Sounds.plasmaboom;
-
-            consumeCoolant(0.25f);
-            consumePower(15f);
-            requirements(Category.turret, with(Items.lead, 570, Items.silicon, 490, Items.titanium, 470, Items.plastanium, 380, Items.phaseFabric, 350, EIItems.stariumAlloy, 220));
-
-            shootType = new EmpBulletType() {
-                {
-                    chargeEffect = new MultiEffect(
-                            new ParticleEffect(){{
-                                line = true;
-                                lenFrom = 5;
-                                lenTo = 2;
-                                strokeFrom = 2;
-                                strokeTo = 1;
-                                colorFrom = Color.valueOf("a5f5af");
-                                colorTo = Color.valueOf("ffffff");
-                                length = 24;
-                                baseLength = 24;
-                                lifetime = 70f;
-                                particles = 9;
-                            }},
-                            new WaveEffect(){{
-                                sprite = "circle-bullet";
-                                frontColor = Color.valueOf("ffffff");
-                                backColor = Color.valueOf("83f793");
-                                sizeFrom = 0;
-                                sizeTo = 7.5f;
-                                lifetime = 75;
-                            }}
-                    );
-                    speed = 5;
-                    sprite = "circle-bullet";
-                    scaleLife = true;
-                    lightOpacity = 0.7f;
-                    unitDamageScl = 1.2f;
-                    healPercent = 0.09f;
-                    damage = 150;
-                    lifetime = 30;
-                    radius = 120f;
-                    width = height = 15;
-                    shrinkX = shrinkY = 0;
-                    collides = false;
-                    status = StatusEffects.electrified;
-                    statusDuration = 450;
-                    frontColor = Color.valueOf("ffffff");
-                    backColor = Color.valueOf("83f793");
-                    lightColor = Color.valueOf("83f793");
-                    hitColor = Color.valueOf("83f793");
-                    hitEffect = despawnEffect = new MultiEffect(
-                            new WaveEffect() {{
-                                sizeFrom = 90;
-                                sizeTo = 90;
-                                lifetime = 45;
-                                colorFrom = Color.valueOf("a5f5af");
-                                colorTo = Color.valueOf("ffffff");
-                            }},
-                            new WaveEffect() {{
-                                sizeFrom = 0;
-                                sizeTo = 90;
-                                lifetime = 30;
-                                colorFrom = Color.valueOf("a5f5af");
-                                colorTo = Color.valueOf("ffffff");
-                            }},
-                            new ParticleEffect() {{
-                                length = 0;
-                                lifetime = 30;
-                                particles = 1;
-                                sizeFrom = 5;
-                                sizeTo = 0;
-                                colorFrom = Color.valueOf("a5f5af");
-                                colorTo = Color.valueOf("ffffff");
-                            }}
-                    );
-                    lightning = 1;
-                    lightningLength = 2;
-                    lightningCone = 0;
-                    lightningType = new EmpBulletType() {
-                        {
-                            speed = 0;
-                            sprite = "circle-bullet";
-                            scaleLife = true;
-                            lightOpacity = 0.7f;
-                            unitDamageScl = 1.2f;
-                            healPercent = 0.09f;
-                            damage = 150;
-                            lifetime = 30;
-                            radius = 120f;
-                            width = height = 15;
-                            shrinkX = shrinkY = 0;
-                            collides = false;
-                            status = StatusEffects.electrified;
-                            statusDuration = 450;
-                            frontColor = Color.valueOf("ffffff");
-                            backColor = Color.valueOf("83f793");
-                            lightColor = Color.valueOf("83f793");
-                            hitColor = Color.valueOf("83f793");
-                            hitEffect = despawnEffect = new MultiEffect(
-                                    new WaveEffect() {{
-                                        sizeFrom = 90;
-                                        sizeTo = 90;
-                                        lifetime = 45;
-                                        colorFrom = Color.valueOf("a5f5af");
-                                        colorTo = Color.valueOf("ffffff");
-                                    }},
-                                    new WaveEffect() {{
-                                        sizeFrom = 0;
-                                        sizeTo = 90;
-                                        lifetime = 30;
-                                        colorFrom = Color.valueOf("a5f5af");
-                                        colorTo = Color.valueOf("ffffff");
-                                    }},
-                                    new ParticleEffect() {{
-                                        length = 0;
-                                        lifetime = 30;
-                                        particles = 1;
-                                        sizeFrom = 5;
-                                        sizeTo = 0;
-                                        colorFrom = Color.valueOf("a5f5af");
-                                        colorTo = Color.valueOf("ffffff");
-                                    }}
-                            );
-                            lightning = 1;
-                            lightningLength = 2;
-                            lightningCone = 0;
-                            lightningType = new EmpBulletType() {
-                                {
-                                    speed = 0;
-                                    sprite = "circle-bullet";
-                                    scaleLife = true;
-                                    lightOpacity = 0.7f;
-                                    unitDamageScl = 1.2f;
-                                    healPercent = 0.09f;
-                                    damage = 150;
-                                    lifetime = 30;
-                                    radius = 120f;
-                                    width = height = 15;
-                                    shrinkX = shrinkY = 0;
-                                    collides = false;
-                                    status = StatusEffects.electrified;
-                                    statusDuration = 450;
-                                    frontColor = Color.valueOf("ffffff");
-                                    backColor = Color.valueOf("83f793");
-                                    lightColor = Color.valueOf("83f793");
-                                    hitColor = Color.valueOf("83f793");
-                                    hitEffect = despawnEffect = new MultiEffect(
-                                            new WaveEffect() {{
-                                                sizeFrom = 90;
-                                                sizeTo = 90;
-                                                lifetime = 45;
-                                                colorFrom = Color.valueOf("a5f5af");
-                                                colorTo = Color.valueOf("ffffff");
-                                            }},
-                                            new WaveEffect() {{
-                                                sizeFrom = 0;
-                                                sizeTo = 90;
-                                                lifetime = 30;
-                                                colorFrom = Color.valueOf("a5f5af");
-                                                colorTo = Color.valueOf("ffffff");
-                                            }},
-                                            new ParticleEffect() {{
-                                                length = 0;
-                                                lifetime = 30;
-                                                particles = 1;
-                                                sizeFrom = 5;
-                                                sizeTo = 0;
-                                                colorFrom = Color.valueOf("a5f5af");
-                                                colorTo = Color.valueOf("ffffff");
-                                            }}
-                                    );
-                                    lightning = 1;
-                                    lightningLength = 2;
-                                    lightningCone = 0;
-                                    lightningType = new EmpBulletType() {
-                                        {
-                                            speed = 0;
-                                            sprite = "circle-bullet";
-                                            scaleLife = true;
-                                            lightOpacity = 0.7f;
-                                            unitDamageScl = 1.2f;
-                                            healPercent = 0.09f;
-                                            damage = 150;
-                                            lifetime = 30;
-                                            radius = 120f;
-                                            width = height = 15;
-                                            shrinkX = shrinkY = 0;
-                                            collides = false;
-                                            status = StatusEffects.electrified;
-                                            statusDuration = 450;
-                                            frontColor = Color.valueOf("ffffff");
-                                            backColor = Color.valueOf("83f793");
-                                            lightColor = Color.valueOf("83f793");
-                                            hitColor = Color.valueOf("83f793");
-                                            hitEffect = despawnEffect = new MultiEffect(
-                                                    new WaveEffect() {{
-                                                        sizeFrom = 90;
-                                                        sizeTo = 90;
-                                                        lifetime = 45;
-                                                        colorFrom = Color.valueOf("a5f5af");
-                                                        colorTo = Color.valueOf("ffffff");
-                                                    }},
-                                                    new WaveEffect() {{
-                                                        sizeFrom = 0;
-                                                        sizeTo = 90;
-                                                        lifetime = 30;
-                                                        colorFrom = Color.valueOf("a5f5af");
-                                                        colorTo = Color.valueOf("ffffff");
-                                                    }},
-                                                    new ParticleEffect() {{
-                                                        length = 0;
-                                                        lifetime = 30;
-                                                        particles = 1;
-                                                        sizeFrom = 5;
-                                                        sizeTo = 0;
-                                                        colorFrom = Color.valueOf("a5f5af");
-                                                        colorTo = Color.valueOf("ffffff");
-                                                    }}
-                                            );
-                                            lightning = 1;
-                                            lightningLength = 2;
-                                            lightningCone = 0;
-                                            lightningType = new EmpBulletType() {
-                                                {
-                                                    speed = 0;
-                                                    sprite = "circle-bullet";
-                                                    scaleLife = true;
-                                                    lightOpacity = 0.7f;
-                                                    unitDamageScl = 1.2f;
-                                                    healPercent = 0.09f;
-                                                    damage = 150;
-                                                    lifetime = 30;
-                                                    radius = 120f;
-                                                    width = height = 15;
-                                                    shrinkX = shrinkY = 0;
-                                                    collides = false;
-                                                    status = StatusEffects.electrified;
-                                                    statusDuration = 450;
-                                                    frontColor = Color.valueOf("ffffff");
-                                                    backColor = Color.valueOf("83f793");
-                                                    lightColor = Color.valueOf("83f793");
-                                                    hitColor = Color.valueOf("83f793");
-                                                    hitEffect = despawnEffect = new MultiEffect(
-                                                            new WaveEffect() {{
-                                                                sizeFrom = 90;
-                                                                sizeTo = 90;
-                                                                lifetime = 45;
-                                                                colorFrom = Color.valueOf("a5f5af");
-                                                                colorTo = Color.valueOf("ffffff");
-                                                            }},
-                                                            new WaveEffect() {{
-                                                                sizeFrom = 0;
-                                                                sizeTo = 90;
-                                                                lifetime = 30;
-                                                                colorFrom = Color.valueOf("a5f5af");
-                                                                colorTo = Color.valueOf("ffffff");
-                                                            }},
-                                                            new ParticleEffect() {{
-                                                                length = 0;
-                                                                lifetime = 30;
-                                                                particles = 1;
-                                                                sizeFrom = 5;
-                                                                sizeTo = 0;
-                                                                colorFrom = Color.valueOf("a5f5af");
-                                                                colorTo = Color.valueOf("ffffff");
-                                                            }}
-                                                    );
-                                                    lightning = 1;
-                                                    lightningLength = 2;
-                                                    lightningCone = 0;
-                                                    lightningType = new EmpBulletType() {
-                                                        {
-                                                            speed = 0;
-                                                            sprite = "circle-bullet";
-                                                            scaleLife = true;
-                                                            lightOpacity = 0.7f;
-                                                            unitDamageScl = 1.2f;
-                                                            healPercent = 0.09f;
-                                                            damage = 150;
-                                                            lifetime = 30;
-                                                            radius = 120f;
-                                                            width = height = 15;
-                                                            shrinkX = shrinkY = 0;
-                                                            collides = false;
-                                                            status = StatusEffects.electrified;
-                                                            statusDuration = 450;
-                                                            frontColor = Color.valueOf("ffffff");
-                                                            backColor = Color.valueOf("83f793");
-                                                            lightColor = Color.valueOf("83f793");
-                                                            hitColor = Color.valueOf("83f793");
-                                                            hitEffect = despawnEffect = new MultiEffect(
-                                                                    new WaveEffect() {{
-                                                                        sizeFrom = 90;
-                                                                        sizeTo = 90;
-                                                                        lifetime = 45;
-                                                                        colorFrom = Color.valueOf("a5f5af");
-                                                                        colorTo = Color.valueOf("ffffff");
-                                                                    }},
-                                                                    new WaveEffect() {{
-                                                                        sizeFrom = 0;
-                                                                        sizeTo = 90;
-                                                                        lifetime = 30;
-                                                                        colorFrom = Color.valueOf("a5f5af");
-                                                                        colorTo = Color.valueOf("ffffff");
-                                                                    }},
-                                                                    new ParticleEffect() {{
-                                                                        length = 0;
-                                                                        lifetime = 30;
-                                                                        particles = 1;
-                                                                        sizeFrom = 5;
-                                                                        sizeTo = 0;
-                                                                        colorFrom = Color.valueOf("a5f5af");
-                                                                        colorTo = Color.valueOf("ffffff");
-                                                                    }}
-                                                            );
-                                                            lightning = 1;
-                                                            lightningLength = 2;
-                                                            lightningCone = 0;
-                                                            lightningType = new EmpBulletType() {
-                                                                {
-                                                                    speed = 0;
-                                                                    sprite = "circle-bullet";
-                                                                    scaleLife = true;
-                                                                    lightOpacity = 0.7f;
-                                                                    unitDamageScl = 1.2f;
-                                                                    healPercent = 0.09f;
-                                                                    damage = 150;
-                                                                    lifetime = 30;
-                                                                    radius = 120f;
-                                                                    width = height = 15;
-                                                                    shrinkX = shrinkY = 0;
-                                                                    collides = false;
-                                                                    status = StatusEffects.electrified;
-                                                                    statusDuration = 450;
-                                                                    frontColor = Color.valueOf("ffffff");
-                                                                    backColor = Color.valueOf("83f793");
-                                                                    lightColor = Color.valueOf("83f793");
-                                                                    hitColor = Color.valueOf("83f793");
-                                                                    hitEffect = despawnEffect = new MultiEffect(
-                                                                            new WaveEffect() {{
-                                                                                sizeFrom = 90;
-                                                                                sizeTo = 90;
-                                                                                lifetime = 45;
-                                                                                colorFrom = Color.valueOf("a5f5af");
-                                                                                colorTo = Color.valueOf("ffffff");
-                                                                            }},
-                                                                            new WaveEffect() {{
-                                                                                sizeFrom = 0;
-                                                                                sizeTo = 90;
-                                                                                lifetime = 30;
-                                                                                colorFrom = Color.valueOf("a5f5af");
-                                                                                colorTo = Color.valueOf("ffffff");
-                                                                            }},
-                                                                            new ParticleEffect() {{
-                                                                                length = 0;
-                                                                                lifetime = 30;
-                                                                                particles = 1;
-                                                                                sizeFrom = 5;
-                                                                                sizeTo = 0;
-                                                                                colorFrom = Color.valueOf("a5f5af");
-                                                                                colorTo = Color.valueOf("ffffff");
-                                                                            }}
-                                                                    );
-                                                                    lightning = 1;
-                                                                    lightningLength = 2;
-                                                                    lightningCone = 0;
-                                                                    lightningType = new EmpBulletType() {
-                                                                        {
-                                                                            speed = 0;
-                                                                            sprite = "circle-bullet";
-                                                                            scaleLife = true;
-                                                                            lightOpacity = 0.7f;
-                                                                            unitDamageScl = 1.2f;
-                                                                            healPercent = 0.09f;
-                                                                            damage = 150;
-                                                                            lifetime = 30;
-                                                                            radius = 120f;
-                                                                            width = height = 15;
-                                                                            shrinkX = shrinkY = 0;
-                                                                            collides = false;
-                                                                            status = StatusEffects.electrified;
-                                                                            statusDuration = 450;
-                                                                            frontColor = Color.valueOf("ffffff");
-                                                                            backColor = Color.valueOf("83f793");
-                                                                            lightColor = Color.valueOf("83f793");
-                                                                            hitColor = Color.valueOf("83f793");
-                                                                            hitEffect = despawnEffect = new MultiEffect(
-                                                                                    new WaveEffect() {{
-                                                                                        sizeFrom = 90;
-                                                                                        sizeTo = 90;
-                                                                                        lifetime = 45;
-                                                                                        colorFrom = Color.valueOf("a5f5af");
-                                                                                        colorTo = Color.valueOf("ffffff");
-                                                                                    }},
-                                                                                    new WaveEffect() {{
-                                                                                        sizeFrom = 0;
-                                                                                        sizeTo = 90;
-                                                                                        lifetime = 30;
-                                                                                        colorFrom = Color.valueOf("a5f5af");
-                                                                                        colorTo = Color.valueOf("ffffff");
-                                                                                    }},
-                                                                                    new ParticleEffect() {{
-                                                                                        length = 0;
-                                                                                        lifetime = 30;
-                                                                                        particles = 1;
-                                                                                        sizeFrom = 5;
-                                                                                        sizeTo = 0;
-                                                                                        colorFrom = Color.valueOf("a5f5af");
-                                                                                        colorTo = Color.valueOf("ffffff");
-                                                                                    }}
-                                                                            );
-                                                                            lightning = 1;
-                                                                            lightningLength = 2;
-                                                                            lightningCone = 0;
-                                                                            lightningType = new EmpBulletType() {
-                                                                                {
-                                                                                    speed = 0;
-                                                                                    sprite = "circle-bullet";
-                                                                                    scaleLife = true;
-                                                                                    lightOpacity = 0.7f;
-                                                                                    unitDamageScl = 1.2f;
-                                                                                    healPercent = 0.09f;
-                                                                                    damage = 150;
-                                                                                    lifetime = 30;
-                                                                                    radius = 120f;
-                                                                                    width = height = 15;
-                                                                                    shrinkX = shrinkY = 0;
-                                                                                    collides = false;
-                                                                                    status = StatusEffects.electrified;
-                                                                                    statusDuration = 450;
-                                                                                    frontColor = Color.valueOf("ffffff");
-                                                                                    backColor = Color.valueOf("83f793");
-                                                                                    lightColor = Color.valueOf("83f793");
-                                                                                    hitColor = Color.valueOf("83f793");
-                                                                                    hitEffect = despawnEffect = new MultiEffect(
-                                                                                            new WaveEffect() {{
-                                                                                                sizeFrom = 90;
-                                                                                                sizeTo = 90;
-                                                                                                lifetime = 45;
-                                                                                                colorFrom = Color.valueOf("a5f5af");
-                                                                                                colorTo = Color.valueOf("ffffff");
-                                                                                            }},
-                                                                                            new WaveEffect() {{
-                                                                                                sizeFrom = 0;
-                                                                                                sizeTo = 90;
-                                                                                                lifetime = 30;
-                                                                                                colorFrom = Color.valueOf("a5f5af");
-                                                                                                colorTo = Color.valueOf("ffffff");
-                                                                                            }},
-                                                                                            new ParticleEffect() {{
-                                                                                                length = 0;
-                                                                                                lifetime = 30;
-                                                                                                particles = 1;
-                                                                                                sizeFrom = 5;
-                                                                                                sizeTo = 0;
-                                                                                                colorFrom = Color.valueOf("a5f5af");
-                                                                                                colorTo = Color.valueOf("ffffff");
-                                                                                            }}
-                                                                                    );
-                                                                                    lightning = 1;
-                                                                                    lightningLength = 2;
-                                                                                    lightningCone = 0;
-                                                                                    lightningType = new EmpBulletType() {
-                                                                                        {
-                                                                                            speed = 0;
-                                                                                            sprite = "circle-bullet";
-                                                                                            scaleLife = true;
-                                                                                            lightOpacity = 0.7f;
-                                                                                            unitDamageScl = 1.2f;
-                                                                                            healPercent = 0.09f;
-                                                                                            damage = 150;
-                                                                                            lifetime = 30;
-                                                                                            radius = 120f;
-                                                                                            width = height = 15;
-                                                                                            shrinkX = shrinkY = 0;
-                                                                                            collides = false;
-                                                                                            status = StatusEffects.electrified;
-                                                                                            statusDuration = 450;
-                                                                                            frontColor = Color.valueOf("ffffff");
-                                                                                            backColor = Color.valueOf("83f793");
-                                                                                            lightColor = Color.valueOf("83f793");
-                                                                                            hitColor = Color.valueOf("83f793");
-                                                                                            hitEffect = despawnEffect = new MultiEffect(
-                                                                                                    new WaveEffect() {{
-                                                                                                        sizeFrom = 90;
-                                                                                                        sizeTo = 90;
-                                                                                                        lifetime = 45;
-                                                                                                        colorFrom = Color.valueOf("a5f5af");
-                                                                                                        colorTo = Color.valueOf("ffffff");
-                                                                                                    }},
-                                                                                                    new WaveEffect() {{
-                                                                                                        sizeFrom = 0;
-                                                                                                        sizeTo = 90;
-                                                                                                        lifetime = 30;
-                                                                                                        colorFrom = Color.valueOf("a5f5af");
-                                                                                                        colorTo = Color.valueOf("ffffff");
-                                                                                                    }},
-                                                                                                    new ParticleEffect() {{
-                                                                                                        length = 0;
-                                                                                                        lifetime = 30;
-                                                                                                        particles = 1;
-                                                                                                        sizeFrom = 5;
-                                                                                                        sizeTo = 0;
-                                                                                                        colorFrom = Color.valueOf("a5f5af");
-                                                                                                        colorTo = Color.valueOf("ffffff");
-                                                                                                    }},
-                                                                                                    new ParticleEffect() {{
-                                                                                                        startDelay(30);
-                                                                                                        line = true;
-                                                                                                        lenFrom = 4;
-                                                                                                        lenTo = 5;
-                                                                                                        strokeFrom = 0;
-                                                                                                        strokeTo = 10;
-                                                                                                        particles = 12;
-                                                                                                        colorFrom = Color.valueOf("3bf550");
-                                                                                                    }}
-                                                                                            );
-                                                                                            lightning = 10;
-                                                                                            lightningDamage = 15;
-                                                                                            lightningLength = 4;
-                                                                                            lightningLengthRand = 6;
-                                                                                        }
-                                                                                    };
-                                                                                }
-                                                                            };
-                                                                        }
-                                                                    };
-                                                                }
-                                                            };
-                                                        }
-                                                    };
-                                                }
-                                            };
-                                        }
-                                    };
-                                }
-                            };
-                        }
-                    };
-                }
-            };
         }};
         underglow = new PowerTurret("underglow") {{
             range = 210;
@@ -1673,57 +1206,56 @@ public class EIBlocks {
                     lightningLengthRand = 24;
 
                     lightningColor = hitColor = Color.valueOf("eb8778");
-                    hitEffect = despawnEffect = applyEffect = none;
+                    hitEffect = despawnEffect = applyEffect = Fx.none;
                     hitPowerEffect = new MultiEffect(
-                            new ParticleEffect(){{
-                                length = 25;
-                                line = true;
-                                particles = 2;
-                                lifetime = 20;
-                                interp = Interp.pow3Out;
-                                sizeInterp = Interp.pow2In;
-                                lenFrom = 6;
-                                lenTo = 0;
-                                strokeFrom = 2;
-                                strokeTo = 1;
-                                colorFrom = colorTo = Color.valueOf("eb8778");
-                            }},
-                            new WaveEffect(){{
-                                lifetime = 15;
-                                interp = Interp.pow3In;
-                                sizeFrom = sizeTo = 4;
-                                strokeFrom = 2;
-                                strokeTo = 0;
-                                colorFrom = colorTo = Color.valueOf("eb8778");
-                            }}
+                        new ParticleEffect(){{
+                            length = 25;
+                            line = true;
+                            particles = 2;
+                            lifetime = 20;
+                            interp = Interp.pow3Out;
+                            sizeInterp = Interp.pow2In;
+                            lenFrom = 6;
+                            lenTo = 0;
+                            strokeFrom = 2;
+                            strokeTo = 1;
+                            colorFrom = colorTo = Color.valueOf("eb8778");
+                        }},
+                        new WaveEffect(){{
+                            lifetime = 15;
+                            interp = Interp.pow3In;
+                            sizeFrom = sizeTo = 4;
+                            strokeFrom = 2;
+                            strokeTo = 0;
+                            colorFrom = colorTo = Color.valueOf("eb8778");
+                        }}
                     );
                     hitEffect = new MultiEffect(
-                            new WaveEffect(){{
-                                lifetime = 170;
-                                interp = Interp.pow10In;
-                                sizeFrom = sizeTo = 80;
-                                strokeFrom = 4;
-                                strokeTo = 0;
-                                colorFrom = colorTo = Color.valueOf("eb8778");
-                            }},
-                            new ParticleEffect(){{
-                                length = 0;
-                                particles = 1;
-                                lifetime = 170;
-                                interp = Interp.pow10In;
-                                sizeFrom = 7;
-                                sizeTo = 0;
-                                colorFrom = colorTo = Color.valueOf("eb8778");
-                            }},
-                            new ParticleEffect(){{
-                                length = 0;
-                                particles = 1;
-                                lifetime = 10;
-                                sizeFrom = 80;
-                                sizeTo = 0;
-                                colorFrom = colorTo = Color.valueOf("eb8778");
-                            }},
-                            despawnEffect = hitPowerEffect = applyEffect = none
+                        new WaveEffect(){{
+                            lifetime = 170;
+                            interp = Interp.pow10In;
+                            sizeFrom = sizeTo = 80;
+                            strokeFrom = 4;
+                            strokeTo = 0;
+                            colorFrom = colorTo = Color.valueOf("eb8778");
+                        }},
+                        new ParticleEffect(){{
+                            length = 0;
+                            particles = 1;
+                            lifetime = 170;
+                            interp = Interp.pow10In;
+                            sizeFrom = 7;
+                            sizeTo = 0;
+                            colorFrom = colorTo = Color.valueOf("eb8778");
+                        }},
+                        new ParticleEffect(){{
+                            length = 0;
+                            particles = 1;
+                            lifetime = 10;
+                            sizeFrom = 80;
+                            sizeTo = 0;
+                            colorFrom = colorTo = Color.valueOf("eb8778");
+                        }}
                     );
                 }};
             }};
@@ -1741,9 +1273,9 @@ public class EIBlocks {
             coolantMultiplier = 1.6f;
 
             heatColor = Color.red;
-            smokeEffect = none;
-            chargeSound = Sounds.lasercharge2;
-            shootSound = Sounds.shotgun;
+            smokeEffect = Fx.none;
+            chargeSound = Sounds.chargeCorvus;
+            shootSound = Sounds.shootFuse;
             shootEffect = new ParticleEffect() {{
                 line = true;
                 lenFrom = 5;
@@ -1764,24 +1296,24 @@ public class EIBlocks {
 
             shootType = new BasicBulletType(8f, 370) {{
                 chargeEffect = new MultiEffect(
-                        new ParticleEffect() {{
-                            line = true;
-                            lenFrom = 5;
-                            lenTo = 3;
-                            strokeFrom = 20;
-                            strokeTo = 0;
-                            particles = 12;
-                            lifetime = shoot.firstShotDelay;
-                            colorFrom = Color.valueOf("a9d8ff");
-                            colorTo = Color.valueOf("a9d8ff");
-                        }},
-                        new WaveEffect() {{
-                            sizeFrom = 0;
-                            sizeTo = 8;
-                            lifetime = shoot.firstShotDelay;
-                            colorFrom = Color.valueOf("ffffff");
-                            colorTo = Color.valueOf("a9d8ff");
-                        }}
+                    new ParticleEffect() {{
+                        line = true;
+                        lenFrom = 5;
+                        lenTo = 3;
+                        strokeFrom = 20;
+                        strokeTo = 0;
+                        particles = 12;
+                        lifetime = shoot.firstShotDelay;
+                        colorFrom = Color.valueOf("a9d8ff");
+                        colorTo = Color.valueOf("a9d8ff");
+                    }},
+                    new WaveEffect() {{
+                        sizeFrom = 0;
+                        sizeTo = 8;
+                        lifetime = shoot.firstShotDelay;
+                        colorFrom = Color.valueOf("ffffff");
+                        colorTo = Color.valueOf("a9d8ff");
+                    }}
                 );
                 pierceBuilding = true;
                 collidesAir = false;
@@ -1831,45 +1363,45 @@ public class EIBlocks {
             recoil = 2.7f;
 
 
-            chargeSound = Sounds.lasercharge;
-            shootSound = Sounds.plasmaboom;
+            chargeSound = Sounds.chargeVela;
+            shootSound = Sounds.shootBeamPlasma;
 
             consumePower(7.5f);
-            requirements(Category.turret, with(Items.copper, 270, Items.lead, 210, Items.silicon, 170, Items.titanium, 120, Items.thorium, 90, EIItems.enhancedPeridotium, 30));
+            requirements(Category.turret, with(Items.copper, 270, Items.lead, 210, Items.silicon, 170, Items.titanium, 120, Items.thorium, 90, EIItems.enrichedPeridotium, 30));
 
             shootType = new EmpBulletType() {{
                 chargeEffect = new MultiEffect(
-                        new WaveEffect() {{
-                            sizeFrom = 0;
-                            sizeTo = 30;
-                            lifetime = 30f;
-                            colorFrom = Color.valueOf("84f491");
-                            colorTo = Color.valueOf("84f491");
-                        }},
-                        new WaveEffect() {{
-                            startDelay(15f);
-                            sizeFrom = 0;
-                            sizeTo = 15;
-                            lifetime = 30f;
-                            colorFrom = Color.valueOf("3bf550");
-                            colorTo = Color.valueOf("3bf550");
-                        }},
-                        new WaveEffect() {{
-                            sprite = "circle-bullet";
-                            sizeFrom = 0;
-                            sizeTo = 15;
-                            lifetime = shoot.firstShotDelay;
-                            colorFrom = Color.valueOf("84f491");
-                            colorTo = Color.valueOf("84f491");
-                        }},
-                        new WaveEffect() {{
-                            sprite = "circle-bullet";
-                            sizeFrom = 0;
-                            sizeTo = 9;
-                            lifetime = shoot.firstShotDelay;
-                            colorFrom = Color.valueOf("3bf550");
-                            colorTo = Color.valueOf("3bf550");
-                        }}
+                    new WaveEffect() {{
+                        sizeFrom = 0;
+                        sizeTo = 30;
+                        lifetime = 30f;
+                        colorFrom = Color.valueOf("84f491");
+                        colorTo = Color.valueOf("84f491");
+                    }},
+                    new WaveEffect() {{
+                        startDelay(15f);
+                        sizeFrom = 0;
+                        sizeTo = 15;
+                        lifetime = 30f;
+                        colorFrom = Color.valueOf("3bf550");
+                        colorTo = Color.valueOf("3bf550");
+                    }},
+                    new WaveEffect() {{
+                        sprite = "circle-bullet";
+                        sizeFrom = 0;
+                        sizeTo = 15;
+                        lifetime = shoot.firstShotDelay;
+                        colorFrom = Color.valueOf("84f491");
+                        colorTo = Color.valueOf("84f491");
+                    }},
+                    new WaveEffect() {{
+                        sprite = "circle-bullet";
+                        sizeFrom = 0;
+                        sizeTo = 9;
+                        lifetime = shoot.firstShotDelay;
+                        colorFrom = Color.valueOf("3bf550");
+                        colorTo = Color.valueOf("3bf550");
+                    }}
                 );
                 scaleLife = true;
 
@@ -1891,30 +1423,7 @@ public class EIBlocks {
                 backColor = Color.valueOf("83f793");
                 lightColor = Color.valueOf("83f793");
                 hitColor = Color.valueOf("83f793");
-                hitEffect = despawnEffect = new MultiEffect(
-                        new WaveEffect() {{
-                            sizeFrom = 90;
-                            sizeTo = 80;
-                            colorFrom = Color.valueOf("84f491");
-                            colorTo = Color.valueOf("84f491");
-                        }},
-                        new WaveEffect() {{
-                            startDelay(15);
-                            sizeFrom = 70;
-                            sizeTo = 80;
-                            colorFrom = Color.valueOf("84f491");
-                            colorTo = Color.valueOf("84f491");
-                        }},
-                        new ParticleEffect() {{
-                            line = true;
-                            lenFrom = 4;
-                            lenTo = 5;
-                            strokeFrom = 0;
-                            strokeTo = 10;
-                            particles = 12;
-                            colorFrom = Color.valueOf("3bf550");
-                        }}
-                );
+                hitEffect = despawnEffect = EIFx.cavernFx;
 
                 lightning = 1;
                 lightningLength = 1;
@@ -1940,66 +1449,66 @@ public class EIBlocks {
         renoit = new LiquidTurret("renoit"){{
             requirements(Category.turret, with(Items.lead, 420, Items.metaglass, 330, Items.titanium, 270, Items.thorium, 140, Items.plastanium, 60));
             ammo(
-                    Liquids.water, new LiquidBulletType(Liquids.water){{
-                        lifetime = 49f;
-                        speed = 5f;
-                        knockback = 1.7f;
-                        puddleSize = 8f;
-                        orbSize = 4f;
-                        drag = 0.001f;
-                        ammoMultiplier = 0.4f;
-                        statusDuration = 60f * 4f;
-                        damage = 0.4f;
-                        layer = Layer.bullet - 2f;
-                    }},
-                    Liquids.slag,  new LiquidBulletType(Liquids.slag){{
-                        lifetime = 49f;
-                        speed = 5f;
-                        knockback = 1.3f;
-                        puddleSize = 8f;
-                        orbSize = 4f;
-                        damage = 9.5f;
-                        drag = 0.001f;
-                        ammoMultiplier = 0.4f;
-                        statusDuration = 60f * 4f;
-                    }},
-                    Liquids.cryofluid, new LiquidBulletType(Liquids.cryofluid){{
-                        lifetime = 49f;
-                        speed = 5f;
-                        knockback = 1.3f;
-                        puddleSize = 8f;
-                        orbSize = 4f;
-                        drag = 0.001f;
-                        ammoMultiplier = 0.4f;
-                        statusDuration = 60f * 4f;
-                        damage = 0.4f;
-                    }},
-                    Liquids.oil, new LiquidBulletType(Liquids.oil){{
-                        lifetime = 49f;
-                        speed = 5f;
-                        knockback = 1.3f;
-                        puddleSize = 8f;
-                        orbSize = 4f;
-                        drag = 0.001f;
-                        ammoMultiplier = 0.4f;
-                        statusDuration = 60f * 4f;
-                        damage = 0.4f;
-                        layer = Layer.bullet - 2f;
-                    }},
-                    EILiquids.reurium, new LiquidBulletType(EILiquids.reurium){{
-                        lifetime = 49f;
-                        speed = 5f;
-                        knockback = 1.5f;
-                        puddleSize = 8f;
-                        orbSize = 4f;
-                        drag = 0.001f;
-                        ammoMultiplier = 0.6f;
-                        statusDuration = 60f * 8f;
-                        damage = 0.6f;
-                        layer = Layer.bullet - 2f;
-                        reloadMultiplier = 0.75f;
-                        status = EIStatusEffects.sticky;
-                    }}
+                Liquids.water, new LiquidBulletType(Liquids.water){{
+                    lifetime = 49f;
+                    speed = 5f;
+                    knockback = 1.7f;
+                    puddleSize = 8f;
+                    orbSize = 4f;
+                    drag = 0.001f;
+                    ammoMultiplier = 0.4f;
+                    statusDuration = 60f * 4f;
+                    damage = 0.4f;
+                    layer = Layer.bullet - 2f;
+                }},
+                Liquids.slag,  new LiquidBulletType(Liquids.slag){{
+                    lifetime = 49f;
+                    speed = 5f;
+                    knockback = 1.3f;
+                    puddleSize = 8f;
+                    orbSize = 4f;
+                    damage = 9.5f;
+                    drag = 0.001f;
+                    ammoMultiplier = 0.4f;
+                    statusDuration = 60f * 4f;
+                }},
+                Liquids.cryofluid, new LiquidBulletType(Liquids.cryofluid){{
+                    lifetime = 49f;
+                    speed = 5f;
+                    knockback = 1.3f;
+                    puddleSize = 8f;
+                    orbSize = 4f;
+                    drag = 0.001f;
+                    ammoMultiplier = 0.4f;
+                    statusDuration = 60f * 4f;
+                    damage = 0.4f;
+                }},
+                Liquids.oil, new LiquidBulletType(Liquids.oil){{
+                    lifetime = 49f;
+                    speed = 5f;
+                    knockback = 1.3f;
+                    puddleSize = 8f;
+                    orbSize = 4f;
+                    drag = 0.001f;
+                    ammoMultiplier = 0.4f;
+                    statusDuration = 60f * 4f;
+                    damage = 0.4f;
+                    layer = Layer.bullet - 2f;
+                }},
+                EILiquids.reurium, new LiquidBulletType(EILiquids.reurium){{
+                    lifetime = 49f;
+                    speed = 5f;
+                    knockback = 1.5f;
+                    puddleSize = 8f;
+                    orbSize = 4f;
+                    drag = 0.001f;
+                    ammoMultiplier = 0.6f;
+                    statusDuration = 60f * 8f;
+                    damage = 0.6f;
+                    layer = Layer.bullet - 2f;
+                    reloadMultiplier = 0.75f;
+                    status = EIStatusEffects.sticky;
+                }}
             );
 
             shoot = new ShootAlternate(){{
@@ -2031,8 +1540,8 @@ public class EIBlocks {
             requirements(Category.units, with(Items.copper, 90, Items.silicon, 70, Items.titanium, 50));
 
             plans = Seq.with(
-                    new UnitPlan(agrid, 60f * 10, with(Items.silicon, 30, Items.titanium, 10)),
-                    new UnitPlan(requer, 60f * 15, with(Items.silicon, 25, Items.graphite, 20))
+                new UnitPlan(agrid, 60f * 10, with(Items.silicon, 30, Items.titanium, 10)),
+                new UnitPlan(requer, 60f * 15, with(Items.silicon, 25, Items.graphite, 20))
             );
         }};
         airFactory = new UnitFactory("air-factory"){{
@@ -2042,9 +1551,9 @@ public class EIBlocks {
             requirements(Category.units, with(Items.copper, 90, Items.silicon, 70, Items.titanium, 50));
 
             plans = Seq.with(
-                    new UnitPlan(pygmy, 60f * 15, with(Items.silicon, 25, Items.graphite, 10)),
-                    new UnitPlan(SmolBoi, 60 * 20, with(Items.silicon, 10, Items.titanium, 30)),
-                    new UnitPlan(creo, 60f * 25, with(Items.silicon, 25, Items.titanium, 20))
+                new UnitPlan(pygmy, 60f * 15, with(Items.silicon, 25, Items.graphite, 10)),
+                new UnitPlan(SmolBoi, 60 * 20, with(Items.silicon, 10, Items.titanium, 30)),
+                new UnitPlan(creo, 60f * 25, with(Items.silicon, 25, Items.titanium, 20))
             );
         }};
         starruneReconstructor = new Reconstructor("starrune-reconstructor"){{
@@ -2056,11 +1565,11 @@ public class EIBlocks {
             requirements(Category.units, with(Items.copper, 200, Items.lead, 120, Items.silicon, 90, Items.graphite, 70));
 
             upgrades.addAll(
-                    new UnitType[]{agrid, xerad},
-                    new UnitType[]{requer, convoy},
-                    new UnitType[]{pygmy, schaus},
-                    new UnitType[]{SmolBoi, MediumBoi},
-                    new UnitType[]{UnitTypes.mono, centurion}
+                new UnitType[]{agrid, xerad},
+                new UnitType[]{requer, convoy},
+                new UnitType[]{pygmy, schaus},
+                new UnitType[]{SmolBoi, MediumBoi},
+                new UnitType[]{UnitTypes.mono, centurion}
             );
         }};
         eraniteReconstructor = new Reconstructor("eranite-reconstructor"){{
@@ -2072,10 +1581,10 @@ public class EIBlocks {
             requirements(Category.units, with(Items.lead, 650, Items.silicon, 450, Items.titanium, 350, Items.thorium, 650, EIItems.starium, 250));
 
             upgrades.addAll(
-                    new UnitType[]{xerad, escapade},
-                    new UnitType[]{schaus, ageronia},
-                    new UnitType[]{MediumBoi, LargeBoi},
-                    new UnitType[]{centurion, alturion}
+                new UnitType[]{xerad, escapade},
+                new UnitType[]{schaus, ageronia},
+                new UnitType[]{MediumBoi, LargeBoi},
+                new UnitType[]{centurion, alturion}
             );
         }};
         ultraReconstructor = new Reconstructor("ultra-reconstructor"){{
@@ -2085,11 +1594,11 @@ public class EIBlocks {
             consumePower(13f);
             consumeItems(with(Items.silicon, 850, Items.titanium, 750, Items.plastanium, 650, EIItems.starium, 550));
             consumeLiquid(Liquids.cryofluid, 1f);
-            requirements(Category.units, with(Items.lead, 2000, Items.silicon, 1000, Items.titanium, 2000, Items.thorium, 750, Items.plastanium, 450, EIItems.enhancedPeridotium, 600, EIItems.starium, 400));
+            requirements(Category.units, with(Items.lead, 2000, Items.silicon, 1000, Items.titanium, 2000, Items.thorium, 750, Items.plastanium, 450, EIItems.enrichedPeridotium, 600, EIItems.starium, 400));
 
             upgrades.addAll(
-                    new UnitType[]{escapade, natorin},
-                    new UnitType[]{LargeBoi, PayloadBoi}
+                new UnitType[]{escapade, natorin},
+                new UnitType[]{LargeBoi, PayloadBoi}
             );
         }};
         terraReconstructor = new Reconstructor("terra-reconstructor"){{
@@ -2097,26 +1606,13 @@ public class EIBlocks {
             size = 11;
 
             consumePower(25f);
-            consumeItems(with(Items.silicon, 1200, Items.plastanium, 750, EIItems.stariumAlloy, 400, EIItems.enhancedPeridotium, 270));
-            consumeLiquid(EILiquids.lox, 3f);
+            consumeItems(with(Items.silicon, 1200, Items.plastanium, 750, EIItems.stariumAlloy, 400, EIItems.enrichedPeridotium, 270));
+            consumeLiquid(liquidOxygen, 3f);
             requirements(Category.units, with(Items.lead, 4000, Items.silicon, 3000, Items.thorium, 1000, Items.plastanium, 600, Items.phaseFabric, 600, EIItems.stariumAlloy, 475));
 
             upgrades.addAll(
-                    new UnitType[]{natorin, terrand}
+                new UnitType[]{natorin, terrand}
             );
         }};
-        /*overkillAssembler = new UnitAssembler("overkill-assembler"){{
-            requirements(Category.units, with(Items.copper, 2650, Items.titanium, 1200, Items.silicon, 1100, EIItems.starium, 900, Items.thorium, 775, Items.plastanium, 700, Items.surgeAlloy, 650, Items.phaseFabric, 450, EIItems. stariumAlloy, 335));
-            size = 11;
-            plans.add(
-                    new AssemblerUnitPlan(starnight, 60f * 90f, PayloadStack.list(UnitTypes.oct, 1, Blocks.thoriumWallLarge, 24, Blocks.forceProjector, 4, Blocks.overdriveProjector, 2))
-            );
-            areaSize = 20;
-
-            consumePower(5.75f);
-            consumeLiquid(EILiquids.heavyOil, 18f / 60f);
-        }};*/
-
-        //TODO Planet Blocks
     }
 }

@@ -1,38 +1,49 @@
 package ExpandedIndustries;
 
+import arc.*;
+import arc.util.*;
+import mindustry.game.*;
+import mindustry.mod.*;
+
 import ExpandedIndustries.content.*;
-import arc.Core;
-import arc.Events;
-import arc.util.Log;
-import mindustry.Vars;
-import mindustry.game.EventType;
-import mindustry.mod.Mod;
-import mindustry.net.ServerGroup;
 
 public class ExpandedIndustries extends Mod{
+    long last = -1;
+
     public ExpandedIndustries(){
-        Log.info("Loaded EI constructor.");
+        Log.infoTag("[EI]", "Initializing...");
+
+        Events.on(EventType.ContentInitEvent.class, e -> EIOverrides.apply());
     }
 
     @Override
     public void loadContent(){
-        Log.info("Loading EI content.");
+        logTime("[EI]", "Loading content...");
 
-        loadAllContent();
-        
-        Log.info("Expanded Industries initialized successfully :D");
+        EIItems.load();
+        logTime("[EI]", "Items loaded!");
+        EILiquids.load();
+        logTime("[EI]", "Liquids loaded!");
+        EIBulletTypes.load();
+        logTime("[EI]", "Bullets loaded!");
+        EIFx.load();
+        logTime("[EI]", "Effects loaded!");
+        EIStatusEffects.load();
+        logTime("[EI]", "Statuses loaded!");
+        EIUnits.load();
+        logTime("[EI]", "Units loaded!");
+        EIBlocks.load();
+        logTime("[EI]", "Blocks loaded!");
+        EITechTree.load();
+        logTime("[EI]", "Tech Tree loaded!");
+        EILoadouts.load();
+        logTime("[EI]", "Loadouts loaded!");
+
+        Log.infoTag("[EI]", "Content loaded!");
     }
 
-    private void loadAllContent() {
-        EIItems.load();
-        EILiquids.load();
-        EIFx.load();
-        EIStatusEffects.load();
-        EIUnits.load();
-        EIBlocks.load();
-        EITechTree.load();
-        EILoadouts.load();
-
-        Log.info("Loading content complete!");
+    public void logTime(String tag, String text){
+        Log.infoTag(tag, text + (last > 0 ? " (" + Time.timeSinceNanos(last) / Time.nanosPerMilli + "ms)" : ""));
+        last = Time.nanos();
     }
 }

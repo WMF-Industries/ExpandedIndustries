@@ -10,13 +10,14 @@ sourceSets.main.java.srcDirs = ["src"]
 repositories{
     mavenCentral()
 
+    maven{ url "https://maven.xpdustry.com/mindustry" }
     maven{ url "https://raw.githubusercontent.com/Zelaux/MindustryRepo/master/repository" }
     maven{ url 'https://www.jitpack.io' }
 }
 
 ext{
     //the build number that this mod is made for
-    mindustryVersion = 'v146'
+    mindustryVersion = 'v154.3'
     jabelVersion = "93fde537c7"
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }

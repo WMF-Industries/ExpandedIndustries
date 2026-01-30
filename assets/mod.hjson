@@ -2,8 +2,7 @@ displayName: "[orange]Expanded [lightgray]Industries"
 name: "EI"
 author: "WMF Industries"
 main: "ExpandedIndustries.ExpandedIndustries"
-description: "Some content for people to enjoy :>
--Current version : 1.7 [EoL]"
-version: "1.7 [EoL]"
-minGameVersion: 145
+description: "Some content for people to enjoy :>"
+version: "1.8"
+minGameVersion: 154
 java: true
