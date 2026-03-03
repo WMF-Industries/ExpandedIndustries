@@ -11,6 +11,7 @@ import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.storage.*;
+import mindustry.world.meta.*;
 
 import static arc.Core.*;
 import static mindustry.Vars.*;
@@ -43,6 +44,7 @@ public class EIOverrides{
         if(settings.getBool("ei-replaceroot", false)){
             ((CoreBlock) coreShard).isFirstTier = false;
             coreShard.alwaysUnlocked = false;
+            coreShard.buildVisibility = BuildVisibility.shown;
             coreShard.researchCost = ItemStack.with(copper, 1200, lead, 900);
             coreShard.techNode.setupRequirements(coreShard.researchCost);
 

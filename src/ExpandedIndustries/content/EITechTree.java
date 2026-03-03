@@ -53,6 +53,11 @@ public class EITechTree extends TechTree{
         target.techNode.parent = context();
     }
 
+    /// Adds objectives to the target node
+    public static void addObjectives(UnlockableContent target, Objectives.Objective... objectives){
+        target.techNode.objectives.add(objectives);
+    }
+
     /// Moves the target after the current context node, then executes the given code with the target as context
     public static void moveNode(UnlockableContent target, Runnable change){
         moveNode(target);
@@ -64,6 +69,7 @@ public class EITechTree extends TechTree{
         if(settings.getBool("ei-replaceroot", false)){
             changeRoot(Planets.serpulo, coreFrag);
             moveNode(Blocks.coreFoundation, Blocks.coreShard);
+            addObjectives(Blocks.coreShard, new Objectives.OnSector(SectorPresets.craters));
         }else{
             addNode(Blocks.coreShard, () ->
                 node(coreFrag)
