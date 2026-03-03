@@ -23,7 +23,7 @@ public class EIFx {
 
     public static void load(){
         reu = new Effect(42f, e -> {
-            color(EILiquids.reurium.color);
+            color(EIPal.reuColor);
 
             randLenVectors(e.id, 1, 2f + e.fin() * 3f, (x, y) -> {
                 Fill.square(e.x + x, e.y + y, e.fout());

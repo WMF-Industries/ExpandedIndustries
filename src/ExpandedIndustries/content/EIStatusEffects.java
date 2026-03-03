@@ -13,7 +13,7 @@ import static mindustry.content.StatusEffects.*;
 public class EIStatusEffects{
     public static StatusEffect lockdown, overload, sticky, oily;
 
-    public static void load() {
+    public static void load(){
         lockdown = new StatusEffect("lockdown"){{
             speedMultiplier = 0.6f;
             reloadMultiplier = 0.7f;
@@ -33,7 +33,7 @@ public class EIStatusEffects{
             reloadMultiplier = 0.6f;
             damageMultiplier = 0.7f;
 
-            color = Color.valueOf("FFAF5FE8");
+            color = EIPal.reuColor;
             effect = EIFx.reu;
 
             init(() -> {

@@ -51,10 +51,7 @@ public class EIStatValues extends mindustry.world.meta.StatValues{
                     }
 
                     if(type.damage > 0 && (type.collides || type.splashDamage <= 0)){
-                        if(type instanceof  PulseBulletType pb){
-                            splitDamage(table, pb);
-                        }
-                        else if(type.continuousDamage() > 0){
+                        if(type.continuousDamage() > 0){
                             bt.add(Core.bundle.format("bullet.damage", type.continuousDamage()) + StatUnit.perSecond.localized());
                         }else{
                             bt.add(Core.bundle.format("bullet.damage", type.damage));
@@ -124,7 +121,7 @@ public class EIStatValues extends mindustry.world.meta.StatValues{
                     }
 
                     if(type instanceof  PulseBulletType pb && pb.criticalHitChance > 0){
-                        sep(bt, Core.bundle.format("bullet.ei-crit", pb.criticalHitChance, pb.criticalMultiplier)); // i'm quite sure you could
+                        sep(bt, Core.bundle.format("bullet.ei-crit", pb.criticalHitChance, pb.criticalMultiplier));
                     }
 
                     if(type.intervalBullet != null){
@@ -166,14 +163,6 @@ public class EIStatValues extends mindustry.world.meta.StatValues{
                 table.row();
             }
         };
-    }
-
-    private static void splitDamage(Table table, PulseBulletType type){
-        /*
-        table.add(Core.bundle.format("bullet.ei-damage.ground", type.damage * type.typeDamageMultiplier[0])).row();
-        table.add(Core.bundle.format("bullet.ei-damage.leg", type.damage * type.typeDamageMultiplier[1])).row();
-        table.add(Core.bundle.format("bullet.ei-damage.air", type.damage * type.typeDamageMultiplier[2]));
-        */
     }
 
     //for AmmoListValue

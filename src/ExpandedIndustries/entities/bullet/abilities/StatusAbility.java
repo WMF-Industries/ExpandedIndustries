@@ -12,7 +12,6 @@ import mindustry.gen.*;
 import mindustry.type.*;
 
 public class StatusAbility extends Ability{
-    private static final Seq<Unit> targets = new Seq<>();
     public boolean selfBoost = false;
 
     public float reload = 100, range = 60, x, y, timer;
@@ -33,24 +32,20 @@ public class StatusAbility extends Ability{
     @Override
     public void update(Unit unit){
         if((timer += Time.delta) >= reload){
+            if(selfBoost)
+                unit.apply(teamStatus, teamStatusDuration);
+
             Tmp.v1.trns(unit.rotation - 90, x, y).add(unit.x, unit.y);
             float rx = Tmp.v1.x, ry = Tmp.v1.y;
 
-            targets.clear();
             Units.nearby(null, rx, ry, range, other -> {
-                if(other != unit && other.targetable(unit.team) && (other.team != unit.team || other.damaged()))
-                    targets.add(other);
+                if(other != unit && other.type.targetable){
+                    other.apply(other.team == unit.team ? teamStatus : status, other.team == unit.team ? teamStatusDuration : statusDuration);
+
+                    activeEffect.at(unit, range);
+                    timer = 0f;
+                }
             });
-
-            if(targets.isEmpty()){
-                if(selfBoost)
-                    unit.apply(teamStatus, teamStatusDuration);
-            }else{
-                targets.each(u -> u.apply(u.team == unit.team ? teamStatus : status, u.team == unit.team ? teamStatusDuration : statusDuration));
-
-                activeEffect.at(unit, range);
-                timer = 0f;
-            }
         }
     }
 }

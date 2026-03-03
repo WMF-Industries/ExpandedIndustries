@@ -6,6 +6,7 @@ import mindustry.game.*;
 import mindustry.mod.*;
 
 import ExpandedIndustries.content.*;
+import ExpandedIndustries.utilities.*;
 
 public class ExpandedIndustries extends Mod{
     long last = -1;
@@ -14,6 +15,7 @@ public class ExpandedIndustries extends Mod{
         Log.infoTag("[EI]", "Initializing...");
 
         Events.on(EventType.ContentInitEvent.class, e -> EIOverrides.apply());
+        Events.on(EventType.ClientLoadEvent.class, e -> EISettings.create());
     }
 
     @Override
@@ -22,14 +24,14 @@ public class ExpandedIndustries extends Mod{
 
         EIItems.load();
         logTime("[EI]", "Items loaded!");
-        EILiquids.load();
-        logTime("[EI]", "Liquids loaded!");
-        EIBulletTypes.load();
-        logTime("[EI]", "Bullets loaded!");
         EIFx.load();
         logTime("[EI]", "Effects loaded!");
         EIStatusEffects.load();
         logTime("[EI]", "Statuses loaded!");
+        EILiquids.load();
+        logTime("[EI]", "Liquids loaded!");
+        EIBulletTypes.load();
+        logTime("[EI]", "Bullets loaded!");
         EIUnits.load();
         logTime("[EI]", "Units loaded!");
         EIBlocks.load();

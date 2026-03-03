@@ -4,12 +4,12 @@ import arc.graphics.*;
 import mindustry.content.StatusEffects;
 import mindustry.type.*;
 
-public class EILiquids {
+public class EILiquids{
     public static Liquid liquidOxygen, steam, lightOil, heavyOil, reurium;
 
     public static void load(){
         liquidOxygen = new Liquid("liquid-oxygen", Color.valueOf("83c7ff")){{
-            coolant = false;
+            coolant = true;
 
             temperature = 0.1f;
             explosiveness = 1.2f;
@@ -54,7 +54,7 @@ public class EILiquids {
             effect = StatusEffects.tarred;
         }};
 
-        reurium = new Liquid("reurium", Color.valueOf("a45cdc")){{
+        reurium = new Liquid("reurium", EIPal.reuColor){{
             coolant = false;
 
             flammability = 1.6f;

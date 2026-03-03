@@ -12,42 +12,66 @@ import static ExpandedIndustries.content.EIBlocks.*;
 import static ExpandedIndustries.content.EIItems.*;
 import static ExpandedIndustries.content.EILiquids.*;
 import static ExpandedIndustries.content.EIUnits.*;
+import static arc.Core.*;
 
 
 public class EITechTree extends TechTree{
+    /// Changes the root node of the given planet to the given content
+    public static void changeRoot(Planet planet, UnlockableContent root){
+        TechNode old = planet.techTree;
+
+        TechNode rootNode = nodeRoot(old.name, root, old.requiresUnlock, () -> {});
+        rootNode.children.add(old);
+        rootNode.children.addAll(old.children);
+        rootNode.children.each(n -> n.parent = rootNode);
+
+        old.name = null;
+        old.requiresUnlock = true;
+        old.children.clear();
+
+        TechTree.roots.remove(old);
+        planet.techTree = rootNode;
+    }
+
+    /// Sets the given target as context, then runs given code
     public static void addNode(UnlockableContent target, Runnable change){
         Reflect.set(TechTree.class, "context", target.techNode);
         change.run();
     }
 
-    public static void mergeNode(UnlockableContent source, UnlockableContent destination){
-        addNode(destination, () ->
-            mergeNode(source)
-        );
-    }
-
-    public static void mergeNode(UnlockableContent source){
-        context().children.addAll(
-            source.techNode.children.copy()
-        );
-        source.techNode.children.clear();
-    }
-
+    /// Moves the target after the specified destination node
     public static void moveNode(UnlockableContent target, UnlockableContent destination){
         addNode(destination, () ->
             moveNode(target)
         );
     }
 
+    /// Moves the target after the current context node
     public static void moveNode(UnlockableContent target){
         target.techNode.parent.children.remove(target.techNode);
         context().children.add(target.techNode);
+        target.techNode.parent = context();
+    }
+
+    /// Moves the target after the current context node, then executes the given code with the target as context
+    public static void moveNode(UnlockableContent target, Runnable change){
+        moveNode(target);
+        addNode(target, change);
     }
 
     public static void load(){
         //serpulo
-        addNode(Blocks.coreShard, () ->
-            node(coreFrag)
+        if(settings.getBool("ei-replaceroot", false)){
+            changeRoot(Planets.serpulo, coreFrag);
+            moveNode(Blocks.coreFoundation, Blocks.coreShard);
+        }else{
+            addNode(Blocks.coreShard, () ->
+                node(coreFrag)
+            );
+        }
+
+        addNode(Blocks.coreNucleus, () ->
+            node(coreQuadrant)
         );
         addNode(Blocks.coalCentrifuge, () ->
             node(oilCrystallizer)
@@ -55,7 +79,9 @@ public class EITechTree extends TechTree{
         addNode(Blocks.titaniumConveyor, () -> {
             node(titaniumBridge, () ->
                 node(stariumBridge, () ->
-                    moveNode(Blocks.phaseConveyor)
+                    moveNode(Blocks.phaseConveyor, () ->
+                        node(stariumAlloyBridge)
+                    )
                 )
             );
             node(stariumConveyor, () ->
@@ -64,9 +90,6 @@ public class EITechTree extends TechTree{
         });
         addNode(Blocks.plastaniumConveyor, () ->
             node(stariumAlloyConveyor)
-        );
-        addNode(Blocks.phaseConveyor, () ->
-            node(stariumAlloyBridge)
         );
         addNode(Blocks.pulseConduit, () ->
             node(stariumConduit)
@@ -100,7 +123,7 @@ public class EITechTree extends TechTree{
                 ),
                 () -> {}
             );
-            node(precisionDrill);
+            node(pressurizedDrill);
         });
         addNode(Blocks.siliconCrucible, () ->
             node(siliconFabricator)
@@ -132,20 +155,17 @@ public class EITechTree extends TechTree{
         });
         addNode(Blocks.siliconSmelter, () ->
             node(
-                stariumSynthesizer,
+                mixingFoundry,
                 Seq.with(
                     new Objectives.Research(Items.titanium)
                 ),
-                () -> {}
-            )
-        );
-        addNode(stariumSynthesizer, () ->
-            node(
-                peridotiumSynthesizer,
-                Seq.with(
-                    new Objectives.Research(Items.thorium)
-                ),
-                () -> {}
+                () -> node(
+                    molecularReassembler,
+                    Seq.with(
+                        new Objectives.Research(Items.thorium)
+                    ),
+                    () -> {}
+                )
             )
         );
         addNode(Blocks.multiPress, () ->
@@ -157,26 +177,25 @@ public class EITechTree extends TechTree{
                 () -> {}
             )
         );
-        addNode(Blocks.graphitePress, () ->
+        addNode(Blocks.graphitePress, () -> {
             node(
                 peridotiumEnricher,
                 Seq.with(
                     new Objectives.Research(peridotium)
                 ),
                 () -> {}
-            )
-        );
-        addNode(Blocks.plastaniumCompressor, () ->
-            node(plastaniumCondenser)
-        );
-        addNode(Blocks.graphitePress, () ->
+            );
             node(
                 freezer,
                 Seq.with(
-                    new Objectives.Research(Liquids.water)
+                    new Objectives.Research(Liquids.water),
+                    new Objectives.Research(Blocks.combustionGenerator)
                 ),
                 () -> {}
-            )
+            );
+        });
+        addNode(Blocks.plastaniumCompressor, () ->
+            node(plastaniumCondenser)
         );
         addNode(Blocks.oilExtractor, () ->
             node(oilPurifier,
@@ -206,7 +225,9 @@ public class EITechTree extends TechTree{
             node(peridotiumReactor)
         );
         addNode(Blocks.steamGenerator, () ->
-            node(steamTurbine)
+            node(steamTurbine, () ->
+                moveNode(Blocks.differentialGenerator)
+            )
         );
         addNode(Blocks.rtgGenerator, () ->
             node(
@@ -227,14 +248,15 @@ public class EITechTree extends TechTree{
             )
         );
         addNode(Blocks.overdriveDome, () ->
-            node(planetaryOverdrive, () ->
-                node(planetaryMender)
+            node(sectorOverdrive, () ->
+                node(sectorMender)
             )
         );
         addNode(Blocks.copperWall, () ->
-            node(graphiteWall, () ->
-                node(largeGraphiteWall)
-            )
+            node(graphiteWall, () -> {
+                moveNode(Blocks.titaniumWall);
+                node(largeGraphiteWall);
+            })
         );
         addNode(Blocks.plastaniumWall, () ->
             node(stariumWall, () ->
@@ -242,9 +264,12 @@ public class EITechTree extends TechTree{
             )
         );
         addNode(Blocks.duo, () ->
-            node(anado, () ->
-                node(deuse)
-            )
+            node(anado, () -> {
+                moveNode(Blocks.scorch);
+                moveNode(Blocks.salvo, () ->
+                    node(deuse)
+                );
+            })
         );
         addNode(Blocks.ripple, () ->
             node(hexagon)
@@ -261,7 +286,7 @@ public class EITechTree extends TechTree{
             node(piercer);
         });
         addNode(Blocks.groundFactory, () ->
-            node(groundFactory, () ->
+            node(industrialGroundFactory, () ->
                 node(starruneReconstructor, () ->
                     node(eraniteReconstructor, () ->
                         node(ultraReconstructor, () ->
@@ -272,7 +297,7 @@ public class EITechTree extends TechTree{
             )
         );
         addNode(Blocks.airFactory, () ->
-            node(airFactory)
+            node(industrialAirFactory)
         );
 
         addNode(UnitTypes.mono, () ->
@@ -303,10 +328,10 @@ public class EITechTree extends TechTree{
                     node(ageronia)
                 )
             );
-            node(SmolBoi, () ->
-                node(MediumBoi, () ->
-                    node(LargeBoi, () ->
-                        node(PayloadBoi)
+            node(luma, () ->
+                node(vera, () ->
+                    node(kora, () ->
+                        node(astra)
                     )
                 )
             );
@@ -334,7 +359,7 @@ public class EITechTree extends TechTree{
             nodeProduce(liquidOxygen, () -> {})
         );
         addNode(Liquids.water, () -> {
-            nodeProduce(ice, () -> {});
+            nodeProduce(itemIce, () -> {});
             nodeProduce(steam, () -> {});
         });
 

@@ -5,9 +5,11 @@ import arc.func.*;
 import arc.graphics.*;
 import arc.math.*;
 import arc.util.*;
+import mindustry.ctype.UnlockableContent;
 import mindustry.entities.bullet.*;
 import mindustry.game.*;
 import mindustry.gen.*;
+import mindustry.type.*;
 
 import static mindustry.Vars.*;
 import static ExpandedIndustries.ui.CustomDraw.CustomDrawEffects.*;
@@ -30,7 +32,7 @@ public class PulseBulletType extends BasicBulletType{
     static final EventType.UnitDamageEvent bulletDamageEvent = new EventType.UnitDamageEvent();
 
     /** Function used to fetch the base multiplier for different contents */
-    public Func<Healthc, Float> multipliers = entity -> 1f;
+    public Func<UnlockableContent, Float> multipliers = entity -> 1f;
     /** Function letting bullets have custom behavior when dealing damage to an entity */
     public Cons<Healthc> afterDamage = entity -> {};
     /** Chance for the bullet to deal a critical hit */
@@ -45,39 +47,69 @@ public class PulseBulletType extends BasicBulletType{
     @Override
     public void hitEntity(Bullet b, Hitboxc entity, float health){
         boolean wasDead = false;
-        float dmg = damage;
+        Unit unit = null;
+        float damage = b.damage;
 
-        if(entity instanceof Unit u)
+        if(entity instanceof Unit u){
+            unit = u;
             wasDead = u.dead;
+            damage *= multipliers.get(u.type);
+        }
 
         if(!net.client() && Mathf.chance(criticalHitChance)){
-            dmg *= criticalMultiplier;
+            damage *= criticalMultiplier;
 
             criticalHitEffect(b.x, b.y, b.vel.x, b.vel.y);
         }
 
         if(entity instanceof Healthc h){
-            dmg *= multipliers.get(h);
+            wasDead = h.dead();
 
-            if(pierceArmor){
-                h.damagePierce(dmg);
-            }else h.damage(dmg);
+            if(!wasDead){
+                if(unit == null && entity instanceof Building build)
+                    damage *= multipliers.get(build.block);
 
-            afterDamage.get(h);
+                float shield = entity instanceof Shieldc s ? Math.max(s.shield(), 0f) : 0f;
+                if(maxDamageFraction > 0){
+                    float cap = h.maxHealth() * maxDamageFraction + shield;
+                    damage = Math.min(damage, cap);
+                    //cap health to effective health for handlePierce to handle it properly
+                    health = Math.min(health, cap);
+                }else{
+                    health += shield;
+                }
+                if(lifesteal > 0f && b.owner instanceof Healthc o){
+                    float result = Math.max(Math.min(h.health(), damage), 0);
+                    o.heal(result * lifesteal);
+                }
+                if(pierceArmor){
+                    h.damagePierce(damage);
+                }else if(armorMultiplier != 1){
+                    h.damageArmorMult(damage, armorMultiplier);
+                }else{
+                    h.damage(damage);
+                }
+
+                afterDamage.get(h);
+            }
         }
 
-        if(entity instanceof Unit unit){
-            Tmp.v3.set(unit).sub(b).nor().scl(knockback * 80f);
-            if(impact) Tmp.v3.setAngle(b.rotation() + (knockback < 0 ? 180f : 0f));
-            unit.impulse(Tmp.v3);
-            unit.apply(status, statusDuration);
+        if(unit != null){
+            if(!unit.dead){
+                Tmp.v3.set(unit).sub(b).nor().scl(knockback * 80f);
+                if(impact) Tmp.v3.setAngle(b.rotation() + (knockback < 0 ? 180f : 0f));
+                unit.impulse(Tmp.v3);
+                unit.apply(status, statusDuration);
+            }
 
-            Events.fire(bulletDamageEvent.set(unit, b));
+            if(!wasDead){
+                Events.fire(bulletDamageEvent.set(unit, b));
+                if(unit.dead)
+                    Events.fire(new EventType.UnitBulletDestroyEvent(unit, b));
+            }
         }
 
-        if(!wasDead && entity instanceof Unit unit && unit.dead)
-            Events.fire(new EventType.UnitBulletDestroyEvent(unit, b));
-
-        handlePierce(b, health, entity.x(), entity.y());
+        if(!wasDead)
+            handlePierce(b, health, entity.x(), entity.y());
     }
 }
