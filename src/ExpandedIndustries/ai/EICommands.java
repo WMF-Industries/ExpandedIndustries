@@ -1,7 +1,7 @@
 package ExpandedIndustries.ai;
 
-import ExpandedIndustries.ai.types.FieldMedicAI;
-import mindustry.ai.UnitCommand;
+import ExpandedIndustries.ai.types.*;
+import mindustry.ai.*;
 
 public class EICommands{
     public static final UnitCommand

@@ -7,8 +7,6 @@ import ExpandedIndustries.entities.bullet.abilities.*;
 import arc.graphics.*;
 import arc.graphics.g2d.Lines;
 import arc.math.Interp;
-import arc.struct.*;
-import mindustry.*;
 import mindustry.ai.*;
 import mindustry.ai.types.*;
 import mindustry.content.*;
@@ -22,7 +20,7 @@ import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.type.ammo.*;
 import mindustry.type.unit.MissileUnitType;
-import mindustry.type.weapons.*;
+import mindustry.type.weapons.RepairBeamWeapon;
 import mindustry.world.meta.*;
 
 import static arc.graphics.g2d.Draw.color;
@@ -937,7 +935,7 @@ public class EIUnits{
         creo = new UnitType("creo"){
             {
                 constructor = UnitEntity::create;
-                defaultCommand = EICommands.healUnitsCommand;
+                aiController = FieldMedicAI::new;
 
                 outlines = flying = faceTarget = lowAltitude = true;
                 logicControllable = playerControllable = isEnemy = false;
@@ -955,7 +953,7 @@ public class EIUnits{
                     targetUnits = targetBuildings = true;
                     outlines = top = mirror = rotate = false;
 
-                    shootCone = 5;
+                    shootCone = 15f;
                     beamWidth = 0.7f;
                     repairSpeed = 0.4f;
                     fractionRepairSpeed = 0.05f;
@@ -969,6 +967,7 @@ public class EIUnits{
                 }});
             }
 
+            @Override
             public void init(){
                 super.init();
 

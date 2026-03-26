@@ -69,7 +69,7 @@ public class EITechTree extends TechTree{
         if(settings.getBool("ei-replaceroot", false)){
             changeRoot(Planets.serpulo, coreFrag);
             moveNode(Blocks.coreFoundation, Blocks.coreShard);
-            addObjectives(Blocks.coreShard, new Objectives.OnSector(SectorPresets.craters));
+            addObjectives(Blocks.coreShard, new Objectives.OnSector(SectorPresets.crateredBattleground));
         }else{
             addNode(Blocks.coreShard, () ->
                 node(coreFrag)
