@@ -11,6 +11,8 @@ public class EIItems{
 
     public static void load(){
         itemIce = new Item("ice", Color.valueOf("C2BFFBFF")){{
+            lowPriority = true;
+
             shownPlanets.add(Planets.serpulo);
 
             hardness = 2;

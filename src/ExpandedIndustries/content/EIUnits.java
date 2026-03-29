@@ -982,14 +982,14 @@ public class EIUnits{
             lowAltitude = flying = alwaysUnlocked = true;
             isEnemy = false;
 
-            health = 60f;
+            health = 80f;
             hitSize = 6f;
             speed = 2.75f;
             drag = 0.05f;
             accel = 0.2f;
             rotateSpeed = 22.5f;
             buildSpeed = 0.25f;
-            mineSpeed = 2.25f;
+            mineSpeed = 3f;
             mineTier = 1;
             itemCapacity = 10;
 
@@ -999,20 +999,30 @@ public class EIUnits{
             weapons.add(new Weapon(){{
                 top = mirror = false;
 
-                reload = 12f;
+                reload = 15f;
                 x = 0;
                 y = 0.5f;
 
                 ejectEffect = Fx.casing1;
 
                 bullet = new BasicBulletType(2.5f, 7){{
-                    width = 5f;
-                    height = 7f;
+                    keepVelocity = false;
+
                     lifetime = 45f;
+                    width = 1.5f;
+                    height = 4.5f;
+                    homingPower = 0.02f;
                     buildingDamageMultiplier = 0.01f;
 
-                    shootEffect = Fx.shootSmall;
-                    smokeEffect = Fx.shootSmallSmoke;
+                    trailWidth = 1.2f;
+                    trailLength = 3;
+                    hitEffect = despawnEffect = Fx.hitBulletColor;
+                    shootEffect = Fx.shootSmallColor;
+                    smokeEffect = Fx.hitLaserColor;
+                    backColor = trailColor = Pal.yellowBoltFront;
+                    hitColor = Pal.yellowBoltFront;
+                    frontColor = Color.white;
+                    lightColor = Pal.yellowBoltFront;
                 }};
             }});
         }};
