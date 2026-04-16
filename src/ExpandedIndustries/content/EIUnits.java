@@ -1004,6 +1004,8 @@ public class EIUnits{
                 y = 0.5f;
 
                 ejectEffect = Fx.casing1;
+                shootSound = Sounds.beamPlasmaSmall;
+                initialShootSound = Sounds.shootBeamPlasmaSmall;
 
                 bullet = new BasicBulletType(2.5f, 7){{
                     keepVelocity = false;
