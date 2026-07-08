@@ -4,5 +4,5 @@ author: "WMF Industries"
 main: "ExpandedIndustries.ExpandedIndustries"
 description: "Some content for people to enjoy :>"
 version: "1.8.5"
-minGameVersion: 157.1
+minGameVersion: 158.1
 java: true

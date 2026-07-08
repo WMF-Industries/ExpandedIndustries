@@ -5,7 +5,7 @@ import arc.func.*;
 import arc.graphics.*;
 import arc.math.*;
 import arc.util.*;
-import mindustry.ctype.UnlockableContent;
+import mindustry.ctype.*;
 import mindustry.entities.bullet.*;
 import mindustry.game.*;
 import mindustry.gen.*;

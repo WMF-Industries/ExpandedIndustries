@@ -5,61 +5,56 @@ import ExpandedIndustries.ai.types.*;
 import ExpandedIndustries.entities.bullet.*;
 import ExpandedIndustries.entities.bullet.abilities.*;
 import arc.graphics.*;
-import arc.graphics.g2d.Lines;
+import arc.graphics.g2d.*;
 import arc.math.Interp;
 import mindustry.ai.*;
 import mindustry.ai.types.*;
 import mindustry.content.*;
-import mindustry.entities.Effect;
+import mindustry.entities.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
-import mindustry.entities.part.FlarePart;
+import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
-import mindustry.type.ammo.*;
-import mindustry.type.unit.MissileUnitType;
-import mindustry.type.weapons.RepairBeamWeapon;
+import mindustry.type.unit.*;
+import mindustry.type.weapons.*;
 import mindustry.world.meta.*;
 
-import static arc.graphics.g2d.Draw.color;
-import static arc.graphics.g2d.Lines.stroke;
+import static arc.graphics.g2d.Draw.*;
+import static arc.graphics.g2d.Lines.*;
 import static mindustry.Vars.*;
 import static mindustry.gen.Sounds.*;
 
 public class EIUnits{
     public static UnitType
-    agrid, xerad, escapade, natorin, terrand,
-    requer, convoy,
-    centurion, alturion, //
-    luma, vera, kora, astra, //
-    pygmy, schaus, ageronia, // hit-and-run tree
-    creo,
-    piece, delta,
-    //Overkill Content;
-    starnight;
-    public static void load() {
-        agrid = new UnitType("agrid") {{
+    agrid, xerad, escapade, natorin, terrand, // specialist supports
+    requer, convoy, // random..
+    centurion, alturion, // miners
+    luma, vera, kora, astra, // payload
+    pygmy, schaus, ageronia, // hit-and-run
+    creo, // healers
+    piece, delta, // core
+    starnight; // hidden
+
+    public static void load(){
+        agrid = new UnitType("agrid"){{
             constructor = LegsUnit::create;
             groundLayer = Layer.legUnit;
 
             hovering = true;
             outlines = false;
 
-            health = 160f;
-            armor = 0f;
-            hitSize = 12f;
-            speed = 0.7f;
-            rotateSpeed = 2.5f;
-            buildSpeed = 1.15f;
+            health = 90f;
+            hitSize = 11.5f;
+            speed = 0.65f;
+            rotateSpeed = 1.37f;
 
             legCount = 6;
             legLength = 15f;
             legBaseOffset = 2.5f;
             shadowElevation = 0.2f;
-
-            ammoType = new PowerAmmoType(750);
 
             weapons.add(
                 new Weapon("ei-agrid-weapon"){{
@@ -105,8 +100,6 @@ public class EIUnits{
             legBaseOffset = 2.5f;
             legExtension = 1;
             shadowElevation = 0.3f;
-
-            ammoType = new PowerAmmoType(1000);
 
             weapons.add(
                     new Weapon("ei-xerad-weapon") {{
@@ -174,8 +167,6 @@ public class EIUnits{
             legBaseOffset = legExtension = 0;
             lightRadius = 50;
 
-            ammoType = new PowerAmmoType(1500);
-
             weapons.add(
                     new Weapon("ei-escapade-weapon") {{
                         mirror = true;
@@ -241,8 +232,6 @@ public class EIUnits{
             legCount = 8;
             legLength = 80;
 
-            ammoType = new PowerAmmoType(3500);
-
             weapons.add(new Weapon("ei-natorin-weapon") {{
                 rotate = continuous = mirror = top = true;
                 alternate = false;
@@ -293,8 +282,6 @@ public class EIUnits{
             legExtension = 2;
             legSpeed = 0.02f;
             outlineRadius = 4;
-
-            ammoType = new PowerAmmoType(7500);
 
             weapons.add(
                 new Weapon(){{
@@ -1170,11 +1157,9 @@ public class EIUnits{
             engineSize = 7.8f;
             buildBeamOffset = 43;
 
-            ammoType = new PowerAmmoType(12500);
-
             abilities.add(
-                new ForceFieldAbility(15*tilesize, 6, 3000, 180, 16, 45),
-                new EnergyFieldAbility(15f, 12f, 12.5f*tilesize){{
+                new ForceFieldAbility(15f * tilesize, 6, 3000, 180, 16, 45),
+                new EnergyFieldAbility(15f, 12f, 12.5f * tilesize){{
                     maxTargets = 65;
                     healPercent = 0.05f;
                     statusDuration = 20f;
@@ -1182,7 +1167,7 @@ public class EIUnits{
 
                     color = Color.valueOf("6cf5d7");
                 }},
-                new StatusAbility(300, 15*tilesize){{
+                new StatusAbility(300, 15f * tilesize){{
                     statusDuration = 360;
                 }}
             );

@@ -117,6 +117,8 @@ public class SectorOverdriveProjector extends Block{
         public void draw(){
             super.draw();
 
+            if(!Lod.l2) return;
+
             float f = 1f - (Time.time / 100f) % 1f;
 
             Draw.color(baseColor, phaseColor, phaseHeat);

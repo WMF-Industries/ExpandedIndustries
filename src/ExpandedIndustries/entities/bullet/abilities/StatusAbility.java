@@ -19,6 +19,8 @@ public class StatusAbility extends Ability{
     public float statusDuration = 60f * 15f, teamStatusDuration = 60f * 10.5f;
     public Effect activeEffect = EIFx.overload;
 
+    public StatusAbility(){}
+
     public StatusAbility(float reload, float range){
         this.reload = reload;
         this.range = range;

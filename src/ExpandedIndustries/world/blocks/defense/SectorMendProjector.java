@@ -114,11 +114,17 @@ public class SectorMendProjector extends Block{
         }
 
         @Override
+        public void drawCached(){
+            super.draw();
+        }
+
+        @Override
         public void draw(){
             super.draw();
 
-            float f = 1f - (Time.time / 100f) % 1f;
+            if(!Lod.l2) return;
 
+            float f = 1f - (Time.time / 100f) % 1f;
             Draw.color(baseColor, phaseColor, phaseHeat);
             Draw.alpha(heat * Mathf.absin(Time.time, 50f / Mathf.PI2, 1f) * 0.5f);
             Draw.rect(topRegion, x, y);
