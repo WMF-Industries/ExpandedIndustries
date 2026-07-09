@@ -856,7 +856,7 @@ public class EIUnits{
             constructor = PayloadUnit::create;
             aiController = SuicideAI::new;
 
-            flying = lowAltitude = faceTarget = true;
+            flying = faceTarget = true;
 
             health = 250;
             armor = 2;
@@ -877,7 +877,7 @@ public class EIUnits{
             constructor = PayloadUnit::create;
             aiController = SuicideAI::new;
 
-            flying = lowAltitude = faceTarget = true;
+            flying = faceTarget = true;
 
             health = 480;
             armor = 4;
@@ -887,6 +887,7 @@ public class EIUnits{
             itemCapacity = 120;
             payloadCapacity =  2f * 2f * tilesize * tilesize;
 
+            itemOffsetY = 4.75f;
             engineSize = 0;
             setEnginesMirror(
                 new UnitEngine(3f, -8f, 2.6f, -40f)
@@ -898,7 +899,7 @@ public class EIUnits{
             constructor = PayloadUnit::create;
             aiController = SuicideAI::new;
 
-            flying = lowAltitude = faceTarget = true;
+            flying = faceTarget = true;
 
             health = 900;
             armor = 6;
@@ -908,6 +909,7 @@ public class EIUnits{
             itemCapacity = 240;
             payloadCapacity =  3f * 3f * tilesize * tilesize;
 
+            itemOffsetY = 5.5f;
             engineOffset = 16f;
             engineSize = 3.2f;
             setEnginesMirror(
@@ -923,6 +925,8 @@ public class EIUnits{
                 targetSwitchInterval = 12f;
                 recoil = 0.5f;
 
+                beamEffect = EIFx.pointBeamHigh;
+
                 bullet = new BulletType(){{
                     shootSound = Sounds.shootLaser;
                     shootEffect = Fx.sparkShoot;
@@ -935,7 +939,7 @@ public class EIUnits{
         astra = new PayloadUnitType("astra"){{
             constructor = PayloadUnit::create;
 
-            flying = lowAltitude = faceTarget = true;
+            flying = faceTarget = true;
 
             health = 5300;
             armor = 8;
@@ -948,7 +952,7 @@ public class EIUnits{
             payloadCapacity = 4.5f * 4.5f * tilesize * tilesize;
 
             engineSize = 6.5f;
-            engineOffset = 32;
+            engineOffset = 32f;
             setEnginesMirror(
                 new UnitEngine(26f, -30f, 4.8f, -50f),
                 new UnitEngine(30f, -24f, 4.6f, -50f),
@@ -963,6 +967,8 @@ public class EIUnits{
                 targetInterval = 9f;
                 targetSwitchInterval = 12f;
                 recoil = 0.5f;
+
+                beamEffect = EIFx.pointBeamHigh;
 
                 bullet = new BulletType(){{
                     shootSound = Sounds.shootLaser;
@@ -982,6 +988,8 @@ public class EIUnits{
                 recoil = 0.5f;
                 mirror = false;
 
+                beamEffect = EIFx.pointBeamHigh;
+
                 bullet = new BulletType(){{
                     shootSound = Sounds.shootLaser;
                     shootEffect = Fx.sparkShoot;
@@ -998,6 +1006,8 @@ public class EIUnits{
                 targetInterval = 14f;
                 targetSwitchInterval = 12f;
                 recoil = 0.5f;
+
+                beamEffect = EIFx.pointBeamHigh;
 
                 bullet = new BulletType(){{
                     shootSound = Sounds.shootLaser;

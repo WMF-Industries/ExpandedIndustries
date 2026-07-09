@@ -2,14 +2,19 @@ package ExpandedIndustries.content;
 
 import arc.Core;
 import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Font;
 import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
+import arc.math.geom.Position;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.WaveEffect;
+import mindustry.entities.effect.WrapEffect;
+import mindustry.graphics.Drawf;
+import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.ui.Fonts;
 
@@ -19,7 +24,7 @@ import static arc.math.Angles.randLenVectors;
 
 public class EIFx {
 
-    public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse;
+    public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse, pointBeamHigh;
 
     public static void load(){
         reu = new Effect(42f, e -> {
@@ -106,5 +111,15 @@ public class EIFx {
                 lifetime = 30;
             }}
         );
+
+        pointBeamHigh = new Effect(25f, 300f, e -> {
+            if(!(e.data instanceof Position pos)) return;
+
+            Draw.z(Layer.flyingUnit + 0.2f);
+            Draw.color(e.color, e.fout());
+            Lines.stroke(1.5f);
+            Lines.line(e.x, e.y, pos.getX(), pos.getY());
+            Drawf.light(e.x, e.y, pos.getX(), pos.getY(), 20f, e.color, 0.6f * e.fout());
+        });
     }
 }
