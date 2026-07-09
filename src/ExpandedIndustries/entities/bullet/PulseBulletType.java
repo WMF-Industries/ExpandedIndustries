@@ -45,6 +45,18 @@ public class PulseBulletType extends BasicBulletType{
     }
 
     @Override
+    public void hitTile(Bullet b, Building build, float x, float y, float initialHealth, boolean direct){
+        if(!net.client() && direct && Mathf.chance(criticalHitChance)){
+            initialHealth *= criticalMultiplier;
+            b.damage *= criticalMultiplier;
+
+            criticalHitEffect(build.x, build.y, b.vel.x, b.vel.y);
+        }
+
+        super.hitTile(b, build, x, y, initialHealth, direct);
+    }
+
+    @Override
     public void hitEntity(Bullet b, Hitboxc entity, float health){
         boolean wasDead = false;
         Unit unit = null;
@@ -59,16 +71,13 @@ public class PulseBulletType extends BasicBulletType{
         if(!net.client() && Mathf.chance(criticalHitChance)){
             damage *= criticalMultiplier;
 
-            criticalHitEffect(b.x, b.y, b.vel.x, b.vel.y);
+            criticalHitEffect(entity.getX(), entity.getY(), b.vel.x, b.vel.y);
         }
 
         if(entity instanceof Healthc h){
             wasDead = h.dead();
 
             if(!wasDead){
-                if(unit == null && entity instanceof Building build)
-                    damage *= multipliers.get(build.block);
-
                 float shield = entity instanceof Shieldc s ? Math.max(s.shield(), 0f) : 0f;
                 if(maxDamageFraction > 0){
                     float cap = h.maxHealth() * maxDamageFraction + shield;

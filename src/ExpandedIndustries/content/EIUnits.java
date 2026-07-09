@@ -4,6 +4,7 @@ import ExpandedIndustries.ai.*;
 import ExpandedIndustries.ai.types.*;
 import ExpandedIndustries.entities.bullet.*;
 import ExpandedIndustries.entities.bullet.abilities.*;
+import ExpandedIndustries.type.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.Interp;
@@ -850,7 +851,7 @@ public class EIUnits{
                 }};
             }});
         }};
-        luma = new UnitType("luma"){{
+        luma = new PayloadUnitType("luma"){{
             constructor = PayloadUnit::create;
             aiController = SuicideAI::new;
 
@@ -870,7 +871,7 @@ public class EIUnits{
 
             lightRadius = 50;
         }};
-        vera = new UnitType("vera"){{
+        vera = new PayloadUnitType("vera"){{
             constructor = PayloadUnit::create;
             aiController = SuicideAI::new;
 
@@ -885,12 +886,12 @@ public class EIUnits{
 
             engineSize = 0;
             setEnginesMirror(
-                    new UnitEngine(3f, -8f, 2.6f, -40f)
+                new UnitEngine(3f, -8f, 2.6f, -40f)
             );
 
             lightRadius = 50;
         }};
-        kora = new UnitType("kora"){{
+        kora = new PayloadUnitType("kora"){{
             constructor = PayloadUnit::create;
             aiController = SuicideAI::new;
 
@@ -910,7 +911,7 @@ public class EIUnits{
             );
             lightRadius = 50;
         }};
-        astra = new UnitType("astra"){{
+        astra = new PayloadUnitType("astra"){{
             constructor = PayloadUnit::create;
 
             flying = true;

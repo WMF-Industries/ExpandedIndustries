@@ -117,7 +117,7 @@ public class CustomDraw{
                         textColor.sub(0, 0, 0.03f, 0.02f);
                         pos.add(
                             vel.x *= 0.7f,
-                            vel.y *= 0.7f
+                            vel.y *= 0.85f
                         );
                     }
                 }
