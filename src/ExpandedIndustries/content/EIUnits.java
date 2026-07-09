@@ -44,7 +44,6 @@ public class EIUnits{
             groundLayer = Layer.legUnit;
 
             hovering = true;
-            outlines = false;
 
             health = 90f;
             hitSize = 11.5f;
@@ -52,8 +51,9 @@ public class EIUnits{
             rotateSpeed = 1.37f;
 
             legCount = 6;
-            legLength = 15f;
+            legLength = 13f;
             legBaseOffset = 2.5f;
+            legExtension = -3;
             shadowElevation = 0.2f;
 
             weapons.add(
@@ -62,7 +62,7 @@ public class EIUnits{
 
                     shake = 2f;
                     shootY = 4f;
-                    x = 6.5f;
+                    x = 6f;
                     reload = 60f;
                     recoil = 1.2f;
 
@@ -86,7 +86,6 @@ public class EIUnits{
             groundLayer = Layer.legUnit;
 
             allowLegStep = hovering = true;
-            outlines = false;
 
             health = 370f;
             armor = 2f;
@@ -108,7 +107,8 @@ public class EIUnits{
                         reload = 75f;
                         recoil = 1.2f;
                         shake = 2f;
-                        x = 11;
+                        x = 9.5f;
+                        y = 3;
                         shootY = 4f;
 
                         shootSound = shootLaser;
@@ -127,10 +127,11 @@ public class EIUnits{
                     }},
                     new Weapon("ei-xerad-artillery") {{
                         top = rotate = true;
+                        rotateSpeed = 2.4f;
                         mirror = false;
 
                         x = 0;
-                        y = -5;
+                        y = -3.5f;
                         reload = 150;
                         shake = 2.7f;
 
@@ -252,7 +253,7 @@ public class EIUnits{
                         healPercent = 4.5f;
                         lifetime = 180;
                         length = 240;
-                        width = 18;
+                        width = 4;
                         shake = 1.7f;
 
                         colors = new Color[]{Pal.heal.cpy().a(.2f), Pal.heal.cpy().a(.5f), Pal.heal.cpy().mul(1.2f), Color.white};
@@ -278,9 +279,11 @@ public class EIUnits{
 
             legCount = 10;
             legLength = 80;
-            legBaseOffset = 32;
+            legBaseOffset = 28;
+            legGroupSize = 2;
             legExtension = 2;
             legSpeed = 0.02f;
+            legForwardScl = 1.2f;
             outlineRadius = 4;
 
             weapons.add(
