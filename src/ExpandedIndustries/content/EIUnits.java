@@ -855,13 +855,14 @@ public class EIUnits{
             constructor = PayloadUnit::create;
             aiController = SuicideAI::new;
 
-            flying = faceTarget = true;
+            flying = lowAltitude = faceTarget = true;
 
-            health = 210;
+            health = 250;
+            armor = 2;
             hitSize = 8f;
             speed = 1.9f;
             rotateSpeed = 3.4f;
-            itemCapacity = 50;
+            itemCapacity = 60;
             drag = 0.099f;
             accel = 0.4f;
             payloadCapacity = tilesize * tilesize;
@@ -875,13 +876,14 @@ public class EIUnits{
             constructor = PayloadUnit::create;
             aiController = SuicideAI::new;
 
-            flying = faceTarget = true;
+            flying = lowAltitude = faceTarget = true;
 
-            health = 280;
+            health = 480;
+            armor = 4;
             hitSize = 12f;
             speed = 1.8f;
             rotateSpeed = 5;
-            itemCapacity = 110;
+            itemCapacity = 120;
             payloadCapacity =  2f * 2f * tilesize * tilesize;
 
             engineSize = 0;
@@ -895,13 +897,14 @@ public class EIUnits{
             constructor = PayloadUnit::create;
             aiController = SuicideAI::new;
 
-            flying = faceTarget = true;
+            flying = lowAltitude = faceTarget = true;
 
-            health = 470;
+            health = 900;
+            armor = 6;
             hitSize = 20;
             speed = 1.6f;
             rotateSpeed = 3;
-            itemCapacity = 200;
+            itemCapacity = 240;
             payloadCapacity =  3f * 3f * tilesize * tilesize;
 
             engineOffset = 16f;
@@ -910,20 +913,37 @@ public class EIUnits{
                 new UnitEngine(11.4f, -13.5f, 3f, -50f)
             );
             lightRadius = 50;
+            weapons.add(new PointDefenseWeapon("ei-point-defense-mount"){{
+                x = 10f;
+                y = -3f;
+                reload = 4.5f;
+
+                targetInterval = 12f;
+                targetSwitchInterval = 12f;
+                recoil = 0.5f;
+
+                bullet = new BulletType(){{
+                    shootSound = Sounds.shootLaser;
+                    shootEffect = Fx.sparkShoot;
+                    hitEffect = Fx.pointHit;
+                    maxRange = 100f;
+                    damage = 38f;
+                }};
+            }});
         }};
         astra = new PayloadUnitType("astra"){{
             constructor = PayloadUnit::create;
 
-            flying = true;
-            isEnemy = false; //huh?
+            flying = lowAltitude = faceTarget = true;
 
             health = 5300;
+            armor = 8;
             hitSize = 7.4f * tilesize;
             speed = 2.2f;
             rotateSpeed = 1.2f;
             drag = 0.098f;
             accel = 0.06f;
-            itemCapacity = 280;
+            itemCapacity = 360;
             payloadCapacity = 4.5f * 4.5f * tilesize * tilesize;
 
             engineSize = 6.5f;
@@ -934,7 +954,58 @@ public class EIUnits{
                 new UnitEngine(34f, -18f, 4.4f, -50f)
             );
 
-            abilities.add(new UnitSpawnAbility(luma, 900, 0, 2));
+            weapons.add(new PointDefenseWeapon("ei-large-point-defense-mount"){{
+                x = 15f;
+                y = -15f;
+                reload = 9f;
+
+                targetInterval = 9f;
+                targetSwitchInterval = 12f;
+                recoil = 0.5f;
+
+                bullet = new BulletType(){{
+                    shootSound = Sounds.shootLaser;
+                    shootEffect = Fx.sparkShoot;
+                    hitEffect = Fx.pointHit;
+                    maxRange = 100f;
+                    damage = 38f;
+                }};
+            }});
+            weapons.add(new PointDefenseWeapon("ei-large-point-defense-mount"){{
+                x = 0f;
+                y = 0f;
+                reload = 9f;
+
+                targetInterval = 9f;
+                targetSwitchInterval = 12f;
+                recoil = 0.5f;
+                mirror = false;
+
+                bullet = new BulletType(){{
+                    shootSound = Sounds.shootLaser;
+                    shootEffect = Fx.sparkShoot;
+                    hitEffect = Fx.pointHit;
+                    maxRange = 100f;
+                    damage = 38f;
+                }};
+            }});
+            weapons.add(new PointDefenseWeapon("ei-point-defense-mount"){{
+                x = 22f;
+                y = 3f;
+                reload = 9f;
+
+                targetInterval = 14f;
+                targetSwitchInterval = 12f;
+                recoil = 0.5f;
+
+                bullet = new BulletType(){{
+                    shootSound = Sounds.shootLaser;
+                    shootEffect = Fx.sparkShoot;
+                    hitEffect = Fx.pointHit;
+                    maxRange = 100f;
+                    damage = 38f;
+                }};
+            }});
         }};
         creo = new UnitType("creo"){
             {
