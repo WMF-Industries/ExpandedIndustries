@@ -852,14 +852,13 @@ public class EIUnits{
             aiController = SuicideAI::new;
 
             flying = faceTarget = true;
-            outlines = false;
 
             health = 210;
-            hitSize = 6f;
+            hitSize = 8f;
             speed = 1.9f;
             rotateSpeed = 3;
             itemCapacity = 50;
-            payloadCapacity = 64;
+            payloadCapacity = tilesize * tilesize;
 
             lightRadius = 50;
         }};
@@ -868,16 +867,18 @@ public class EIUnits{
             aiController = SuicideAI::new;
 
             flying = faceTarget = true;
-            outlines = false;
 
             health = 280;
             hitSize = 12f;
             speed = 1.8f;
             rotateSpeed = 3;
             itemCapacity = 110;
-            payloadCapacity = 96;
+            payloadCapacity =  2f * 2f * tilesize * tilesize;
 
-            engineOffset = 6.25f;
+            engineSize = 0;
+            setEnginesMirror(
+                    new UnitEngine(3f, -8f, 2.3f, -45f)
+            );
 
             lightRadius = 50;
         }};
@@ -886,17 +887,19 @@ public class EIUnits{
             aiController = SuicideAI::new;
 
             flying = faceTarget = true;
-            outlines = false;
 
             health = 470;
             hitSize = 20;
             speed = 1.6f;
             rotateSpeed = 3;
             itemCapacity = 200;
-            payloadCapacity = 256;
+            payloadCapacity =  3f * 3f * tilesize * tilesize;
 
-            engineOffset = 11.25f;
+            engineOffset = 15f;
             engineSize = 2.75f;
+            setEnginesMirror(
+                new UnitEngine(11f, -13.5f, 2.5f, -50f)
+            );
             lightRadius = 50;
         }};
         astra = new UnitType("astra"){{
