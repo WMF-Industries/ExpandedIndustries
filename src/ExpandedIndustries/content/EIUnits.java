@@ -488,14 +488,13 @@ public class EIUnits{
         requer = new UnitType("requer"){{
             constructor = MechUnit::create;
 
-            outlines = false;
-
             health = 210;
             armor = 1;
             hitSize = 8;
             speed = 0.55f;
             rotateSpeed = 1.72f;
 
+            //I dont think this works anymore D:
             abilities.add(
                 new StatusAbility(600, 7.5f * tilesize)
             );
@@ -505,21 +504,23 @@ public class EIUnits{
                     mirror = alternate = true;
                     rotate = top = false;
 
-                    x = 8;
-                    reload = 60;
+                    x = 0;
+                    shootX = 6.25f;
+                    shootY = 4;
+                    reload = 30;
                     shake = 0.4f;
 
-                    shootSound = shootLaser;
+                    shootSound = shootElude;
 
-                    bullet = new LaserBulletType(){{
+                    bullet = new PulseBulletType(4f, 19f){{
                         collidesTeam = false;
 
-                        damage = 9;
-                        lifetime = 30;
+                        lifetime = 40;
                         lifesteal = 1.5f;
-                        length = 18 * tilesize;
+                        width = height = 6.5f;
+                        backColor = frontColor = Color.valueOf("8aa3f4");
                     }};
-                }},
+                }}/*,
                 new Weapon("ei-requer-weapon"){{
                     autoTarget = rotate = top = mirror = alternate = true;
                     controllable = false;
@@ -531,7 +532,7 @@ public class EIUnits{
                     bullet = new PulseBulletType(4, 4){{
                         lifetime = 30;
                     }};
-                }}
+                }}*/
             );
         }};
         convoy = new UnitType("convoy"){{
