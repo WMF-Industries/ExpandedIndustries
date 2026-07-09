@@ -856,9 +856,14 @@ public class EIUnits{
             health = 210;
             hitSize = 8f;
             speed = 1.9f;
-            rotateSpeed = 3;
+            rotateSpeed = 3.4f;
             itemCapacity = 50;
+            drag = 0.099f;
+            accel = 0.4f;
             payloadCapacity = tilesize * tilesize;
+
+            engineOffset = 6f;
+            engineSize = 2.2f;
 
             lightRadius = 50;
         }};
@@ -871,13 +876,13 @@ public class EIUnits{
             health = 280;
             hitSize = 12f;
             speed = 1.8f;
-            rotateSpeed = 3;
+            rotateSpeed = 5;
             itemCapacity = 110;
             payloadCapacity =  2f * 2f * tilesize * tilesize;
 
             engineSize = 0;
             setEnginesMirror(
-                    new UnitEngine(3f, -8f, 2.3f, -45f)
+                    new UnitEngine(3f, -8f, 2.6f, -40f)
             );
 
             lightRadius = 50;
@@ -895,10 +900,10 @@ public class EIUnits{
             itemCapacity = 200;
             payloadCapacity =  3f * 3f * tilesize * tilesize;
 
-            engineOffset = 15f;
-            engineSize = 2.75f;
+            engineOffset = 16f;
+            engineSize = 3.2f;
             setEnginesMirror(
-                new UnitEngine(11f, -13.5f, 2.5f, -50f)
+                new UnitEngine(11.4f, -13.5f, 3f, -50f)
             );
             lightRadius = 50;
         }};
@@ -906,19 +911,24 @@ public class EIUnits{
             constructor = PayloadUnit::create;
 
             flying = true;
-            outlines = isEnemy = false;
+            isEnemy = false; //huh?
 
             health = 5300;
-            hitSize = 40f;
-            speed = 3.35f;
-            rotateSpeed = 3.3f;
-            drag = 0.1f;
-            accel = 0.2f;
+            hitSize = 7.4f * tilesize;
+            speed = 2.2f;
+            rotateSpeed = 1.2f;
+            drag = 0.098f;
+            accel = 0.06f;
             itemCapacity = 280;
-            payloadCapacity = 1024;
+            payloadCapacity = 4.5f * 4.5f * tilesize * tilesize;
 
-            engineSize = 4.5f;
-            engineOffset = 16;
+            engineSize = 6.5f;
+            engineOffset = 32;
+            setEnginesMirror(
+                new UnitEngine(26f, -30f, 4.8f, -50f),
+                new UnitEngine(30f, -24f, 4.6f, -50f),
+                new UnitEngine(34f, -18f, 4.4f, -50f)
+            );
 
             abilities.add(new UnitSpawnAbility(luma, 900, 0, 2));
         }};
