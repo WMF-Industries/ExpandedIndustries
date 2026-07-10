@@ -35,7 +35,7 @@ public class EIUnits{
     centurion, alturion, // miners
     luma, vera, kora, astra, // payload
     pygmy, schaus, ageronia, // hit-and-run
-    creo, // healers
+    creo, creot2, creot3, // healers
     piece, delta, // core
     starnight; // hidden
 
@@ -1025,10 +1025,11 @@ public class EIUnits{
                 aiController = FieldMedicAI::new;
 
                 flying = faceTarget = lowAltitude = true;
-                //logicControllable = playerControllable = isEnemy = false;
+                logicControllable = isEnemy = false;
 
                 health = 110;
-                hitSize = 6f;
+                armor = 1;
+                hitSize = 8f;
                 speed = 2.35f;
                 rotateSpeed = 3.4f;
                 itemCapacity = 5;
@@ -1049,6 +1050,98 @@ public class EIUnits{
 
                     bullet = new BulletType(){{
                         maxRange = range = 60;
+                    }};
+                }});
+            }
+
+            @Override
+            public void init(){
+                super.init();
+
+                commands.add(EICommands.healUnitsCommand);
+                commands.remove(UnitCommand.repairCommand);
+            }
+        };
+        creot2 = new UnitType("creot2"){
+            {
+                constructor = UnitEntity::create;
+                aiController = FieldMedicAI::new;
+
+                flying = faceTarget = lowAltitude = true;
+                logicControllable = isEnemy = false;
+
+                health = 300;
+                armor = 2;
+                hitSize = 1.6f * tilesize;
+                speed = 2.1f;
+                rotateSpeed = 1.5f;
+                itemCapacity = 10;
+
+                lightRadius = 35;
+                engineOffset = 6.7f;
+                engineSize = 3f;
+
+                weapons.add(new RepairBeamWeapon(){{
+                    targetUnits = targetBuildings = true;
+                    top = rotate = false;
+                    mirror = true;
+
+                    shootCone = 15f;
+                    beamWidth = 0.7f;
+                    repairSpeed = 0.55f;
+                    fractionRepairSpeed = 0.05f;
+
+                    x = 2.5f;
+                    y = 2f;
+
+                    bullet = new BulletType(){{
+                        maxRange = range = 80f;
+                    }};
+                }});
+            }
+
+            @Override
+            public void init(){
+                super.init();
+
+                commands.add(EICommands.healUnitsCommand);
+                commands.remove(UnitCommand.repairCommand);
+            }
+        };
+        creot3 = new UnitType("creot3"){
+            {
+                constructor = UnitEntity::create;
+                aiController = FieldMedicAI::new;
+
+                flying = faceTarget = lowAltitude = true;
+                logicControllable = isEnemy = false;
+
+                health = 460;
+                armor = 5;
+                hitSize = 2.8f * tilesize;
+                speed = 2.35f;
+                rotateSpeed = 1.7f;
+                itemCapacity = 20;
+
+                lightRadius = 45;
+                engineOffset = 14.3f;
+                engineSize = 3.8f;
+
+                weapons.add(new RepairBeamWeapon("repair-beam-weapon-center-large"){{
+                    targetUnits = targetBuildings = true;
+                    top = mirror = rotate = true;
+
+                    shootCone = 15f;
+                    beamWidth = 0.9f;
+                    repairSpeed = 0.8f;
+                    fractionRepairSpeed = 0.05f;
+
+                    x = 5.5f;
+                    y = 1.25f;
+                    shootY = 5f;
+
+                    bullet = new BulletType(){{
+                        maxRange = range = 130f;
                     }};
                 }});
             }

@@ -1709,7 +1709,7 @@ public class EIBlocks{
                 new UnitType[]{requer, convoy},
                 new UnitType[]{pygmy, schaus},
                 new UnitType[]{luma, vera},
-                new UnitType[]{creo, centurion}
+                new UnitType[]{UnitTypes.mono, centurion}
             );
         }};
         eraniteReconstructor = new Reconstructor("eranite-reconstructor"){{
