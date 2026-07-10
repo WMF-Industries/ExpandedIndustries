@@ -1702,7 +1702,7 @@ public class EIBlocks{
             consumePower(3f);
 
             size = 3;
-            constructTime = 600f;
+            constructTime = 60f * 10f;
 
             upgrades.addAll(
                 new UnitType[]{agrid, xerad},
@@ -1718,7 +1718,7 @@ public class EIBlocks{
             consumePower(6f);
 
             size = 5;
-            constructTime = 1200f;
+            constructTime = 60f * 25f;
 
             upgrades.addAll(
                 new UnitType[]{xerad, escapade},
@@ -1734,7 +1734,7 @@ public class EIBlocks{
             consumePower(13f);
 
             size = 9;
-            constructTime = 1500f;
+            constructTime = 60f * 100f;
 
             upgrades.addAll(
                 new UnitType[]{escapade, natorin},
