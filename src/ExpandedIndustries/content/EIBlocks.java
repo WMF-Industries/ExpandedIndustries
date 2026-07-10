@@ -1747,7 +1747,7 @@ public class EIBlocks{
             consumeLiquid(liquidOxygen, 3f);
             consumePower(25f);
 
-            constructTime = 1800f;
+            constructTime = 60f * 250f;
             size = 11;
 
             upgrades.addAll(
