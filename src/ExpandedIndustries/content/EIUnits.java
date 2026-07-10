@@ -538,8 +538,6 @@ public class EIUnits{
         convoy = new UnitType("convoy"){{
             constructor = MechUnit::create;
 
-            outlines = false;
-
             health = 620;
             armor = 5;
             hitSize = 12;
@@ -555,7 +553,9 @@ public class EIUnits{
                     mirror = alternate = true;
                     rotate = top = false;
 
-                    x = 9;
+                    x = 0;
+                    shootX = 9;
+                    shootY = 4;
                     reload = 45;
                     shake = 0.4f;
                     shoot.shotDelay = 3.5f;
@@ -565,8 +565,9 @@ public class EIUnits{
 
                     bullet = new PulseBulletType(4f, 19f){{
                         lifetime = 50;
-                        width = 7;
-                        height = 10;
+                        width = 9;
+                        height = 13;
+                        backColor = frontColor = Color.valueOf("8aa3f4");
                     }};
                 }}
             );
@@ -1023,8 +1024,8 @@ public class EIUnits{
                 constructor = UnitEntity::create;
                 aiController = FieldMedicAI::new;
 
-                outlines = flying = faceTarget = lowAltitude = true;
-                logicControllable = playerControllable = isEnemy = false;
+                flying = faceTarget = lowAltitude = true;
+                //logicControllable = playerControllable = isEnemy = false;
 
                 health = 110;
                 hitSize = 6f;
@@ -1033,11 +1034,10 @@ public class EIUnits{
                 itemCapacity = 5;
 
                 lightRadius = 25;
-                outlineRadius = 3;
 
                 weapons.add(new RepairBeamWeapon(){{
                     targetUnits = targetBuildings = true;
-                    outlines = top = mirror = rotate = false;
+                    top = mirror = rotate = false;
 
                     shootCone = 15f;
                     beamWidth = 0.7f;
