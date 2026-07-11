@@ -652,7 +652,8 @@ public class EIBlocks{
             drawer = new DrawMulti(
                 new DrawRegion("-bottom"),
                 new DrawLiquidTile(oil),
-                new DrawDefault(),
+                new DrawRegion(),
+                new DrawLiquidOutputs(),
                 new DrawRegion("-rotator"){{
                     spinSprite = true;
                     rotateSpeed = 3.35f;
