@@ -771,6 +771,7 @@ public class EIBlocks{
 
             ambientSound = Sounds.loopHum;
             ambientSoundVolume = 0.24f;
+            explodeEffect = EIFx.peridotiumExplosion;
         }};
         lumiumReactor = new VariableImpactReactor("lumium-reactor"){{
             requirements(Category.power, with(lead, 1250, silicon, 750, titanium, 700, plastanium, 625, phaseFabric, 120, enrichedPeridotium, 335, stariumAlloy, 115));

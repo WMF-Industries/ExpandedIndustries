@@ -6,6 +6,7 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Font;
 import arc.graphics.g2d.Lines;
+import arc.math.Interp;
 import arc.math.Mathf;
 import arc.math.geom.Position;
 import mindustry.entities.Effect;
@@ -24,7 +25,7 @@ import static arc.math.Angles.randLenVectors;
 
 public class EIFx {
 
-    public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse, pointBeamHigh;
+    public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse, pointBeamHigh, peridotiumExplosion;
 
     public static void load(){
         reu = new Effect(42f, e -> {
@@ -121,5 +122,73 @@ public class EIFx {
             Lines.line(e.x, e.y, pos.getX(), pos.getY());
             Drawf.light(e.x, e.y, pos.getX(), pos.getY(), 20f, e.color, 0.6f * e.fout());
         });
+
+        peridotiumExplosion = new MultiEffect(
+            new ParticleEffect(){{
+                particles = 26;
+                sizeFrom = 26f;
+                sizeTo = 0f;
+                length = 150f;
+                lifetime = 60f * 6.5f;
+                interp = Interp.exp10Out;
+                sizeInterp = Interp.exp10In;
+                colorFrom = EIPal.peridotiumGreen;
+                colorTo = Color.valueOf("72ba7aB3");
+            }},
+            new ParticleEffect(){{
+                particles = 24;
+                sizeFrom = 18f;
+                sizeTo = 0f;
+                length = 160f;
+                lifetime = 60f * 5.75f;
+                interp = Interp.exp10Out;
+                sizeInterp = Interp.exp10In;
+                colorFrom = EIPal.peridotiumGreen;
+                colorTo = Color.valueOf("72ba7a99");
+            }},
+            new ParticleEffect(){{
+                randLength = true;
+                particles = 28;
+                sizeFrom = 12f;
+                sizeTo = 0f;
+                length = 185f;
+                lifetime = 60f * 4.25f;
+                interp = Interp.exp10Out;
+                sizeInterp = Interp.exp10In;
+                colorFrom = EIPal.peridotiumGreen;
+                colorTo = Color.valueOf("72ba7a4D");
+            }},
+                new ParticleEffect(){{
+                line = true;
+                particles = 32;
+                strokeFrom = 2f;
+                strokeTo = 0f;
+                lenFrom = 50f;
+                lenTo = 0f;
+                length = 168f;
+                lifetime = 60f * 3f;
+                interp = Interp.pow5Out;
+                colorFrom = colorTo = Pal.orangeSpark;
+            }},
+            new WaveEffect(){{
+                strokeFrom = 4f;
+                strokeTo = 0f;
+                sizeFrom = 2f;
+                sizeTo = 168f;
+                startDelay = 25f;
+                lifetime = 60f * 3.5f;
+                colorFrom = colorTo = EIPal.peridotiumGreen;
+                interp = Interp.pow5Out;
+            }},
+            new WaveEffect(){{
+                strokeFrom = 4f;
+                strokeTo = 0f;
+                sizeFrom = 10f;
+                sizeTo = 168f;
+                lifetime = 60f * 4f;
+                colorFrom = colorTo = EIPal.peridotiumGreen;
+                interp = Interp.pow5Out;
+            }}
+        );
     }
 }

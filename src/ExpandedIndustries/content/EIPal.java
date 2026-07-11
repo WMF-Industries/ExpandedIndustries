@@ -8,6 +8,7 @@ public class EIPal{
     reuColor = Color.valueOf("#a45cdc"),
     leadFront = Color.valueOf("#ab99d3"),
     leadBack = Color.valueOf("#8c7fa9"),
+    peridotiumGreen = Color.valueOf("72ba7a"),
     stariumAlloyFront = Color.valueOf("#bfc3ec"),
     stariumAlloyBack = Color.valueOf("#564791"),
     greenLaserFront = Color.valueOf("#ffffff"),
