@@ -33,7 +33,7 @@ public class EIUnits{
     agrid, xerad, escapade, natorin, terrand, // specialist supports
     requer, convoy, // random..
     centurion, alturion, // miners
-    luma, vera, kora, astra, // payload
+    luma, vera, kora, astra, brilliance, // payload
     pygmy, schaus, ageronia, // hit-and-run
     creo, creot2, creot3, // healers
     piece, delta, // core
@@ -1006,6 +1006,107 @@ public class EIUnits{
 
                 targetInterval = 14f;
                 targetSwitchInterval = 12f;
+                recoil = 0.5f;
+
+                beamEffect = EIFx.pointBeamHigh;
+
+                bullet = new BulletType(){{
+                    shootSound = Sounds.shootLaser;
+                    shootEffect = Fx.sparkShoot;
+                    hitEffect = Fx.pointHit;
+                    maxRange = 100f;
+                    damage = 38f;
+                }};
+            }});
+        }};
+        brilliance= new PayloadUnitType("brilliance"){{
+            constructor = PayloadUnit::create;
+
+            flying = faceTarget = true;
+
+            health = 22500;
+            armor = 16;
+            hitSize = 10f * tilesize;
+            speed = 1.3f;
+            rotateSpeed = 0.77f;
+            drag = 0.1f;
+            accel = 0.08f;
+            itemCapacity = 600;
+            payloadCapacity = 6.5f * 6.5f * tilesize * tilesize;
+
+            engineSize = 8f;
+            engineOffset = 38f;
+            setEnginesMirror(
+                    new UnitEngine(37.5f, -39f, 7f, -50f),
+                    new UnitEngine(45f, -22f, 6f, -50f),
+                    new UnitEngine(50f, -12f, 5.2f, -50f)
+            );
+
+            weapons.add(new PointDefenseWeapon("ei-large-point-defense-mount"){{
+                x = 38f;
+                y = -15f;
+                reload = 9f;
+
+                targetInterval = 8f;
+                targetSwitchInterval = 8f;
+                recoil = 0.5f;
+
+                beamEffect = EIFx.pointBeamHigh;
+
+                bullet = new BulletType(){{
+                    shootSound = Sounds.shootLaser;
+                    shootEffect = Fx.sparkShoot;
+                    hitEffect = Fx.pointHit;
+                    maxRange = 100f;
+                    damage = 38f;
+                }};
+            }});
+            weapons.add(new PointDefenseWeapon("ei-large-point-defense-mount"){{
+                x = 9f;
+                y = -26f;
+                reload = 7f;
+
+                targetInterval = 7f;
+                targetSwitchInterval = 8f;
+                recoil = 0.5f;
+                mirror = true;
+
+                beamEffect = EIFx.pointBeamHigh;
+
+                bullet = new BulletType(){{
+                    shootSound = Sounds.shootLaser;
+                    shootEffect = Fx.sparkShoot;
+                    hitEffect = Fx.pointHit;
+                    maxRange = 100f;
+                    damage = 38f;
+                }};
+            }});
+            weapons.add(new PointDefenseWeapon("ei-point-defense-mount"){{
+                x = 19f;
+                y = 36f;
+                reload = 9f;
+
+                targetInterval = 10f;
+                targetSwitchInterval = 8f;
+                recoil = 0.5f;
+
+                beamEffect = EIFx.pointBeamHigh;
+
+                bullet = new BulletType(){{
+                    shootSound = Sounds.shootLaser;
+                    shootEffect = Fx.sparkShoot;
+                    hitEffect = Fx.pointHit;
+                    maxRange = 100f;
+                    damage = 38f;
+                }};
+            }});
+            weapons.add(new PointDefenseWeapon("ei-point-defense-mount"){{
+                x = 36f;
+                y = 19f;
+                reload = 7f;
+
+                targetInterval = 9f;
+                targetSwitchInterval = 8f;
                 recoil = 0.5f;
 
                 beamEffect = EIFx.pointBeamHigh;

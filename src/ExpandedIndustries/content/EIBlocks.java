@@ -1753,7 +1753,8 @@ public class EIBlocks{
             size = 11;
 
             upgrades.addAll(
-                new UnitType[]{natorin, terrand}
+                new UnitType[]{natorin, terrand},
+                new UnitType[]{astra, brilliance}
             );
         }};
     }
