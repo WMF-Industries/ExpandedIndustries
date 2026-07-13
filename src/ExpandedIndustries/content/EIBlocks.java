@@ -771,7 +771,18 @@ public class EIBlocks{
             envEnabled = Env.any;
 
             generateEffect = Fx.generatespark;
-            drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
+            drawer = new DrawMulti(
+                new DrawRegion("-bottom"),
+                new DrawLiquidTile(cryofluid),
+                new DrawParticles(){{
+                    color = Color.valueOf("6aa95e");
+                    particles = 60;
+                    particleSize = 6f;
+                    particleRad = 14f;
+                    alpha = 0.5f;
+                }},
+                new DrawDefault()
+            );
         }};
         peridotiumReactor = new NuclearReactor("peridotium-reactor"){{
             requirements(Category.power, with(lead, 410, silicon, 260, graphite, 170, titanium, 210, thorium, 140, plastanium, 75, starium, 90));
