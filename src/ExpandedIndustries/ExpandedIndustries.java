@@ -22,6 +22,8 @@ public class ExpandedIndustries extends Mod{
     public void loadContent(){
         logTime("[EI]", "Loading content...");
 
+        EIAttributes.load();
+        logTime("[EI]", "Attributes loaded!");
         EIItems.load();
         logTime("[EI]", "Items loaded!");
         EIFx.load();

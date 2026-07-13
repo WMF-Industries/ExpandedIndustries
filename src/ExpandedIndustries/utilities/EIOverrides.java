@@ -10,6 +10,7 @@ import mindustry.type.*;
 
 import mindustry.world.*;
 import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.meta.*;
 
@@ -23,6 +24,7 @@ import static ExpandedIndustries.content.EIBlocks.*;
 import static ExpandedIndustries.content.EIItems.*;
 import static ExpandedIndustries.content.EILiquids.*;
 import static ExpandedIndustries.content.EIBulletTypes.*;
+import static ExpandedIndustries.content.EIAttributes.*;
 
 public class EIOverrides{
     static ObjectSet<String> modBlacklist = ObjectSet.with(
@@ -40,6 +42,8 @@ public class EIOverrides{
         addBullet(ripple, itemIce, rippleIceBullet);
 
         ice.itemDrop = itemIce;
+
+        Weathers.snow.attrs.set(cold, 0.4f);
 
         if(settings.getBool("ei-replaceroot", false)){
             ((CoreBlock) coreShard).isFirstTier = false;
@@ -63,6 +67,15 @@ public class EIOverrides{
         for(Block b : content.blocks()){
             if(blockBlacklist.get(b.id))
                 continue;
+
+            if(b instanceof Floor f){
+                if(f.liquidDrop != null && f.liquidDrop.temperature >= 0.3)
+                    f.attributes.set(liquidHeat, (f.shallow ? 1f : 1.5f) + f.liquidDrop.temperature);
+                if(f.name.contains("metal") || f.name.contains("panel") || f == coreZone)
+                    f.attributes.set(conductivity, 1f);
+                if(f.name.contains("snow") || f.name.contains("ice"))
+                    f.attributes.set(cold, f.name.equals("snow") ? 0.7f : 1f);
+            }
 
             if(b instanceof LiquidTurret t){
                 if(!t.ammoTypes.containsKey(reurium)){

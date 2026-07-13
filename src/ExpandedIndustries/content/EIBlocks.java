@@ -6,6 +6,7 @@ import arc.graphics.*;
 import arc.math.*;
 import arc.struct.*;
 import mindustry.content.*;
+import mindustry.entities.Puddles;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
 import mindustry.entities.pattern.*;
@@ -849,33 +850,47 @@ public class EIBlocks{
         }};
 
         int largeWallMultiplier = 4;
-        iceWall = new Wall("ice-wall"){{
-            requirements(category.defense, with(itemIce, 10));
 
-            health = 500;
-            envDisabled |= Env.scorching;
+        iceWall = new DecayingWall("ice-wall"){{
+            requirements(Category.defense, with(itemIce, 10));
+
+            health = 550;
+            minLossMultiplier = 0.2f;
+
+            deathAction = b -> b.tile.getLinkedTiles(t -> Puddles.deposit(t, water, Mathf.random(140f, 210f)));
+
+            setAttribute(EIAttributes.cold, -0.2f);
+            setAttribute(Attribute.water, AttributeFilter.weather, 0.2f);
+            setAttribute(EIAttributes.liquidHeat, AttributeFilter.floor, 0.35f);
+            setAttribute(EIAttributes.conductivity, AttributeFilter.floor, 0.4f);
+            setAttribute(Attribute.heat, 0.5f);
         }};
-
-        largeIceWall = new Wall("large-ice-wall"){{
+        largeIceWall = new DecayingWall("large-ice-wall"){{
             requirements(Category.defense, ItemStack.mult(iceWall.requirements, largeWallMultiplier));
 
             health = iceWall.health * largeWallMultiplier;
+            minLossMultiplier = 0.2f;
+            integrity = 2880f;
             size = 2;
-            envDisabled |= Env.scorching;
-        }};
 
+            deathAction = ((DecayingWall) iceWall).deathAction;
+
+            setAttribute(EIAttributes.cold, -0.2f);
+            setAttribute(Attribute.water, AttributeFilter.weather, 0.2f);
+            setAttribute(EIAttributes.liquidHeat, AttributeFilter.floor, 0.35f);
+            setAttribute(EIAttributes.conductivity, AttributeFilter.floor, 0.4f);
+            setAttribute(Attribute.heat, 0.5f);
+        }};
         graphiteWall = new Wall("graphite-wall"){{
             requirements(Category.defense, with(graphite, 6));
 
             health = 440;
-            envDisabled |= Env.scorching;
         }};
         largeGraphiteWall = new Wall("large-graphite-wall"){{
             requirements(Category.defense, ItemStack.mult(graphiteWall.requirements, largeWallMultiplier));
 
             health = graphiteWall.health * largeWallMultiplier;
             size = 2;
-            envDisabled |= Env.scorching;
         }};
         stariumWall = new Wall("starium-wall"){{
             requirements(Category.defense, with(stariumAlloy, 2, phaseFabric, 2, plastanium, 2));
