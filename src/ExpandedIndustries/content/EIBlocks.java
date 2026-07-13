@@ -83,7 +83,7 @@ public class EIBlocks{
     sectorMender, sectorOverdrive,
 
     //defense - serpulo
-    graphiteWall, largeGraphiteWall, stariumWall, largeStariumWall,
+    iceWall, largeIceWall, graphiteWall, largeGraphiteWall, stariumWall, largeStariumWall,
     anado, deuse, enforcer,
     hexagon, renoit, piercer,
     cavern, underglow, raven, region,
@@ -491,6 +491,12 @@ public class EIBlocks{
             outputItem = new ItemStack(coal, 3);
 
             craftEffect = Fx.coalSmeltsmoke;
+            drawer = new DrawMulti(
+                new DrawDefault(),
+                new DrawLiquidRegion(){{
+                    drawLiquid = oil;
+                }}
+            );
         }};
         scrapper = new GenericCrafter("scrapper"){{
             requirements(Category.crafting, with(lead, 70, copper, 60, graphite, 30));
@@ -531,9 +537,12 @@ public class EIBlocks{
             ambientSound = Sounds.loopSmelter;
             drawer = new DrawMulti(
                 new DrawRegion("-bottom"),
-                new DrawLiquidAnim(slag),
-                new DrawFlame(Color.valueOf("ffef99")),
-                new DrawDefault()
+                new DrawLiquidAnim(slag), //what?
+                new DrawDefault(),
+                new DrawFlame(Color.valueOf("ffef99")){{
+                    flameRadius = 4f;
+                    flameRadiusIn = 2.9f;
+                }}
             );
         }};
         molecularReassembler = new GenericCrafter("molecular-reassembler"){{
@@ -631,6 +640,12 @@ public class EIBlocks{
             craftTime = 90f;
 
             outputLiquids = LiquidStack.with(liquidOxygen, 16f / 60f);
+            drawer = new DrawMulti(
+                new DrawRegion("-bottom"),
+                new DrawLiquidTile(cryofluid),
+                new DrawLiquidTile(liquidOxygen),
+                new DrawDefault()
+            );
         }};
         oilPurifier = new GenericCrafter("oil-purifier"){{
             requirements(Category.crafting, with(copper, 220, silicon, 160, graphite, 130, metaglass, 80, titanium, 40));
@@ -731,11 +746,15 @@ public class EIBlocks{
             ambientSound = Sounds.loopSteam;
             generateEffect = Fx.generatespark;
             drawer = new DrawMulti(
+                new DrawRegion("-bottom"),
+                new DrawRegion("-turbine1"){{
+                    rotateSpeed = 3.5f;
+                }},
+                new DrawRegion("-turbine2"){{
+                    rotateSpeed = -4f;
+                }},
                 new DrawDefault(),
                 new DrawWarmupRegion(),
-                new DrawRegion("-turbine"){{
-                    rotateSpeed = 2f;
-                }},
                 new DrawLiquidRegion(water),
                 new DrawLiquidRegion(steam)
             );
@@ -819,6 +838,21 @@ public class EIBlocks{
         }};
 
         int largeWallMultiplier = 4;
+        iceWall = new Wall("ice-wall"){{
+            requirements(category.defense, with(itemIce, 10));
+
+            health = 500;
+            envDisabled |= Env.scorching;
+        }};
+
+        largeIceWall = new Wall("large-ice-wall"){{
+            requirements(Category.defense, ItemStack.mult(iceWall.requirements, largeWallMultiplier));
+
+            health = iceWall.health * largeWallMultiplier;
+            size = 2;
+            envDisabled |= Env.scorching;
+        }};
+
         graphiteWall = new Wall("graphite-wall"){{
             requirements(Category.defense, with(graphite, 6));
 
