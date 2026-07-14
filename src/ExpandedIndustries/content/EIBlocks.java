@@ -775,8 +775,8 @@ public class EIBlocks{
             drawer = new DrawMulti(
                 new DrawRegion("-bottom"),
                 new DrawLiquidTile(cryofluid),
-                new DrawParticles(){{
-                    color = Color.valueOf("6aa95e");
+                new DrawSoftParticles(){{
+                    color = Color.valueOf("99ff84");
                     particles = 60;
                     particleSize = 6f;
                     particleRad = 14f;
@@ -838,7 +838,7 @@ public class EIBlocks{
         }};
         sectorOverdrive = new SectorOverdriveProjector("sector-overdrive"){{
             requirements(Category.effect, with(copper, 8425, lead, 6350, silicon, 5430, titanium, 4100, thorium, 3950, phaseFabric, 1950, stariumAlloy, 535));
-            consumeItems(with(phaseFabric, 1, silicon, 2));
+            consumeItems(with(phaseFabric, 4, silicon, 8));
             consumePower(240f);
 
             hasPower = true;
