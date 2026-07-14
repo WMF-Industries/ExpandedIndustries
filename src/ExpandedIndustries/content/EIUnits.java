@@ -16,6 +16,7 @@ import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
+import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -34,7 +35,7 @@ public class EIUnits{
     requer, convoy, // random..
     centurion, alturion, // miners
     luma, vera, kora, astra, brilliance, // payload
-    pygmy, schaus, ageronia, // hit-and-run
+    pygmy, schaus, ageronia, monarch, // hit-and-run
     creo, creot2, creot3, // healers
     piece, delta, // core
     starnight; // hidden
@@ -626,15 +627,19 @@ public class EIUnits{
             constructor = UnitEntity::create;
             aiController = CircleTargetAI::new;
 
-            flying = lowAltitude = circleTarget = true;
+            flying = circleTarget = true;
+            lowAltitude = false;
+            circleTargetRadius = 20f;
 
             health = 170;
             armor = 1;
-            hitSize = 7f;
-            speed = 2.6f;
-            drag = 0.01f;
+            hitSize = 8f;
+            speed = 2.7f;
             accel = 0.08f;
+            drag = 0.04f;
             itemCapacity = 5;
+            rotateSpeed = 5;
+            omniMovement = false;
 
             engineOffset = 6.5f;
 
@@ -643,43 +648,33 @@ public class EIUnits{
             weapons.add(new Weapon() {{
                 top = mirror = false;
 
-                x = y = recoil = 0;
-                reload = 45f;
+                x = recoil = 0f;
+                y = -2f;
+                reload = 60f;
 
-                shootSound = shootAlpha;
-
-                bullet = new BasicBulletType(3, 9){{
-                    homingPower = 0.24f;
-                    homingDelay = 3f;
-                    lifetime = 45f;
-                    lifesteal = 1.5f;
-                    width = 3.5f;
-                    height = 5.5f;
-                    shrinkY = 0;
+                shootSound = explosionArtilleryShock;
+                shoot.shots = 2;
+                shoot.shotDelay = 15f;
+                bullet = new BulletType(3, 1){{
+                    lifetime = 1f;
+                    speed = 0f;
+                    lifesteal = 3f;
                     buildingDamageMultiplier = 0.8f;
+                    range = 40f;
 
                     smokeEffect = shootEffect = Fx.none;
-                    frontColor = Color.valueOf("bf92f9");
-                    backColor = Color.valueOf("6d56bf");
-                    trailLength = 6;
-                    trailWidth = 1.75f;
-                    trailColor = Color.valueOf("6d56bf");
-
-                    fragRandomSpread = 40;
-                    fragSpread = 5;
-                    fragBullets = 2;
-                    fragBullet = new BasicBulletType(3, 7){{
-                        homingPower = 0.19f;
-                        homingDelay = 4f;
-                        lifetime = 30f;
-                        width = height = 4;
-                        shrinkY = 0;
-
-                        frontColor = Color.valueOf("bf92f9");
-                        backColor = Color.valueOf("6d56bf");
-                        trailLength = 6;
-                        trailWidth = 1.75f;
-                        trailColor = Color.valueOf("6d56bf");
+                    splashDamageRadius = 36;
+                    splashDamage = 18f;
+                    splashDamagePierce = true;
+                    hitEffect = ejectEffect = Fx.none; //TODO hiteffect
+                    shootEffect = new WaveEffect(){{
+                        sizeFrom = 0f;
+                        sizeTo = splashDamageRadius;
+                        strokeFrom = 2;
+                        strokeTo = 0;
+                        interp = Interp.pow5Out;
+                        lifetime = reload;
+                        colorFrom = colorTo = Color.valueOf("bf92f9");
                     }};
                 }};
             }});
@@ -688,7 +683,8 @@ public class EIUnits{
             constructor = UnitEntity::create;
             aiController = CircleTargetAI::new;
 
-            flying = lowAltitude = circleTarget = true;
+            flying = circleTarget = true;
+            lowAltitude = false;
 
             health = 260;
             armor = 7;
@@ -698,57 +694,65 @@ public class EIUnits{
             accel = 0.08f;
             itemCapacity = 15;
 
-            engineOffset = 7.75f;
+            engineOffset = 10f;
+            engineSize = 3.7f;
 
             targetFlags = new BlockFlag[]{BlockFlag.factory, BlockFlag.battery, null};
 
             weapons.add(new Weapon(){{
                 top = mirror = false;
 
-                reload = 10;
-                inaccuracy = 360;
+                reload = 120;
                 shootCone = 360;
                 recoil = 0;
                 x = y = 0;
+                shoot = new ShootSpread(8,45f);
 
                 shootSound = Sounds.shockBullet;
 
-                bullet = new BasicBulletType(4, 65){{
+                bullet = new BasicBulletType(4f, 65){{
                     splashDamage = 15;
                     splashDamageRadius = 14;
                     homingPower = 0.12f;
-                    homingDelay = 3f;
-                    lifetime = 20f;
-                    lifesteal = 5.5f;
+                    homingDelay = 15f;
+
+                    lifetime = 30f;
+                    drag = 0.08f;
+                    lifesteal = 0.02f;
                     height = width = 7;
                     shrinkY = 0;
-                    lightning = 4;
-                    lightningLength = 3;
-                    lightningLengthRand = 4;
-                    lightningDamage = 5;
-                    lightningCone = 360;
-                    buildingDamageMultiplier = 0.7f;
+                    buildingDamageMultiplier = 0.55f;
+                    pierceBuilding = true;
 
                     smokeEffect = shootEffect = Fx.none;
                     sprite = "circle-bullet";
                     frontColor = Color.valueOf("bf92f9");
                     backColor = trailColor = lightningColor = Color.valueOf("6d56bf");
                     trailLength = 7;
-                    trailWidth = 3.5f;
-                    hitEffect = despawnEffect = new MultiEffect(
-                            new WaveEffect(){{
-                                sizeFrom = 14;
-                                sizeTo = 14;
-                                lifetime = 20;
-                                colorTo = Color.valueOf("6d56bf");
-                            }},
-                            new ParticleEffect(){{
-                                sizeFrom = 4;
-                                sizeTo = 2;
-                                lifetime = 15;
-                                colorTo = Color.valueOf("6d56bf");
-                            }}
-                    );
+                    trailWidth = 2f;
+                    hitEffect = new ParticleEffect(){
+                        {
+                            line = true;
+                            particles = 3;
+                            lifetime = 20;
+                            colorTo = Color.valueOf("6d56bf");
+                        }};
+                    despawnEffect = new MultiEffect(
+                        new WaveEffect(){
+                        {
+                            sizeFrom = 14;
+                            sizeTo = 14;
+                            lifetime = 20;
+                            colorTo = Color.valueOf("6d56bf");
+                        }},
+                        new ParticleEffect(){
+                        {
+                            line = true;
+                            particles = 3;
+                            lifetime = 20;
+                            colorTo = Color.valueOf("6d56bf");
+                        }
+                    });
                 }};
             }});
         }};
