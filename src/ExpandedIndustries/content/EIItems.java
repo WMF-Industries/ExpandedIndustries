@@ -16,6 +16,7 @@ public class EIItems{
             shownPlanets.add(Planets.serpulo);
 
             hardness = 2;
+            cost = 0.3f;
         }};
 
         starium = new Item("starium", Color.valueOf("4c4379")){{

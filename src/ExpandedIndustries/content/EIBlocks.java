@@ -856,6 +856,7 @@ public class EIBlocks{
 
             health = 550;
             minLossMultiplier = 0.2f;
+            integrityLoss = 0.2f;
 
             deathAction = b -> b.tile.getLinkedTiles(t -> Puddles.deposit(t, water, Mathf.random(140f, 210f)));
 

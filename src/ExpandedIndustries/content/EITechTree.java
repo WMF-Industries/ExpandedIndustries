@@ -258,6 +258,12 @@ public class EITechTree extends TechTree{
                 node(sectorMender)
             )
         );
+        addNode(Blocks.duo, () ->
+            node(iceWall, () -> {
+                moveNode(Blocks.copperWall);
+                node(largeIceWall);
+            })
+        );
         addNode(Blocks.copperWall, () ->
             node(graphiteWall, () -> {
                 moveNode(Blocks.titaniumWall);
