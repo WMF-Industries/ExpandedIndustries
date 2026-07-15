@@ -25,7 +25,8 @@ import static arc.math.Angles.randLenVectors;
 
 public class EIFx {
 
-    public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse, pointBeamHigh, peridotiumExplosion;
+    public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse, pointBeamHigh, peridotiumExplosion,
+            smallPurpleSpark;
 
     public static void load(){
         reu = new Effect(42f, e -> {
@@ -190,5 +191,14 @@ public class EIFx {
                 interp = Interp.pow5Out;
             }}
         );
+
+        smallPurpleSpark = new ParticleEffect() {
+            {
+                line = true;
+                particles = 3;
+                lifetime = 20;
+                colorTo = Color.valueOf("6d56bf");
+            }
+        };
     }
 }
