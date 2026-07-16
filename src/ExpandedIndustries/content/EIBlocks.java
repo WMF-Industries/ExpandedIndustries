@@ -2,6 +2,7 @@ package ExpandedIndustries.content;
 
 import ExpandedIndustries.world.blocks.defense.*;
 import ExpandedIndustries.world.draw.*;
+import arc.*;
 import arc.graphics.*;
 import arc.math.*;
 import arc.struct.*;
@@ -249,7 +250,8 @@ public class EIBlocks{
         coreFrag = new CoreBlock("core-frag"){{
             requirements(Category.effect, with(copper, 250, lead, 125));
 
-            isFirstTier = alwaysUnlocked = true;
+            isFirstTier = true;
+            alwaysUnlocked = !Core.settings.getBool("ei-replaceroot", false);
 
             unitType = piece;
             health = 500;
