@@ -319,7 +319,9 @@ public class EITechTree extends TechTree{
         );
         addNode(UnitTypes.dagger, () ->
             node(requer, () ->
-                node(convoy)
+                node(convoy, () ->
+                    node(demand)
+                )
             )
         );
         addNode(UnitTypes.nova, () -> {
@@ -332,18 +334,26 @@ public class EITechTree extends TechTree{
                     )
                 )
             );
-            node(creo);
+            node(creo, () ->
+                node(fingo, () ->
+                    node(perficio)
+                )
+            );
         });
         addNode(UnitTypes.flare, () -> {
             node(pygmy, () ->
                 node(schaus, () ->
-                    node(ageronia)
+                    node(ageronia, () ->
+                        node(monarch)
+                    )
                 )
             );
             node(luma, () ->
                 node(vera, () ->
                     node(kora, () ->
-                        node(astra)
+                        node(astra, () ->
+                            node(brilliance)
+                        )
                     )
                 )
             );

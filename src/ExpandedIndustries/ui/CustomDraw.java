@@ -3,12 +3,13 @@ package ExpandedIndustries.ui;
 import arc.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
+import arc.math.*;
 import arc.math.geom.*;
 import arc.struct.*;
 import arc.util.*;
 import arc.util.pooling.*;
 import mindustry.game.*;
-import mindustry.gen.Call;
+import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.ui.*;
 
@@ -96,7 +97,13 @@ public class CustomDraw{
     public static class CustomDrawEffects{
         static final byte criticalId = 1;
 
-        public static void criticalHitEffect(float x, float y, float vx, float vy){
+        static final float div = tilesize * 2f;
+        public static void criticalHitEffect(float x, float y, float vx, float vy, float hitbox){
+            final float hs = hitbox / div, clx = Mathf.clamp(vx, -hs, hs), cly = Mathf.clamp(vy, -hs, hs);
+            criticalHitEffect(x, y, clx, cly);
+        }
+
+        private static void criticalHitEffect(float x, float y, float vx, float vy){
             Call.clientBinaryPacketUnreliable("ei-ce",
                 ByteBuffer.allocate(17).put(criticalId).putFloat(x).putFloat(y).putFloat(vx).putFloat(vy).array()
             );

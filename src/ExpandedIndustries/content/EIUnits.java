@@ -36,7 +36,7 @@ public class EIUnits{
     centurion, alturion, // miners
     luma, vera, kora, astra, brilliance, // payload
     pygmy, schaus, ageronia, monarch, // hit-and-run
-    creo, creot2, creot3, // healers
+    creo, fingo, perficio, // healers
     piece, delta, // core
     starnight; // hidden
 
@@ -495,10 +495,10 @@ public class EIUnits{
             speed = 0.55f;
             rotateSpeed = 1.72f;
 
-            //I dont think this works anymore D:
-            abilities.add(
+            //TODO: Due for a rework probably
+            /*abilities.add(
                 new StatusAbility(600, 7.5f * tilesize)
-            );
+            );*/
 
             weapons.add(
                 new Weapon("ei-requer-laser"){{
@@ -521,19 +521,7 @@ public class EIUnits{
                         width = height = 6.5f;
                         backColor = frontColor = EIPal.mechBlue;
                     }};
-                }}/*,
-                new Weapon("ei-requer-weapon"){{
-                    autoTarget = rotate = top = mirror = alternate = true;
-                    controllable = false;
-
-                    x = 3.25f;
-                    y = 1.5f;
-                    reload = 15;
-
-                    bullet = new PulseBulletType(4, 4){{
-                        lifetime = 30;
-                    }};
-                }}*/
+                }}
             );
         }};
         convoy = new UnitType("convoy"){{
@@ -545,9 +533,10 @@ public class EIUnits{
             speed = 0.6f;
             rotateSpeed = 1.72f;
 
-            abilities.add(
-                new StatusAbility(600, 7.5f*tilesize)
-            );
+            //TODO: Due for a rework probably
+            /*abilities.add(
+                new StatusAbility(600, 7.5f * tilesize)
+            );*/
 
             weapons.add(
                 new Weapon("ei-convoy-weapon"){{
@@ -793,7 +782,7 @@ public class EIUnits{
                 shootCone = 360;
                 recoil = 0;
                 x = y = 0;
-                shoot = new ShootSpread(8,45f);
+                shoot = new ShootSpread(8, 45f);
 
                 shootSound = Sounds.shockBullet;
 
@@ -913,7 +902,6 @@ public class EIUnits{
             engineSize = 5f;
             targetFlags = new BlockFlag[]{BlockFlag.reactor, BlockFlag.core};
             weapons.add(new Weapon("ei-monarch-launcher"){{
-
                 x = 8f;
                 y = -6f;
                 rotate = true;
@@ -1340,7 +1328,7 @@ public class EIUnits{
                 commands.remove(UnitCommand.repairCommand);
             }
         };
-        creot2 = new UnitType("creot2"){
+        fingo = new UnitType("fingo"){
             {
                 constructor = UnitEntity::create;
                 aiController = FieldMedicAI::new;
@@ -1386,7 +1374,7 @@ public class EIUnits{
                 commands.remove(UnitCommand.repairCommand);
             }
         };
-        creot3 = new UnitType("creot3"){
+        perficio = new UnitType("perficio"){
             {
                 constructor = UnitEntity::create;
                 aiController = FieldMedicAI::new;

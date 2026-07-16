@@ -1772,7 +1772,8 @@ public class EIBlocks{
                 new UnitType[]{requer, convoy},
                 new UnitType[]{pygmy, schaus},
                 new UnitType[]{luma, vera},
-                new UnitType[]{UnitTypes.mono, centurion}
+                new UnitType[]{UnitTypes.mono, centurion},
+                new UnitType[]{creo, fingo}
             );
         }};
         eraniteReconstructor = new Reconstructor("eranite-reconstructor"){{
@@ -1785,9 +1786,11 @@ public class EIBlocks{
 
             upgrades.addAll(
                 new UnitType[]{xerad, escapade},
+                new UnitType[]{convoy, demand},
                 new UnitType[]{schaus, ageronia},
                 new UnitType[]{vera, kora},
-                new UnitType[]{centurion, alturion}
+                new UnitType[]{centurion, alturion},
+                new UnitType[]{fingo, perficio}
             );
         }};
         ultraReconstructor = new Reconstructor("ultra-reconstructor"){{
@@ -1801,6 +1804,7 @@ public class EIBlocks{
 
             upgrades.addAll(
                 new UnitType[]{escapade, natorin},
+                new UnitType[]{ageronia, monarch},
                 new UnitType[]{kora, astra}
             );
         }};

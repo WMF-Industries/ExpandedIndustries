@@ -50,7 +50,7 @@ public class PulseBulletType extends BasicBulletType{
             initialHealth *= criticalMultiplier;
             b.damage *= criticalMultiplier;
 
-            criticalHitEffect(build.x, build.y, b.vel.x, b.vel.y);
+            criticalHitEffect(build.x, build.y, b.vel.x, b.vel.y, build.hitSize());
         }
 
         super.hitTile(b, build, x, y, initialHealth, direct);
@@ -71,7 +71,7 @@ public class PulseBulletType extends BasicBulletType{
         if(!net.client() && Mathf.chance(criticalHitChance)){
             damage *= criticalMultiplier;
 
-            criticalHitEffect(entity.getX(), entity.getY(), b.vel.x, b.vel.y);
+            criticalHitEffect(entity.getX(), entity.getY(), b.vel.x, b.vel.y, entity.hitSize());
         }
 
         if(entity instanceof Healthc h){
