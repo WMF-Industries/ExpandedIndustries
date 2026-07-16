@@ -32,7 +32,7 @@ import static mindustry.gen.Sounds.*;
 public class EIUnits{
     public static UnitType
     agrid, xerad, escapade, natorin, terrand, // specialist supports
-    requer, convoy, // random..
+    requer, convoy, demand, entail, warrant,  // critical hitters
     centurion, alturion, // miners
     luma, vera, kora, astra, brilliance, // payload
     pygmy, schaus, ageronia, monarch, // hit-and-run
@@ -519,7 +519,7 @@ public class EIUnits{
                         lifetime = 40;
                         lifesteal = 1.5f;
                         width = height = 6.5f;
-                        backColor = frontColor = Color.valueOf("8aa3f4");
+                        backColor = frontColor = EIPal.mechBlue;
                     }};
                 }}/*,
                 new Weapon("ei-requer-weapon"){{
@@ -568,7 +568,90 @@ public class EIUnits{
                         lifetime = 50;
                         width = 9;
                         height = 13;
-                        backColor = frontColor = Color.valueOf("8aa3f4");
+                        backColor = frontColor = EIPal.mechBlue;
+                    }};
+                }}
+            );
+        }};
+        demand = new UnitType("demand"){{
+            constructor = MechUnit::create;
+
+            health = 620;
+            armor = 5;
+            hitSize = 26f;
+            speed = 0.45f;
+            rotateSpeed = 1.22f;
+            weapons.add(
+                new Weapon("ei-demand-weapon"){{
+                    mirror = rotate = top = false;
+
+                    x = y = 0f;
+                    shootY = 4;
+                    reload = 180f;
+                    recoil = 0f;
+                    shake = 4f;
+
+                    shootSound = shootForeshadow;
+                    cooldownTime = reload * 1.2f;
+                    shootStatus = StatusEffects.slow;
+                    shootStatusDuration = reload * 0.5f;
+
+                    bullet = new PulseBulletType(10, 60){{
+                        recoil = 6f;
+                        lifetime = 20;
+                        height = width = 13f;
+                        criticalHitChance = 0.25f;
+                        criticalMultiplier = 3;
+                        trailLength = 7;
+                        trailWidth = 4f;
+                        backColor = frontColor = trailColor = EIPal.mechBlue;
+                        smokeEffect = Fx.shootBigSmoke;
+                        pierceBuilding = true;
+                        pierce = true;
+                        pierceCap = 5;
+                        shootEffect = new ParticleEffect(){{
+                            cone = 35f;
+                            particles = 7;
+                            sizeFrom = 2f;
+                            sizeTo = 0f;
+                            colorFrom = colorTo = EIPal.mechBlue;
+                            interp = Interp.exp10Out;
+                            sizeInterp = Interp.exp5In;
+                            lifetime = 30f;
+                        }};
+                        hitEffect = new ParticleEffect(){{
+                            line = true;
+                            particles = 7;
+                            colorFrom = colorTo = EIPal.mechBlue;
+                            lenFrom = 7f;
+                            lenTo = 0f;
+                            strokeFrom = 1.8f;
+                            strokeTo = 0f;
+                            lifetime = 35f;
+                            interp = Interp.exp5Out;
+                        }};
+                        despawnEffect = new MultiEffect(
+                            new WaveEffect(){{
+                                sizeFrom = 0f;
+                                sizeTo = 18f;
+                                colorFrom = colorTo = EIPal.mechBlue;
+                                strokeFrom = 4f;
+                                strokeTo = 0f;
+                                lifetime = 60f;
+                                interp = Interp.exp5Out;
+                            }},
+                            new ParticleEffect(){{
+                                line = true;
+                                particles = 8;
+                                colorFrom = colorTo = EIPal.mechBlue;
+                                lenFrom = 9f;
+                                lenTo = 0f;
+                                strokeFrom = 4.5f;
+                                strokeTo = 0f;
+                                lifetime = 45f;
+                                interp = Interp.exp5Out;
+                            }}
+                        );
                     }};
                 }}
             );
@@ -785,7 +868,7 @@ public class EIUnits{
 
                 shootSound = shootMissile;
 
-                bullet = new MissileBulletType(2,10){{
+                bullet = new MissileBulletType(2,32){{
                     lifetime = 60f;
                     lifesteal = 2.75f;
                     buildingDamageMultiplier = 0.7f;
