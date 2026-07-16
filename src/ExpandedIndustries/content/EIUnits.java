@@ -656,12 +656,13 @@ public class EIUnits{
                 shoot.shots = 3;
                 shoot.shotDelay = 15f;
                 shootOnDeath = true;
+                shootCone = 360f;
                 bullet = new BulletType(3, 1){{
                     lifetime = 1f;
                     speed = 0f;
                     lifesteal = 3f;
                     buildingDamageMultiplier = 0.8f;
-                    range = 40f;
+                    rangeOverride = 40f;
                     status = StatusEffects.sapped;
 
                     smokeEffect = shootEffect = Fx.none;
@@ -769,7 +770,7 @@ public class EIUnits{
             engineOffset = 14f;
             engineSize = 4.5f;
 
-            targetFlags = new BlockFlag[]{BlockFlag.reactor, BlockFlag.generator, BlockFlag.battery, BlockFlag.core};
+            targetFlags = new BlockFlag[]{BlockFlag.factory, BlockFlag.core};
 
             weapons.add(new Weapon("ei-ageronia-weapon"){{
                 top = mirror = rotate = true;
@@ -824,7 +825,6 @@ public class EIUnits{
             accel = 0.07f;
             itemCapacity = 0;
             rotateSpeed = 2.8f;
-            omniMovement = false;
 
             engineOffset = 20f;
             engineSize = 5f;
@@ -889,76 +889,33 @@ public class EIUnits{
                 x = y = 0f;
                 shake = 6f;
                 top = false;
-                shoot.firstShotDelay = Fx.greenLaserChargeSmall.lifetime + 30f; //for sound timing unless we start adding custom sfx
-                chargeSound = chargeVela;
                 shootSound = explosionMissile;
-                shootCone = 360f;
-                shootOnDeath = true;
-                bullet = new BulletType(3, 1){{
+                shootCone = 25f;
+                shootStatus = StatusEffects.slow;
+                shootStatusDuration = reload + 120f;
+                shoot = new ShootSpread(6,5);
+                bullet = new BasicBulletType(1, 1){{
                     parentizeEffects = true;
-                    chargeEffect = new MultiEffect(
-                        new WaveEffect(){{
-                            lifetime = Fx.greenLaserChargeSmall.lifetime;
-                            sizeFrom = 50f;
-                            sizeTo = 0f;
-                            strokeFrom = 3f;
-                            strokeTo = 0f;
-                            colorFrom = EIPal.butterflyPurple;
-                            interp = Interp.pow5In;
-                        }},
-                        new ParticleEffect(){{
-                            lifetime = Fx.greenLaserChargeSmall.lifetime;
-                            particles = 14;
-                            baseLength = 95f;
-                            length = -95f;
-                            sizeFrom = 7.5f;
-                            colorFrom = Color.valueOf("bf92f900");
-                            colorTo = EIPal.butterflyPurple;
-                            sizeInterp = Interp.pow5In;
-                            interp = Interp.exp5Out;
-                        }},
-                        new ParticleEffect(){{
-                            lifetime = Fx.greenLaserChargeSmall.lifetime * 0.5f;
-                            particles = 20;
-                            baseLength = 70f;
-                            length = -70f;
-                            sizeFrom = 5f;
-                            colorFrom = Color.valueOf("bf92f900");
-                            colorTo = EIPal.butterflyPurple;
-                            sizeInterp = Interp.pow5In;
-                            startDelay = 10f;
-                            interp = Interp.exp5Out;
-                        }},
-                        new ParticleEffect(){{
-                            lifetime = Fx.greenLaserChargeSmall.lifetime * 0.2f;
-                            particles = 18;
-                            baseLength = 70f;
-                            length = -70f;
-                            sizeFrom = 3.5f;
-                            colorFrom = Color.valueOf("bf92f900");
-                            colorTo = EIPal.butterflyPurple;
-                            sizeInterp = Interp.pow5In;
-                            startDelay = 20f;
-                            interp = Interp.pow2Out;
-                        }}
-                    );
-                    lifetime = 1f;
-                    speed = 0f;
-                    lifesteal = 150f; //based on bullet damage and not splash damage
-                    buildingDamageMultiplier = 0.8f;
+                    lifetime = 240f;
+                    pierce = true;
+                    pierceBuilding = true;
+                    pierceCap = 10;
+                    height = 8f;
+                    width = 20f;
+                    shrinkX = -3f;
+                    lifesteal = 2f;
+                    backColor = frontColor = EIPal.butterflyPurple;
+                    buildingDamageMultiplier = 0.7f;
                     status = StatusEffects.corroded;
 
                     smokeEffect = shootEffect = Fx.none;
-                    splashDamageRadius = 120;
-                    splashDamage = 100f;
-                    splashDamagePierce = true;
-                    rangeOverride = splashDamageRadius * 0.75f;
+                    rangeOverride = 120 * 0.75f;
                     hitEffect = EIFx.smallPurpleSpark;
                     ejectEffect = Fx.none;
                     shootEffect = new MultiEffect(
                     new WaveEffect(){{
                         sizeFrom = 0f;
-                        sizeTo = splashDamageRadius;
+                        sizeTo = 120;
                         strokeFrom = 5f;
                         strokeTo = 0f;
                         interp = Interp.pow5Out;
@@ -967,7 +924,7 @@ public class EIUnits{
                     }},
                     new WaveEffect(){{
                         sizeFrom = 0f;
-                        sizeTo = splashDamageRadius;
+                        sizeTo = 120;
                         strokeFrom = 5f;
                         strokeTo = 0f;
                         interp = Interp.exp5Out;
@@ -976,7 +933,7 @@ public class EIUnits{
                         startDelay = 10f;
                     }},
                     new ParticleEffect(){{
-                        particles = 16;
+                        particles = 3;
                         line = true;
                         lenFrom = 20f;
                         lenTo = 0f;

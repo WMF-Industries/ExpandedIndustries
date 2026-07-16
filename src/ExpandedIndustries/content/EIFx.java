@@ -9,6 +9,7 @@ import arc.graphics.g2d.Lines;
 import arc.math.Interp;
 import arc.math.Mathf;
 import arc.math.geom.Position;
+import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
@@ -26,7 +27,7 @@ import static arc.math.Angles.randLenVectors;
 public class EIFx {
 
     public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse, pointBeamHigh, peridotiumExplosion,
-            smallPurpleSpark;
+            smallPurpleSpark, purpleChargeUp;
 
     public static void load(){
         reu = new Effect(42f, e -> {
@@ -200,5 +201,52 @@ public class EIFx {
                 colorTo = Color.valueOf("6d56bf");
             }
         };
+
+        purpleChargeUp = new MultiEffect(
+            new WaveEffect(){{
+                lifetime = Fx.greenLaserChargeSmall.lifetime;
+                sizeFrom = 50f;
+                sizeTo = 0f;
+                strokeFrom = 3f;
+                strokeTo = 0f;
+                colorFrom = EIPal.butterflyPurple;
+                interp = Interp.pow5In;
+            }},
+            new ParticleEffect(){{
+                lifetime = Fx.greenLaserChargeSmall.lifetime;
+                particles = 14;
+                baseLength = 95f;
+                length = -95f;
+                sizeFrom = 7.5f;
+                colorFrom = Color.valueOf("bf92f900");
+                colorTo = EIPal.butterflyPurple;
+                sizeInterp = Interp.pow5In;
+                interp = Interp.exp5Out;
+            }},
+            new ParticleEffect(){{
+                lifetime = Fx.greenLaserChargeSmall.lifetime * 0.5f;
+                particles = 20;
+                baseLength = 70f;
+                length = -70f;
+                sizeFrom = 5f;
+                colorFrom = Color.valueOf("bf92f900");
+                colorTo = EIPal.butterflyPurple;
+                sizeInterp = Interp.pow5In;
+                startDelay = 10f;
+                interp = Interp.exp5Out;
+            }},
+            new ParticleEffect(){{
+                lifetime = Fx.greenLaserChargeSmall.lifetime * 0.2f;
+                particles = 18;
+                baseLength = 70f;
+                length = -70f;
+                sizeFrom = 3.5f;
+                colorFrom = Color.valueOf("bf92f900");
+                colorTo = EIPal.butterflyPurple;
+                sizeInterp = Interp.pow5In;
+                startDelay = 20f;
+                interp = Interp.pow2Out;
+            }}
+        );
     }
 }
