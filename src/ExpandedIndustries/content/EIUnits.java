@@ -518,8 +518,9 @@ public class EIUnits{
 
                         lifetime = 40;
                         lifesteal = 1.5f;
-                        width = height = 6.5f;
+                        width = height = 8f;
                         backColor = frontColor = EIPal.mechBlue;
+                        hitEffect = despawnEffect = EIFx.smallBlueSpark;
                     }};
                 }}
             );
@@ -558,6 +559,7 @@ public class EIUnits{
                         width = 9;
                         height = 13;
                         backColor = frontColor = EIPal.mechBlue;
+                        hitEffect = despawnEffect = EIFx.smallBlueSpark;
                     }};
                 }}
             );
@@ -611,39 +613,8 @@ public class EIUnits{
                             sizeInterp = Interp.exp5In;
                             lifetime = 30f;
                         }};
-                        hitEffect = new ParticleEffect(){{
-                            line = true;
-                            particles = 7;
-                            colorFrom = colorTo = EIPal.mechBlue;
-                            lenFrom = 7f;
-                            lenTo = 0f;
-                            strokeFrom = 1.8f;
-                            strokeTo = 0f;
-                            lifetime = 35f;
-                            interp = Interp.exp5Out;
-                        }};
-                        despawnEffect = new MultiEffect(
-                            new WaveEffect(){{
-                                sizeFrom = 0f;
-                                sizeTo = 18f;
-                                colorFrom = colorTo = EIPal.mechBlue;
-                                strokeFrom = 4f;
-                                strokeTo = 0f;
-                                lifetime = 60f;
-                                interp = Interp.exp5Out;
-                            }},
-                            new ParticleEffect(){{
-                                line = true;
-                                particles = 8;
-                                colorFrom = colorTo = EIPal.mechBlue;
-                                lenFrom = 9f;
-                                lenTo = 0f;
-                                strokeFrom = 4.5f;
-                                strokeTo = 0f;
-                                lifetime = 45f;
-                                interp = Interp.exp5Out;
-                            }}
-                        );
+                        hitEffect = EIFx.smallBlueSpark;
+                        despawnEffect = EIFx.blueDespawn;
                     }};
                 }}
             );
@@ -727,39 +698,8 @@ public class EIUnits{
                         sizeInterp = Interp.exp5In;
                         lifetime = 30f;
                     }};
-                    hitEffect = new ParticleEffect(){{
-                        line = true;
-                        particles = 7;
-                        colorFrom = colorTo = EIPal.mechBlue;
-                        lenFrom = 7f;
-                        lenTo = 0f;
-                        strokeFrom = 1.8f;
-                        strokeTo = 0f;
-                        lifetime = 35f;
-                        interp = Interp.exp5Out;
-                    }};
-                    despawnEffect = new MultiEffect(
-                        new WaveEffect(){{
-                            sizeFrom = 0f;
-                            sizeTo = 18f;
-                            colorFrom = colorTo = EIPal.mechBlue;
-                            strokeFrom = 4f;
-                            strokeTo = 0f;
-                            lifetime = 60f;
-                            interp = Interp.exp5Out;
-                        }},
-                        new ParticleEffect(){{
-                            line = true;
-                            particles = 8;
-                            colorFrom = colorTo = EIPal.mechBlue;
-                            lenFrom = 9f;
-                            lenTo = 0f;
-                            strokeFrom = 4.5f;
-                            strokeTo = 0f;
-                            lifetime = 45f;
-                            interp = Interp.exp5Out;
-                        }}
-                    );
+                    hitEffect = EIFx.smallBlueSpark;
+                    despawnEffect = EIFx.blueDespawn;
                 }};
             }});
         }};

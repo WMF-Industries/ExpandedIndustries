@@ -27,7 +27,7 @@ import static arc.math.Angles.randLenVectors;
 public class EIFx {
 
     public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse, pointBeamHigh, peridotiumExplosion,
-            smallPurpleSpark, purpleChargeUp;
+            smallPurpleSpark, purpleChargeUp, smallBlueSpark, blueDespawn;
 
     public static void load(){
         reu = new Effect(42f, e -> {
@@ -160,7 +160,7 @@ public class EIFx {
                 colorFrom = EIPal.peridotiumGreen;
                 colorTo = Color.valueOf("72ba7a4D");
             }},
-                new ParticleEffect(){{
+            new ParticleEffect(){{
                 line = true;
                 particles = 32;
                 strokeFrom = 2f;
@@ -246,6 +246,41 @@ public class EIFx {
                 sizeInterp = Interp.pow5In;
                 startDelay = 20f;
                 interp = Interp.pow2Out;
+            }}
+        );
+
+        smallBlueSpark = new ParticleEffect(){{
+            line = true;
+            particles = 7;
+            colorFrom = colorTo = EIPal.mechBlue;
+            lenFrom = 7f;
+            lenTo = 0f;
+            strokeFrom = 1.8f;
+            strokeTo = 0f;
+            lifetime = 30f;
+            interp = Interp.exp5Out;
+        }};
+
+        blueDespawn = new MultiEffect(
+            new WaveEffect(){{
+                sizeFrom = 0f;
+                sizeTo = 18f;
+                colorFrom = colorTo = EIPal.mechBlue;
+                strokeFrom = 4f;
+                strokeTo = 0f;
+                lifetime = 30f;
+                interp = Interp.exp5Out;
+            }},
+            new ParticleEffect(){{
+                line = true;
+                particles = 8;
+                colorFrom = colorTo = EIPal.mechBlue;
+                lenFrom = 9f;
+                lenTo = 0f;
+                strokeFrom = 4.5f;
+                strokeTo = 0f;
+                lifetime = 25f;
+                interp = Interp.exp5Out;
             }}
         );
     }
