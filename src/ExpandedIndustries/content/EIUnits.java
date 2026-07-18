@@ -668,37 +668,50 @@ public class EIUnits{
 
                 x = recoil = 0f;
                 y = -2f;
-                shootY = 40f;
+                shootY = 34f;
                 reload = 260f;
                 shake = 7f;
                 shootSound = blockExplodeExplosive;
-                shoot.firstShotDelay = 30f;
+                shoot.firstShotDelay = 60f;
                 parts.add(
                     new RegionPart("-cannon-base"){{
                         mirror = false;
                         moveX = 0;
-                        moveY = 27f;
+                        moveY = 14.5f;
                         progress = PartProgress.warmup;
                         under = true;
                         layerOffset = -0.01f;
-                        moves.add(new PartMove(PartProgress.recoil, 0, -3f, 0));
+                        moves.add(new PartMove(PartProgress.recoil, 0, -3.5f, 0));
                         children.add(new RegionPart("-cannon"){{
                             mirror = false;
                             moveX = 0;
                             moveY = 12f;
                             progress = PartProgress.warmup;
-                            under = true;
                             layerOffset = -0.01f;
                             moves.add(new PartMove(PartProgress.recoil, 0, -8f, 0));
                         }});
+                    }},
+                    new RegionPart("-front"){{
+                        mirror = true;
+                        y = 2f;
+                        moveX = 5.5f;
+                        moveY = -10f;
+                        progress = PartProgress.warmup;
+                    }},
+                    new RegionPart("-middle"){{
+                        mirror = false;
+                        y = 2f;
+                        moveX = 0f;
+                        moveY = -6.5f;
+                        progress = PartProgress.warmup;
                     }});
                 bullet = new PulseBulletType(16, 200){{
-                    lifetime = 30;
-                    height = width = 13f;
+                    lifetime = 23;
+                    height = width = 15f;
                     criticalHitChance = 0.2f;
-                    criticalMultiplier = 3;
+                    criticalMultiplier = 3.5f;
                     trailLength = 7;
-                    trailWidth = 4f;
+                    trailWidth = 3f;
                     backColor = frontColor = trailColor = EIPal.mechBlue;
                     smokeEffect = Fx.shootBigSmoke;
                     pierceBuilding = true;
