@@ -564,11 +564,14 @@ public class EIUnits{
         }};
         demand = new UnitType("demand"){{
             constructor = MechUnit::create;
+            stepSound = Sounds.mechStep;
+            stepSoundPitch = 1.1f;
+            stepSoundVolume = 0.12f;
 
-            health = 620;
-            armor = 5;
+            health = 900;
+            armor = 6;
             hitSize = 26f;
-            speed = 0.45f;
+            speed = 0.5f;
             rotateSpeed = 1.22f;
             weapons.add(
                 new Weapon("ei-demand-weapon"){{
@@ -585,7 +588,7 @@ public class EIUnits{
                     shootStatus = StatusEffects.slow;
                     shootStatusDuration = reload * 0.5f;
 
-                    bullet = new PulseBulletType(10, 60){{
+                    bullet = new PulseBulletType(10, 80){{
                         recoil = 6f;
                         lifetime = 20;
                         height = width = 13f;
@@ -645,12 +648,114 @@ public class EIUnits{
                 }}
             );
         }};
+        entail = new UnitType("entail"){{
+            constructor = MechUnit::create;
+            mechFrontSway = 1f;
+            mechStepParticles = true;
+            stepShake = 0.15f;
+            drownTimeMultiplier = 1.3f;
+            stepSound = mechStepHeavy;
+            stepSoundPitch = 0.8f;
+            stepSoundVolume = 0.5f;
+
+            health = 8800;
+            armor = 10;
+            hitSize = 38f;
+            speed = 0.34f;
+            rotateSpeed = 1f;
+            weapons.add(new Weapon("ei-entail-weapon"){{
+                top = mirror = false;
+
+                x = recoil = 0f;
+                y = -2f;
+                shootY = 40f;
+                reload = 260f;
+                shake = 7f;
+                shootSound = blockExplodeExplosive;
+                shoot.firstShotDelay = 30f;
+                parts.add(
+                    new RegionPart("-cannon-base"){{
+                        mirror = false;
+                        moveX = 0;
+                        moveY = 27f;
+                        progress = PartProgress.warmup;
+                        under = true;
+                        layerOffset = -0.01f;
+                        moves.add(new PartMove(PartProgress.recoil, 0, -3f, 0));
+                        children.add(new RegionPart("-cannon"){{
+                            mirror = false;
+                            moveX = 0;
+                            moveY = 12f;
+                            progress = PartProgress.warmup;
+                            under = true;
+                            layerOffset = -0.01f;
+                            moves.add(new PartMove(PartProgress.recoil, 0, -8f, 0));
+                        }});
+                    }});
+                bullet = new PulseBulletType(16, 200){{
+                    lifetime = 30;
+                    height = width = 13f;
+                    criticalHitChance = 0.2f;
+                    criticalMultiplier = 3;
+                    trailLength = 7;
+                    trailWidth = 4f;
+                    backColor = frontColor = trailColor = EIPal.mechBlue;
+                    smokeEffect = Fx.shootBigSmoke;
+                    pierceBuilding = true;
+                    pierce = true;
+                    pierceCap = 20;
+                    shootEffect = new ParticleEffect(){{
+                        cone = 35f;
+                        particles = 7;
+                        sizeFrom = 2f;
+                        sizeTo = 0f;
+                        colorFrom = colorTo = EIPal.mechBlue;
+                        interp = Interp.exp10Out;
+                        sizeInterp = Interp.exp5In;
+                        lifetime = 30f;
+                    }};
+                    hitEffect = new ParticleEffect(){{
+                        line = true;
+                        particles = 7;
+                        colorFrom = colorTo = EIPal.mechBlue;
+                        lenFrom = 7f;
+                        lenTo = 0f;
+                        strokeFrom = 1.8f;
+                        strokeTo = 0f;
+                        lifetime = 35f;
+                        interp = Interp.exp5Out;
+                    }};
+                    despawnEffect = new MultiEffect(
+                        new WaveEffect(){{
+                            sizeFrom = 0f;
+                            sizeTo = 18f;
+                            colorFrom = colorTo = EIPal.mechBlue;
+                            strokeFrom = 4f;
+                            strokeTo = 0f;
+                            lifetime = 60f;
+                            interp = Interp.exp5Out;
+                        }},
+                        new ParticleEffect(){{
+                            line = true;
+                            particles = 8;
+                            colorFrom = colorTo = EIPal.mechBlue;
+                            lenFrom = 9f;
+                            lenTo = 0f;
+                            strokeFrom = 4.5f;
+                            strokeTo = 0f;
+                            lifetime = 45f;
+                            interp = Interp.exp5Out;
+                        }}
+                    );
+                }};
+            }});
+        }};
         centurion = new UnitType("centurion") {{
             constructor = UnitEntity::create;
             defaultCommand = UnitCommand.mineCommand;
 
             flying = true;
-            isEnemy = outlines = false;
+            isEnemy = false;
 
             health = 225;
             armor = 2.5f;
@@ -675,7 +780,7 @@ public class EIUnits{
             defaultCommand = UnitCommand.mineCommand;
 
             flying = true;
-            isEnemy = outlines = false;
+            isEnemy = false;
 
             health = 650;
             armor = 2.5f;
@@ -690,7 +795,7 @@ public class EIUnits{
             itemCapacity = 85;
             range = 50f;
 
-            engineSize = 2.5f;
+            engineSize = 3.2f;
             engineOffset = 12f;
 
             abilities.add(new RepairFieldAbility(18f, 60f * 10, 75f));
@@ -1289,6 +1394,7 @@ public class EIUnits{
             {
                 constructor = UnitEntity::create;
                 aiController = FieldMedicAI::new;
+                defaultCommand = EICommands.healUnitsCommand;
 
                 flying = faceTarget = lowAltitude = true;
                 logicControllable = isEnemy = false;
@@ -1332,6 +1438,7 @@ public class EIUnits{
             {
                 constructor = UnitEntity::create;
                 aiController = FieldMedicAI::new;
+                defaultCommand = EICommands.healUnitsCommand;
 
                 flying = faceTarget = lowAltitude = true;
                 logicControllable = isEnemy = false;
@@ -1378,6 +1485,7 @@ public class EIUnits{
             {
                 constructor = UnitEntity::create;
                 aiController = FieldMedicAI::new;
+                defaultCommand = EICommands.healUnitsCommand;
 
                 flying = faceTarget = lowAltitude = true;
                 logicControllable = isEnemy = false;
