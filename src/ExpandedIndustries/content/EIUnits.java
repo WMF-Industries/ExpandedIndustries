@@ -591,8 +591,9 @@ public class EIUnits{
                     shootStatusDuration = reload * 0.5f;
 
                     bullet = new PulseBulletType(10, 80){{
-                        recoil = 6f;
+                        recoil = 5f;
                         lifetime = 20;
+                        hittable = false;
                         height = width = 13f;
                         criticalHitChance = 0.25f;
                         criticalMultiplier = 3;
@@ -634,6 +635,20 @@ public class EIUnits{
             hitSize = 38f;
             speed = 0.34f;
             rotateSpeed = 1f;
+            shadowElevation = 0.15f;
+            parts.add(
+            new RegionPart("-front"){{
+                mirror = true;
+                moveX = 5.5f;
+                moveY = -10f;
+                progress = PartProgress.warmup;
+            }},
+            new RegionPart("-middle"){{
+                mirror = false;
+                moveX = 0f;
+                moveY = -6.5f;
+                progress = PartProgress.warmup;
+            }});
             weapons.add(new Weapon("ei-entail-weapon"){{
                 top = mirror = false;
 
@@ -661,28 +676,119 @@ public class EIUnits{
                             layerOffset = -0.01f;
                             moves.add(new PartMove(PartProgress.recoil, 0, -8f, 0));
                         }});
-                    }},
-                    new RegionPart("-front"){{
-                        mirror = true;
-                        y = 2f;
-                        moveX = 5.5f;
-                        moveY = -10f;
-                        progress = PartProgress.warmup;
-                    }},
-                    new RegionPart("-middle"){{
-                        mirror = false;
-                        y = 2f;
-                        moveX = 0f;
-                        moveY = -6.5f;
-                        progress = PartProgress.warmup;
                     }});
                 bullet = new PulseBulletType(16, 200){{
-                    lifetime = 23;
+                    lifetime = 25;
+                    hittable = false;
                     height = width = 15f;
                     criticalHitChance = 0.2f;
                     criticalMultiplier = 3.5f;
                     trailLength = 7;
                     trailWidth = 3f;
+                    backColor = frontColor = trailColor = EIPal.mechBlue;
+                    smokeEffect = Fx.shootBigSmoke;
+                    pierceBuilding = true;
+                    pierce = true;
+                    pierceCap = 20;
+                    shootEffect = new ParticleEffect(){{
+                        cone = 35f;
+                        particles = 7;
+                        sizeFrom = 2f;
+                        sizeTo = 0f;
+                        colorFrom = colorTo = EIPal.mechBlue;
+                        interp = Interp.exp10Out;
+                        sizeInterp = Interp.exp5In;
+                        lifetime = 30f;
+                    }};
+                    hitEffect = EIFx.smallBlueSpark;
+                    despawnEffect = EIFx.blueDespawn;
+                }};
+            }});
+        }};
+        warrant = new UnitType("warrant"){{
+            constructor = MechUnit::create;
+            mechFrontSway = 1.7f;
+            mechStepParticles = true;
+            stepShake = 2f;
+            drownTimeMultiplier = 2.1f;
+            stepSound = mechStepHeavy;
+            stepSoundPitch = 0.65f;
+            stepSoundVolume = 0.68f;
+
+            health = 24500;
+            armor = 16;
+            hitSize = 50f;
+            speed = 0.26f;
+            rotateSpeed = 0.8f;
+            weapons.add(new Weapon("ei-large-blue-mount"){{
+                top = rotate = true;
+                x = 16f;
+                y = 0f;
+                reload = 25f;
+                rotateSpeed = 1.8f;
+                shootSound = shootDisperse;
+                shootSoundVolume = 0.9f;
+                shoot = new ShootHelix(1.5f,5);
+                bullet = new PulseBulletType(6, 40){{
+                    lifetime = 30;
+                    height = width = 18f;
+                    criticalHitChance = 0.1f;
+                    criticalMultiplier = 2f;
+                    trailLength = 5;
+                    trailWidth = 4f;
+                    trailChance = 1f;
+                    trailEffect = new ParticleEffect(){{
+                        particles = 2;
+                        line = true;
+                        cone = 45f;
+                        colorFrom = colorTo = EIPal.mechBlue;
+                        lifetime = 10f;
+                    }};
+                    backColor = frontColor = trailColor = EIPal.mechBlue;
+                    smokeEffect = Fx.shootBigSmoke;
+                    pierceBuilding = true;
+                    pierce = true;
+                    pierceCap = 5;
+                    shootEffect = new ParticleEffect(){{
+                        cone = 35f;
+                        particles = 7;
+                        sizeFrom = 2f;
+                        sizeTo = 0f;
+                        colorFrom = colorTo = EIPal.mechBlue;
+                        interp = Interp.exp10Out;
+                        sizeInterp = Interp.exp5In;
+                        lifetime = 30f;
+                    }};
+                    hitEffect = despawnEffect = EIFx.smallBlueSpark;
+                    despawnSound = shootArc;
+                    fragBullets = 3;
+                    fragBullet = new LightningBulletType(){{
+                        damage = 16f;
+                        lightningLength = 5;
+                        lightningLengthRand = 2;
+                        lightningColor = EIPal.mechBlue;
+                    }};
+                }};
+            }});
+            weapons.add(new Weapon("ei-warrant-weapon"){{
+                top = false;
+                mirror = true;
+                x = y = 0f;
+                shootY = 28f;
+                shootX = 30f;
+                reload = 60f;
+                recoil = 4f;
+                shake = 5.5f;
+                shootSound = unitExplode3;
+                shootSoundVolume = 1.1f;
+                shadowElevation = 0.23f;
+                bullet = new PulseBulletType(16, 500){{
+                    lifetime = 20;
+                    height = width = 30f;
+                    criticalHitChance = 0.1f;
+                    criticalMultiplier = 2f;
+                    trailLength = 7;
+                    trailWidth = 5f;
                     backColor = frontColor = trailColor = EIPal.mechBlue;
                     smokeEffect = Fx.shootBigSmoke;
                     pierceBuilding = true;

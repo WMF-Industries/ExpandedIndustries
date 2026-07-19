@@ -1819,7 +1819,8 @@ public class EIBlocks{
 
             upgrades.addAll(
                 new UnitType[]{natorin, terrand},
-                new UnitType[]{astra, brilliance}
+                new UnitType[]{astra, brilliance},
+                new UnitType[]{entail, warrant}
             );
         }};
     }
