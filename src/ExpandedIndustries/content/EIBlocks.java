@@ -1743,8 +1743,8 @@ public class EIBlocks{
             size = 3;
 
             plans = Seq.with(
-                new UnitPlan(agrid, 900f, with(silicon, 30, titanium, 10)),
-                new UnitPlan(requer, 600f, with(silicon, 25, graphite, 20))
+                new UnitPlan(agrid, 60f * 15f, with(silicon, 30, titanium, 10)),
+                new UnitPlan(requer, 60f * 20f, with(silicon, 25, graphite, 20))
             );
         }};
         industrialAirFactory = new UnitFactory("industrial-air-factory"){{
@@ -1754,9 +1754,9 @@ public class EIBlocks{
             size = 3;
 
             plans = Seq.with(
-                new UnitPlan(pygmy, 900f, with(silicon, 25, graphite, 10)),
-                new UnitPlan(luma, 1200f, with(silicon, 10, titanium, 30)),
-                new UnitPlan(creo, 1500f, with(silicon, 25, metaglass, 20))
+                new UnitPlan(pygmy, 60f * 20f, with(silicon, 25, graphite, 10)),
+                new UnitPlan(luma, 60f * 25f, with(silicon, 10, titanium, 30)),
+                new UnitPlan(creo, 60f * 30f, with(silicon, 25, metaglass, 20))
             );
         }};
         starruneReconstructor = new Reconstructor("starrune-reconstructor"){{
