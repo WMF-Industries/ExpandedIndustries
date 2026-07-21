@@ -558,7 +558,7 @@ public class EIBlocks{
             craftTime = 340f;
             itemCapacity = 15;
             ambientSoundVolume = 0.07f;
-            outputItem = new ItemStack(peridotium, 1);
+            outputItem = new ItemStack(peridotium, 3);
 
             craftEffect = Fx.blockCrash;
             ambientSound = Sounds.loopSmelter;
