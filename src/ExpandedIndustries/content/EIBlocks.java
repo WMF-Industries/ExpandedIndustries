@@ -412,7 +412,7 @@ public class EIBlocks{
         plastaniumCondenser = new AttributeCrafter("plastanium-condenser"){{
             requirements(Category.crafting, with(lead, 210, silicon, 90, metaglass, 70, titanium, 90, plastanium, 15));
             consumeItem(titanium, 4);
-            consumeLiquid(oil, 0.6f);
+            consumeLiquid(lightOil, 0.6f);
             consumePower(4.5f);
 
             hasItems = hasPower = hasLiquids = true;
@@ -522,7 +522,7 @@ public class EIBlocks{
 
         mixingFoundry = new GenericCrafter("mixing-foundry"){{
             requirements(Category.crafting, with(lead, 310, silicon, 170, titanium, 120, metaglass, 40));
-            consumeItems(with(titanium, 9, silicon, 3));
+            consumeItems(with(titanium, 3, graphite, 1));
             consumePower(7f);
 
             hasPower = true;
@@ -530,9 +530,9 @@ public class EIBlocks{
 
             size = 3;
             itemCapacity = 40;
-            craftTime = 130f;
+            craftTime = 45f;
             ambientSoundVolume = 0.07f;
-            outputItem = new ItemStack(starium, 3);
+            outputItem = new ItemStack(starium, 1);
 
             craftEffect = Fx.blockCrash;
             ambientSound = Sounds.loopSmelter;
@@ -555,7 +555,7 @@ public class EIBlocks{
             hasLiquids = false;
 
             size = 3;
-            craftTime = 340f;
+            craftTime = 360f;
             itemCapacity = 15;
             ambientSoundVolume = 0.07f;
             outputItem = new ItemStack(peridotium, 3);
@@ -571,14 +571,14 @@ public class EIBlocks{
         stariumRefiner = new GenericCrafter("starium-refiner"){{
             requirements(Category.crafting, with(copper, 210, titanium, 160, silicon, 110, plastanium, 40, surgeAlloy, 50));
             consumeItems(with(surgeAlloy, 3, starium, 5));
-            consumePower(4.5f);
+            consumePower(18f);
 
             hasPower = true;
 
             size = 3;
             craftTime = 110f;
             itemCapacity = 20;
-            outputItem = new ItemStack(stariumAlloy, 1);
+            outputItem = new ItemStack(stariumAlloy, 2);
 
             craftEffect = Fx.smeltsmoke;
             drawer = new DrawMulti(
@@ -602,7 +602,7 @@ public class EIBlocks{
         }};
         lumiumSmelter = new GenericCrafter("lumium-smelter"){{
             requirements(Category.crafting, with(copper, 270, silicon, 230, titanium, 210, thorium, 70, plastanium, 60, starium, 60));
-            consumeItems(with(titanium, 5, enrichedPeridotium, 2));
+            consumeItems(with(enrichedPeridotium, 2, silicon, 5, plastanium, 2));
             consumePower(7.5f);
 
             hasPower = true;
