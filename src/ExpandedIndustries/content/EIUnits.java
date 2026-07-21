@@ -8,6 +8,7 @@ import ExpandedIndustries.type.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.Interp;
+import arc.struct.ObjectSet;
 import mindustry.ai.*;
 import mindustry.ai.types.*;
 import mindustry.content.*;
@@ -269,7 +270,7 @@ public class EIUnits{
             groundLayer = Layer.legUnit;
 
             hovering = allowLegStep = true;
-
+            immunities = ObjectSet.with(StatusEffects.burning);
             health = 17200;
             armor = 13;
             hitSize = 88;
@@ -292,60 +293,92 @@ public class EIUnits{
                 new Weapon(){{
                     mirror = top = false;
 
-                    shoot.firstShotDelay = 85;
+                    shoot.firstShotDelay = 60f;
                     reload = 360;
                     x = 0;
                     y = 2.5f;
                     recoil = 0;
 
                     chargeSound = chargeLancer;
-                    shootStatus = StatusEffects.unmoving;
-                    shootStatusDuration = shoot.firstShotDelay;
-                    shootSound = explosionPlasmaSmall;
+                    shootStatus = StatusEffects.slow;
+                    shootStatusDuration = shoot.firstShotDelay * 1.1f;
+                    shootSound = explosionArtilleryShockBig;
 
                     bullet = new ArtilleryBulletType(5, 45, "circle-bullet"){{
+                        chargeEffect = new MultiEffect(
+                            new WaveEffect(){{
+                                lifetime = shoot.firstShotDelay * 0.5f;
+                                sizeFrom = 50f;
+                                sizeTo = 0f;
+                                strokeFrom = 3f;
+                                strokeTo = 0f;
+                                colorFrom = Pal.heal;
+                                interp = Interp.pow5Out;
+                            }},
+                            new ParticleEffect(){{
+                                lifetime = shoot.firstShotDelay * 0.5f;
+                                particles = 14;
+                                baseLength = 95f;
+                                length = -95f;
+                                sizeFrom = 7.5f;
+                                colorFrom = Color.valueOf("bf92f900");
+                                colorTo = Pal.heal;
+                                sizeInterp = Interp.pow5In;
+                                interp = Interp.exp5Out;
+                            }},
+                            new ParticleEffect(){{
+                                lifetime = shoot.firstShotDelay * 0.5f;
+                                particles = 20;
+                                baseLength = 70f;
+                                length = -70f;
+                                sizeFrom = 5f;
+                                colorFrom = Color.valueOf("bf92f900");
+                                colorTo = Pal.heal;
+                                sizeInterp = Interp.pow5In;
+                                startDelay = 10f;
+                                interp = Interp.exp5Out;
+                            }},
+                            new ParticleEffect(){{
+                                lifetime = shoot.firstShotDelay * 0.5f;
+                                particles = 18;
+                                baseLength = 70f;
+                                length = -70f;
+                                sizeFrom = 3.5f;
+                                colorFrom = Color.valueOf("bf92f900");
+                                colorTo = Pal.heal;
+                                sizeInterp = Interp.pow5Out;
+                                startDelay = 20f;
+                                interp = Interp.pow2Out;
+                            }},
+                            new ParticleEffect(){{
+                                lifetime = shoot.firstShotDelay;
+                                particles = 1;
+                                baseLength = 0f;
+                                length = 0f;
+                                sizeFrom = 0f;
+                                sizeTo = 12f;
+                                colorFrom = colorTo = Pal.heal;
+                                sizeInterp = Interp.pow2Out;
+                            }}
+                        );
                         collides = absorbable = hittable = false;
                         scaleLife = true;
-
-                        lifetime = 60;
+                        lifetime = 60f;
                         buildingDamageMultiplier = 0.4444444444444444f;
                         width = height = 25;
                         shrinkX = shrinkY = 0;
+                        despawnEffect = EIFx.largeGreenDespawn;
 
-                        chargeEffect = new MultiEffect(
-                            Fx.greenLaserCharge,
-                            new ParticleEffect(){{
-                                randLength = true;
-
-                                sizeFrom = 10;
-                                sizeTo = 2;
-                                baseLength = 2;
-                                length = 5;
-                                lifetime = 80;
-                                colorFrom = colorTo = Pal.heal;
-                            }},
-                            new ParticleEffect(){{
-                                randLength = true;
-
-                                startDelay = 30;
-                                sizeFrom = 10;
-                                sizeTo = 2;
-                                baseLength = 2;
-                                length = 5;
-                                lifetime = 50;
-                                colorFrom = colorTo = Pal.heal;
-                            }}
-                        );
                         trailLength = 25;
-                        trailWidth = 13;
+                        trailWidth = 8;
                         frontColor = Color.valueOf("ffffff");
-                        backColor = trailColor = Color.valueOf("83f793");
-                        lightColor = Color.valueOf("83f793");
+                        backColor = trailColor = Pal.heal;
+                        lightColor = Pal.heal;
 
                         lightning = 1;
                         lightningLength = 2;
                         lightningCone = 0;
-                        lightningType = new BasicBulletType(0, 45, "circle-bullet"){{
+                        lightningType = new BasicBulletType(0f, 45, "circle-bullet"){{
                             collides = hittable = false;
                             despawnHit = true;
 
@@ -357,20 +390,7 @@ public class EIUnits{
                             frontColor = Color.valueOf("ffffff");
                             backColor = Color.valueOf("83f793");
                             lightColor = Color.valueOf("83f793");
-                            despawnEffect = new MultiEffect(
-                                    new WaveEffect(){{
-                                        sizeFrom = 28;
-                                        sizeTo = 28;
-                                        lifetime = 20;
-                                        colorTo = Color.valueOf("83f793");
-                                    }},
-                                    new ParticleEffect(){{
-                                        sizeFrom = 8;
-                                        sizeTo = 4;
-                                        lifetime = 15;
-                                        colorTo = Color.valueOf("83f793");
-                                    }}
-                            );
+                            despawnEffect = EIFx.largeGreenDespawn;
                         }};
 
                         fragBullets = 60;
@@ -378,11 +398,9 @@ public class EIUnits{
                         fragBullet = new BulletType(0, 45){{
                             collides = absorbable = hittable = false;
                             despawnHit = true;
-
                             buildingDamageMultiplier = 0.444f;
                             lifetime = 180;
                             width = height = 0;
-
                             despawnEffect = hitEffect = Fx.none;
                             despawnSound = Sounds.shockBullet;
 
@@ -390,16 +408,20 @@ public class EIUnits{
                             lightningLength = 2;
                             lightningCone = 0;
                             lightningType = new BasicBulletType(4, 45, "circle-bullet"){{
+                                height = width = 4.5f;
                                 pierceArmor = pierce = true;
                                 collidesTeam = true;
                                 despawnHit = true;
                                 status = StatusEffects.electrified;
 
                                 healPercent = 0.05f;
-                                pierceCap = 2;
-                                lifetime = 20;
+                                pierceBuilding = true;
+                                pierce = true;
+                                pierceCap = 4;
+                                lifetime = 25;
                                 homingPower = 0.4f;
-                                homingRange = 60;
+                                homingRange = 75f;
+                                homingDelay = 5f;
                                 statusDuration = 240;
                                 buildingDamageMultiplier = 0.444f;
                                 width = height = 14;
@@ -408,8 +430,9 @@ public class EIUnits{
                                 backColor = trailColor = Color.valueOf("83f793");
                                 lightColor = Color.valueOf("83f793");
                                 trailLength = 14;
-                                trailWidth = 10;
-                                hitEffect = despawnEffect = new MultiEffect(
+                                trailWidth = 5;
+                                despawnEffect = EIFx.greenDespawn;
+                                hitEffect = new MultiEffect(
                                     new WaveEffect(){{
                                         sizeFrom = 14;
                                         sizeTo = 14;
@@ -438,22 +461,31 @@ public class EIUnits{
                     shootY =  38;
                     inaccuracy =  1;
                     shoot.shotDelay =  1;
-                    recoil = 1;
+                    recoil = 3;
 
                     shootSound = shootArtillery;
 
-                    bullet = new ArtilleryBulletType(3, 80){{
-                        lifetime = 100;
-                        height = 10;
-                        width = 10;
+                    bullet = new BasicBulletType(5, 80){{
+                        lifetime = 25f;
+                        height =  width = 28f;
+                        backColor = frontColor = Pal.heal;
+                        trailLength = 5;
+                        trailWidth = 4f;
+                        trailChance = 1f;
+                        trailEffect = EIFx.smallGreenSpark;
+                        trailColor = Pal.heal;
+                        despawnEffect = hitEffect = EIFx.smallGreenSpark;
+                        fragRandomSpread = 0f;
+                        fragSpread = 20f;
+                        fragBullets = 5;
                         fragBullet = new ShrapnelBulletType(){{
                             damage = 120;
                             speed = 0;
                             length = 80;
-                            width = 50;
-
+                            width = 25;
                             hitSound = despawnSound = Sounds.shootFuse;
                             hitEffect = Fx.hitLancer;
+                            fromColor = toColor = Pal.heal;
                         }};
                     }};
                 }},
@@ -1456,10 +1488,10 @@ public class EIUnits{
                 defaultCommand = EICommands.healUnitsCommand;
 
                 flying = faceTarget = lowAltitude = true;
-                logicControllable = isEnemy = false;
+                logicControllable = isEnemy = playerControllable = false;
 
-                health = 110;
-                armor = 1;
+                health = 200;
+                armor = 2;
                 hitSize = 8f;
                 speed = 2.35f;
                 rotateSpeed = 3.4f;
@@ -1500,10 +1532,10 @@ public class EIUnits{
                 defaultCommand = EICommands.healUnitsCommand;
 
                 flying = faceTarget = lowAltitude = true;
-                logicControllable = isEnemy = false;
+                logicControllable = isEnemy = playerControllable = false;
 
-                health = 300;
-                armor = 2;
+                health = 430;
+                armor = 3;
                 hitSize = 1.6f * tilesize;
                 speed = 2.1f;
                 rotateSpeed = 1.5f;
@@ -1547,10 +1579,10 @@ public class EIUnits{
                 defaultCommand = EICommands.healUnitsCommand;
 
                 flying = faceTarget = lowAltitude = true;
-                logicControllable = isEnemy = false;
+                logicControllable = isEnemy = playerControllable = false;
 
-                health = 460;
-                armor = 5;
+                health = 700;
+                armor = 6;
                 hitSize = 2.8f * tilesize;
                 speed = 2.35f;
                 rotateSpeed = 1.7f;

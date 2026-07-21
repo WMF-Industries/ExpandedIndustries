@@ -27,7 +27,7 @@ import static arc.math.Angles.randLenVectors;
 public class EIFx {
 
     public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse, pointBeamHigh, peridotiumExplosion,
-            smallPurpleSpark, purpleChargeUp, smallBlueSpark, blueDespawn;
+            smallPurpleSpark, smallBlueSpark, blueDespawn, smallGreenSpark, greenDespawn, largeGreenDespawn;
 
     public static void load(){
         reu = new Effect(42f, e -> {
@@ -42,7 +42,6 @@ public class EIFx {
             stroke(e.fout() * 3f);
             Lines.circle(e.x, e.y, 4f + e.finpow() * e.rotation);
         });
-
         cavernFx = new MultiEffect(
             new WaveEffect(){{
                 sizeFrom = 90;
@@ -68,7 +67,6 @@ public class EIFx {
                 colorTo = Color.valueOf("ffffff");
             }}
         );
-
         despawnPulse = new MultiEffect(
             new ParticleEffect(){{
                 particles = 1;
@@ -114,7 +112,6 @@ public class EIFx {
                 lifetime = 30;
             }}
         );
-
         pointBeamHigh = new Effect(25f, 300f, e -> {
             if(!(e.data instanceof Position pos)) return;
 
@@ -124,7 +121,6 @@ public class EIFx {
             Lines.line(e.x, e.y, pos.getX(), pos.getY());
             Drawf.light(e.x, e.y, pos.getX(), pos.getY(), 20f, e.color, 0.6f * e.fout());
         });
-
         peridotiumExplosion = new MultiEffect(
             new ParticleEffect(){{
                 particles = 26;
@@ -192,7 +188,6 @@ public class EIFx {
                 interp = Interp.pow5Out;
             }}
         );
-
         smallPurpleSpark = new ParticleEffect() {
             {
                 line = true;
@@ -201,54 +196,6 @@ public class EIFx {
                 colorTo = Color.valueOf("6d56bf");
             }
         };
-
-        purpleChargeUp = new MultiEffect(
-            new WaveEffect(){{
-                lifetime = Fx.greenLaserChargeSmall.lifetime;
-                sizeFrom = 50f;
-                sizeTo = 0f;
-                strokeFrom = 3f;
-                strokeTo = 0f;
-                colorFrom = EIPal.butterflyPurple;
-                interp = Interp.pow5In;
-            }},
-            new ParticleEffect(){{
-                lifetime = Fx.greenLaserChargeSmall.lifetime;
-                particles = 14;
-                baseLength = 95f;
-                length = -95f;
-                sizeFrom = 7.5f;
-                colorFrom = Color.valueOf("bf92f900");
-                colorTo = EIPal.butterflyPurple;
-                sizeInterp = Interp.pow5In;
-                interp = Interp.exp5Out;
-            }},
-            new ParticleEffect(){{
-                lifetime = Fx.greenLaserChargeSmall.lifetime * 0.5f;
-                particles = 20;
-                baseLength = 70f;
-                length = -70f;
-                sizeFrom = 5f;
-                colorFrom = Color.valueOf("bf92f900");
-                colorTo = EIPal.butterflyPurple;
-                sizeInterp = Interp.pow5In;
-                startDelay = 10f;
-                interp = Interp.exp5Out;
-            }},
-            new ParticleEffect(){{
-                lifetime = Fx.greenLaserChargeSmall.lifetime * 0.2f;
-                particles = 18;
-                baseLength = 70f;
-                length = -70f;
-                sizeFrom = 3.5f;
-                colorFrom = Color.valueOf("bf92f900");
-                colorTo = EIPal.butterflyPurple;
-                sizeInterp = Interp.pow5In;
-                startDelay = 20f;
-                interp = Interp.pow2Out;
-            }}
-        );
-
         smallBlueSpark = new ParticleEffect(){{
             line = true;
             particles = 7;
@@ -260,7 +207,6 @@ public class EIFx {
             lifetime = 30f;
             interp = Interp.exp5Out;
         }};
-
         blueDespawn = new MultiEffect(
             new WaveEffect(){{
                 sizeFrom = 0f;
@@ -280,6 +226,62 @@ public class EIFx {
                 strokeFrom = 4.5f;
                 strokeTo = 0f;
                 lifetime = 25f;
+                interp = Interp.exp5Out;
+            }}
+        );
+        smallGreenSpark = smallBlueSpark = new ParticleEffect(){{
+            line = true;
+            particles = 7;
+            colorFrom = colorTo = Pal.heal;
+            lenFrom = 12f;
+            lenTo = 0f;
+            strokeFrom = 1.4f;
+            strokeTo = 0f;
+            lifetime = 30f;
+            interp = Interp.exp5Out;
+        }};
+        greenDespawn = new MultiEffect(
+            new WaveEffect(){{
+                sizeFrom = 0f;
+                sizeTo = 24f;
+                colorFrom = colorTo = Pal.heal;
+                strokeFrom = 6f;
+                strokeTo = 0f;
+                lifetime = 30f;
+                interp = Interp.exp5Out;
+            }},
+            new ParticleEffect(){{
+                lifetime = 100f;
+                particles = 8;
+                colorFrom = colorTo = Color.valueOf("98ffa950");
+                baseLength = 4f;
+                sizeFrom = 6f;
+                sizeTo = 0f;
+                lifetime = 25f;
+                sizeInterp = Interp.pow5In;
+                interp = Interp.exp5Out;
+            }}
+        );
+        largeGreenDespawn = new MultiEffect(
+            new WaveEffect(){{
+                sizeFrom = 0f;
+                sizeTo = 50f;
+                colorFrom = colorTo = Pal.heal;
+                strokeFrom = 13f;
+                strokeTo = 0f;
+                lifetime = 30f;
+                interp = Interp.exp5Out;
+            }},
+            new ParticleEffect(){{
+                lifetime = 120f;
+                particles = 30;
+                colorFrom = colorTo = Color.valueOf("98ffa950");
+                baseLength = 2f;
+                length = 48;
+                sizeFrom = 7f;
+                sizeTo = 0f;
+                lifetime = 25f;
+                sizeInterp = Interp.pow5In;
                 interp = Interp.exp5Out;
             }}
         );
