@@ -36,7 +36,7 @@ public class EIUnits{
     requer, convoy, demand, entail, warrant,  // critical hitters
     centurion, alturion, // miners
     luma, vera, kora, astra, brilliance, // payload
-    pygmy, schaus, ageronia, monarch, // hit-and-run
+    pygmy, schaus, ageronia, monarch, alexandrae,// hit-and-run
     creo, fingo, perficio, // healers
     piece, delta, // core
     starnight; // hidden
@@ -891,7 +891,7 @@ public class EIUnits{
 
             abilities.add(new RepairFieldAbility(18f, 60f * 10, 75f));
         }};
-        pygmy = new UnitType("pygmy") {{
+        pygmy = new UnitType("pygmy") {{ //TODO rename
             constructor = UnitEntity::create;
             aiController = CircleTargetAI::new;
 
@@ -1047,26 +1047,26 @@ public class EIUnits{
                 y = 0;
                 shootY = 4f;
                 shoot.shots = 2;
-                reload = 20f;
+                reload = 10f;
                 shootCone = 30f;
                 inaccuracy = 25f;
 
                 shootSound = shootMissile;
 
-                bullet = new MissileBulletType(2,32){{
+                bullet = new MissileBulletType(2,40f){{
                     lifetime = 60f;
                     lifesteal = 2.75f;
                     buildingDamageMultiplier = 0.7f;
                     homingPower = 0.08f;
                     homingDelay = 20f;
                     status = StatusEffects.sapped;
-                    height = 11f;
-                    width = 9f;
+                    height = 9f;
+                    width = 8f;
                     trailEffect = new ParticleEffect(){{
                         baseLength = 0;
                         length = 0;
                         particles = 1;
-                        sizeFrom = 2f;
+                        sizeFrom = 1f;
                         sizeTo = 0f;
                         colorFrom = colorTo = EIPal.butterflyPurple;
                     }};
@@ -1085,7 +1085,7 @@ public class EIUnits{
 
             flying = lowAltitude = faceTarget = true;
 
-            health = 780;
+            health = 800;
             armor = 5;
             hitSize = 38f;
             speed = 1.8f;
@@ -1128,7 +1128,7 @@ public class EIUnits{
                     height = 8f;
                     shrinkX = shrinkY = 0f;
                     drag = -0.003f;
-                    homingRange = 80f;
+                    homingRange = 10f;
                     keepVelocity = false;
                     splashDamageRadius = 35f;
                     splashDamage = 15f;
@@ -1156,61 +1156,206 @@ public class EIUnits{
                 x = y = 0f;
                 shake = 6f;
                 top = false;
-                shootSound = explosionMissile;
-                shootCone = 25f;
+                shootSound = shootEclipse;
+                shootCone = 30f;
                 shootStatus = StatusEffects.slow;
                 shootStatusDuration = reload + 120f;
                 shoot = new ShootSpread(6,5);
-                bullet = new BasicBulletType(1, 1){{
+                bullet = new BasicBulletType(6, 1){{
                     parentizeEffects = true;
-                    lifetime = 240f;
+                    lifetime = 40f;
                     pierce = true;
                     pierceBuilding = true;
                     pierceCap = 10;
                     height = 8f;
                     width = 20f;
+                    trailLength = 6;
+                    trailWidth = 6f;
+                    trailColor = EIPal.butterflyPurple;
                     shrinkX = -3f;
                     lifesteal = 2f;
+                    hittable = false;
                     backColor = frontColor = EIPal.butterflyPurple;
                     buildingDamageMultiplier = 0.7f;
                     status = StatusEffects.corroded;
 
                     smokeEffect = shootEffect = Fx.none;
-                    rangeOverride = 120 * 0.75f;
+                    hitEffect = EIFx.smallPurpleSpark;
+                    ejectEffect = Fx.none;
+                    shootEffect = Fx.none;
+                }};
+            }});
+        }};
+        alexandrae = new UnitType("alexandrae"){{
+            constructor = UnitEntity::create;
+
+            flying = lowAltitude = faceTarget = true;
+
+            health = 1400;
+            armor = 9;
+            hitSize = 56f;
+            speed = 1.6f;
+            drag = 0.08f;
+            accel = 0.05f;
+            itemCapacity = 0;
+            rotateSpeed = 1.4f;
+
+            engineOffset = 34f;
+            engineSize = 6f;
+            targetFlags = new BlockFlag[]{BlockFlag.generator, BlockFlag.core};
+            weapons.add(new Weapon("ei-small-purple-mount"){{
+                x = 18f;
+                y = -14f;
+                rotate = true;
+                rotateSpeed = 3.8f;
+                mirror = true;
+
+                shadow = 20f;
+
+                shootY = 2f;
+                recoil = 1f;
+                reload = 10f;
+                velocityRnd = 0.4f;
+                inaccuracy = 7f;
+                ejectEffect = Fx.none;
+                shake = 0.2f;
+                shootSound = Sounds.shootMissile;
+
+                bullet = new MissileBulletType(4.2f, 20){{
+                    homingPower = 0.08f;
+                    width = 8f;
+                    height = 8f;
+                    shrinkX = shrinkY = 0f;
+                    homingRange = 8f;
+                    keepVelocity = false;
+                    lifetime = 55f;
+                    trailColor = EIPal.butterflyPurple;
+                    backColor = EIPal.butterflyPurple;
+                    frontColor = EIPal.butterflyPurple;
+                    hitEffect = Fx.blastExplosion;
+                    despawnEffect = Fx.blastExplosion;
+                    weaveScale = 3f;
+                    weaveMag = 2f;
+                    lifesteal = 0.4f;
+                    trailEffect = new ParticleEffect(){{
+                        baseLength = 0;
+                        length = 0;
+                        particles = 1;
+                        sizeFrom = 2f;
+                        sizeTo = 0f;
+                        colorFrom = colorTo = EIPal.butterflyPurple;
+                    }};
+                }};
+            }});
+            weapons.add(new Weapon("ei-alexandrae-weapon"){{
+                x = 0f;
+                y = -20;
+                rotate = true;
+                rotateSpeed = 2.6f;
+                mirror = false;
+
+                shadow = 20f;
+
+                shootY = 4.5f;
+                recoil = 2f;
+                reload = 45f;
+                velocityRnd = 0.4f;
+                inaccuracy = 7f;
+                ejectEffect = Fx.none;
+                shake = 1f;
+                shootSound = Sounds.shootMissileLong;
+
+                shoot = new ShootAlternate(){{
+                    shots = 6;
+                    shotDelay = 1.5f;
+                    spread = 4f;
+                    barrels = 3;
+                }};
+
+                bullet = new MissileBulletType(4.2f, 20){{
+                    homingPower = 0.12f;
+                    width = 8f;
+                    height = 8f;
+                    shrinkX = shrinkY = 0f;
+                    drag = -0.003f;
+                    homingRange = 10f;
+                    keepVelocity = false;
+                    splashDamageRadius = 35f;
+                    splashDamage = 15f;
+                    lifetime = 55f;
+                    trailColor = EIPal.butterflyPurple;
+                    backColor = EIPal.butterflyPurple;
+                    frontColor = EIPal.butterflyPurple;
+                    hitEffect = Fx.blastExplosion;
+                    despawnEffect = Fx.blastExplosion;
+                    weaveScale = 8f;
+                    weaveMag = 2f;
+                    lifesteal = 0.9f;
+                    trailEffect = new ParticleEffect(){{
+                        baseLength = 0;
+                        length = 0;
+                        particles = 1;
+                        sizeFrom = 2f;
+                        sizeTo = 0f;
+                        colorFrom = colorTo = EIPal.butterflyPurple;
+                    }};
+                }};
+            }});
+            weapons.add(new Weapon(){{
+                x = y = 0f;
+                shake = 6f;
+                top = false;
+                shootSound = explosionMissile;
+                reload = 60f * 6f;
+                shootCone = 360f;
+                shootOnDeath = true;
+                bullet = new BulletType(0, 1){{
+                    parentizeEffects = true;
+                    lifetime = 1f;
+                    lifesteal = 150f; //based on bullet damage and not splash damage
+                    buildingDamageMultiplier = 0.8f;
+                    status = StatusEffects.corroded;
+
+                    smokeEffect = shootEffect = Fx.none;
+                    splashDamageRadius = 120;
+                    splashDamage = 100f;
+                    splashDamagePierce = true;
+                    rangeOverride = splashDamageRadius * 0.75f;
                     hitEffect = EIFx.smallPurpleSpark;
                     ejectEffect = Fx.none;
                     shootEffect = new MultiEffect(
-                    new WaveEffect(){{
-                        sizeFrom = 0f;
-                        sizeTo = 120;
-                        strokeFrom = 5f;
-                        strokeTo = 0f;
-                        interp = Interp.pow5Out;
-                        lifetime = reload;
-                        colorFrom = colorTo = Color.valueOf("bf92f9");
-                    }},
-                    new WaveEffect(){{
-                        sizeFrom = 0f;
-                        sizeTo = 120;
-                        strokeFrom = 5f;
-                        strokeTo = 0f;
-                        interp = Interp.exp5Out;
-                        lifetime = reload;
-                        colorFrom = colorTo = Color.valueOf("bf92f9");
-                        startDelay = 10f;
-                    }},
-                    new ParticleEffect(){{
-                        particles = 3;
-                        line = true;
-                        lenFrom = 20f;
-                        lenTo = 0f;
-                        strokeFrom = 4f;
-                        strokeTo = 0f;
-                        baseLength = 0f;
-                        length = 240f;
-                        lifetime = reload/3f;
-                        colorFrom = colorTo = Color.valueOf("bf92f9");
-                    }});
+                        new WaveEffect(){{
+                            sizeFrom = 0f;
+                            sizeTo = 120;
+                            strokeFrom = 5f;
+                            strokeTo = 0f;
+                            interp = Interp.pow5Out;
+                            lifetime = reload;
+                            colorFrom = colorTo = Color.valueOf("bf92f9");
+                        }},
+                        new WaveEffect(){{
+                            sizeFrom = 0f;
+                            sizeTo = 120;
+                            strokeFrom = 5f;
+                            strokeTo = 0f;
+                            interp = Interp.exp5Out;
+                            lifetime = reload;
+                            colorFrom = colorTo = Color.valueOf("bf92f9");
+                            startDelay = 10f;
+                        }},
+                        new ParticleEffect(){{
+                            particles = 3;
+                            line = true;
+                            lenFrom = 20f;
+                            lenTo = 0f;
+                            strokeFrom = 4f;
+                            strokeTo = 0f;
+                            baseLength = 0f;
+                            length = 240f;
+                            lifetime = reload/3f;
+                            colorFrom = colorTo = Color.valueOf("bf92f9");
+                        }}
+                    );
                 }};
             }});
         }};
