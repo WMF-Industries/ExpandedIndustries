@@ -1754,7 +1754,7 @@ public class EIBlocks{
             size = 3;
 
             plans = Seq.with(
-                new UnitPlan(pygmy, 60f * 20f, with(silicon, 25, graphite, 10)),
+                new UnitPlan(exilis, 60f * 20f, with(silicon, 25, graphite, 10)),
                 new UnitPlan(luma, 60f * 25f, with(silicon, 10, titanium, 30)),
                 new UnitPlan(creo, 60f * 30f, with(silicon, 25, metaglass, 20))
             );
@@ -1770,7 +1770,7 @@ public class EIBlocks{
             upgrades.addAll(
                 new UnitType[]{agrid, xerad},
                 new UnitType[]{requer, convoy},
-                new UnitType[]{pygmy, schaus},
+                new UnitType[]{exilis, machaon},
                 new UnitType[]{luma, vera},
                 new UnitType[]{UnitTypes.mono, centurion},
                 new UnitType[]{creo, fingo}
@@ -1787,7 +1787,7 @@ public class EIBlocks{
             upgrades.addAll(
                 new UnitType[]{xerad, escapade},
                 new UnitType[]{convoy, demand},
-                new UnitType[]{schaus, ageronia},
+                new UnitType[]{machaon, ageronia},
                 new UnitType[]{vera, kora},
                 new UnitType[]{centurion, alturion},
                 new UnitType[]{fingo, perficio}
@@ -1804,6 +1804,7 @@ public class EIBlocks{
 
             upgrades.addAll(
                 new UnitType[]{escapade, natorin},
+                new UnitType[]{demand, entail},
                 new UnitType[]{ageronia, monarch},
                 new UnitType[]{kora, astra}
             );
@@ -1819,8 +1820,9 @@ public class EIBlocks{
 
             upgrades.addAll(
                 new UnitType[]{natorin, terrand},
-                new UnitType[]{astra, brilliance},
-                new UnitType[]{entail, warrant}
+                new UnitType[]{entail, warrant},
+                new UnitType[]{monarch, alexandrae},
+                new UnitType[]{astra, brilliance}
             );
         }};
     }

@@ -320,7 +320,11 @@ public class EITechTree extends TechTree{
         addNode(UnitTypes.dagger, () ->
             node(requer, () ->
                 node(convoy, () ->
-                    node(demand)
+                    node(demand, () ->
+                        node(entail, () ->
+                            node(warrant)
+                        )
+                    )
                 )
             )
         );
@@ -341,10 +345,12 @@ public class EITechTree extends TechTree{
             );
         });
         addNode(UnitTypes.flare, () -> {
-            node(pygmy, () ->
-                node(schaus, () ->
+            node(exilis, () ->
+                node(machaon, () ->
                     node(ageronia, () ->
-                        node(monarch)
+                        node(monarch, () ->
+                            node(alexandrae)
+                        )
                     )
                 )
             );

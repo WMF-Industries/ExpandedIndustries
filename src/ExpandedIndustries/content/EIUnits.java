@@ -36,7 +36,7 @@ public class EIUnits{
     requer, convoy, demand, entail, warrant,  // critical hitters
     centurion, alturion, // miners
     luma, vera, kora, astra, brilliance, // payload
-    pygmy, schaus, ageronia, monarch, alexandrae,// hit-and-run
+    exilis, machaon, ageronia, monarch, alexandrae,// hit-and-run
     creo, fingo, perficio, // healers
     piece, delta, // core
     starnight; // hidden
@@ -891,7 +891,7 @@ public class EIUnits{
 
             abilities.add(new RepairFieldAbility(18f, 60f * 10, 75f));
         }};
-        pygmy = new UnitType("pygmy") {{ //TODO rename
+        exilis = new UnitType("exilis") {{ //TODO rename
             constructor = UnitEntity::create;
             aiController = CircleTargetAI::new;
 
@@ -951,7 +951,7 @@ public class EIUnits{
                 }};
             }});
         }};
-        schaus = new UnitType("schaus"){{
+        machaon = new UnitType("machaon"){{
             constructor = UnitEntity::create;
             aiController = CircleTargetAI::new;
 
@@ -985,13 +985,13 @@ public class EIUnits{
                 bullet = new BasicBulletType(4f, 65){{
                     splashDamage = 15;
                     splashDamageRadius = 14;
-                    homingPower = 0.12f;
-                    homingDelay = 15f;
+                    homingPower = 0.5f;
+                    homingDelay = 4f;
 
                     lifetime = 30f;
-                    drag = 0.04f;
+                    drag = 0.0005f;
                     status = StatusEffects.corroded;
-                    lifesteal = 0.02f;
+                    lifesteal = 1.2f;
                     height = width = 7;
                     shrinkY = 0;
                     buildingDamageMultiplier = 0.55f;
