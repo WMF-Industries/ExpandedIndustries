@@ -1203,14 +1203,25 @@ public class EIUnits{
             engineOffset = 34f;
             engineSize = 6f;
             targetFlags = new BlockFlag[]{BlockFlag.generator, BlockFlag.core};
+            BulletType purpleShotty = new ShrapnelBulletType(){{
+                damage = 40f;
+                width = 6f;
+                serrations = 2;
+                serrationLenScl = 1;
+                fromColor = EIPal.butterflyPurple;
+                toColor = EIPal.butterflyPurple;
+                smokeEffect = shootEffect = hitEffect = EIFx.smallPurpleSpark;
+                despawnEffect = new MultiEffect(EIFx.smallPurpleSpark, EIFx.smallPurpleSpark);
+                lifesteal = 0.6f;
+            }};
             weapons.add(new Weapon("ei-small-purple-mount"){{
-                x = 18f;
-                y = -14f;
+                x = 10f;
+                y = 14f;
                 rotate = true;
                 rotateSpeed = 3.8f;
                 mirror = true;
 
-                shadow = 20f;
+                shadow = 7f;
 
                 shootY = 2f;
                 recoil = 1f;
@@ -1219,33 +1230,29 @@ public class EIUnits{
                 inaccuracy = 7f;
                 ejectEffect = Fx.none;
                 shake = 0.2f;
-                shootSound = Sounds.shootMissile;
+                shootSound = shootDisperse;
 
-                bullet = new MissileBulletType(4.2f, 20){{
-                    homingPower = 0.08f;
-                    width = 8f;
-                    height = 8f;
-                    shrinkX = shrinkY = 0f;
-                    homingRange = 8f;
-                    keepVelocity = false;
-                    lifetime = 55f;
-                    trailColor = EIPal.butterflyPurple;
-                    backColor = EIPal.butterflyPurple;
-                    frontColor = EIPal.butterflyPurple;
-                    hitEffect = Fx.blastExplosion;
-                    despawnEffect = Fx.blastExplosion;
-                    weaveScale = 3f;
-                    weaveMag = 2f;
-                    lifesteal = 0.4f;
-                    trailEffect = new ParticleEffect(){{
-                        baseLength = 0;
-                        length = 0;
-                        particles = 1;
-                        sizeFrom = 2f;
-                        sizeTo = 0f;
-                        colorFrom = colorTo = EIPal.butterflyPurple;
-                    }};
-                }};
+                bullet = purpleShotty;
+            }});
+            weapons.add(new Weapon("ei-small-purple-mount"){{
+                x = 18f;
+                y = -14f;
+                rotate = true;
+                rotateSpeed = 3.8f;
+                mirror = true;
+
+                shadow = 7f;
+
+                shootY = 2f;
+                recoil = 1f;
+                reload = 10f;
+                velocityRnd = 0.4f;
+                inaccuracy = 7f;
+                ejectEffect = Fx.none;
+                shake = 0.2f;
+                shootSound = shootDisperse;
+
+                bullet = purpleShotty;
             }});
             weapons.add(new Weapon("ei-alexandrae-weapon"){{
                 x = 0f;
@@ -1305,7 +1312,7 @@ public class EIUnits{
                 x = y = 0f;
                 shake = 6f;
                 top = false;
-                shootSound = explosionMissile;
+                shootSound = shootArtillerySapBig;
                 reload = 60f * 6f;
                 shootCone = 360f;
                 shootOnDeath = true;
