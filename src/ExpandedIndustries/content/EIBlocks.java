@@ -650,17 +650,16 @@ public class EIBlocks{
         }};
         oilPurifier = new GenericCrafter("oil-purifier"){{
             requirements(Category.crafting, with(copper, 220, silicon, 160, graphite, 130, metaglass, 80, titanium, 40));
-            consumeLiquid(oil, 15f / 60f);
+            consumeLiquid(oil, 10f / 60f);
             consumePower(4f);
-
-            rotate = invertFlip = true;
-
-            size = 3;
+            fullOverride = "block-ei-oil-purifier-ui";
+            size = 2;
+            rotate = rotateDraw = rotateDrawEditor= false;
             craftTime = 10f;
             liquidCapacity = 45f;
             researchCostMultiplier = 1.2f;
-            liquidOutputDirections = new int[]{1, 3};
-            outputLiquids = LiquidStack.with(heavyOil, 4f / 60f, lightOil, 11f / 60f);
+            liquidOutputDirections = new int[]{4, 1};
+            outputLiquids = LiquidStack.with(heavyOil, 4f / 60f, lightOil, 5f / 60f);
 
             regionRotated1 = 3;
             ambientSoundVolume = 0.08f;
@@ -668,26 +667,25 @@ public class EIBlocks{
             drawer = new DrawMulti(
                 new DrawRegion("-bottom"),
                 new DrawLiquidTile(oil),
-                new DrawRegion(),
-                new DrawLiquidOutputs(),
-                new DrawRegion("-rotator"){{
-                    spinSprite = true;
-                    rotateSpeed = 3.35f;
-                }},
-                new DrawRegion("-top")
+                new DrawDefault(),
+                new DrawRegion("-pipes"){{
+                    layer = 30.0011f;
+                }}
             );
         }};
         oilRefiner = new GenericCrafter("oil-refiner"){{
             requirements(Category.crafting, with(lead, 220, silicon, 170, metaglass, 110, titanium, 90, plastanium, 35));
-            consumeLiquid(heavyOil, 12f / 60f);
+            consumeLiquid(heavyOil, 4f / 60f);
             consumePower(5.5f);
-
-            size = 3;
+            fullOverride = "block-ei-oil-refiner-ui";
+            size = 2;
+            rotate = rotateDraw = rotateDrawEditor= false;
             craftTime = 90f;
             liquidCapacity = 45f;
             researchCostMultiplier = 1.2f;
             outputItem = new ItemStack(scrap, 1);
-            outputLiquids = LiquidStack.with(lightOil, 8f / 60);
+            liquidOutputDirections = new int[]{1};
+            outputLiquids = LiquidStack.with(lightOil, 3f / 60);
 
             regionRotated1 = 3;
             ambientSoundVolume = 0.08f;
@@ -700,16 +698,20 @@ public class EIBlocks{
                     spinSprite = true;
                     rotateSpeed = 1.7f;
                 }},
-                new DrawDefault()
+                new DrawDefault(),
+                new DrawRegion("-pipe"){{
+                    layer = 30.001f;
+                }}
             );
         }};
         thermiteMixer = new GenericCrafter("thermite-mixer"){{
             requirements(Category.crafting, with(lead, 310, silicon, 180, metaglass, 125, titanium, 85, plastanium, 20));
             consumeItems(with(titanium, 4, lead, 2));
-            consumeLiquid(lightOil, 7.5f / 60f);
+            consumeLiquid(lightOil, 8f/60f);
             consumePower(2.5f);
-
+            fullOverride = "block-ei-thermite-mixer-ui";
             size = 4;
+            rotate = rotateDraw = rotateDrawEditor= false;
             craftTime = 30f;
             liquidCapacity = 20f;
             researchCostMultiplier = 1.2f;
@@ -720,7 +722,7 @@ public class EIBlocks{
             drawer = new DrawMulti(
                 new DrawRegion("-bottom"),
                 new DrawLiquidTile(lightOil),
-                new DrawRegion("-rotator"){{
+                new DrawRegion("-rotor"){{
                     spinSprite = true;
                     rotateSpeed = 2.1f;
                 }},
