@@ -225,7 +225,7 @@ public class EIUnits{
 
             health = 6600;
             armor = 8;
-            hitSize = 68;
+            hitSize = 60;
             speed = 0.45f;
             rotateSpeed = 2.2f;
             buildSpeed = 2.35f;
@@ -273,7 +273,7 @@ public class EIUnits{
             immunities = ObjectSet.with(StatusEffects.burning);
             health = 17200;
             armor = 13;
-            hitSize = 88;
+            hitSize = 80;
             itemCapacity = 180;
             speed = 0.4f;
             rotateSpeed = 1.45f;
@@ -562,7 +562,7 @@ public class EIUnits{
 
             health = 620;
             armor = 5;
-            hitSize = 12;
+            hitSize = 16;
             speed = 0.6f;
             rotateSpeed = 1.72f;
 
@@ -749,7 +749,7 @@ public class EIUnits{
 
             health = 24500;
             armor = 16;
-            hitSize = 50f;
+            hitSize = 58f;
             speed = 0.26f;
             rotateSpeed = 0.8f;
             weapons.add(new Weapon("ei-large-blue-mount"){{
@@ -891,7 +891,7 @@ public class EIUnits{
 
             abilities.add(new RepairFieldAbility(18f, 60f * 10, 75f));
         }};
-        exilis = new UnitType("exilis") {{ //TODO rename
+        exilis = new UnitType("exilis") {{
             constructor = UnitEntity::create;
             aiController = CircleTargetAI::new;
 
@@ -960,7 +960,7 @@ public class EIUnits{
 
             health = 260;
             armor = 7;
-            hitSize = 11.5f;
+            hitSize = 12f;
             speed = 2.1f;
             drag = 0.016f;
             accel = 0.08f;
@@ -1029,7 +1029,7 @@ public class EIUnits{
             flying = lowAltitude = faceTarget = true;
             health = 560;
             armor = 4;
-            hitSize = 16.5f;
+            hitSize = 18.5f;
             speed = 2.2f;
             drag = 0.09f;
             accel = 0.075f;
