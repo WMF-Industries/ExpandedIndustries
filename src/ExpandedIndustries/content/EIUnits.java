@@ -1643,7 +1643,6 @@ public class EIUnits{
         delta = new UnitType("delta"){{
             constructor = UnitEntity::create;
             aiController = BuilderAI::new;
-
             lowAltitude = flying = true;
             isEnemy = false;
 
@@ -1651,7 +1650,7 @@ public class EIUnits{
             armor = 3f;
             hitSize = 13.5f;
             speed = 3.7f;
-            drag = 0.05f;
+            drag = 0.08f;
             rotateSpeed = 19f;
             accel = 0.16f;
             fogRadius = 0f;
@@ -1659,10 +1658,8 @@ public class EIUnits{
             mineSpeed = 10.25f;
             mineTier = 3;
             itemCapacity = 95;
-
-
-            engineSize = 3.2f;
-            buildBeamOffset = mineBeamOffset = engineOffset = 8.1f;
+            engineSize = 4f;
+            buildBeamOffset = mineBeamOffset = engineOffset = 7.6f;
             setEnginesMirror(
                 new UnitEngine(
                     -7.2f,
@@ -1671,7 +1668,15 @@ public class EIUnits{
                     -50f
                 )
             );
-
+            parts.add(
+                new RegionPart("-horn"){{
+                    mirror = true;
+                    moveX = 0.2f;
+                    moveY = 0.3f;
+                    moveRot = -15f;
+                    progress = PartProgress.recoil;
+                }}
+            );
             weapons.add(
                 new Weapon(){{
                     mirror = false;
@@ -1680,16 +1685,12 @@ public class EIUnits{
                     y = 5.2f;
                     reload = 75f;
                     range = 270f;
-
                     shootSound = Sounds.shootMissileLarge;
                     shootSoundVolume = 0.5f;
-
                     bullet = new BulletType(){{
                         keepVelocity = false;
-
-                        shake = 2f;
+                        shake = 1.2f;
                         speed = 0f;
-
                         shootEffect = new MultiEffect(
                             Fx.shootBigColor,
                             new Effect(9, e -> {
@@ -1707,25 +1708,20 @@ public class EIUnits{
                             }}
                         );
                         smokeEffect = Fx.shootBigSmoke2;
-
                         spawnUnit = new MissileUnitType("delta-missile"){{
                             lowAltitude = true;
-
                             speed = 5f;
                             maxRange = 6f;
                             lifetime = 54f;
                             health = 30;
-
                             engineSize = 1.75f;
                             engineLayer = Layer.effect;
-                            trailColor = engineColor = Pal.surgeAmmoFront;
+                            trailColor = engineColor = Pal.accent;
                             parts.add(
                                 new FlarePart(){{
                                     followRotation = true;
-
                                     progress = PartProgress.life.slope().curve(Interp.pow2In);
-                                    color1 = Pal.surgeAmmoFront;
-                                    color2 = Pal.surgeAmmoBack;
+                                    color1 = color2 = Pal.accent;
                                     radius = 0f;
                                     radiusTo = 15f;
                                     stroke = 3f;
@@ -1733,23 +1729,19 @@ public class EIUnits{
                                     y = -4.25f;
                                 }}
                             );
-
                             weapons.add(new Weapon(){{
                                 shootOnDeath = true;
                                 mirror = false;
-
                                 shootCone = 360f;
                                 reload = 1f;
-
                                 shootSound = Sounds.none;
                                 shootOnDeathEffect = Fx.massiveExplosion;
-
                                 bullet = new ExplosionBulletType(55f, 25f){{
                                     buildingDamageMultiplier = 0.01f;
                                     shootEffect = new MultiEffect(
-                                        new WrapEffect(Fx.dynamicSpikes, Pal.surgeAmmoFront, 24f),
+                                        new WrapEffect(Fx.dynamicSpikes, Pal.accent, 24f),
                                         new WaveEffect(){{
-                                            colorFrom = colorTo = Pal.surgeAmmoFront;
+                                            colorFrom = colorTo = Pal.accent;
                                             sizeTo = 40f;
                                             lifetime = 12f;
                                             strokeFrom = 4f;
