@@ -416,7 +416,6 @@ public class EIUnits{
 
                                 healPercent = 0.05f;
                                 pierceBuilding = true;
-                                pierce = true;
                                 pierceCap = 4;
                                 lifetime = 25;
                                 homingPower = 0.4f;
@@ -690,6 +689,7 @@ public class EIUnits{
                 reload = 260f;
                 shake = 7f;
                 shootSound = blockExplodeExplosive;
+                shootSoundVolume = 1.5f;
                 shoot.firstShotDelay = 60f;
                 parts.add(
                     new RegionPart("-cannon-base"){{
@@ -712,28 +712,79 @@ public class EIUnits{
                 bullet = new PulseBulletType(16, 200){{
                     lifetime = 25;
                     hittable = false;
-                    height = width = 15f;
+                    height = width = 20f;
                     criticalHitChance = 0.2f;
                     criticalMultiplier = 3.5f;
                     trailLength = 7;
-                    trailWidth = 3f;
+                    trailWidth = 4f;
                     backColor = frontColor = trailColor = EIPal.mechBlue;
                     smokeEffect = Fx.shootBigSmoke;
                     pierceBuilding = true;
                     pierce = true;
-                    pierceCap = 20;
-                    shootEffect = new ParticleEffect(){{
-                        cone = 35f;
-                        particles = 7;
-                        sizeFrom = 2f;
-                        sizeTo = 0f;
-                        colorFrom = colorTo = EIPal.mechBlue;
-                        interp = Interp.exp10Out;
-                        sizeInterp = Interp.exp5In;
-                        lifetime = 30f;
-                    }};
+                    pierceCap = 40;
+                    shootEffect = new MultiEffect(
+                        new ParticleEffect(){{
+                            cone = 35f;
+                            particles = 8;
+                            sizeFrom = 3f;
+                            sizeTo = 0f;
+                            colorFrom = colorTo = Color.gray;
+                            interp = Interp.exp10Out;
+                            sizeInterp = Interp.exp5In;
+                            lifetime = 45f;
+                        }},
+                        new ParticleEffect(){{
+                            cone = 35f;
+                            particles = 7;
+                            sizeFrom = 2f;
+                            sizeTo = 0f;
+                            colorFrom = colorTo = EIPal.mechBlue;
+                            interp = Interp.exp10Out;
+                            sizeInterp = Interp.exp5In;
+                            lifetime = 35f;
+                        }}
+                    );
                     hitEffect = EIFx.smallBlueSpark;
                     despawnEffect = EIFx.blueDespawn;
+                    intervalBullets = 4;
+                    intervalAngle = 180;
+                    intervalRandomSpread = 0f;
+                    intervalDelay = 1f;
+                    bulletInterval = 1f;
+                    intervalBullet = new BulletType(){{
+                        damage = 10f;
+                        speed = 0f;
+                        lifetime = 1f;
+                        splashDamageRadius = 20f;
+                        splashDamage = 50f;
+                        despawnEffect = new MultiEffect(
+                            new ParticleEffect(){{
+                                cone = 30f;
+                                keepVelocity = false;
+                                line = true;
+                                particles = 4;
+                                colorFrom = colorTo = EIPal.mechBlue;
+                                lenFrom = 9f;
+                                lenTo = 0f;
+                                strokeFrom = 6f;
+                                strokeTo = 0f;
+                                lifetime = 25f;
+                                interp = Interp.exp10Out;
+                            }},
+                            new WaveEffect(){{
+                                sizeFrom = 0f;
+                                sizeTo = 20f;
+                                colorFrom = EIPal.mechBlue;
+                                colorTo = Color.valueOf("8aa3f400");
+                                strokeFrom = 3f;
+                                strokeTo = 1f;
+                                interp = Interp.exp5Out;
+                                sides = 6;
+                                lifetime = 15f;
+                            }}
+                        );
+                        hitEffect = Fx.none;
+                    }};
                 }};
             }});
         }};
@@ -1182,7 +1233,6 @@ public class EIUnits{
                     smokeEffect = shootEffect = Fx.none;
                     hitEffect = EIFx.smallPurpleSpark;
                     ejectEffect = Fx.none;
-                    shootEffect = Fx.none;
                 }};
             }});
         }};

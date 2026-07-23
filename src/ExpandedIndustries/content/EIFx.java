@@ -216,6 +216,7 @@ public class EIFx {
                 strokeTo = 0f;
                 lifetime = 30f;
                 interp = Interp.exp5Out;
+                sides = 6;
             }},
             new ParticleEffect(){{
                 line = true;
@@ -229,7 +230,7 @@ public class EIFx {
                 interp = Interp.exp5Out;
             }}
         );
-        smallGreenSpark = smallBlueSpark = new ParticleEffect(){{
+        smallGreenSpark = new ParticleEffect(){{
             line = true;
             particles = 7;
             colorFrom = colorTo = Pal.heal;
