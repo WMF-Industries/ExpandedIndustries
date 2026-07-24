@@ -652,11 +652,13 @@ public class EIBlocks{
             requirements(Category.crafting, with(copper, 220, silicon, 160, graphite, 130, metaglass, 80, titanium, 40));
             consumeLiquid(oil, 10f / 60f);
             consumePower(4f);
-            fullOverride = "block-ei-oil-purifier-ui";
+            fullOverride = "block-ei-oil-purifier-ui"; //these SHOULD have their own sprites
+            //uiIcon = "block-ei-oil-purifier-full"; but I cant figure out this thing
             size = 2;
             rotate = rotateDraw = rotateDrawEditor= false;
             craftTime = 10f;
             liquidCapacity = 45f;
+            conductivePower = true;
             researchCostMultiplier = 1.2f;
             liquidOutputDirections = new int[]{4, 1};
             outputLiquids = LiquidStack.with(heavyOil, 4f / 60f, lightOil, 5f / 60f);
@@ -682,6 +684,7 @@ public class EIBlocks{
             rotate = rotateDraw = rotateDrawEditor= false;
             craftTime = 90f;
             liquidCapacity = 45f;
+            conductivePower = true;
             researchCostMultiplier = 1.2f;
             outputItem = new ItemStack(scrap, 1);
             liquidOutputDirections = new int[]{1};
@@ -714,6 +717,7 @@ public class EIBlocks{
             rotate = rotateDraw = rotateDrawEditor= false;
             craftTime = 30f;
             liquidCapacity = 20f;
+            conductivePower = true;
             researchCostMultiplier = 1.2f;
             ambientSoundVolume = 0.08f;
             outputItem = new ItemStack(thermiteCompound, 1);
