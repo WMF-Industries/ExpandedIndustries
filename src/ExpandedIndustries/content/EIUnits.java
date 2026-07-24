@@ -154,7 +154,6 @@ public class EIUnits{
             groundLayer = Layer.legUnit;
 
             hovering = allowLegStep = true;
-            outlines = false;
 
             health = 770;
             armor = 5;
@@ -220,7 +219,6 @@ public class EIUnits{
             groundLayer = Layer.legUnit;
 
             hovering = allowLegStep = true;
-            outlines = false;
 
             health = 6600;
             armor = 8;
@@ -1616,7 +1614,7 @@ public class EIUnits{
                 y = 0.5f;
 
                 ejectEffect = Fx.casing1;
-                shootSound = Sounds.beamPlasmaSmall;
+                shootSound = Sounds.shoot;
                 initialShootSound = Sounds.shootBeamPlasmaSmall;
 
                 bullet = new BasicBulletType(2.5f, 7){{
