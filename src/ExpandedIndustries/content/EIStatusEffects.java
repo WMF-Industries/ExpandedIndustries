@@ -11,9 +11,27 @@ import static mindustry.Vars.state;
 import static mindustry.content.StatusEffects.*;
 
 public class EIStatusEffects{
-    public static StatusEffect lockdown, overload, sticky, oily;
+    public static StatusEffect brittle, lockdown, overload, sticky, oily;
 
     public static void load(){
+        brittle = new StatusEffect("brittle"){{
+            color = Color.valueOf("83c7ff");
+            healthMultiplier = 0.6f;
+            effect = Fx.freezing;
+            transitionDamage = 20f;
+
+            init(() -> {
+                opposite(melting, burning);
+
+                affinity(blasted, (unit, result, time) -> {
+                    unit.damagePierce(transitionDamage);
+                    if(unit.team == state.rules.waveTeam){
+                        Events.fire(EventType.Trigger.blastFreeze);
+                    }
+                });
+            });
+        }};
+
         lockdown = new StatusEffect("lockdown"){{
             speedMultiplier = 0.6f;
             reloadMultiplier = 0.7f;

@@ -8,9 +8,27 @@ import mindustry.entities.effect.MultiEffect;
 import static ExpandedIndustries.content.EILiquids.*;
 
 public class EIBulletTypes{
-    public static BulletType baseReuriumBullet, tsunamiReuriumBullet, hailIceBullet, rippleIceBullet;
+    public static BulletType baseLOXBullet, tsunamiLOXBullet, baseReuriumBullet, tsunamiReuriumBullet, hailIceBullet, rippleIceBullet;
 
     public static void load(){
+        baseLOXBullet = new LiquidBulletType(liquidOxygen){{
+            damage = 0f;
+            knockback = 0.4f;
+            statusDuration = 60f * 2;
+            lifetime = 60f;
+            speed = 4f;
+            lifetime = 26f;
+        }};
+        tsunamiLOXBullet = new LiquidBulletType(liquidOxygen){{
+            damage = 0.3f;
+            knockback = 1.4f;
+            statusDuration = 60f * 4;
+            lifetime = 60f;
+            speed = 3.4f;
+            orbSize = 4f;
+            ammoMultiplier = 0.6f;
+            reloadMultiplier = 0.75f;
+        }};
         baseReuriumBullet = new LiquidBulletType(reurium){{
             damage = 0.4f;
             knockback = 1.5f;

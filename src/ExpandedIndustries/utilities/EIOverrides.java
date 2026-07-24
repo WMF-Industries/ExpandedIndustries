@@ -38,6 +38,8 @@ public class EIOverrides{
         Log.info("[EI] Overriding content stats.");
         // manual overrides
         addBullet(tsunami, reurium, tsunamiReuriumBullet);
+        addBullet(wave, liquidOxygen, baseLOXBullet);
+        addBullet(tsunami, liquidOxygen, tsunamiLOXBullet);
         addBullet(hail, itemIce, hailIceBullet);
         addBullet(ripple, itemIce, rippleIceBullet);
 

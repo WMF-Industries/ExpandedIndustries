@@ -16,7 +16,7 @@ public class EILiquids{
             heatCapacity = 1.3f;
             viscosity = 0.9f;
 
-            effect = StatusEffects.freezing;
+            effect = EIStatusEffects.brittle;
 
             lightColor = Color.valueOf("83c7ff80");
         }};
