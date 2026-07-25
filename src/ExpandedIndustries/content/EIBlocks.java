@@ -64,7 +64,7 @@ public class EIBlocks{
 
     //production (vanilla res) - serpulo
     graphiteCompressor, siliconFabricator, metaglassFabricator, plastaniumCondenser,
-    cryofluidStirrer, cryofluidPlant, oilCrystallizer, coalLiquifier, scrapper,
+    phaseInterweaver, cryofluidStirrer, cryofluidPlant, oilCrystallizer, coalLiquifier, scrapper,
 
     //production (custom res) - serpulo
     mixingFoundry, molecularReassembler, stariumRefiner, peridotiumEnricher, lumiumSmelter,
@@ -430,6 +430,23 @@ public class EIBlocks{
                 new DrawDefault(),
                 new DrawFade()
             );
+        }};
+        phaseInterweaver = new GenericCrafter("phase-interweaver"){{
+            requirements(Category.crafting, with(Items.silicon, 180, titanium, 200, peridotium, 80, plastanium, 25));
+            craftEffect = Fx.smeltsmoke;
+            outputItem = new ItemStack(Items.phaseFabric, 3);
+            craftTime = 120f;
+            size = 3;
+            hasPower = true;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawMultiWeave(), new DrawDefault());
+            envEnabled |= Env.space;
+
+            ambientSound = Sounds.loopTech;
+            ambientSoundVolume = 0.03f;
+
+            consumeItems(with(peridotium, 2, Items.sand, 6));
+            consumePower(7f);
+            itemCapacity = 30;
         }};
         cryofluidStirrer = new GenericCrafter("cryofluid-stirrer"){{
             requirements(Category.crafting, with(lead, 130, silicon, 70, titanium, 50, metaglass, 20));
