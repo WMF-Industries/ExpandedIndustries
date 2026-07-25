@@ -134,6 +134,9 @@ public class EITechTree extends TechTree{
         addNode(Blocks.siliconCrucible, () ->
             node(siliconFabricator)
         );
+        addNode(Blocks.phaseWeaver, () ->
+                node(phaseInterweaver)
+        );
         addNode(Blocks.surgeSmelter, () -> {
             node(
                 lumiumSmelter,

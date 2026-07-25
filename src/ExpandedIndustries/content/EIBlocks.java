@@ -348,33 +348,33 @@ public class EIBlocks{
 
         graphiteCompressor = new GenericCrafter("graphite-compressor"){{
             requirements(Category.crafting, with(lead, 210, graphite, 70, titanium, 190, silicon, 90, thorium, 120));
-            consumeItem(coal, 8);
-            consumeLiquid(steam, 0.2f);
+            consumeItem(coal, 9);
+            consumeLiquid(steam, 2.5f/60f);
             consumePower(3f);
 
             hasItems = hasLiquids = hasPower = true;
 
             size = 4;
-            craftTime = 45;
+            craftTime = 67.5f;
             itemCapacity = 30;
             liquidCapacity = 100;
-            outputItem = new ItemStack(graphite, 4);
+            outputItem = new ItemStack(graphite, 7);
 
             craftEffect = Fx.steam;
         }};
         siliconFabricator = new AttributeCrafter("silicon-fabricator"){{
             requirements(Category.crafting, with(metaglass, 230, titanium, 140, plastanium, 70, silicon, 160));
-            consumeItems(with(graphite, 4, sand, 16, lead, 4));
-            consumePower(4.45f);
+            consumeItems(with(coal, 6, sand, 14, blastCompound, 3));
+            consumePower(5f);
 
             hasPower = hasItems = true;
             hasLiquids = false;
 
             size = 4;
-            craftTime = 90f;
+            craftTime = 240f;
             itemCapacity = 60;
             boostScale = 0.15f;
-            outputItem = new ItemStack(silicon, 16);
+            outputItem = new ItemStack(silicon, 28);
 
             craftEffect = Fx.smeltsmoke;
             ambientSound = Sounds.loopSmelter;
@@ -387,7 +387,8 @@ public class EIBlocks{
         }};
         metaglassFabricator = new AttributeCrafter("metaglass-fabricator"){{
             requirements(Category.crafting, with(titanium, 110, graphite, 75, lead, 95, plastanium, 20));
-            consumeItems(with(lead, 3, sand, 3, graphite, 2));
+            consumeItems(with(lead, 4, sand, 4));
+            consumeLiquid(oil, 7f/60f);
             consumePower(1.4f);
 
             hasPower = true;
@@ -411,18 +412,19 @@ public class EIBlocks{
         }};
         plastaniumCondenser = new AttributeCrafter("plastanium-condenser"){{
             requirements(Category.crafting, with(lead, 210, silicon, 90, metaglass, 70, titanium, 90, plastanium, 15));
-            consumeItem(titanium, 4);
-            consumeLiquid(lightOil, 0.6f);
+            consumeLiquid(lightOil, 7.5f/60f);
+            consumeItem(titanium, 6);
             consumePower(4.5f);
 
             hasItems = hasPower = hasLiquids = true;
 
             size = 3;
             health = 530;
-            craftTime = 60f;
+            craftTime = 90f;
             liquidCapacity = 180f;
+            itemCapacity = 20;
             attribute = Attribute.oil;
-            outputItem = new ItemStack(plastanium, 3);
+            outputItem = new ItemStack(plastanium, 6);
 
             craftEffect = Fx.formsmoke;
             updateEffect = Fx.plasticburn;
@@ -862,7 +864,7 @@ public class EIBlocks{
         }};
         sectorOverdrive = new SectorOverdriveProjector("sector-overdrive"){{
             requirements(Category.effect, with(copper, 8425, lead, 6350, silicon, 5430, titanium, 4100, thorium, 3950, phaseFabric, 1950, stariumAlloy, 535));
-            consumeItems(with(phaseFabric, 9, silicon, 30));
+            consumeItems(with(phaseFabric, 6, silicon, 18));
             consumeLiquid(liquidOxygen, 16f/60f);
             consumePower(240f);
 
@@ -872,7 +874,7 @@ public class EIBlocks{
 
             size = 5;
             speedBoost = 3f;
-            useTime = 120f;
+            useTime = 60f;
         }};
 
         int largeWallMultiplier = 4;
