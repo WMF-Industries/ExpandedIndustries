@@ -832,27 +832,30 @@ public class EIBlocks{
         }};
         sectorMender = new SectorMendProjector("sector-mender"){{
             requirements(Category.effect, with(copper, 9300, lead, 8700, silicon, 8200, graphite, 8350, titanium, 6500, thorium, 5000, plastanium, 1600, enrichedPeridotium, 750));
-            consumeItem(surgeAlloy, 3).boost();
+            consumeItem(surgeAlloy, 6).boost();
             consumePower(250f);
 
             hasPower = true;
+            itemCapacity = 12;
 
             size = 5;
-            reload = 450;
+            reload = 60f * 4f;
             healPercent = 25f;
             phaseBoost = 25f;
         }};
         sectorOverdrive = new SectorOverdriveProjector("sector-overdrive"){{
             requirements(Category.effect, with(copper, 8425, lead, 6350, silicon, 5430, titanium, 4100, thorium, 3950, phaseFabric, 1950, stariumAlloy, 535));
-            consumeItems(with(phaseFabric, 4, silicon, 8));
+            consumeItems(with(phaseFabric, 9, silicon, 30));
+            consumeLiquid(liquidOxygen, 16f/60f);
             consumePower(240f);
 
             hasPower = true;
             hasBoost = false;
+            itemCapacity = 60;
 
             size = 5;
-            speedBoost = 4f;
-            useTime = 60f;
+            speedBoost = 3f;
+            useTime = 120f;
         }};
 
         int largeWallMultiplier = 4;
