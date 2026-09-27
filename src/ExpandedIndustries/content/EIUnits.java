@@ -8,6 +8,7 @@ import ExpandedIndustries.type.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.Interp;
+import arc.struct.ObjectSet;
 import mindustry.ai.*;
 import mindustry.ai.types.*;
 import mindustry.content.*;
@@ -35,7 +36,7 @@ public class EIUnits{
     requer, convoy, demand, entail, warrant,  // critical hitters
     centurion, alturion, // miners
     luma, vera, kora, astra, brilliance, // payload
-    pygmy, schaus, ageronia, monarch, // hit-and-run
+    exilis, machaon, ageronia, monarch, alexandrae,// hit-and-run
     creo, fingo, perficio, // healers
     piece, delta, // core
     starnight; // hidden
@@ -224,7 +225,7 @@ public class EIUnits{
 
             health = 6600;
             armor = 8;
-            hitSize = 68;
+            hitSize = 60;
             speed = 0.45f;
             rotateSpeed = 2.2f;
             buildSpeed = 2.35f;
@@ -269,10 +270,10 @@ public class EIUnits{
             groundLayer = Layer.legUnit;
 
             hovering = allowLegStep = true;
-
+            immunities = ObjectSet.with(StatusEffects.burning);
             health = 17200;
             armor = 13;
-            hitSize = 88;
+            hitSize = 80;
             itemCapacity = 180;
             speed = 0.4f;
             rotateSpeed = 1.45f;
@@ -292,60 +293,92 @@ public class EIUnits{
                 new Weapon(){{
                     mirror = top = false;
 
-                    shoot.firstShotDelay = 85;
+                    shoot.firstShotDelay = 60f;
                     reload = 360;
                     x = 0;
                     y = 2.5f;
                     recoil = 0;
 
                     chargeSound = chargeLancer;
-                    shootStatus = StatusEffects.unmoving;
-                    shootStatusDuration = shoot.firstShotDelay;
-                    shootSound = explosionPlasmaSmall;
+                    shootStatus = StatusEffects.slow;
+                    shootStatusDuration = shoot.firstShotDelay * 1.1f;
+                    shootSound = explosionArtilleryShockBig;
 
                     bullet = new ArtilleryBulletType(5, 45, "circle-bullet"){{
+                        chargeEffect = new MultiEffect(
+                            new WaveEffect(){{
+                                lifetime = shoot.firstShotDelay * 0.5f;
+                                sizeFrom = 50f;
+                                sizeTo = 0f;
+                                strokeFrom = 3f;
+                                strokeTo = 0f;
+                                colorFrom = Pal.heal;
+                                interp = Interp.pow5Out;
+                            }},
+                            new ParticleEffect(){{
+                                lifetime = shoot.firstShotDelay * 0.5f;
+                                particles = 14;
+                                baseLength = 95f;
+                                length = -95f;
+                                sizeFrom = 7.5f;
+                                colorFrom = Color.valueOf("bf92f900");
+                                colorTo = Pal.heal;
+                                sizeInterp = Interp.pow5In;
+                                interp = Interp.exp5Out;
+                            }},
+                            new ParticleEffect(){{
+                                lifetime = shoot.firstShotDelay * 0.5f;
+                                particles = 20;
+                                baseLength = 70f;
+                                length = -70f;
+                                sizeFrom = 5f;
+                                colorFrom = Color.valueOf("bf92f900");
+                                colorTo = Pal.heal;
+                                sizeInterp = Interp.pow5In;
+                                startDelay = 10f;
+                                interp = Interp.exp5Out;
+                            }},
+                            new ParticleEffect(){{
+                                lifetime = shoot.firstShotDelay * 0.5f;
+                                particles = 18;
+                                baseLength = 70f;
+                                length = -70f;
+                                sizeFrom = 3.5f;
+                                colorFrom = Color.valueOf("bf92f900");
+                                colorTo = Pal.heal;
+                                sizeInterp = Interp.pow5Out;
+                                startDelay = 20f;
+                                interp = Interp.pow2Out;
+                            }},
+                            new ParticleEffect(){{
+                                lifetime = shoot.firstShotDelay;
+                                particles = 1;
+                                baseLength = 0f;
+                                length = 0f;
+                                sizeFrom = 0f;
+                                sizeTo = 12f;
+                                colorFrom = colorTo = Pal.heal;
+                                sizeInterp = Interp.pow2Out;
+                            }}
+                        );
                         collides = absorbable = hittable = false;
                         scaleLife = true;
-
-                        lifetime = 60;
+                        lifetime = 60f;
                         buildingDamageMultiplier = 0.4444444444444444f;
                         width = height = 25;
                         shrinkX = shrinkY = 0;
+                        despawnEffect = EIFx.largeGreenDespawn;
 
-                        chargeEffect = new MultiEffect(
-                            Fx.greenLaserCharge,
-                            new ParticleEffect(){{
-                                randLength = true;
-
-                                sizeFrom = 10;
-                                sizeTo = 2;
-                                baseLength = 2;
-                                length = 5;
-                                lifetime = 80;
-                                colorFrom = colorTo = Pal.heal;
-                            }},
-                            new ParticleEffect(){{
-                                randLength = true;
-
-                                startDelay = 30;
-                                sizeFrom = 10;
-                                sizeTo = 2;
-                                baseLength = 2;
-                                length = 5;
-                                lifetime = 50;
-                                colorFrom = colorTo = Pal.heal;
-                            }}
-                        );
                         trailLength = 25;
-                        trailWidth = 13;
+                        trailWidth = 8;
                         frontColor = Color.valueOf("ffffff");
-                        backColor = trailColor = Color.valueOf("83f793");
-                        lightColor = Color.valueOf("83f793");
+                        backColor = trailColor = Pal.heal;
+                        lightColor = Pal.heal;
 
                         lightning = 1;
                         lightningLength = 2;
                         lightningCone = 0;
-                        lightningType = new BasicBulletType(0, 45, "circle-bullet"){{
+                        lightningType = new BasicBulletType(0f, 45, "circle-bullet"){{
                             collides = hittable = false;
                             despawnHit = true;
 
@@ -357,20 +390,7 @@ public class EIUnits{
                             frontColor = Color.valueOf("ffffff");
                             backColor = Color.valueOf("83f793");
                             lightColor = Color.valueOf("83f793");
-                            despawnEffect = new MultiEffect(
-                                    new WaveEffect(){{
-                                        sizeFrom = 28;
-                                        sizeTo = 28;
-                                        lifetime = 20;
-                                        colorTo = Color.valueOf("83f793");
-                                    }},
-                                    new ParticleEffect(){{
-                                        sizeFrom = 8;
-                                        sizeTo = 4;
-                                        lifetime = 15;
-                                        colorTo = Color.valueOf("83f793");
-                                    }}
-                            );
+                            despawnEffect = EIFx.largeGreenDespawn;
                         }};
 
                         fragBullets = 60;
@@ -378,11 +398,9 @@ public class EIUnits{
                         fragBullet = new BulletType(0, 45){{
                             collides = absorbable = hittable = false;
                             despawnHit = true;
-
                             buildingDamageMultiplier = 0.444f;
                             lifetime = 180;
                             width = height = 0;
-
                             despawnEffect = hitEffect = Fx.none;
                             despawnSound = Sounds.shockBullet;
 
@@ -390,16 +408,19 @@ public class EIUnits{
                             lightningLength = 2;
                             lightningCone = 0;
                             lightningType = new BasicBulletType(4, 45, "circle-bullet"){{
+                                height = width = 4.5f;
                                 pierceArmor = pierce = true;
                                 collidesTeam = true;
                                 despawnHit = true;
                                 status = StatusEffects.electrified;
 
                                 healPercent = 0.05f;
-                                pierceCap = 2;
-                                lifetime = 20;
+                                pierceBuilding = true;
+                                pierceCap = 4;
+                                lifetime = 25;
                                 homingPower = 0.4f;
-                                homingRange = 60;
+                                homingRange = 75f;
+                                homingDelay = 5f;
                                 statusDuration = 240;
                                 buildingDamageMultiplier = 0.444f;
                                 width = height = 14;
@@ -408,8 +429,9 @@ public class EIUnits{
                                 backColor = trailColor = Color.valueOf("83f793");
                                 lightColor = Color.valueOf("83f793");
                                 trailLength = 14;
-                                trailWidth = 10;
-                                hitEffect = despawnEffect = new MultiEffect(
+                                trailWidth = 5;
+                                despawnEffect = EIFx.greenDespawn;
+                                hitEffect = new MultiEffect(
                                     new WaveEffect(){{
                                         sizeFrom = 14;
                                         sizeTo = 14;
@@ -438,22 +460,31 @@ public class EIUnits{
                     shootY =  38;
                     inaccuracy =  1;
                     shoot.shotDelay =  1;
-                    recoil = 1;
+                    recoil = 3;
 
                     shootSound = shootArtillery;
 
-                    bullet = new ArtilleryBulletType(3, 80){{
-                        lifetime = 100;
-                        height = 10;
-                        width = 10;
+                    bullet = new BasicBulletType(5, 80){{
+                        lifetime = 25f;
+                        height =  width = 28f;
+                        backColor = frontColor = Pal.heal;
+                        trailLength = 5;
+                        trailWidth = 4f;
+                        trailChance = 1f;
+                        trailEffect = EIFx.smallGreenSpark;
+                        trailColor = Pal.heal;
+                        despawnEffect = hitEffect = EIFx.smallGreenSpark;
+                        fragRandomSpread = 0f;
+                        fragSpread = 20f;
+                        fragBullets = 5;
                         fragBullet = new ShrapnelBulletType(){{
                             damage = 120;
                             speed = 0;
                             length = 80;
-                            width = 50;
-
+                            width = 25;
                             hitSound = despawnSound = Sounds.shootFuse;
                             hitEffect = Fx.hitLancer;
+                            fromColor = toColor = Pal.heal;
                         }};
                     }};
                 }},
@@ -518,8 +549,9 @@ public class EIUnits{
 
                         lifetime = 40;
                         lifesteal = 1.5f;
-                        width = height = 6.5f;
+                        width = height = 8f;
                         backColor = frontColor = EIPal.mechBlue;
+                        hitEffect = despawnEffect = EIFx.smallBlueSpark;
                     }};
                 }}
             );
@@ -529,7 +561,7 @@ public class EIUnits{
 
             health = 620;
             armor = 5;
-            hitSize = 12;
+            hitSize = 16;
             speed = 0.6f;
             rotateSpeed = 1.72f;
 
@@ -558,17 +590,21 @@ public class EIUnits{
                         width = 9;
                         height = 13;
                         backColor = frontColor = EIPal.mechBlue;
+                        hitEffect = despawnEffect = EIFx.smallBlueSpark;
                     }};
                 }}
             );
         }};
         demand = new UnitType("demand"){{
             constructor = MechUnit::create;
+            stepSound = Sounds.mechStep;
+            stepSoundPitch = 1.1f;
+            stepSoundVolume = 0.12f;
 
-            health = 620;
-            armor = 5;
+            health = 900;
+            armor = 6;
             hitSize = 26f;
-            speed = 0.45f;
+            speed = 0.5f;
             rotateSpeed = 1.22f;
             weapons.add(
                 new Weapon("ei-demand-weapon"){{
@@ -585,9 +621,10 @@ public class EIUnits{
                     shootStatus = StatusEffects.slow;
                     shootStatusDuration = reload * 0.5f;
 
-                    bullet = new PulseBulletType(10, 60){{
-                        recoil = 6f;
+                    bullet = new PulseBulletType(10, 80){{
+                        recoil = 5f;
                         lifetime = 20;
+                        hittable = false;
                         height = width = 13f;
                         criticalHitChance = 0.25f;
                         criticalMultiplier = 3;
@@ -608,49 +645,259 @@ public class EIUnits{
                             sizeInterp = Interp.exp5In;
                             lifetime = 30f;
                         }};
-                        hitEffect = new ParticleEffect(){{
-                            line = true;
-                            particles = 7;
-                            colorFrom = colorTo = EIPal.mechBlue;
-                            lenFrom = 7f;
-                            lenTo = 0f;
-                            strokeFrom = 1.8f;
-                            strokeTo = 0f;
-                            lifetime = 35f;
-                            interp = Interp.exp5Out;
-                        }};
-                        despawnEffect = new MultiEffect(
-                            new WaveEffect(){{
-                                sizeFrom = 0f;
-                                sizeTo = 18f;
-                                colorFrom = colorTo = EIPal.mechBlue;
-                                strokeFrom = 4f;
-                                strokeTo = 0f;
-                                lifetime = 60f;
-                                interp = Interp.exp5Out;
-                            }},
-                            new ParticleEffect(){{
-                                line = true;
-                                particles = 8;
-                                colorFrom = colorTo = EIPal.mechBlue;
-                                lenFrom = 9f;
-                                lenTo = 0f;
-                                strokeFrom = 4.5f;
-                                strokeTo = 0f;
-                                lifetime = 45f;
-                                interp = Interp.exp5Out;
-                            }}
-                        );
+                        hitEffect = EIFx.smallBlueSpark;
+                        despawnEffect = EIFx.blueDespawn;
                     }};
                 }}
             );
+        }};
+        entail = new UnitType("entail"){{
+            constructor = MechUnit::create;
+            mechFrontSway = 1f;
+            mechStepParticles = true;
+            stepShake = 0.15f;
+            drownTimeMultiplier = 1.3f;
+            stepSound = mechStepHeavy;
+            stepSoundPitch = 0.8f;
+            stepSoundVolume = 0.5f;
+
+            health = 8800;
+            armor = 10;
+            hitSize = 38f;
+            speed = 0.34f;
+            rotateSpeed = 1f;
+            shadowElevation = 0.15f;
+            parts.add(
+            new RegionPart("-front"){{
+                mirror = true;
+                moveX = 5.5f;
+                moveY = -10f;
+                progress = PartProgress.warmup;
+            }},
+            new RegionPart("-middle"){{
+                mirror = false;
+                moveX = 0f;
+                moveY = -6.5f;
+                progress = PartProgress.warmup;
+            }});
+            weapons.add(new Weapon("ei-entail-weapon"){{
+                top = mirror = false;
+
+                x = recoil = 0f;
+                y = -2f;
+                shootY = 34f;
+                reload = 260f;
+                shake = 7f;
+                shootSound = blockExplodeExplosive;
+                shootSoundVolume = 1.5f;
+                shoot.firstShotDelay = 60f;
+                parts.add(
+                    new RegionPart("-cannon-base"){{
+                        mirror = false;
+                        moveX = 0;
+                        moveY = 14.5f;
+                        progress = PartProgress.warmup;
+                        under = true;
+                        layerOffset = -0.01f;
+                        moves.add(new PartMove(PartProgress.recoil, 0, -3.5f, 0));
+                        children.add(new RegionPart("-cannon"){{
+                            mirror = false;
+                            moveX = 0;
+                            moveY = 12f;
+                            progress = PartProgress.warmup;
+                            layerOffset = -0.01f;
+                            moves.add(new PartMove(PartProgress.recoil, 0, -8f, 0));
+                        }});
+                    }});
+                bullet = new PulseBulletType(16, 200){{
+                    lifetime = 25;
+                    hittable = false;
+                    height = width = 20f;
+                    criticalHitChance = 0.2f;
+                    criticalMultiplier = 3.5f;
+                    trailLength = 7;
+                    trailWidth = 4f;
+                    backColor = frontColor = trailColor = EIPal.mechBlue;
+                    smokeEffect = Fx.shootBigSmoke;
+                    pierceBuilding = true;
+                    pierce = true;
+                    pierceCap = 40;
+                    shootEffect = new MultiEffect(
+                        new ParticleEffect(){{
+                            cone = 35f;
+                            particles = 8;
+                            sizeFrom = 3f;
+                            sizeTo = 0f;
+                            colorFrom = colorTo = Color.gray;
+                            interp = Interp.exp10Out;
+                            sizeInterp = Interp.exp5In;
+                            lifetime = 45f;
+                        }},
+                        new ParticleEffect(){{
+                            cone = 35f;
+                            particles = 7;
+                            sizeFrom = 2f;
+                            sizeTo = 0f;
+                            colorFrom = colorTo = EIPal.mechBlue;
+                            interp = Interp.exp10Out;
+                            sizeInterp = Interp.exp5In;
+                            lifetime = 35f;
+                        }}
+                    );
+                    hitEffect = EIFx.smallBlueSpark;
+                    despawnEffect = EIFx.blueDespawn;
+                    intervalBullets = 4;
+                    intervalAngle = 180;
+                    intervalRandomSpread = 0f;
+                    intervalDelay = 1f;
+                    bulletInterval = 1f;
+                    intervalBullet = new BulletType(){{
+                        damage = 10f;
+                        speed = 0f;
+                        lifetime = 1f;
+                        splashDamageRadius = 20f;
+                        splashDamage = 50f;
+                        despawnEffect = new MultiEffect(
+                            new ParticleEffect(){{
+                                cone = 30f;
+                                keepVelocity = false;
+                                line = true;
+                                particles = 4;
+                                colorFrom = colorTo = EIPal.mechBlue;
+                                lenFrom = 9f;
+                                lenTo = 0f;
+                                strokeFrom = 6f;
+                                strokeTo = 0f;
+                                lifetime = 25f;
+                                interp = Interp.exp10Out;
+                            }},
+                            new WaveEffect(){{
+                                sizeFrom = 0f;
+                                sizeTo = 20f;
+                                colorFrom = EIPal.mechBlue;
+                                colorTo = Color.valueOf("8aa3f400");
+                                strokeFrom = 3f;
+                                strokeTo = 1f;
+                                interp = Interp.exp5Out;
+                                sides = 6;
+                                lifetime = 15f;
+                            }}
+                        );
+                        hitEffect = Fx.none;
+                    }};
+                }};
+            }});
+        }};
+        warrant = new UnitType("warrant"){{
+            constructor = MechUnit::create;
+            mechFrontSway = 1.7f;
+            mechStepParticles = true;
+            stepShake = 2f;
+            drownTimeMultiplier = 2.1f;
+            stepSound = mechStepHeavy;
+            stepSoundPitch = 0.65f;
+            stepSoundVolume = 0.68f;
+
+            health = 24500;
+            armor = 16;
+            hitSize = 58f;
+            speed = 0.26f;
+            rotateSpeed = 0.8f;
+            weapons.add(new Weapon("ei-large-blue-mount"){{
+                top = rotate = true;
+                x = 16f;
+                y = 0f;
+                reload = 25f;
+                rotateSpeed = 1.8f;
+                shootSound = shootDisperse;
+                shootSoundVolume = 0.9f;
+                shoot = new ShootHelix(1.5f,5);
+                bullet = new PulseBulletType(6, 40){{
+                    lifetime = 30;
+                    height = width = 18f;
+                    criticalHitChance = 0.1f;
+                    criticalMultiplier = 2f;
+                    trailLength = 5;
+                    trailWidth = 4f;
+                    trailChance = 1f;
+                    trailEffect = new ParticleEffect(){{
+                        particles = 2;
+                        line = true;
+                        cone = 45f;
+                        colorFrom = colorTo = EIPal.mechBlue;
+                        lifetime = 10f;
+                    }};
+                    backColor = frontColor = trailColor = EIPal.mechBlue;
+                    smokeEffect = Fx.shootBigSmoke;
+                    pierceBuilding = true;
+                    pierce = true;
+                    pierceCap = 5;
+                    shootEffect = new ParticleEffect(){{
+                        cone = 35f;
+                        particles = 7;
+                        sizeFrom = 2f;
+                        sizeTo = 0f;
+                        colorFrom = colorTo = EIPal.mechBlue;
+                        interp = Interp.exp10Out;
+                        sizeInterp = Interp.exp5In;
+                        lifetime = 30f;
+                    }};
+                    hitEffect = despawnEffect = EIFx.smallBlueSpark;
+                    despawnSound = shootArc;
+                    fragBullets = 3;
+                    fragBullet = new LightningBulletType(){{
+                        damage = 16f;
+                        lightningLength = 5;
+                        lightningLengthRand = 2;
+                        lightningColor = EIPal.mechBlue;
+                    }};
+                }};
+            }});
+            weapons.add(new Weapon("ei-warrant-weapon"){{
+                top = false;
+                mirror = true;
+                x = y = 0f;
+                shootY = 28f;
+                shootX = 30f;
+                reload = 60f;
+                recoil = 4f;
+                shake = 5.5f;
+                shootSound = unitExplode3;
+                shootSoundVolume = 1.1f;
+                shadowElevation = 0.23f;
+                bullet = new PulseBulletType(16, 500){{
+                    lifetime = 20;
+                    height = width = 30f;
+                    criticalHitChance = 0.1f;
+                    criticalMultiplier = 2f;
+                    trailLength = 7;
+                    trailWidth = 5f;
+                    backColor = frontColor = trailColor = EIPal.mechBlue;
+                    smokeEffect = Fx.shootBigSmoke;
+                    pierceBuilding = true;
+                    pierce = true;
+                    pierceCap = 20;
+                    shootEffect = new ParticleEffect(){{
+                        cone = 35f;
+                        particles = 7;
+                        sizeFrom = 2f;
+                        sizeTo = 0f;
+                        colorFrom = colorTo = EIPal.mechBlue;
+                        interp = Interp.exp10Out;
+                        sizeInterp = Interp.exp5In;
+                        lifetime = 30f;
+                    }};
+                    hitEffect = EIFx.smallBlueSpark;
+                    despawnEffect = EIFx.blueDespawn;
+                }};
+            }});
         }};
         centurion = new UnitType("centurion") {{
             constructor = UnitEntity::create;
             defaultCommand = UnitCommand.mineCommand;
 
             flying = true;
-            isEnemy = outlines = false;
+            isEnemy = false;
 
             health = 225;
             armor = 2.5f;
@@ -675,7 +922,7 @@ public class EIUnits{
             defaultCommand = UnitCommand.mineCommand;
 
             flying = true;
-            isEnemy = outlines = false;
+            isEnemy = false;
 
             health = 650;
             armor = 2.5f;
@@ -690,12 +937,12 @@ public class EIUnits{
             itemCapacity = 85;
             range = 50f;
 
-            engineSize = 2.5f;
+            engineSize = 3.2f;
             engineOffset = 12f;
 
             abilities.add(new RepairFieldAbility(18f, 60f * 10, 75f));
         }};
-        pygmy = new UnitType("pygmy") {{
+        exilis = new UnitType("exilis") {{
             constructor = UnitEntity::create;
             aiController = CircleTargetAI::new;
 
@@ -755,7 +1002,7 @@ public class EIUnits{
                 }};
             }});
         }};
-        schaus = new UnitType("schaus"){{
+        machaon = new UnitType("machaon"){{
             constructor = UnitEntity::create;
             aiController = CircleTargetAI::new;
 
@@ -764,7 +1011,7 @@ public class EIUnits{
 
             health = 260;
             armor = 7;
-            hitSize = 11.5f;
+            hitSize = 12f;
             speed = 2.1f;
             drag = 0.016f;
             accel = 0.08f;
@@ -789,13 +1036,13 @@ public class EIUnits{
                 bullet = new BasicBulletType(4f, 65){{
                     splashDamage = 15;
                     splashDamageRadius = 14;
-                    homingPower = 0.12f;
-                    homingDelay = 15f;
+                    homingPower = 0.5f;
+                    homingDelay = 4f;
 
                     lifetime = 30f;
-                    drag = 0.04f;
+                    drag = 0.0005f;
                     status = StatusEffects.corroded;
-                    lifesteal = 0.02f;
+                    lifesteal = 1.2f;
                     height = width = 7;
                     shrinkY = 0;
                     buildingDamageMultiplier = 0.55f;
@@ -833,7 +1080,7 @@ public class EIUnits{
             flying = lowAltitude = faceTarget = true;
             health = 560;
             armor = 4;
-            hitSize = 16.5f;
+            hitSize = 18.5f;
             speed = 2.2f;
             drag = 0.09f;
             accel = 0.075f;
@@ -851,26 +1098,26 @@ public class EIUnits{
                 y = 0;
                 shootY = 4f;
                 shoot.shots = 2;
-                reload = 20f;
+                reload = 10f;
                 shootCone = 30f;
                 inaccuracy = 25f;
 
                 shootSound = shootMissile;
 
-                bullet = new MissileBulletType(2,32){{
+                bullet = new MissileBulletType(2,40f){{
                     lifetime = 60f;
                     lifesteal = 2.75f;
                     buildingDamageMultiplier = 0.7f;
                     homingPower = 0.08f;
                     homingDelay = 20f;
                     status = StatusEffects.sapped;
-                    height = 11f;
-                    width = 9f;
+                    height = 9f;
+                    width = 8f;
                     trailEffect = new ParticleEffect(){{
                         baseLength = 0;
                         length = 0;
                         particles = 1;
-                        sizeFrom = 2f;
+                        sizeFrom = 1f;
                         sizeTo = 0f;
                         colorFrom = colorTo = EIPal.butterflyPurple;
                     }};
@@ -889,7 +1136,7 @@ public class EIUnits{
 
             flying = lowAltitude = faceTarget = true;
 
-            health = 780;
+            health = 800;
             armor = 5;
             hitSize = 38f;
             speed = 1.8f;
@@ -932,7 +1179,7 @@ public class EIUnits{
                     height = 8f;
                     shrinkX = shrinkY = 0f;
                     drag = -0.003f;
-                    homingRange = 80f;
+                    homingRange = 10f;
                     keepVelocity = false;
                     splashDamageRadius = 35f;
                     splashDamage = 15f;
@@ -960,61 +1207,212 @@ public class EIUnits{
                 x = y = 0f;
                 shake = 6f;
                 top = false;
-                shootSound = explosionMissile;
-                shootCone = 25f;
+                shootSound = shootEclipse;
+                shootCone = 30f;
                 shootStatus = StatusEffects.slow;
                 shootStatusDuration = reload + 120f;
                 shoot = new ShootSpread(6,5);
-                bullet = new BasicBulletType(1, 1){{
+                bullet = new BasicBulletType(6, 1){{
                     parentizeEffects = true;
-                    lifetime = 240f;
+                    lifetime = 40f;
                     pierce = true;
                     pierceBuilding = true;
                     pierceCap = 10;
                     height = 8f;
                     width = 20f;
+                    trailLength = 6;
+                    trailWidth = 6f;
+                    trailColor = EIPal.butterflyPurple;
                     shrinkX = -3f;
                     lifesteal = 2f;
+                    hittable = false;
                     backColor = frontColor = EIPal.butterflyPurple;
                     buildingDamageMultiplier = 0.7f;
                     status = StatusEffects.corroded;
 
                     smokeEffect = shootEffect = Fx.none;
-                    rangeOverride = 120 * 0.75f;
+                    hitEffect = EIFx.smallPurpleSpark;
+                    ejectEffect = Fx.none;
+                }};
+            }});
+        }};
+        alexandrae = new UnitType("alexandrae"){{
+            constructor = UnitEntity::create;
+
+            flying = lowAltitude = faceTarget = true;
+
+            health = 1400;
+            armor = 9;
+            hitSize = 56f;
+            speed = 1.6f;
+            drag = 0.08f;
+            accel = 0.05f;
+            itemCapacity = 0;
+            rotateSpeed = 1.4f;
+
+            engineOffset = 34f;
+            engineSize = 6f;
+            targetFlags = new BlockFlag[]{BlockFlag.generator, BlockFlag.core};
+            BulletType purpleShotty = new ShrapnelBulletType(){{
+                damage = 40f;
+                width = 6f;
+                serrations = 2;
+                serrationLenScl = 1;
+                fromColor = EIPal.butterflyPurple;
+                toColor = EIPal.butterflyPurple;
+                smokeEffect = shootEffect = hitEffect = EIFx.smallPurpleSpark;
+                despawnEffect = new MultiEffect(EIFx.smallPurpleSpark, EIFx.smallPurpleSpark);
+                lifesteal = 0.6f;
+            }};
+            weapons.add(new Weapon("ei-small-purple-mount"){{
+                x = 10f;
+                y = 14f;
+                rotate = true;
+                rotateSpeed = 3.8f;
+                mirror = true;
+
+                shadow = 7f;
+
+                shootY = 2f;
+                recoil = 1f;
+                reload = 10f;
+                velocityRnd = 0.4f;
+                inaccuracy = 7f;
+                ejectEffect = Fx.none;
+                shake = 0.2f;
+                shootSound = shootDisperse;
+
+                bullet = purpleShotty;
+            }});
+            weapons.add(new Weapon("ei-small-purple-mount"){{
+                x = 18f;
+                y = -14f;
+                rotate = true;
+                rotateSpeed = 3.8f;
+                mirror = true;
+
+                shadow = 7f;
+
+                shootY = 2f;
+                recoil = 1f;
+                reload = 10f;
+                velocityRnd = 0.4f;
+                inaccuracy = 7f;
+                ejectEffect = Fx.none;
+                shake = 0.2f;
+                shootSound = shootDisperse;
+
+                bullet = purpleShotty;
+            }});
+            weapons.add(new Weapon("ei-alexandrae-weapon"){{
+                x = 0f;
+                y = -20;
+                rotate = true;
+                rotateSpeed = 2.6f;
+                mirror = false;
+
+                shadow = 20f;
+
+                shootY = 4.5f;
+                recoil = 2f;
+                reload = 45f;
+                velocityRnd = 0.4f;
+                inaccuracy = 7f;
+                ejectEffect = Fx.none;
+                shake = 1f;
+                shootSound = Sounds.shootMissileLong;
+
+                shoot = new ShootAlternate(){{
+                    shots = 6;
+                    shotDelay = 1.5f;
+                    spread = 4f;
+                    barrels = 3;
+                }};
+
+                bullet = new MissileBulletType(4.2f, 20){{
+                    homingPower = 0.12f;
+                    width = 8f;
+                    height = 8f;
+                    shrinkX = shrinkY = 0f;
+                    drag = -0.003f;
+                    homingRange = 10f;
+                    keepVelocity = false;
+                    splashDamageRadius = 35f;
+                    splashDamage = 15f;
+                    lifetime = 55f;
+                    trailColor = EIPal.butterflyPurple;
+                    backColor = EIPal.butterflyPurple;
+                    frontColor = EIPal.butterflyPurple;
+                    hitEffect = Fx.blastExplosion;
+                    despawnEffect = Fx.blastExplosion;
+                    weaveScale = 8f;
+                    weaveMag = 2f;
+                    lifesteal = 0.9f;
+                    trailEffect = new ParticleEffect(){{
+                        baseLength = 0;
+                        length = 0;
+                        particles = 1;
+                        sizeFrom = 2f;
+                        sizeTo = 0f;
+                        colorFrom = colorTo = EIPal.butterflyPurple;
+                    }};
+                }};
+            }});
+            weapons.add(new Weapon(){{
+                x = y = 0f;
+                shake = 6f;
+                top = false;
+                shootSound = shootArtillerySapBig;
+                reload = 60f * 6f;
+                shootCone = 360f;
+                shootOnDeath = true;
+                bullet = new BulletType(0, 1){{
+                    parentizeEffects = true;
+                    lifetime = 1f;
+                    lifesteal = 150f; //based on bullet damage and not splash damage
+                    buildingDamageMultiplier = 0.8f;
+                    status = StatusEffects.corroded;
+
+                    smokeEffect = shootEffect = Fx.none;
+                    splashDamageRadius = 120;
+                    splashDamage = 100f;
+                    splashDamagePierce = true;
+                    rangeOverride = splashDamageRadius * 0.75f;
                     hitEffect = EIFx.smallPurpleSpark;
                     ejectEffect = Fx.none;
                     shootEffect = new MultiEffect(
-                    new WaveEffect(){{
-                        sizeFrom = 0f;
-                        sizeTo = 120;
-                        strokeFrom = 5f;
-                        strokeTo = 0f;
-                        interp = Interp.pow5Out;
-                        lifetime = reload;
-                        colorFrom = colorTo = Color.valueOf("bf92f9");
-                    }},
-                    new WaveEffect(){{
-                        sizeFrom = 0f;
-                        sizeTo = 120;
-                        strokeFrom = 5f;
-                        strokeTo = 0f;
-                        interp = Interp.exp5Out;
-                        lifetime = reload;
-                        colorFrom = colorTo = Color.valueOf("bf92f9");
-                        startDelay = 10f;
-                    }},
-                    new ParticleEffect(){{
-                        particles = 3;
-                        line = true;
-                        lenFrom = 20f;
-                        lenTo = 0f;
-                        strokeFrom = 4f;
-                        strokeTo = 0f;
-                        baseLength = 0f;
-                        length = 240f;
-                        lifetime = reload/3f;
-                        colorFrom = colorTo = Color.valueOf("bf92f9");
-                    }});
+                        new WaveEffect(){{
+                            sizeFrom = 0f;
+                            sizeTo = 120;
+                            strokeFrom = 5f;
+                            strokeTo = 0f;
+                            interp = Interp.pow5Out;
+                            lifetime = reload;
+                            colorFrom = colorTo = Color.valueOf("bf92f9");
+                        }},
+                        new WaveEffect(){{
+                            sizeFrom = 0f;
+                            sizeTo = 120;
+                            strokeFrom = 5f;
+                            strokeTo = 0f;
+                            interp = Interp.exp5Out;
+                            lifetime = reload;
+                            colorFrom = colorTo = Color.valueOf("bf92f9");
+                            startDelay = 10f;
+                        }},
+                        new ParticleEffect(){{
+                            particles = 3;
+                            line = true;
+                            lenFrom = 20f;
+                            lenTo = 0f;
+                            strokeFrom = 4f;
+                            strokeTo = 0f;
+                            baseLength = 0f;
+                            length = 240f;
+                            lifetime = reload/3f;
+                            colorFrom = colorTo = Color.valueOf("bf92f9");
+                        }}
+                    );
                 }};
             }});
         }};
@@ -1289,12 +1687,13 @@ public class EIUnits{
             {
                 constructor = UnitEntity::create;
                 aiController = FieldMedicAI::new;
+                defaultCommand = EICommands.healUnitsCommand;
 
                 flying = faceTarget = lowAltitude = true;
-                logicControllable = isEnemy = false;
+                logicControllable = isEnemy = playerControllable = false;
 
-                health = 110;
-                armor = 1;
+                health = 200;
+                armor = 2;
                 hitSize = 8f;
                 speed = 2.35f;
                 rotateSpeed = 3.4f;
@@ -1332,12 +1731,13 @@ public class EIUnits{
             {
                 constructor = UnitEntity::create;
                 aiController = FieldMedicAI::new;
+                defaultCommand = EICommands.healUnitsCommand;
 
                 flying = faceTarget = lowAltitude = true;
-                logicControllable = isEnemy = false;
+                logicControllable = isEnemy = playerControllable = false;
 
-                health = 300;
-                armor = 2;
+                health = 430;
+                armor = 3;
                 hitSize = 1.6f * tilesize;
                 speed = 2.1f;
                 rotateSpeed = 1.5f;
@@ -1378,12 +1778,13 @@ public class EIUnits{
             {
                 constructor = UnitEntity::create;
                 aiController = FieldMedicAI::new;
+                defaultCommand = EICommands.healUnitsCommand;
 
                 flying = faceTarget = lowAltitude = true;
-                logicControllable = isEnemy = false;
+                logicControllable = isEnemy = playerControllable = false;
 
-                health = 460;
-                armor = 5;
+                health = 700;
+                armor = 6;
                 hitSize = 2.8f * tilesize;
                 speed = 2.35f;
                 rotateSpeed = 1.7f;
