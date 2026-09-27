@@ -1,3 +1,2 @@
 # Expanded Industries
-A rework is coming\
-Among Us
+Yet another vanilla+ type mod, old yet somewhat modern!
