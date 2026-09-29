@@ -53,15 +53,36 @@ public class EITechTree extends TechTree{
         target.techNode.parent = context();
     }
 
+    /// Moves the target after the current context node, then executes the given code with the target as context
+    public static void moveNode(UnlockableContent target, Runnable change){
+        moveNode(target);
+        addNode(target, change);
+    }
+
     /// Adds objectives to the target node
     public static void addObjectives(UnlockableContent target, Objectives.Objective... objectives){
         target.techNode.objectives.add(objectives);
     }
 
-    /// Moves the target after the current context node, then executes the given code with the target as context
-    public static void moveNode(UnlockableContent target, Runnable change){
-        moveNode(target);
-        addNode(target, change);
+    public static Seq<Objectives.Objective> completeSectors(SectorPreset... sectors){
+        Seq<Objectives.Objective> objectives = new Seq<>();
+        for(SectorPreset sector : sectors)
+            objectives.add(new Objectives.SectorComplete(sector));
+        return objectives;
+    }
+
+    public static Seq<Objectives.Objective> onSectors(SectorPreset... sectors){
+        Seq<Objectives.Objective> objectives = new Seq<>();
+        for(SectorPreset sector : sectors)
+            objectives.add(new Objectives.OnSector(sector));
+        return objectives;
+    }
+
+    public static Seq<Objectives.Objective> researchContent(UnlockableContent... content){
+        Seq<Objectives.Objective> objectives = new Seq<>();
+        for(UnlockableContent con : content)
+            objectives.add(new Objectives.Research(con));
+        return objectives;
     }
 
     public static void load(){
@@ -113,41 +134,59 @@ public class EITechTree extends TechTree{
                 );
             })
         );
-        addNode(Blocks.cryofluidMixer, () ->
-            node(cryofluidStirrer, () ->
-                node(cryofluidPlant)
-            )
-        );
+        addNode(Blocks.cryofluidMixer, () -> {
+            node(
+                cryofluidStirrer,
+                completeSectors(SectorPresets.windsweptIslands),
+                () -> node(
+                    cryofluidPlant,
+                    completeSectors(SectorPresets.perilousHarbor),
+                    () -> {}
+                )
+            );
+            node(
+                oxygenLiquefier,
+                completeSectors(SectorPresets.saltFlats),
+                () -> {}
+            );
+        });
         addNode(Blocks.pneumaticDrill, () ->
-            node(electricDrill)
+            node(
+                electricDrill,
+                completeSectors(SectorPresets.windsweptIslands),
+                () -> {}
+            )
         );
         addNode(Blocks.blastDrill, ()-> {
             node(
                 hammerDrill,
-                Seq.with(
-                    new Objectives.Research(Liquids.cryofluid)
-                ),
+                researchContent(Liquids.cryofluid),
                 () -> {}
             );
             node(pressurizedDrill);
         });
         addNode(Blocks.siliconCrucible, () ->
-            node(siliconFabricator)
+            node(
+                siliconFabricator,
+                completeSectors(SectorPresets.facility32m),
+                () -> {}
+            )
         );
         addNode(Blocks.surgeSmelter, () -> {
             node(
                 lumiumSmelter,
-                Seq.with(
-                    new Objectives.Research(starium),
-                    new Objectives.Research(Items.thorium)
+                researchContent(
+                    starium,
+                    Items.thorium,
+                    Blocks.impactReactor
                 ),
                 () -> {}
             );
             node(
                 stariumRefiner,
-                Seq.with(
-                    new Objectives.Research(starium),
-                    new Objectives.Research(Items.surgeAlloy)
+                researchContent(
+                    starium,
+                    Items.surgeAlloy
                 ),
                 () -> {}
             );
@@ -162,14 +201,10 @@ public class EITechTree extends TechTree{
         addNode(Blocks.siliconSmelter, () ->
             node(
                 mixingFoundry,
-                Seq.with(
-                    new Objectives.Research(Items.titanium)
-                ),
+                researchContent(Items.titanium),
                 () -> node(
                     molecularReassembler,
-                    Seq.with(
-                        new Objectives.Research(Items.thorium)
-                    ),
+                    researchContent(Items.thorium),
                     () -> {}
                 )
             )
@@ -177,25 +212,21 @@ public class EITechTree extends TechTree{
         addNode(Blocks.multiPress, () ->
             node(
                 graphiteCompressor,
-                Seq.with(
-                    new Objectives.Research(steam)
-                ),
+                researchContent(steam),
                 () -> {}
             )
         );
         addNode(Blocks.graphitePress, () -> {
             node(
                 peridotiumEnricher,
-                Seq.with(
-                    new Objectives.Research(peridotium)
-                ),
+                researchContent(peridotium),
                 () -> {}
             );
             node(
                 freezer,
-                Seq.with(
-                    new Objectives.Research(Liquids.water),
-                    new Objectives.Research(Blocks.combustionGenerator)
+                researchContent(
+                    Liquids.water,
+                    Blocks.combustionGenerator
                 ),
                 () -> {}
             );
@@ -204,25 +235,19 @@ public class EITechTree extends TechTree{
             node(plastaniumCondenser)
         );
         addNode(Blocks.oilExtractor, () ->
-            node(oilPurifier,
-                Seq.with(
-                    new Objectives.Research(Liquids.oil)
-                ),
+            node(
+                oilPurifier,
+                researchContent(Liquids.oil),
                 () -> {
                     node(
                         oilRefiner,
-                        Seq.with(
-                            new Objectives.Research(heavyOil)
-                        ), () -> {
-                        }
+                        researchContent(heavyOil),
+                        () -> {}
                     );
                     node(
                         thermiteMixer,
-                        Seq.with(
-                            new Objectives.Research(lightOil)
-                        ),
-                        () -> {
-                        }
+                        researchContent(lightOil),
+                        () -> {}
                     );
                 }
             )
@@ -238,24 +263,32 @@ public class EITechTree extends TechTree{
         addNode(Blocks.rtgGenerator, () ->
             node(
                 peridotiumGenerator,
-                Seq.with(
-                    new Objectives.Research(Liquids.cryofluid)
-                ),
+                researchContent(Liquids.cryofluid),
                 () -> {}
             )
         );
         addNode(Blocks.impactReactor, () ->
             node(
                 lumiumReactor,
-                Seq.with(
-                    new Objectives.Research(liquidOxygen)
+                researchContent(
+                    lumium,
+                    liquidOxygen
                 ),
                 () -> {}
             )
         );
+        addNode(Blocks.mendProjector, () ->
+            node(
+                sectorMender,
+                completeSectors(SectorPresets.littoralShipyard),
+                () -> {}
+            )
+        );
         addNode(Blocks.overdriveDome, () ->
-            node(sectorOverdrive, () ->
-                node(sectorMender)
+            node(
+                sectorOverdrive,
+                completeSectors(SectorPresets.littoralShipyard),
+                () -> {}
             )
         );
         addNode(Blocks.duo, () ->
@@ -290,9 +323,26 @@ public class EITechTree extends TechTree{
             node(renoit)
         );
         addNode(Blocks.lancer, () -> {
-            node(enforcer, () ->
-                node(cavern, () ->
-                    node(underglow)
+            node(
+                enforcer,
+                researchContent(Items.thorium),
+                () -> node(
+                    cavern,
+                    Seq.withArrays(
+                        researchContent(
+                            Items.plastanium,
+                            Items.phaseFabric
+                        ),
+                        completeSectors(
+                            SectorPresets.overgrowth,
+                            SectorPresets.impact0078
+                        )
+                    ),
+                    () -> node(
+                        underglow,
+                        completeSectors(SectorPresets.mycelialBastion),
+                        () -> {}
+                    )
                 )
             );
             node(piercer);
@@ -393,15 +443,25 @@ public class EITechTree extends TechTree{
 
         //erekir
         addNode(Blocks.turbineCondenser, () ->
-            node(reinforcedSolarPanel)
+            node(
+                reinforcedSolarPanel,
+                onSectors(SectorPresets.aegis),
+                () -> {}
+            )
         );
         addNode(Blocks.armoredDuct, () ->
-            node(tungstenConveyor, () ->
-                moveNode(Blocks.surgeConveyor)
+            node(
+                tungstenConveyor,
+                onSectors(SectorPresets.peaks),
+                () -> moveNode(Blocks.surgeConveyor)
             )
         );
         addNode(Blocks.largePlasmaBore, () ->
-            node(hugePlasmaBore)
+            node(
+                hugePlasmaBore,
+                onSectors(SectorPresets.crossroads),
+                () -> {}
+            )
         );
     }
 }

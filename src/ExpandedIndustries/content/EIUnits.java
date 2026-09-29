@@ -2,8 +2,8 @@ package ExpandedIndustries.content;
 
 import ExpandedIndustries.ai.*;
 import ExpandedIndustries.ai.types.*;
-import ExpandedIndustries.entities.bullet.*;
-import ExpandedIndustries.entities.bullet.abilities.*;
+import ExpandedIndustries.entities.bullet.PulseBulletType;
+import ExpandedIndustries.entities.abilities.StatusAbility;
 import ExpandedIndustries.type.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;

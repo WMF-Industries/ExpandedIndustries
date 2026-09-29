@@ -1,4 +1,4 @@
-package ExpandedIndustries.entities.bullet.abilities;
+package ExpandedIndustries.entities.abilities;
 
 import ExpandedIndustries.content.*;
 import arc.*;

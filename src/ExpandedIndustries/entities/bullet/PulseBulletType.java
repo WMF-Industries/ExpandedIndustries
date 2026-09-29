@@ -2,14 +2,12 @@ package ExpandedIndustries.entities.bullet;
 
 import arc.*;
 import arc.func.*;
-import arc.graphics.*;
 import arc.math.*;
 import arc.util.*;
 import mindustry.ctype.*;
 import mindustry.entities.bullet.*;
 import mindustry.game.*;
 import mindustry.gen.*;
-import mindustry.type.*;
 
 import static mindustry.Vars.*;
 import static ExpandedIndustries.ui.CustomDraw.CustomDrawEffects.*;
@@ -46,6 +44,10 @@ public class PulseBulletType extends BasicBulletType{
 
     @Override
     public void hitTile(Bullet b, Building build, float x, float y, float initialHealth, boolean direct){
+        float multi = multipliers.get(build.block);
+        initialHealth *= multi;
+        b.damage *= multi;
+
         if(!net.client() && direct && Mathf.chance(criticalHitChance)){
             initialHealth *= criticalMultiplier;
             b.damage *= criticalMultiplier;

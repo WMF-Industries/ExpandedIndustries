@@ -1,32 +1,20 @@
 package ExpandedIndustries.content;
 
-import arc.Core;
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.Font;
-import arc.graphics.g2d.Lines;
-import arc.math.Interp;
-import arc.math.Mathf;
-import arc.math.geom.Position;
-import mindustry.content.Fx;
-import mindustry.entities.Effect;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.ParticleEffect;
-import mindustry.entities.effect.WaveEffect;
-import mindustry.entities.effect.WrapEffect;
-import mindustry.graphics.Drawf;
-import mindustry.graphics.Layer;
-import mindustry.graphics.Pal;
-import mindustry.ui.Fonts;
+import arc.graphics.*;
+import arc.graphics.g2d.*;
+import arc.math.*;
+import arc.math.geom.*;
+import mindustry.entities.*;
+import mindustry.entities.effect.*;
+import mindustry.graphics.*;
 
 import static arc.graphics.g2d.Draw.*;
-import static arc.graphics.g2d.Lines.stroke;
-import static arc.math.Angles.randLenVectors;
+import static arc.graphics.g2d.Lines.*;
+import static arc.math.Angles.*;
 
 public class EIFx {
 
-    public static Effect reu, overload, critical, cavernFx, despawnPulse, hitPulse, pointBeamHigh, peridotiumExplosion,
+    public static Effect reu, overload, cavernFx, despawnPulse, hitPulse, pointBeamHigh, peridotiumExplosion,
             smallPurpleSpark, smallBlueSpark, blueDespawn, smallGreenSpark, greenDespawn, largeGreenDespawn;
 
     public static void load(){

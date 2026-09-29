@@ -1392,8 +1392,8 @@ public class EIBlocks{
             );
         }};
         cavern = new PowerTurret("cavern"){{
-            requirements(Category.turret, with(lead, 570, silicon, 490, titanium, 470, plastanium, 380, phaseFabric, 350, stariumAlloy, 220));
-            consumePower(15f);
+            requirements(Category.turret, with(lead, 570, silicon, 490, titanium, 470, plastanium, 380, phaseFabric, 350));
+            consumePower(18f);
             consumeCoolant(0.25f);
 
             moveWhileCharging = false;
